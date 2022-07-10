@@ -25,8 +25,12 @@ do
         ln -sfv $path/.dircolors $HOME/.dircolors
         ln -sfv $path/.vimrc $HOME/.vimrc
         ln -sfv $path/.zshrc $HOME/.zshrc
+        # Add plugin zsh
+        git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosuggestions
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
+        git clone https://github.com/hlissner/zsh-autopair.git ~/.zsh/zsh-autopair
+        git clone https://github.com/rupa/z.git  ~/.zsh/z
         ln -sfv $path/.tmux.conf $HOME/.tmux.conf
-
         # .vim directory
         [ ! -d $HOME/.vim ] && mkdir -v $HOME/.vim
         ln -sfv $path/.vim/mappings.vim $HOME/.vim/mappings.vim
@@ -38,37 +42,39 @@ do
         ln -sfv $path/.vim/plug-config/nerdcommenter.vim $HOME/.vim/plug-config/nerdcommenter.vim
         ln -sfv $path/.vim/plug-config/nerdtree.vim $HOME/.vim/plug-config/nerdtree.vim
         ln -sfv $path/.vim/plug-config/onedark.vim $HOME/.vim/plug-config/onedark.vim
-
+        ln -sfv $path/.vim/plug-config/buftabline.vim $HOME/.vim/plug-config/buftabline.vim
         # .config
         [ ! -d $HOME/.config ] && mkdir -v $HOME/.config
         # .config/htop
         [ ! -d $HOME/.config/htop ] && mkdir -v $HOME/.config/htop
         ln -sfv $path/htoprc $HOME/.config/htop/htoprc
+        break
         ;;
     2)
         ln -sfv $path/.vimrc $HOME/.vimrc
-        # .vim directory
         [ ! -d $HOME/.vim ] && mkdir -v $HOME/.vim
         ln -sfv $path/.vim/mappings.vim $HOME/.vim/mappings.vim
         ln -sfv $path/.vim/settings.vim $HOME/.vim/settings.vim
         ln -sfv $path/.vim/statusline.vim $HOME/.vim/statusline.vim
-        # .vim/plug-config directory
         [ ! -d $HOME/.vim/plug-config ] && mkdir -v $HOME/.vim/plug-config
         ln -sfv $path/.vim/plug-config/fzf.vim $HOME/.vim/plug-config/fzf.vim
         ln -sfv $path/.vim/plug-config/nerdcommenter.vim $HOME/.vim/plug-config/nerdcommenter.vim
         ln -sfv $path/.vim/plug-config/nerdtree.vim $HOME/.vim/plug-config/nerdtree.vim
         ln -sfv $path/.vim/plug-config/onedark.vim $HOME/.vim/plug-config/onedark.vim
+        ln -sfv $path/.vim/plug-config/buftabline.vim $HOME/.vim/plug-config/buftabline.vim
         ;;
     3)
         ln -sfv $path/.zshrc $HOME/.zshrc
+        git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosuggestions
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
+        git clone https://github.com/hlissner/zsh-autopair.git ~/.zsh/zsh-autopair
+        git clone https://github.com/rupa/z.git  ~/.zsh/z
         ;;
     4)
         ln -sfv $path/.tmux.conf $HOME/.tmux.conf
         ;;
     5)
-        # .config
         [ ! -d $HOME/.config ] && mkdir -v $HOME/.config
-        # .config/htop
         [ ! -d $HOME/.config/htop ] && mkdir -v $HOME/.config/htop
         ln -sfv $path/htoprc $HOME/.config/htop/htoprc
         ;;
@@ -88,6 +94,11 @@ done
 # ln -sfv $path/.dircolors $HOME/.dircolors
 # ln -sfv $path/.vimrc $HOME/.vimrc
 # ln -sfv $path/.zshrc $HOME/.zshrc
+# # Add plugin zsh
+# git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosuggestions
+# git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
+# git clone https://github.com/hlissner/zsh-autopair.git ~/.zsh/zsh-autopair
+# git clone https://github.com/rupa/z.git  ~/.zsh/z
 # ln -sfv $path/.tmux.conf $HOME/.tmux.conf
 
 # # .vim directory
@@ -101,6 +112,7 @@ done
 # ln -sfv $path/.vim/plug-config/nerdcommenter.vim $HOME/.vim/plug-config/nerdcommenter.vim
 # ln -sfv $path/.vim/plug-config/nerdtree.vim $HOME/.vim/plug-config/nerdtree.vim
 # ln -sfv $path/.vim/plug-config/onedark.vim $HOME/.vim/plug-config/onedark.vim
+# ln -sfv $path/.vim/plug-config/buftabline.vim $HOME/.vim/plug-config/buftabline.vim
 
 # # .config
 # [ ! -d $HOME/.config ] && mkdir -v $HOME/.config

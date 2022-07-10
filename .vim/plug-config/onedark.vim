@@ -6,5 +6,7 @@ let g:onedark_color_overrides = {
 \}
 " Comment italics
 let g:onedark_terminal_italics=1
+" Hide end-of-buffer filler lines (~)
+let g:onedark_hide_endofbuffer=1
 " Set theme
 colorscheme onedark

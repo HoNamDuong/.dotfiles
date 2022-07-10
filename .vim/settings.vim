@@ -10,11 +10,11 @@ set expandtab " Converts tabs to spaces
 set scrolloff=5 " Do not let cursor scroll below or above N number of lines when scrolling.
 set foldmethod=indent " Fold based on the indentation
 set foldlevelstart=99
-" set ignorecase " Ignore capital letters during search.
+set ignorecase " Ignore capital letters during search.
 set smartcase " This will allow you to search specifically for capital letters.
 set autochdir " Set working directory to the current file
 set pumheight=10 " Makes popup menu smaller
-set cmdheight=2 " More space for displaying messages
+set cmdheight=1 " More space for displaying messages
 set showtabline=2 " Always show tabs
 set cursorline " Highlight cursor line underneath the cursor horizontally.
 " set cursorcolumn " Highlight cursor line underneath the cursor vertically.
@@ -30,7 +30,6 @@ set incsearch " While searching though a file incrementally highlight matching c
 set shortmess-=S " Show search count message when searching
 set timeoutlen=1000 ttimeoutlen=0 " Key code delay
 
-
 set nobackup " Do not save backup files.
 set nowritebackup
 set noswapfile " Disable creating swap file
@@ -38,7 +37,6 @@ set hidden
 
 " set nowrap " Do not wrap lines. Allow long lines to extend as far as the line goes.
 
-colorscheme industry
 syntax on " Syntax highlighting
 
 " Display cursorline and cursorcolumn ONLY in active window.
@@ -50,6 +48,8 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
+set splitbelow
+set splitright
 
 "Enable copying from vim to clipboard
 set clipboard=unnamedplus

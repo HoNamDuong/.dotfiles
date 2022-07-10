@@ -22,22 +22,22 @@ export FZF_CTRL_T_OPTS='--preview "cat {}"'
 # export FZF_ALT_C_COMMAND='find . -type d | grep ...'
 # export FZF_ALT_C_COMMAND='find . -type d | rg -N "^\./\." | grep ...'
 
-# # (EXPERIMENTAL) Advanced customization of fzf options via _fzf_comprun function
-# # - The first argument to the function is the name of the command.
-# # - You should make sure to pass the rest of the arguments to fzf.
-# _fzf_comprun() {
-#   local command=$1
-#   shift
-#   case "$command" in
-#     cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
-#     *)            fzf "$@" ;;
-#   esac
-# }
+# (EXPERIMENTAL) Advanced customization of fzf options via _fzf_comprun function
+# - The first argument to the function is the name of the command.
+# - You should make sure to pass the rest of the arguments to fzf.
+_fzf_comprun() {
+  local command=$1
+  shift
+  case "$command" in
+    cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
+    *)            fzf "$@" ;;
+  esac
+}
 
-# # Set tmux
-# case $- in *i*)
-#     [ -z "$TMUX" ] && exec tmux
-# esac
+# Set tmux
+case $- in *i*)
+    [ -z "$TMUX" ] && exec tmux
+esac
 
 
 
@@ -113,7 +113,7 @@ autoload -U compinit
 zmodload zsh/complist
 compinit
 # Include hidden files.
-_comp_options+=(globdots)		
+_comp_options+=(globdots)
 
 # Use caching to make completion for commands such as dpkg and apt usable.
 zstyle ':completion::complete:*' use-cache on
@@ -216,7 +216,6 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [ -f ~/.zsh/zsh-autopair/autopair.zsh ] && source ~/.zsh/zsh-autopair/autopair.zsh && autopair-init
-# [ -f ~/.zsh/zsh-z/zsh-z.plugin.zsh ] && source ~/.zsh/zsh-z/zsh-z.plugin.zsh && autoload -U compinit && compinit && _comp_options+=(globdots) && ZSHZ_ECHO=1 ; ZSHZ_TILDE=1
 [ -f ~/.zsh/z/z.sh ] && . ~/.zsh/z/z.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -233,6 +232,7 @@ alias rm='rm -iv'
 alias rmdir='rm -I -r'
 alias mkdir='mkdir -pv'
 alias ln='ln -v'
+alias tree='tree -a -F --dirsfirst -I ".git"'
 
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
@@ -328,31 +328,13 @@ _showcolor256_bg() {
     echo -ne "\033[0m"
 }
 
-ShowColors16() {
-    _showcolor "\033[0;30m" "\033[1;30m" "\033[40m" "\033[100m"
-    _showcolor "\033[0;31m" "\033[1;31m" "\033[41m" "\033[101m"
-    _showcolor "\033[0;32m" "\033[1;32m" "\033[42m" "\033[102m"
-    _showcolor "\033[0;33m" "\033[1;33m" "\033[43m" "\033[103m"
-    _showcolor "\033[0;34m" "\033[1;34m" "\033[44m" "\033[104m"
-    _showcolor "\033[0;35m" "\033[1;35m" "\033[45m" "\033[105m"
-    _showcolor "\033[0;36m" "\033[1;36m" "\033[46m" "\033[106m"
-    _showcolor "\033[0;37m" "\033[1;37m" "\033[47m" "\033[107m"
-}
-
-_showcolor() {
-    for code in $@; do
-        echo -ne "$code"
-        echo -nE "   $code"
-        echo -ne "   \033[0m  "
-    done
-    echo
-}
-
-Plugins () {
-    echo "Install plugin for zsh!"
-    git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosuggestions
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
-    git clone https://github.com/hlissner/zsh-autopair.git ~/.zsh/zsh-autopair
-    # git clone https://github.com/agkozak/zsh-z.git ~/.zsh/zsh-z
-    git clone https://github.com/rupa/z.git  ~/.zsh/z
+man() {
+    LESS_TERMCAP_mb=$'\e[1;32m'\
+    LESS_TERMCAP_md=$'\e[1;32m'\
+    LESS_TERMCAP_me=$'\e[0m'\
+    LESS_TERMCAP_se=$'\e[0m'\
+    LESS_TERMCAP_so=$'\e[01;33m'\
+    LESS_TERMCAP_ue=$'\e[0m'\
+    LESS_TERMCAP_us=$'\e[1;4;31m'\
+    command man "$@"
 }

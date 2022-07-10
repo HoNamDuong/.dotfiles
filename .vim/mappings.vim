@@ -1,3 +1,6 @@
+" Map leader to Space
+let mapleader = " " 
+
 " Split panes to left/bottom/top/right
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -12,24 +15,24 @@ noremap <c-left> <c-w>>
 noremap <c-right> <c-w><
 
 " Next Buffer
-nnoremap <silent> <Space>bn   :bn<CR>
+nnoremap <silent> <leader>bn   :bn<CR>
 " Unload current buffer
-nnoremap <silent> <Space>bd   :bd<CR>
+nnoremap <silent> <leader>bd   :bd<CR>
 " Unload current buffer [!]
-nnoremap <silent> <Space>bq  :bd!<CR>
+nnoremap <silent> <leader>bq  :bd!<CR>
 
 " Save file
-nnoremap <Space>w :w<CR>
+nnoremap <leader>w :w<CR>
 " Quit
-nnoremap <Space>q :q!<CR>
+nnoremap <leader>q :q!<CR>
 
 " Stop the highlightin
-nnoremap <silent> <Space>nh   :noh<CR>
+nnoremap <silent> <leader>nh   :noh<CR>
 " Remove unwanted whitespace
-nnoremap <silent> <Space>ns   :%s/\s\+$//e<CR> :noh<CR>
+nnoremap <silent> <leader>ns   :%s/\s\+$//e<CR> :noh<CR>
 
 " Visual all lines
-nnoremap <C-a> ggVG
+nnoremap <leader>a ggVG
 
 " Complete
 inoremap <Tab> <C-n>
@@ -43,4 +46,4 @@ fun! ScratchBuffer()
     nnoremap <buffer><silent> <Esc> :bd<CR>
 endfun
 " Get messages
-nnoremap <silent> <Space>m :call ScratchBuffer()<bar> silent put = execute('messages')<CR>
+nnoremap <silent> <leader>m :call ScratchBuffer()<bar> silent put = execute('messages')<CR>

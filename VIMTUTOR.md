@@ -190,9 +190,9 @@ Change = delete text and enter Insert mode
 
 Some examples:
 
-- `"test"` with cursor inside quotes type `cs"'` to end up with `'test'`
-- `"test"` with cursor inside quotes type `ds"` to end up with `test`
-- `"test"` with cursor inside quotes type `cs"t` and enter `123>` to end up with `<123>test</123>`
+-   `"test"` with cursor inside quotes type `cs"'` to end up with `'test'`
+-   `"test"` with cursor inside quotes type `ds"` to end up with `test`
+-   `"test"` with cursor inside quotes type `cs"t` and enter `123>` to end up with `<123>test</123>`
 
 ## COMMAND
 

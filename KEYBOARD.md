@@ -2,7 +2,7 @@
 
 | Key     | Description                            | Tên                        |
 | ------- | -------------------------------------- | -------------------------- |
-|   ~     | tilde                                  | dấu ngã                    |
+|   ~     | tilde                                  | dấu ngã                    |
 |   \`    | backquote                              |                            |
 |   !     | exclamation mark                       | dấu chấm than              |
 |   @     | at sign                                |                            |
