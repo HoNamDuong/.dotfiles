@@ -5,19 +5,18 @@ path=$(pwd)
 while :
 do
     echo
-    echo "Install now!"
+    echo "INSTALL"
     echo "0 Quit"
     echo "1 All"
-    echo "2 .vimrc"
-    echo "3 .zshrc"
-    echo "4 .tmux.conf"
-    echo "5 .htop"
-    echo "6 .dircolors"
-    echo "Enter your choice: "
-    read choice
+    echo "2 Vim"
+    echo "3 Zsh"
+    echo "4 Tmux"
+    echo "5 Htop"
+    echo "6 Dircolors"
+    echo "7 Lsd"
+    read -p "Enter your choice: " choice
     case $choice in
     0)
-        echo "Bye bye !!!"
         break
         ;;
     1)
@@ -48,6 +47,12 @@ do
         # .config/htop
         [ ! -d $HOME/.config/htop ] && mkdir -v $HOME/.config/htop
         ln -sfv $path/htoprc $HOME/.config/htop/htoprc
+        # .config/lsd
+        [ ! -d $HOME/.config/lsd ] && mkdir -v $HOME/.config/lsd
+        ln -sfv $path/lsd/config.yaml $HOME/.config/lsd/config.yaml
+        # .config/lsd/themes
+        [ ! -d $HOME/.config/lsd/themes ] && mkdir -v $HOME/.config/lsd/themes
+        ln -sfv $path/lsd/themes/theme.yaml $HOME/.config/lsd/themes/theme.yaml
         break
         ;;
     2)
@@ -80,6 +85,16 @@ do
         ;;
     6)
         ln -sfv $path/.dircolors $HOME/.dircolors
+        ;;
+    7)
+        # .config
+        [ ! -d $HOME/.config ] && mkdir -v $HOME/.config
+        # .config/lsd
+        [ ! -d $HOME/.config/lsd ] && mkdir -v $HOME/.config/lsd
+        ln -sfv $path/lsd/config.yaml $HOME/.config/lsd/config.yaml
+        # .config/lsd/themes
+        [ ! -d $HOME/.config/lsd/themes ] && mkdir -v $HOME/.config/lsd/themes
+        ln -sfv $path/lsd/themes/theme.yaml $HOME/.config/lsd/themes/theme.yaml
         ;;
     *)
         echo "Sorry, choice understand"
@@ -120,6 +135,17 @@ done
 # [ ! -d $HOME/.config/htop ] && mkdir -v $HOME/.config/htop
 # ln -sfv $path/htoprc $HOME/.config/htop/htoprc
 
+# # .config
+# [ ! -d $HOME/.config ] && mkdir -v $HOME/.config
+# # .config/lsd
+# [ ! -d $HOME/.config/lsd ] && mkdir -v $HOME/.config/lsd
+# ln -sfv $path/lsd/config.yaml $HOME/.config/lsd/config.yaml
+# # .config/lsd/themes
+# [ ! -d $HOME/.config/lsd/themes ] && mkdir -v $HOME/.config/lsd/themes
+# ln -sfv $path/lsd/themes/theme.yaml $HOME/.config/lsd/themes/theme.yaml
+
+# # .config
+# [ ! -d $HOME/.config ] && mkdir -v $HOME/.config
 # # .config/nvim
 # [ ! -d $HOME/.config/nvim ] && mkdir -v $HOME/.config/nvim
 # ln -sfv $path/nvim/mappings.vim $HOME/.config/nvim/mappings.vim

@@ -26,6 +26,14 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 ```
 
+#### Insatll lsd with dpkg
+
+```bash
+cd ~
+wget https://github.com/Peltoche/lsd/releases/download/0.22.0/lsd_0.22.0_amd64.deb
+sudo dpkg -i lsd_0.22.0_amd64.deb
+```
+
 ## Step 2 .dotfiles
 
 #### Clone .dotfiles

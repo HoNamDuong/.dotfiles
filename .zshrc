@@ -232,16 +232,24 @@ alias rm='rm -iv'
 alias rmdir='rm -I -r'
 alias mkdir='mkdir -pv'
 alias ln='ln -v'
-alias tree='tree -a -F --dirsfirst -I ".git"'
 
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
-alias ls='ls --color=auto --classify --human-readable --time-style=long-iso --group-directories-first'
-alias lls='ls -l'
-alias la='ls -a'
-alias lla='ls -al'
+if [ -f /usr/bin/lsd ]; then
+    alias ls='lsd -F'
+    alias lls='lsd -lF'
+    alias la='lsd -aF'
+    alias lla='lsd -alF'
+    alias tree='lsd -a --tree'
+else
+    alias ls='ls --color=auto --classify --human-readable --time-style=long-iso --group-directories-first'
+    alias lls='ls -l'
+    alias la='ls -a'
+    alias lla='ls -al'
+    alias tree='tree -a -F --dirsfirst -I ".git"'
+fi
 
 
 
