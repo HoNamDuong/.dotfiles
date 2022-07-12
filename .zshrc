@@ -79,7 +79,6 @@ PROMPT+='${vcs_info_msg_0_}'
 # Exports
 export EDITOR="vim"
 export VISUAL="vim"
-# export TERMINAL="alacritty"
 
 setopt AUTO_PUSHD # Push the old directory onto the stack on cd.
 setopt PUSHD_IGNORE_DUPS # Do not store duplicates in the stack.
@@ -115,8 +114,8 @@ compinit
 # Include hidden files.
 _comp_options+=(globdots)
 
-# Use caching to make completion for commands such as dpkg and apt usable.
-zstyle ':completion::complete:*' use-cache on
+# # Use caching to make completion for commands such as dpkg and apt usable.
+# zstyle ':completion::complete:*' use-cache on
 
 # Case-insensitive (all), partial-word, and then substring completion.
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'

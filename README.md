@@ -1,4 +1,10 @@
+![Dotfiles Image](./dotfiles.png)
+
 ## Step 1 Install
+
+#### Install Hack Nerd Font for terminal
+
+[Dowload Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip)
 
 #### Update and upgrade
 
