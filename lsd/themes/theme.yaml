@@ -1,4 +1,4 @@
-user: 7
+user: 15
 group: 7
 permission:
     read: 2
@@ -10,7 +10,7 @@ permission:
     acl: 6
     context: 6
 date:
-    hour-old: 7
+    hour-old: 15
     day-old: 7
     older: 7
 size:

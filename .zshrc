@@ -241,7 +241,7 @@ if [ -f /usr/bin/lsd ]; then
     alias lls='lsd -lF'
     alias la='lsd -aF'
     alias lla='lsd -alF'
-    alias tree='lsd -a --tree'
+    alias tree='lsd -a --tree --ignore-glob .git'
 else
     alias ls='ls --color=auto --classify --human-readable --time-style=long-iso --group-directories-first'
     alias lls='ls -l'
@@ -274,13 +274,6 @@ checkout() {
 ShowColors256() {
     local row col blockrow blockcol red green blue
     local showcolor=_showcolor256_${1:-bg}
-    local white="\033[1;37m"
-    local reset="\033[0m"
-
-    echo -e "Set foreground color: \\\\033[38;5;${white}NNN${reset}m"
-    echo -e "Set background color: \\\\033[48;5;${white}NNN${reset}m"
-    echo -e "Reset color & style:  \\\\033[0m"
-    echo
 
     echo 16 standard color codes:
     for row in {0..1}; do
@@ -345,3 +338,8 @@ man() {
     LESS_TERMCAP_us=$'\e[1;4;31m'\
     command man "$@"
 }
+
+# Random color script
+if [ -f /usr/local/bin/colorscript ]; then
+    colorscript random
+fi

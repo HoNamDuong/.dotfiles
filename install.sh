@@ -14,6 +14,7 @@ do
     echo "5 Htop"
     echo "6 Dircolors"
     echo "7 Lsd"
+    echo "8 Tig"
     read -p "Enter your choice: " choice
     case $choice in
     0)
@@ -22,6 +23,7 @@ do
     1)
         # Home directory
         ln -sfv $path/.dircolors $HOME/.dircolors
+        ln -sfv $path/.tigrc $HOME/.tigrc
         ln -sfv $path/.vimrc $HOME/.vimrc
         ln -sfv $path/.zshrc $HOME/.zshrc
         # Add plugin zsh
@@ -96,6 +98,9 @@ do
         [ ! -d $HOME/.config/lsd/themes ] && mkdir -v $HOME/.config/lsd/themes
         ln -sfv $path/lsd/themes/theme.yaml $HOME/.config/lsd/themes/theme.yaml
         ;;
+    8)
+        ln -sfv $path/.tigrc $HOME/.tigrc
+        ;;
     *)
         echo "Sorry, choice understand"
         ;;
@@ -107,6 +112,7 @@ done
 
 # # Home directory
 # ln -sfv $path/.dircolors $HOME/.dircolors
+# ln -sfv $path/.tigrc $HOME/.tigrc
 # ln -sfv $path/.vimrc $HOME/.vimrc
 # ln -sfv $path/.zshrc $HOME/.zshrc
 # # Add plugin zsh

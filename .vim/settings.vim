@@ -7,6 +7,7 @@ set mouse=a " Enable mouse
 set tabstop=4 " Insert 4 spaces for a tab
 set shiftwidth=4 " Number of space characters inserted for indentation
 set expandtab " Converts tabs to spaces
+set list listchars=tab:❘⠀,trail:·,extends:»,precedes:«,nbsp:×,space:·
 set scrolloff=5 " Do not let cursor scroll below or above N number of lines when scrolling.
 set foldmethod=indent " Fold based on the indentation
 set foldlevelstart=99
@@ -56,6 +57,14 @@ set clipboard=unnamedplus
 
 " Disable automatic comment in newline
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" Yanking to windows clipboard from vim (WSL2)
+if system('uname -r') =~ "microsoft"
+    augroup Yank
+        autocmd!
+        autocmd TextYankPost * :call system('/mnt/c/windows/system32/clip.exe ',@")
+    augroup END
+endif
 
 " Change cursor
 let &t_SI.="\e[5 q" "SI = INSERT mode

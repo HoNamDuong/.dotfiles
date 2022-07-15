@@ -206,6 +206,7 @@ Some examples:
 | `>>`         | Indent: Thụt lề == Tab                             |
 | `<<`         | Un-Indent                                          |
 | `.`          | Lặp lại thao tác gần nhất ở Normal Mode            |
+| `:retab!`    | Chuyển đổi từ tab sang space                       |
 
 ### Tabs
 

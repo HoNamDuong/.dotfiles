@@ -9,10 +9,10 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-n> <C-w>w
 
 " Resize split windows using arrow keys
-noremap <c-up> <c-w>+
-noremap <c-down> <c-w>-
-noremap <c-left> <c-w>>
-noremap <c-right> <c-w><
+noremap <C-up> <c-w>+
+noremap <C-down> <c-w>-
+noremap <C-left> <c-w>>
+noremap <C-right> <c-w><
 
 " Next Buffer
 nnoremap <silent> <leader>bn   :bn<CR>
@@ -34,9 +34,11 @@ nnoremap <silent> <leader>ns   :%s/\s\+$//e<CR> :noh<CR>
 " Visual all lines
 nnoremap <leader>a ggVG
 
+" Enter visual block mode
+nnoremap <C-b> <C-v>
+
 " Complete
-inoremap <Tab> <C-n>
-inoremap <S-Tab> <C-p>
+inoremap <Nul> <C-n>
 
 " Create scratch buffer
 fun! ScratchBuffer()
