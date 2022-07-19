@@ -25,6 +25,33 @@ sudo apt install zsh make tig neofetch tree ripgrep
 chsh -s $(which zsh)
 ```
 
+#### Installing Node.js and npm from NodeSource
+
+Download and execute the NodeSource installation script:
+
+```
+cd ~
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+```
+
+View APT sources list for Nodesource Nodejs 16 repo
+
+```
+cat /etc/apt/sources.list.d/nodesource.list
+```
+
+Install Node.js and npm
+
+```
+sudo apt install nodejs
+```
+
+Verify the version of Node.js
+
+```
+node -v
+```
+
 #### Install fzf with Git
 
 ```

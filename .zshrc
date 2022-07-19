@@ -67,12 +67,13 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
     fi
 }
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:git:*' formats "%{$fg[blue]%}[%{$fg[red]%}%m%u%c%{$fg[yellow]%} %{$fg[magenta]%} %b%{$fg[blue]%}]%{$reset_color%} "
+zstyle ':vcs_info:git:*' formats "%{$fg[blue]%}[%{$fg[red]%}%m%u%c%{$fg[yellow]%}%{$fg[magenta]%} %b%{$fg[blue]%}]%{$reset_color%} "
 # Set up the prompt (with git branch name)
 setopt PROMPT_SUBST
 PROMPT=' %(?:%B%F{green}➜%f%b :%B%F{red}➜%f%b )%F{blue}%c%f '
 # PROMPT='%B%F{green}[%f%b%F{white}%n%f%F{green}@%f%F{green}%M%f%B%F{green}]%f%b %(?:%B%F{green}➜%f%b :%B%F{red}➜%f%b )%F{blue}%~%f '
 PROMPT+='${vcs_info_msg_0_}'
+RPROMPT='%B%F{8}%*%f%b'
 
 
 

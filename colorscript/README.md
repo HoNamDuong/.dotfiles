@@ -11,6 +11,12 @@ Download the source code from this repository or use a git clone:
     # Removal
     sudo make uninstall
 
+    # Optional for zsh completion
+    sudo cp completions/_colorscript /usr/share/zsh/vendor-completions
+
+    # Remove zsh completion
+    sudo rm /usr/share/zsh/vendor-completions/_colorscript
+
 ## Usage
 
     colorscript --help
