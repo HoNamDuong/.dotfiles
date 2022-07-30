@@ -10,7 +10,9 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
 # Color
-export TERM=xterm-256color
+if [ "$TERM" != "xterm-256color" ]; then
+    export TERM=xterm-256color
+fi
 
 # FZF
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
@@ -67,7 +69,7 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
     fi
 }
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:git:*' formats "%{$fg[blue]%}[%{$fg[red]%}%m%u%c%{$fg[yellow]%}%{$fg[magenta]%} %b%{$fg[blue]%}]%{$reset_color%} "
+zstyle ':vcs_info:git:*' formats "%{$fg[blue]%}[%{$fg[red]%}%m%u%c %{$fg[yellow]%} %{$fg[magenta]%}%b%{$fg[blue]%}]%{$reset_color%} "
 # Set up the prompt (with git branch name)
 setopt PROMPT_SUBST
 PROMPT=' %(?:%B%F{green}➜%f%b :%B%F{red}➜%f%b )%F{blue}%c%f '

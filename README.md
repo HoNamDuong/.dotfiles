@@ -63,8 +63,8 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 
 ```
 cd ~
-wget https://github.com/Peltoche/lsd/releases/download/0.22.0/lsd_0.22.0_amd64.deb
-sudo dpkg -i lsd_0.22.0_amd64.deb
+wget https://github.com/Peltoche/lsd/releases/download/0.23.1/lsd_0.23.1_amd64.deb
+sudo dpkg -i lsd_0.23.1_amd64.deb
 ```
 
 ## Step 2 .dotfiles
@@ -74,6 +74,8 @@ sudo dpkg -i lsd_0.22.0_amd64.deb
 ```
 cd ~
 git clone https://github.com/HoNamDuong/.dotfiles.git
+# Config git
+git config --global credential.helper "store --file ~/.git-credentials"
 ```
 
 #### Run install.sh

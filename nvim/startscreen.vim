@@ -28,7 +28,6 @@ fun! Start()
                 \ "",
                 \ "    [N] New file",
                 \ "    [H] History",
-                \ "    [I] Init.vim",
                 \ "    [C] Check Health",
                 \ "    [Q] Quit"
                 \])
@@ -40,7 +39,6 @@ fun! Start()
     setlocal nomodifiable nomodified
     " Key map
     nnoremap <buffer><silent> n :enew<CR>
-    nnoremap <buffer><silent> i :e ~\AppData\Local\nvim\init.vim<CR>
     nnoremap <buffer><silent> c :checkhealth<CR>
     nnoremap <buffer><silent> h :History<CR>
     nnoremap <buffer><silent> q :q!<CR>

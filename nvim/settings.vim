@@ -9,19 +9,21 @@ set foldlevelstart=99
 set ignorecase " Enable case-sensitive
 set autochdir " Set working directory to the current file
 set pumheight=10 " Makes popup menu smaller
-set cmdheight=2 " More space for displaying messages
+" set cmdheight=2 " More space for displaying messages
 set showtabline=2 " Always show tabs
 set cursorline " Highlight current line
 set number " Show line number
 set relativenumber " Relative line numbers
+set signcolumn=number " Always show the signcolumn
 set list " Whitespace characters are made visible
 set lcs+=space:- " Show <Space>
+set scrolloff=5 " Do not let cursor scroll below or above N number of lines when scrolling.
 set laststatus=2 " Always show status bar
 set shortmess+=c " Don't pass messages to |ins-completion-menu|
 set noruler " Hide the line and column number
 " set signcolumn=number " Always show the signcolumn
 
-set nobackup
+set nobackup " Do not save backup files
 set nowritebackup
 set noswapfile " Disable creating swap file
 set hidden
@@ -30,8 +32,8 @@ syntax on " Syntax highlighting
 
 " set nowrap " Display long lines as just one line
 " set cc=80 " set an 80 column border for good coding style
-" set splitbelow
-" set splitright
+set splitbelow
+set splitright
 
 " Display cursorline and cursorcolumn ONLY in active window.
 autocmd WinLeave * set nocursorline
@@ -47,6 +49,14 @@ if has('win32')
     set clipboard=unnamed
 else
     set clipboard=unnamedplus
+endif
+
+" Yanking to windows clipboard from vim (WSL2)
+if system('uname -r') =~ "microsoft"
+    augroup Yank
+        autocmd!
+        autocmd TextYankPost * :call system('/mnt/c/windows/system32/clip.exe ',@")
+    augroup END
 endif
 
 " Disable automatic comment in newline

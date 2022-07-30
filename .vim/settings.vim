@@ -9,6 +9,9 @@ set shiftwidth=4 " Number of space characters inserted for indentation
 set expandtab " Converts tabs to spaces
 set list listchars=tab:❘⠀,trail:·,extends:»,precedes:«,nbsp:×,space:·
 set scrolloff=5 " Do not let cursor scroll below or above N number of lines when scrolling.
+" set spell " Enable spelling checking
+" set spelllang=en " Default language
+" set spellfile=~/.vim/spell/en.utf-8.add
 set foldmethod=indent " Fold based on the indentation
 set foldlevelstart=99
 set ignorecase " Ignore capital letters during search.
@@ -52,7 +55,7 @@ endif
 set splitbelow
 set splitright
 
-"Enable copying from vim to clipboard
+" Enable copying from vim to clipboard
 set clipboard=unnamedplus
 
 " Disable automatic comment in newline

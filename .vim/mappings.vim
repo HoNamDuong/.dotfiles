@@ -6,33 +6,27 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+" Next panes
 nnoremap <C-n> <C-w>w
 
-" Resize split windows using arrow keys
-noremap <C-up> <c-w>+
-noremap <C-down> <c-w>-
-noremap <C-left> <c-w>>
-noremap <C-right> <c-w><
-
 " Next Buffer
-nnoremap <silent> <leader>bn   :bn<CR>
+nnoremap <silent> <leader>bn    :bn<CR>
 " Unload current buffer
-nnoremap <silent> <leader>bd   :bd<CR>
+nnoremap <silent> <leader>bd    :bd<CR>
 " Unload current buffer [!]
-nnoremap <silent> <leader>bq  :bd!<CR>
+nnoremap <silent> <leader>bq    :bd!<CR>
 
 " Save file
 nnoremap <leader>w :w<CR>
 " Quit
 nnoremap <leader>q :q!<CR>
-
-" Stop the highlightin
-nnoremap <silent> <leader>nh   :noh<CR>
-" Remove unwanted whitespace
-nnoremap <silent> <leader>ns   :%s/\s\+$//e<CR> :noh<CR>
-
 " Visual all lines
 nnoremap <leader>a ggVG
+
+" Stop the highlightin
+nnoremap <silent> <leader>nh     :noh<CR>
+" Remove unwanted whitespace
+nnoremap <silent> <leader>ns     :%s/\s\+$//e<CR> :noh<CR>
 
 " Enter visual block mode
 nnoremap <C-b> <C-v>
@@ -49,3 +43,5 @@ fun! ScratchBuffer()
 endfun
 " Get messages
 nnoremap <silent> <leader>m :call ScratchBuffer()<bar> silent put = execute('messages')<CR>
+" Get register
+nnoremap <silent> <leader>r :call ScratchBuffer()<bar> silent put = execute('register')<CR>
