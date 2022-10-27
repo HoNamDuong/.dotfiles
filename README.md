@@ -52,6 +52,10 @@ Verify the version of Node.js
 node -v
 ```
 
+```
+sudo npm install --global neovim tree-sitter-cli
+```
+
 #### Install fzf with Git
 
 ```
@@ -65,6 +69,14 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 cd ~
 wget https://github.com/Peltoche/lsd/releases/download/0.23.1/lsd_0.23.1_amd64.deb
 sudo dpkg -i lsd_0.23.1_amd64.deb
+```
+
+#### Insatll fd with dpkg
+
+```
+cd ~
+wget https://github.com/sharkdp/fd/releases/download/v8.4.0/fd_8.4.0_amd64.deb
+sudo dpkg -i fd_8.4.0_amd64.deb
 ```
 
 ## Step 2 .dotfiles

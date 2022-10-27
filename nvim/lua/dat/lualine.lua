@@ -23,20 +23,26 @@ end
 
 lualine.setup({
     options = {
-        globalstatus = true,
         icons_enabled = true,
         theme = "auto",
         component_separators = { left = "", right = "" },
         section_separators = { left = "", right = "" },
-        disabled_filetypes = { "packer", "NvimTree", "Outline" },
+        disabled_filetypes = {
+            -- "packer",
+            -- "NvimTree",
+            -- "lspinfo",
+            -- "null-ls-info",
+            -- "mason",
+        },
         always_divide_middle = true,
+        globalstatus = true,
     },
     sections = {
         lualine_a = {},
-        lualine_b = { "branch" },
-        lualine_c = { diagnostics, "diff" },
-        lualine_x = { filetype, spaces, "encoding" },
-        lualine_y = { "location", "progress" },
+        lualine_b = {},
+        lualine_c = { "branch", "diff", diagnostics },
+        lualine_x = { filetype, spaces, "encoding", "location", "progress" },
+        lualine_y = {},
         lualine_z = { "mode" },
     },
 })

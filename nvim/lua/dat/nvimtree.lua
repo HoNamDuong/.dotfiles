@@ -52,7 +52,8 @@ nvimtree.setup({
         },
     },
     view = {
-        adaptive_size = true,
+        width = 25,
+        side = "left",
         mappings = {
             list = {
                 { key = "h", cb = callback("close_node") },

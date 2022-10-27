@@ -118,6 +118,7 @@ do
         [ ! -d $HOME/.config/nvim/lua/dat/lsp/settings ] && mkdir -v $HOME/.config/nvim/lua/dat/lsp/settings
         ln -sfv $path/nvim/lua/dat/lsp/settings/sumneko_lua.lua $HOME/.config/nvim/lua/dat/lsp/settings/sumneko_lua.lua
         ln -sfv $path/nvim/lua/dat/lsp/settings/emmet_ls.lua $HOME/.config/nvim/lua/dat/lsp/settings/emmet_ls.lua
+        ln -sfv $path/nvim/lua/dat/lsp/settings/tsserver.lua $HOME/.config/nvim/lua/dat/lsp/settings/tsserver.lua
         ;;
     *)
         echo "Sorry, choice understand"

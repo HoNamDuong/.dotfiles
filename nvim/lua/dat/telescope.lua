@@ -12,7 +12,7 @@ telescope.setup({
         entry_prefix = "  ",
         multi_icon = "  ",
         path_display = { "smart" },
-        file_ignore_patterns = { ".git/", "node_modules" },
+        file_ignore_patterns = { ".git/", "node_modules", "yarn.lock" },
         mappings = {
             i = {
                 ["<Down>"] = actions.move_selection_next,

@@ -1,10 +1,9 @@
 local servers = {
     "sumneko_lua",
-    "emmet_ls",
-    "cssls",
     "html",
+    "cssls",
+    "emmet_ls",
     "tsserver",
-    "jsonls",
 }
 
 local settings = {

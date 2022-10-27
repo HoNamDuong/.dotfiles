@@ -35,17 +35,21 @@ vim.opt.scrolloff = 4 -- minimal number of screen lines to keep above and below 
 vim.opt.sidescrolloff = 4 -- minimal number of screen columns to keep to the left and right of the cursor if wrap is `false`
 vim.opt.guifont = "monospace:h17" -- the font used in graphical neovim applications
 vim.opt.fillchars.eob = " " -- show empty lines at the end of a buffer as ` ` {default `~`}
-vim.opt.shortmess:append("c") -- hide all the completion messages, e.g. "-- XXX completion (YYY)", "match 1 of 2", "The only match", "Pattern not found"
+-- vim.opt.shortmess:append("c") -- hide all the completion messages, e.g. "-- XXX completion (YYY)", "match 1 of 2", "The only match", "Pattern not found"
 vim.opt.whichwrap:append("<,>,[,],h,l") -- keys allowed to move to the previous/next line when the beginning/end of line is reached
-vim.opt.iskeyword:append("-") -- treats words with `-` as single words
+-- vim.opt.iskeyword:append("-") -- treats words with `-` as single words
 vim.opt.termguicolors = true -- set term gui colors (most terminals support this)
 vim.opt.jumpoptions = "view" -- preserve view while jumping
+
 -- fold
-vim.opt.foldmethod = "indent"
+vim.opt.foldmethod = "expr"
 vim.opt.foldlevel = 99
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+
 -- spell languages
 vim.opt.spell = false
 vim.opt.spelllang = "en"
+vim.opt.spelloptions = "camel"
 
 vim.cmd([[
 " Disable automatic comment in newline

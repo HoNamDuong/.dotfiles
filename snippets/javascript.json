@@ -9,17 +9,16 @@
     },
 
     "import module": {
-        "scope": "javascript,javascriptreact",
         "prefix": "import",
         "body": "import ${2:*} from '${1:module}'"
     },
     "require": {
         "prefix": "require",
-        "body": "require('${1:module};')"
+        "body": "require('${1:module}')"
     },
     "const module = require('module')": {
         "prefix": "require",
-        "body": "const ${1:module} = require('${1:module};')"
+        "body": "const ${1:module} = require('${1:module}')"
     },
     "module.exports": {
         "prefix": "exports",
