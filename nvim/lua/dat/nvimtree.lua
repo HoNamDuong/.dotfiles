@@ -17,8 +17,6 @@ nvimtree.setup({
         root_folder_modifier = ":t",
         icons = {
             glyphs = {
-                default = "",
-                symlink = "",
                 folder = {
                     arrow_open = "",
                     arrow_closed = "",
@@ -56,8 +54,8 @@ nvimtree.setup({
         side = "left",
         mappings = {
             list = {
-                { key = "h", cb = callback("close_node") },
                 { key = "v", cb = callback("vsplit") },
+                { key = "s", cb = callback("split") },
             },
         },
     },

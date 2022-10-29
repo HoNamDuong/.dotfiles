@@ -66,6 +66,7 @@ return packer.startup(function(use)
     use("tpope/vim-surround")
     use("bkad/CamelCaseMotion")
 
+    use("folke/which-key.nvim")
     use("nvim-tree/nvim-tree.lua")
     use("nvim-telescope/telescope.nvim")
     use("nvim-telescope/telescope-project.nvim")

@@ -1,14 +1,9 @@
-local status, tokyonight = pcall(require, "tokyonight")
+local status, _ = pcall(require, "tokyonight")
 if not status then
     return
 end
 
-tokyonight.setup({
-    style = "night",
-    transparent = true,
-})
-
-vim.cmd([[colorscheme tokyonight]])
+vim.cmd([[colorscheme tokyonight-night]])
 
 -- local status, _ = pcall(require, "kanagawa")
 -- if not status then

@@ -15,5 +15,6 @@ require("dat.comment")
 require("dat.cmp")
 require("dat.lsp")
 require("dat.illuminate")
+require("dat.whichkey")
 
 -- require("dat.startscreen")

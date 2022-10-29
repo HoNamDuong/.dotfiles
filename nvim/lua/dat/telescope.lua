@@ -10,7 +10,7 @@ telescope.setup({
         prompt_prefix = "   ",
         selection_caret = "  ",
         entry_prefix = "  ",
-        multi_icon = "  ",
+        multi_icon = " + ",
         path_display = { "smart" },
         file_ignore_patterns = { ".git/", "node_modules", "yarn.lock" },
         mappings = {
@@ -23,8 +23,8 @@ telescope.setup({
     },
     extensions = {
         project = {
-            hidden_files = false, -- default: false
-            sync_with_nvim_tree = true, -- default false
+            hidden_files = false,
+            sync_with_nvim_tree = true,
         },
     },
 })
