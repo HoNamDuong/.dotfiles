@@ -109,6 +109,7 @@ do
         ln -sfv $path/nvim/lua/dat/cmp.lua $HOME/.config/nvim/lua/dat/cmp.lua
         ln -sfv $path/nvim/lua/dat/startscreen.lua $HOME/.config/nvim/lua/dat/startscreen.lua
         ln -sfv $path/nvim/lua/dat/whichkey.lua $HOME/.config/nvim/lua/dat/whichkey.lua
+        ln -sfv $path/nvim/lua/dat/dressing.lua $HOME/.config/nvim/lua/dat/dressing.lua
         # .config/nvim/lua/lsp
         [ ! -d $HOME/.config/nvim/lua/dat/lsp ] && mkdir -v $HOME/.config/nvim/lua/dat/lsp
         ln -sfv $path/nvim/lua/dat/lsp/init.lua $HOME/.config/nvim/lua/dat/lsp/init.lua

@@ -23,7 +23,7 @@ packer.init({
         end,
     },
     git = {
-        clone_timeout = 300, -- Timeout, in seconds, for git clones
+        clone_timeout = 500, -- Timeout, in seconds, for git clones
     },
 })
 
@@ -59,6 +59,7 @@ return packer.startup(function(use)
     use("lukas-reineke/indent-blankline.nvim")
     use("norcalli/nvim-colorizer.lua")
     use("RRethy/vim-illuminate")
+    use("stevearc/dressing.nvim")
 
     use("numToStr/Comment.nvim")
     use("windwp/nvim-autopairs")

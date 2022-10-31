@@ -47,9 +47,9 @@ vim.opt.foldlevel = 99
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- spell languages
-vim.opt.spell = false
 vim.opt.spelllang = "en"
 vim.opt.spelloptions = "camel"
+vim.opt.spellfile = "~/.config/nvim/spell/en.utf-8.add"
 
 vim.cmd([[
 " Disable automatic comment in newline

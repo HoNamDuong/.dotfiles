@@ -11,7 +11,8 @@ telescope.setup({
         selection_caret = "  ",
         entry_prefix = "  ",
         multi_icon = " + ",
-        path_display = { "smart" },
+        path_display = { "truncate" },
+        wrap_results = true,
         file_ignore_patterns = { ".git/", "node_modules", "yarn.lock" },
         mappings = {
             i = {

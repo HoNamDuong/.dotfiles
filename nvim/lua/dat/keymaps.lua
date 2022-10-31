@@ -30,6 +30,19 @@ keymap.set("n", "<S-h>", "^")
 keymap.set("n", "<S-l>", "g_")
 -- Focus Visual Block Mode
 keymap.set("n", "<A-v>", "<C-v>")
+--- LSP
+keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { desc = "Jumps to the declaration" })
+keymap.set("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", { desc = "Lists all the implementations" })
+keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { desc = "Jumps to the definition" })
+keymap.set("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Displays hover information" })
+keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Show diagnostics" })
+keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", { desc = "Lists all the references" })
+-- Previous/Next diagnostic
+keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", { desc = "Previous diagnostic" })
+keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", { desc = "Next diagnostic" })
+-- Previous/Next quickfix
+keymap.set("n", "[f", "<cmd>cprev<cr>", { desc = "Previous quickfix" })
+keymap.set("n", "]f", "<cmd>cnext<cr>", { desc = "Next quickfix" })
 
 -- Insert --
 -- Delete previous word
@@ -49,3 +62,11 @@ keymap.set("", "e", "<Plug>CamelCaseMotion_e")
 keymap.set("x", "iw", "<Plug>CamelCaseMotion_iw")
 keymap.set("x", "ib", "<Plug>CamelCaseMotion_ib")
 keymap.set("x", "ie", "<Plug>CamelCaseMotion_ie")
+
+-- Comment
+keymap.set("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<cr>", {
+    desc = "Toggle comment",
+})
+keymap.set("x", "<leader>/", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", {
+    desc = "Toggle comment",
+})

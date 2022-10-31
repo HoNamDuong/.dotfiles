@@ -4,84 +4,121 @@ if not status then
 end
 
 whichkey.setup({
-    plugins = {
-        presets = {
-            operators = true, -- adds help for operators like d, y, ... and registers them for motion / text object completion
-            motions = true, -- adds help for motions
-            text_objects = true, -- help for text objects triggered after entering an operator
-            windows = true, -- default bindings on <c-w>
-            nav = true, -- misc bindings to work with windows
-            z = true, -- bindings for folds, spelling and others prefixed with z
-            g = true, -- bindings for prefixed with g
-        },
-    },
+    -- plugins = {
+    --     marks = true, -- shows a list of your marks on ' and `
+    --     registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+    --     spelling = {
+    --         enabled = false, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+    --         suggestions = 20, -- how many suggestions should be shown in the list?
+    --     },
+    --     -- the presets plugin, adds help for a bunch of default keybindings in Neovim
+    --     -- No actual key bindings are created
+    --     presets = {
+    --         operators = true, -- adds help for operators like d, y, ... and registers them for motion / text object completion
+    --         motions = true, -- adds help for motions
+    --         text_objects = true, -- help for text objects triggered after entering an operator
+    --         windows = true, -- default bindings on <c-w>
+    --         nav = true, -- misc bindings to work with windows
+    --         z = true, -- bindings for folds, spelling and others prefixed with z
+    --         g = true, -- bindings for prefixed with g
+    --     },
+    -- },
     popup_mappings = {
         scroll_down = "<c-d>", -- binding to scroll down inside the popup
         scroll_up = "<c-u>", -- binding to scroll up inside the popup
     },
     window = {
-        border = "none",
         margin = { 0, 0, 0, 0 }, -- extra window margin [top, right, bottom, left]
         padding = { 0, 0, 0, 0 }, -- extra window padding [top, right, bottom, left]
     },
     layout = {
         height = { min = 1, max = 25 }, -- min and max height of the columns
-        width = { min = 20, max = 50 }, -- min and max width of the columns
-        spacing = 4, -- spacing between columns
-        align = "left", -- align columns left, center or right
+        width = { min = 15, max = 100 }, -- min and max width of the columns
+        spacing = 2, -- spacing between columns
+        align = "center", -- align columns left, center or right
     },
     -- ignore_missing = true, -- enable this to hide mappings for which you didn't specify a label
     triggers = "auto", -- automatically setup triggers
+    -- disable the WhichKey popup for certain buf types and file types.
+    disable = {
+        buftypes = {},
+        filetypes = {
+            "NvimTree",
+            "TelescopePrompt",
+            "packer",
+            "lspinfo",
+            "null-ls-info",
+            "mason",
+        },
+    },
 })
 
 local opts = {
     mode = "n",
     prefix = "<leader>",
-    buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true, -- use `silent` when creating keymaps
-    noremap = true, -- use `noremap` when creating keymaps
-    nowait = true, -- use `nowait` when creating keymaps
+    buffer = nil,
+    silent = false,
+    noremap = true,
+    nowait = true,
 }
+
 local mappings = {
     ["a"] = { "ggVG", "Visual all" },
-    ["w"] = { "<cmd>w!<cr>", "Save" },
-    ["q"] = { "<cmd>q!<cr>", "Quit!" },
-    ["z"] = { "<cmd>set wrap!<cr>", "Toggle Wrap" },
-    ["c"] = { "<cmd>set spell!<cr>", "Toggle spell" },
     ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
-    ["h"] = { "<cmd>nohlsearch<cr>", "No Highlight" },
-    ["t"] = { "<cmd>bo 10new term://$SHELL<cr>i", "Terminal" },
-    ["/"] = { "<cmd>lua require('Comment.api').toggle.linewise.current()<cr>", "Comment" },
+    ["h"] = { "<cmd>nohlsearch<cr>", "No highlight" },
+    ["q"] = { "<cmd>qa!<cr>", "Quit!" },
+    ["w"] = { "<cmd>w!<cr>", "Save" },
 
+    m = {
+        name = "Menu",
+        C = { "<cmd>CmpStatus<cr>", "Check cmp status" },
+        T = { "<cmd>TSModuleInfo<cr>", "TreeSitter module info" },
+        c = { "<cmd>checkhealth<cr>", "Check health" },
+        i = { "<cmd>e $MYVIMRC<cr>", "Open config init" },
+        m = { "<cmd>Mason<cr>", "Manager server lsp [Mason]" },
+        n = { "<cmd>NullLsInfo<cr>", "NullLsInfo" },
+        r = { "<cmd>source %<cr>", "Refresh config" },
+        t = { "<cmd>bo 10new term://$SHELL<cr>i", "Open terminal" },
+        z = { "<cmd>ColorizerReloadAllBuffers<cr>", "Colorizer reload" },
+    },
+    t = {
+        name = "Toggle...",
+        s = { "<cmd>syntax on<cr><<cmd>syntax spell toplevel<cr><cmd>set spell!<cr>", "Toggle spell" },
+        z = { "<cmd>set wrap!<cr>", "Toggle wrap" },
+        n = { "<cmd>set number!<cr>", "Toggle number column" },
+    },
     s = {
         name = "Search",
+        C = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
+        H = { "<cmd>Telescope highlights<cr>", "Highlight" },
         b = { "<cmd>Telescope builtin theme=dropdown previewer=false<cr>", "Builtin" },
-        p = { "<cmd>Telescope project display_type=full theme=dropdown<cr>", "Projects" },
+        c = { "<cmd>Telescope commands<cr>", "Commands" },
+        f = { "<cmd>Telescope find_files hidden=true<cr>", "Find File" },
         h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
+        k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
+        l = { "<cmd>Telescope live_grep<cr>", "Find Text" },
         m = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
         o = { "<cmd>Telescope oldfiles<cr>", "Recent File" },
+        p = { "<cmd>Telescope project display_type=full theme=dropdown<cr>", "Projects" },
         r = { "<cmd>Telescope registers<cr>", "Registers" },
-        c = { "<cmd>Telescope commands<cr>", "Commands" },
-        l = { "<cmd>Telescope live_grep<cr>", "Find Text" },
-        f = { "<cmd>Telescope find_files hidden=true<cr>", "Find File" },
-        t = { "<cmd>Telescope filetype<cr>", "Filetype" },
-        d = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
+        t = { "<cmd>Telescope filetypes<cr>", "Filetype" },
     },
     b = {
         name = "Buffer",
+        b = { "<cmd>b#<cr>", "Previous" },
+        d = { "<cmd>bdelete<cr>", "Buffer delete" },
+        l = { "<cmd>Telescope buffers theme=dropdown previewer=false<cr>", "Buffers" },
         n = { "<cmd>bnext<cr>", "Buffer next" },
         p = { "<cmd>bprevious<cr>", "Buffer previous" },
-        d = { "<cmd>bdelete<cr>", "Buffer delete" },
         q = { "<cmd>bd!<cr>", "Buffer delete !" },
-        l = { "<cmd>Telescope buffers theme=dropdown previewer=false<cr>", "Buffers" },
     },
     p = {
         name = "Packer",
-        p = { "<cmd>PackerCompile<cr>", "Compile" },
-        i = { "<cmd>PackerInstall<cr>", "Install" },
-        c = { "<cmd>PackerClean<cr>", "Clean" },
-        s = { "<cmd>PackerSync<cr>", "Sync" },
         S = { "<cmd>PackerStatus<cr>", "Status" },
+        c = { "<cmd>PackerClean<cr>", "Clean" },
+        i = { "<cmd>PackerInstall<cr>", "Install" },
+        p = { "<cmd>PackerCompile<cr>", "Compile" },
+        s = { "<cmd>PackerSync<cr>", "Sync" },
         u = { "<cmd>PackerUpdate<cr>", "Update" },
     },
     g = {
@@ -105,16 +142,17 @@ local mappings = {
 
         t = {
             name = "Toggle...",
-            s = { "<cmd>Gitsigns toggle_signs<cr>", "Toggle sign column" },
-            n = { "<cmd>Gitsigns toggle_numhl<cr>", "Toggle number highlighting" },
             d = { "<cmd>Gitsigns toggle_deleted<cr>", "Toggle deleted" },
             l = { "<cmd>Gitsigns toggle_linehl<cr>", "Toggle line highlighting" },
+            n = { "<cmd>Gitsigns toggle_numhl<cr>", "Toggle number highlighting" },
+            s = { "<cmd>Gitsigns toggle_signs<cr>", "Toggle sign column" },
             w = { "<cmd>Gitsigns toggle_word_diff<cr>", "Toggle word diff" },
         },
     },
     l = {
         name = "LSP",
         i = { "<cmd>LspInfo<cr>", "Info" },
+        R = { "<cmd>LspRestart<cr>", "Restart" },
 
         a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
         l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
@@ -137,15 +175,3 @@ local mappings = {
 }
 
 whichkey.register(mappings, opts)
-whichkey.register({
-    d = { "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", "Previous diagnostic." },
-    f = { "<cmd>cprev<cr>", "Previous quickfix" },
-}, { mode = "n", prefix = "[" })
-whichkey.register({
-    d = { "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", "Next diagnostic." },
-    f = { "<cmd>cnext<cr>", "Next quickfix" },
-}, { mode = "n", prefix = "]" })
-
-whichkey.register({
-    ["/"] = { "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", "Comment" },
-}, { mode = "x", prefix = "<leader>" })

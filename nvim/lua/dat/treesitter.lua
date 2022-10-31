@@ -3,10 +3,7 @@ if not status then
     return
 end
 
-local statusconfig, configs = pcall(require, "nvim-treesitter.configs")
-if not statusconfig then
-    return
-end
+local configs = require("nvim-treesitter.configs")
 
 configs.setup({
     ensure_installed = {
