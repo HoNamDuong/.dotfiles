@@ -1,3 +1,18 @@
+local status_mason, mason = pcall(require, "mason")
+if not status_mason then
+    return
+end
+
+local status_mason_lspconfig, mason_lspconfig = pcall(require, "mason-lspconfig")
+if not status_mason_lspconfig then
+    return
+end
+
+local status_lspconfig, lspconfig = pcall(require, "lspconfig")
+if not status_lspconfig then
+    return
+end
+
 local servers = {
     "sumneko_lua",
     "html",
@@ -6,22 +21,15 @@ local servers = {
     "tsserver",
 }
 
-local settings = {
-    ui = {
-        border = "rounded",
-    },
-}
-
-require("mason").setup(settings)
-require("mason-lspconfig").setup({
+mason.setup({
+    ui = { border = "rounded" },
+    log_level = vim.log.levels.INFO,
+    max_concurrent_installers = 4,
+})
+mason_lspconfig.setup({
     ensure_installed = servers,
     automatic_installation = true,
 })
-
-local status, lspconfig = pcall(require, "lspconfig")
-if not status then
-    return
-end
 
 local opts = {}
 

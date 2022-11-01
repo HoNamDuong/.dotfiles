@@ -1,8 +1,16 @@
+-- Automatically install and set up packer.nvim
 local ensure_packer = function()
     local fn = vim.fn
     local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
     if fn.empty(fn.glob(install_path)) > 0 then
-        fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+        fn.system({
+            "git",
+            "clone",
+            "--depth",
+            "1",
+            "https://github.com/wbthomason/packer.nvim",
+            install_path,
+        })
         vim.cmd([[packadd packer.nvim]])
         return true
     end
@@ -27,53 +35,52 @@ packer.init({
     },
 })
 
--- vim.cmd([[packadd packer.nvim]])
-
 return packer.startup(function(use)
+    -- Manage package
     use("wbthomason/packer.nvim")
     use("nvim-lua/plenary.nvim")
-
+    -- Theme
     use("folke/tokyonight.nvim")
     use("rebelot/kanagawa.nvim")
-
+    -- Completion
     use("hrsh7th/nvim-cmp")
     use("hrsh7th/cmp-buffer")
     use("hrsh7th/cmp-path")
     use("hrsh7th/cmp-nvim-lua")
     use("hrsh7th/cmp-nvim-lsp")
     use("hrsh7th/cmp-nvim-lsp-signature-help")
-
     use("L3MON4D3/LuaSnip")
     use("saadparwaiz1/cmp_luasnip")
-
+    -- LSP
     use("williamboman/mason.nvim")
     use("williamboman/mason-lspconfig.nvim")
     use("neovim/nvim-lspconfig")
-    use("onsails/lspkind.nvim")
     use("jose-elias-alvarez/null-ls.nvim")
-
+    -- Support views
     use("nvim-tree/nvim-web-devicons")
-    use("nvim-treesitter/nvim-treesitter")
     use("nvim-lualine/lualine.nvim")
     use("akinsho/nvim-bufferline.lua")
+    use("nvim-treesitter/nvim-treesitter")
     use("lukas-reineke/indent-blankline.nvim")
     use("norcalli/nvim-colorizer.lua")
     use("RRethy/vim-illuminate")
     use("stevearc/dressing.nvim")
-
+    -- Support coding
     use("numToStr/Comment.nvim")
     use("windwp/nvim-autopairs")
     use("windwp/nvim-ts-autotag")
+    use("chaoren/vim-wordmotion")
     use("tpope/vim-surround")
-    use("bkad/CamelCaseMotion")
-
+    use("wellle/targets.vim")
+    -- Explorer and find files
     use("folke/which-key.nvim")
     use("nvim-tree/nvim-tree.lua")
     use("nvim-telescope/telescope.nvim")
     use("nvim-telescope/telescope-project.nvim")
-
+    -- Git
     use("lewis6991/gitsigns.nvim")
 
+    -- Automatically set up your configuration after cloning packer.nvim
     if packer_bootstrap then
         packer.sync()
     end

@@ -346,3 +346,5 @@ man() {
 if [ -f /usr/local/bin/colorscript ]; then
     colorscript random
 fi
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

@@ -1,47 +1,45 @@
 " Map leader to Space
 let mapleader = " " 
 
-" Split panes to left/bottom/top/right
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-" Next panes
-nnoremap <C-n> <C-w>w
+" Window navigation
+nnoremap <C-h>      <C-w>h
+nnoremap <C-j>      <C-w>j
+nnoremap <C-k>      <C-w>k
+nnoremap <C-l>      <C-w>l
+" Resize with arrows
+nnoremap <C-Up>     :resize -2<CR>
+nnoremap <C-Down>   :resize +2<CR>
+nnoremap <C-Left>   :vertical resize -2<CR>
+nnoremap <C-Right>  :vertical resize +2<CR>
 
-" Next Buffer
-nnoremap <silent> <leader>bn    :bn<CR>
-" Unload current buffer
-nnoremap <silent> <leader>bd    :bd<CR>
-" Unload current buffer [!]
-nnoremap <silent> <leader>bq    :bd!<CR>
+" Motion cursor
+nnoremap <S-h> ^
+nnoremap <S-l> g_
+
+" Previous
+nnoremap <leader>bb    :b#<CR>
+" Previous buffer
+nnoremap <leader>bp    :bnext<CR>
+" Next buffer
+nnoremap <leader>bn    :bnext<CR>
+" Delete current buffer
+nnoremap <leader>bd    :bdelete<CR>
+" Delete current buffer [!]
+nnoremap <leader>bq    :bd!<CR>
 
 " Save file
-nnoremap <leader>w :w<CR>
-" Quit
-nnoremap <leader>q :q!<CR>
+nnoremap <leader>w  :w<CR>
+" Quit all
+nnoremap <leader>q  :qa!<CR>
 " Visual all lines
-nnoremap <leader>a ggVG
-
+nnoremap <leader>a  ggVG
 " Stop the highlightin
-nnoremap <silent> <leader>nh     :noh<CR>
+nnoremap <leader>h  :noh<CR>
 " Remove unwanted whitespace
-nnoremap <silent> <leader>ns     :%s/\s\+$//e<CR> :noh<CR>
-
-" Enter visual block mode
-nnoremap <C-b> <C-v>
+nnoremap <leader>s  :%s/\s\+$//e<CR> :noh<CR>
+" Toggle wrap
+nnoremap <leader>z  :set wrap!<CR>
 
 " Complete
-inoremap <Nul> <C-n>
+inoremap <Nul>  <C-n>
 
-" Create scratch buffer
-fun! ScratchBuffer()
-    bo new
-    setlocal bufhidden=wipe buftype=nofile nobuflisted
-    " setlocal nomodifiable nomodified
-    nnoremap <buffer><silent> <Esc> :bd<CR>
-endfun
-" Get messages
-nnoremap <silent> <leader>m :call ScratchBuffer()<bar> silent put = execute('messages')<CR>
-" Get register
-nnoremap <silent> <leader>r :call ScratchBuffer()<bar> silent put = execute('register')<CR>

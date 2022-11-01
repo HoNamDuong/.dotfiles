@@ -16,7 +16,7 @@ vim.opt.splitbelow = true -- force all horizontal splits to go below current win
 vim.opt.splitright = true -- force all vertical splits to go to the right of current window
 vim.opt.swapfile = false -- creates a swapfile
 vim.opt.termguicolors = true -- set term gui colors (most terminals support this)
-vim.opt.timeoutlen = 500 -- time to wait for a mapped sequence to complete (in milliseconds)
+-- vim.opt.timeoutlen = 0 -- time to wait for a mapped sequence to complete (in milliseconds)
 vim.opt.undofile = false -- enable persistent undo
 vim.opt.updatetime = 300 -- faster completion (4000ms default)
 vim.opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
@@ -40,6 +40,8 @@ vim.opt.whichwrap:append("<,>,[,],h,l") -- keys allowed to move to the previous/
 -- vim.opt.iskeyword:append("-") -- treats words with `-` as single words
 vim.opt.termguicolors = true -- set term gui colors (most terminals support this)
 vim.opt.jumpoptions = "view" -- preserve view while jumping
+vim.opt.textwidth = 80 -- Maximum width of text that is being inserted
+vim.opt.colorcolumn = "+1" -- Set the colour column to highlight one column after the 'textwidth'
 
 -- fold
 vim.opt.foldmethod = "expr"
@@ -49,19 +51,3 @@ vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 -- spell languages
 vim.opt.spelllang = "en"
 vim.opt.spelloptions = "camel"
-vim.opt.spellfile = "~/.config/nvim/spell/en.utf-8.add"
-
-vim.cmd([[
-" Disable automatic comment in newline
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-]])
-
-vim.cmd([[
-" Yanking to windows clipboard from vim (WSL2)
-if system('uname -r') =~ "microsoft"
-    augroup Yank
-        autocmd!
-        autocmd TextYankPost * :call system('/mnt/c/windows/system32/clip.exe ',@")
-    augroup END
-endif
-]])

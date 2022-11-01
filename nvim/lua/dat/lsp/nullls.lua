@@ -17,8 +17,8 @@ null_ls.setup({
             extra_args = {
                 "--tab-width",
                 "4",
-                "--print-width",
-                "120",
+                -- "--print-width",
+                -- "120",
                 "--no-semi",
                 "--single-quote",
                 "--jsx-single-quote",

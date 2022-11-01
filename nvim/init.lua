@@ -1,7 +1,7 @@
 require("dat.options")
 require("dat.keymaps")
 require("dat.plugins")
--- require("dat.autocommands")
+require("dat.autocommands")
 require("dat.colorscheme")
 require("dat.lualine")
 require("dat.bufferline")

@@ -6,7 +6,7 @@ if not status then
     return
 end
 
-local callback = require("nvim-tree.config").nvim_tree_callback
+-- local callback = require("nvim-tree.config").nvim_tree_callback
 
 nvimtree.setup({
     update_focused_file = {
@@ -39,6 +39,12 @@ nvimtree.setup({
             },
         },
     },
+    filters = {
+        custom = { "/.git" },
+    },
+    git = {
+        ignore = false,
+    },
     diagnostics = {
         enable = true,
         show_on_dirs = true,
@@ -54,8 +60,8 @@ nvimtree.setup({
         side = "left",
         mappings = {
             list = {
-                { key = "v", cb = callback("vsplit") },
-                { key = "s", cb = callback("split") },
+                -- { key = "v", cb = callback("vsplit") },
+                -- { key = "s", cb = callback("split") },
             },
         },
     },

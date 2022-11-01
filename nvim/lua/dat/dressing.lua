@@ -18,8 +18,9 @@ dressing.setup({
                 return {
                     backend = "builtin",
                     builtin = {
+                        relative = "cursor",
                         winblend = 0,
-                        min_height = { 1, 0.1 },
+                        min_height = { 1 },
                     },
                 }
             end

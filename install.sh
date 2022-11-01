@@ -115,7 +115,7 @@ do
         ln -sfv $path/nvim/lua/dat/lsp/init.lua $HOME/.config/nvim/lua/dat/lsp/init.lua
         ln -sfv $path/nvim/lua/dat/lsp/mason.lua $HOME/.config/nvim/lua/dat/lsp/mason.lua
         ln -sfv $path/nvim/lua/dat/lsp/handlers.lua $HOME/.config/nvim/lua/dat/lsp/handlers.lua
-        ln -sfv $path/nvim/lua/dat/lsp/null-ls.lua $HOME/.config/nvim/lua/dat/lsp/null-ls.lua
+        ln -sfv $path/nvim/lua/dat/lsp/nullls.lua $HOME/.config/nvim/lua/dat/lsp/nullls.lua
         # .config/nvim/lua/lsp/settings
         [ ! -d $HOME/.config/nvim/lua/dat/lsp/settings ] && mkdir -v $HOME/.config/nvim/lua/dat/lsp/settings
         ln -sfv $path/nvim/lua/dat/lsp/settings/sumneko_lua.lua $HOME/.config/nvim/lua/dat/lsp/settings/sumneko_lua.lua

@@ -1,7 +1,12 @@
 local M = {}
 
-local status, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-if not status then
+local status_cmp_nvim_lsp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if not status_cmp_nvim_lsp then
+    return
+end
+
+local status_illuminate, illuminate = pcall(require, "illuminate")
+if not status_illuminate then
     return
 end
 
@@ -13,8 +18,8 @@ M.setup = function()
     local signs = {
         { name = "DiagnosticSignError", text = "" },
         { name = "DiagnosticSignWarn", text = "" },
-        { name = "DiagnosticSignHint", text = "" },
         { name = "DiagnosticSignInfo", text = "" },
+        { name = "DiagnosticSignHint", text = "" },
     }
 
     for _, sign in ipairs(signs) do
@@ -61,10 +66,6 @@ M.on_attach = function(client, _)
         client.server_capabilities.documentFormattingProvider = false
     end
 
-    local status_illuminate, illuminate = pcall(require, "illuminate")
-    if not status_illuminate then
-        return
-    end
     illuminate.on_attach(client)
 end
 

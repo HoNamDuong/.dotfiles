@@ -8,45 +8,12 @@ if not snip_status then
     return
 end
 
-local kind_status, lspkind = pcall(require, "lspkind")
-if not kind_status then
-    return
-end
-
 require("luasnip/loaders/from_vscode").load({ paths = { "~/.config/snippets" } })
 
 local check_backspace = function()
     local col = vim.fn.col(".") - 1
     return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
 end
-
--- local kind_icons = {
---     Text = " Text",
---     Method = " Method",
---     Function = " Function",
---     Constructor = " Constructor",
---     Field = " Field",
---     Variable = " Variable",
---     Class = "ﴯ Class",
---     Interface = " Interface",
---     Module = " Module",
---     Property = "ﰠ Property",
---     Unit = " Unit",
---     Value = " Value",
---     Enum = " Enum",
---     Keyword = " Keyword",
---     Snippet = " Snippet",
---     Color = " Color",
---     File = " File",
---     Reference = " Reference",
---     Folder = " Folder",
---     EnumMember = " EnumMember",
---     Constant = " Constant",
---     Struct = " Struct",
---     Event = " Event",
---     Operator = " Operator",
---     TypeParameter = " TypeParameter",
--- }
 
 cmp.setup({
     snippet = {
@@ -56,7 +23,7 @@ cmp.setup({
     },
     completion = {
         completeopt = "menu,menuone,noinsert",
-        keyword_length = 2,
+        keyword_length = 1,
     },
     mapping = cmp.mapping.preset.insert({
         ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
@@ -85,37 +52,19 @@ cmp.setup({
         end, { "i", "s" }),
     }),
     formatting = {
-        format = lspkind.cmp_format({
-            mode = "symbol_text",
-            maxwidth = 25,
-            ellipsis_char = "...",
-            before = function(entry, vim_item)
-                vim_item.menu = ({
-                    buffer = "[Buffer]",
-                    nvim_lsp = "[LSP]",
-                    nvim_lsp_signature_help = "[LSP S]",
-                    luasnip = "[LuaSnip]",
-                    nvim_lua = "[Lua]",
-                    latex_symbols = "[LaTeX]",
-                    path = "[Path]",
-                })[entry.source.name]
-                return vim_item
-            end,
-        }),
-        -- fields = { "abbr", "kind", "menu" },
-        -- format = function(entry, vim_item)
-        --     vim_item.kind = kind_icons[vim_item.kind]
-        --     vim_item.menu = ({
-        --         buffer = "[Buffer]",
-        --         nvim_lsp = "[LSP]",
-        --         nvim_lsp_signature_help = "[LSP S]",
-        --         luasnip = "[LuaSnip]",
-        --         nvim_lua = "[Lua]",
-        --         latex_symbols = "[LaTeX]",
-        --         path = "[Path]",
-        --     })[entry.source.name]
-        --     return vim_item
-        -- end,
+        fields = { "abbr", "kind", "menu" },
+        format = function(entry, vim_item)
+            vim_item.abbr = string.sub(vim_item.abbr, 1, 25)
+            vim_item.menu = ({
+                luasnip = "[LuaSnip]",
+                nvim_lua = "[Lua]",
+                nvim_lsp = "[LSP]",
+                nvim_lsp_signature_help = "[LSP S]",
+                buffer = "[Buffer]",
+                path = "[Path]",
+            })[entry.source.name]
+            return vim_item
+        end,
     },
     sources = {
         { name = "luasnip" },
@@ -137,7 +86,6 @@ cmp.setup({
         sources = { { name = "buffer" } },
     }),
     window = {
-        -- completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
     },
     experimental = {
