@@ -35,6 +35,13 @@ packer.init({
     },
 })
 
+vim.keymap.set("n", "<leader>pC", "<cmd>PackerCompile<CR>", { desc = "Compile" })
+vim.keymap.set("n", "<leader>pS", "<cmd>PackerStatus<CR>", { desc = "Status" })
+vim.keymap.set("n", "<leader>pc", "<cmd>PackerClean<CR>", { desc = "Clean" })
+vim.keymap.set("n", "<leader>pi", "<cmd>PackerInstall<CR>", { desc = "Install" })
+vim.keymap.set("n", "<leader>ps", "<cmd>PackerSync<CR>", { desc = "Sync" })
+vim.keymap.set("n", "<leader>pu", "<cmd>PackerUpdate<CR>", { desc = "Update" })
+
 return packer.startup(function(use)
     -- Manage package
     use("wbthomason/packer.nvim")

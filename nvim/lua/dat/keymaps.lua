@@ -11,7 +11,6 @@ local keymap = vim.keymap
 -- Remap space as leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-
 -- Normal --
 -- Window navigation
 keymap.set("n", "<C-h>", "<C-w>h", { silent = true, desc = "Go to the left window" })
@@ -30,15 +29,37 @@ keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "No highlight" })
 -- Motion cursor
 keymap.set("n", "<S-h>", "^", { desc = "Start of line (no-blank)" })
 keymap.set("n", "<S-l>", "g_", { desc = "End of line (no-blank)" })
--- Previous/Next diagnostic
-keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<CR>", { desc = "Previous diagnostic" })
-keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<CR>", { desc = "Next diagnostic" })
--- Previous/Next quickfix
+-- Leader ---
+keymap.set("n", "<leader>a", "ggVG", { desc = "Visual all" })
+keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Explorer" })
+keymap.set("n", "<leader>h", "<cmd>nohlsearch<CR>", { desc = "No highlight" })
+keymap.set("n", "<leader>q", "<cmd>qa!<CR>", { desc = "Quit!" })
+keymap.set("n", "<leader>w", "<cmd>w<CR>", { desc = "Save" })
+-- Buffer
+keymap.set("n", "<leader>bb", "<cmd>b#<CR>", { desc = "Previous" })
+keymap.set("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Buffer delete" })
+keymap.set("n", "<leader>bq", "<cmd>bd!<CR>", { desc = "Buffer delete !" })
+keymap.set("n", "<leader>bn", "<cmd>bnext<CR>", { desc = "Buffer next" })
+keymap.set("n", "<leader>bp", "<cmd>bprevious<CR>", { desc = "Buffer previous" })
+-- Toggle
+keymap.set("n", "<leader>ts", "<cmd>syntax on<CR><cmd>syntax spell toplevel<CR><cmd>set spell!<CR>", { desc = "Toggle spell" })
+keymap.set("n", "<leader>tz", "<cmd>set wrap!<CR>", { desc = "Toggle wrap" })
+keymap.set("n", "<leader>tn", "<cmd>set number!<CR>", { desc = "Toggle number column" })
+-- Commands
+keymap.set("n", "<leader>;c", "<cmd>checkhealth<CR>", { desc = "Check health" })
+keymap.set("n", "<leader>;i", "<cmd>e $MYVIMRC<CR>", { desc = "Open config init" })
+keymap.set("n", "<leader>;r", "<cmd>source %<CR>", { desc = "Refresh config" })
+keymap.set("n", "<leader>;t", "<cmd>bo 10new term://$SHELL<CR>i", { desc = "Open terminal" })
+keymap.set("n", "<leader>;C", "<cmd>CmpStatus<CR>", { desc = "[CmpStatus]" })
+keymap.set("n", "<leader>;T", "<cmd>TSModuleInfo<CR>", { desc = "[TSModuleInfo]" })
+keymap.set("n", "<leader>;m", "<cmd>Mason<CR>", { desc = "[Mason]" })
+keymap.set("n", "<leader>;C", "<cmd>ColorizerReloadAllBuffers<CR>", { desc = "[ColorizerReloadAllBuffers]" })
+keymap.set("n", "<leader>;n", "<cmd>NullLsInfo<CR>", { desc = "[NullLsInfo]" })
+-- Quickfix
+keymap.set("n", "<leader>co", "<cmd>copen<CR>", { desc = "Open quickfix" })
+keymap.set("n", "<leader>cc", "<cmd>cclose<CR>", { desc = "Close quickfix" })
 keymap.set("n", "[q", "<cmd>cprev<CR>", { desc = "Previous quickfix" })
 keymap.set("n", "]q", "<cmd>cnext<CR>", { desc = "Next quickfix" })
--- Previous/Next git change
--- keymap.set("n", "[c", "<cmd>lua require 'gitsigns'.prev_hunk()<CR>", { desc = "Prev Hunk" })
--- keymap.set("n", "]c", "<cmd>lua require 'gitsigns'.next_hunk()<CR>", { desc = "Next Hunk" })
 
 -- Insert --
 -- Delete previous word
@@ -54,31 +75,3 @@ keymap.set("v", "p", '"_dP', { desc = "Paste over currently selected text" })
 -- Better indent
 keymap.set("v", "<", "<gv", { desc = "Indent left" })
 keymap.set("v", ">", ">gv", { desc = "Indent right" })
-
--- Plugins --
--- Comment
-keymap.set("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", {
-    desc = "Toggle comment",
-})
-keymap.set("x", "<leader>/", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", {
-    desc = "Toggle comment",
-})
--- LSP
-keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { desc = "Jumps to the declaration" })
-keymap.set("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", { desc = "Lists all the implementations" })
-keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { desc = "Jumps to the definition" })
-keymap.set("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Displays hover information" })
-keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Show diagnostics" })
-keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", { desc = "Lists all the references" })
-keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Rename" })
-
--- keymap.set("n", "K", function()
---     local filetype = vim.bo.filetype
---     if vim.tbl_contains({ "vim", "help" }, filetype) then
---         vim.cmd("h " .. vim.fn.expand("<cword>"))
---     elseif vim.tbl_contains({ "man" }, filetype) then
---         vim.cmd("Man " .. vim.fn.expand("<cword>"))
---     else
---         vim.lsp.buf.hover()
---     end
--- end, { noremap = true, silent = true })

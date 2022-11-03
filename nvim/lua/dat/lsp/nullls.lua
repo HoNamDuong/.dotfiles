@@ -24,7 +24,14 @@ null_ls.setup({
                 "--jsx-single-quote",
             },
         }),
-        formatting.stylua.with({ extra_args = { "--indent-type", "Spaces" } }),
+        formatting.stylua.with({
+            extra_args = {
+                "--indent-type",
+                "Spaces",
+                "--column-width",
+                "200",
+            },
+        }),
     },
     on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then
