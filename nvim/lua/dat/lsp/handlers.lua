@@ -23,13 +23,14 @@ M.setup = function()
 
     local config = {
         virtual_text = false,
-        signs = { action = signs },
-        update_in_insert = true,
+        signs = {
+            action = signs,
+            severity = { min = vim.diagnostic.severity.WARN },
+        },
+        update_in_insert = false,
         underline = true,
         severity_sort = true,
         float = {
-            focusable = true,
-            style = "minimal",
             border = "rounded",
             source = "always",
             header = "",
@@ -53,7 +54,8 @@ local function keymaps(bufnr)
 
     keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { desc = "Jumps to the declaration" })
     keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { desc = "Jumps to the definition" })
-    keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Displays hover information" })
+    -- keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Displays hover information" })
+    keymap(bufnr, "n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Displays hover information" })
     keymap(bufnr, "n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", { desc = "Lists all the implementations" })
     keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", { desc = "Lists all the references" })
     keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Show diagnostics floating window" })

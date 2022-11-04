@@ -1,21 +1,21 @@
 " Search file
-nnoremap <leader>ff :Files<CR>
+nnoremap <leader>sf :Files<CR>
 " History
-nnoremap <leader>fh :History<CR>
+nnoremap <leader>sh :History<CR>
 " Rg search result
-nnoremap <leader>fr :Rg<CR>
+nnoremap <leader>sr :Rg<CR>
 " Marks
-nnoremap <leader>fm :Marks<CR>
+nnoremap <leader>sm :Marks<CR>
 " Commands history
-nnoremap <leader>fc :Commands<CR>
+nnoremap <leader>sc :Commands<CR>
 " Git commits
-nnoremap <leader>fg :Commits<CR>
+nnoremap <leader>sg :Commits<CR>
 " Lines in loaded buffers
-nnoremap <leader>fl :BLines<CR>
+nnoremap <leader>sl :BLines<CR>
 " File types
-nnoremap <leader>fy :Filetype<CR>
+nnoremap <leader>st :Filetype<CR>
 " Command history
-nnoremap <leader>f; :History:<CR>
+nnoremap <leader>s; :History:<CR>
 " Config
 let $FZF_DEFAULT_OPTS = '--info=inline'
 let g:fzf_layout = { 'down': '30%' }

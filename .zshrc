@@ -1,6 +1,11 @@
 # Disable ctrl-s to freeze terminal.
 stty stop undef
 
+# Set tmux
+case $- in *i*)
+    [ -z "$TMUX" ] && exec tmux
+esac
+
 # Autoload
 autoload -U select-word-style
 select-word-style bash
@@ -9,37 +14,13 @@ autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
-# Color
+# Exports
+export RIPGREP_CONFIG_PATH=~/.ripgreprc
+export EDITOR="nvim"
+export VISUAL="nvim"
 if [ "$TERM" != "xterm-256color" ]; then
     export TERM=xterm-256color
 fi
-
-# FZF
-export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
-export FZF_DEFAULT_OPTS='--layout=reverse --info=inline'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_T_OPTS='--preview "cat {}"'
-# export FZF_ALT_C_OPTS='--preview "tree -C {} | head -200"'
-# export FZF_ALT_C_COMMAND='rg --hidden --files --sort-files --null --glob "!.git" | xargs -0 dirname | sort -u |  grep ...'
-# export FZF_ALT_C_COMMAND='find . -type d | grep ...'
-# export FZF_ALT_C_COMMAND='find . -type d | rg -N "^\./\." | grep ...'
-
-# (EXPERIMENTAL) Advanced customization of fzf options via _fzf_comprun function
-# - The first argument to the function is the name of the command.
-# - You should make sure to pass the rest of the arguments to fzf.
-_fzf_comprun() {
-  local command=$1
-  shift
-  case "$command" in
-    cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
-    *)            fzf "$@" ;;
-  esac
-}
-
-# Set tmux
-case $- in *i*)
-    [ -z "$TMUX" ] && exec tmux
-esac
 
 
 
@@ -72,17 +53,14 @@ zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:git:*' formats "%{$fg[blue]%}[%{$fg[red]%}%m%u%c %{$fg[yellow]%} %{$fg[magenta]%}%b%{$fg[blue]%}]%{$reset_color%} "
 # Set up the prompt (with git branch name)
 setopt PROMPT_SUBST
-PROMPT=' %(?:%B%F{green}➜%f%b :%B%F{red}➜%f%b )%F{blue}%c%f '
 # PROMPT='%B%F{green}[%f%b%F{white}%n%f%F{green}@%f%F{green}%M%f%B%F{green}]%f%b %(?:%B%F{green}➜%f%b :%B%F{red}➜%f%b )%F{blue}%~%f '
+PROMPT=' %(?:%B%F{green}➜%f%b :%B%F{red}➜%f%b )%F{blue}%c%f '
 PROMPT+='${vcs_info_msg_0_}'
 RPROMPT='%B%F{8}%*%f%b'
 
 
 
-# Exports
-export EDITOR="vim"
-export VISUAL="vim"
-
+# Options
 setopt AUTO_PUSHD # Push the old directory onto the stack on cd.
 setopt PUSHD_IGNORE_DUPS # Do not store duplicates in the stack.
 setopt PUSHD_SILENT # Do not print the directory stack after pushd or popd.
@@ -116,14 +94,9 @@ zmodload zsh/complist
 compinit
 # Include hidden files.
 _comp_options+=(globdots)
-
-# # Use caching to make completion for commands such as dpkg and apt usable.
-# zstyle ':completion::complete:*' use-cache on
-
 # Case-insensitive (all), partial-word, and then substring completion.
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 unsetopt CASE_GLOB
-
 # Group matches and describe.
 zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*:matches' group 'yes'
@@ -137,22 +110,10 @@ zstyle ':completion:*:default' list-prompt '%S%M matches%s'
 zstyle ':completion:*' format ' %F{green}[Completion] %d %f'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' verbose true
-
 # Fuzzy match mistyped completions.
 zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*:match:*' original only
 zstyle ':completion:*:approximate:*' max-errors 1 numeric
-
-# # Increase the number of errors based on the length of the typed word. But make
-# # sure to cap (at 7) the max-errors to avoid hanging.
-# zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3>7?7:($#PREFIX+$#SUFFIX)/3))numeric)'
-
-# # Don't complete unavailable commands.
-# zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
-
-# # Array completion element sorting.
-# zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
-
 # Directories
 eval "$(dircolors ~/.dircolors)"
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
@@ -160,26 +121,6 @@ zstyle ':completion:*:*:cd:*' tag-order local-directories directory-stack path-d
 zstyle ':completion:*:*:cd:*:directory-stack' menu yes select
 zstyle ':completion:*:-tilde-:*' group-order 'named-directories' 'path-directories' 'users' 'expand'
 zstyle ':completion:*' squeeze-slashes true
-
-# # History
-# zstyle ':completion:*:history-words' stop yes
-# zstyle ':completion:*:history-words' remove-all-dups yes
-# zstyle ':completion:*:history-words' list false
-# zstyle ':completion:*:history-words' menu true
-
-# # Environment Variables
-# zstyle ':completion::*:(-command-|export):*' fake-parameters ${${${_comps[(I)-value-*]#*,}%%,*}:#-*-}
-
-# # Ignore multiple entries.
-# zstyle ':completion:*:(rm|kill|diff):*' ignore-line other
-# zstyle ':completion:*:rm:*' file-patterns '*:all-files'
-
-# # Kill
-# zstyle ':completion:*:*:*:*:processes' command 'ps -u $LOGNAME -o pid,user,command -w'
-# zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;36=0=01'
-# zstyle ':completion:*:*:kill:*' menu yes select
-# zstyle ':completion:*:*:kill:*' force-list always
-# zstyle ':completion:*:*:kill:*' insert-ids single
 
 
 
@@ -196,21 +137,53 @@ bindkey -M menuselect '^[' send-break
 bindkey -M menuselect '^[[Z' reverse-menu-complete
 bindkey -v '^?' backward-delete-char
 
-# Change cursor shape for different vi modes.
-function zle-keymap-select () {
-    case $KEYMAP in
-        vicmd) echo -ne '\e[1 q';;      # block
-        viins|main) echo -ne '\e[5 q';; # beam
-    esac
+autoload -Uz surround
+zle -N delete-surround surround
+zle -N add-surround surround
+zle -N change-surround surround
+bindkey -M vicmd cs change-surround
+bindkey -M vicmd ds delete-surround
+bindkey -M vicmd ys add-surround
+bindkey -M visual S add-surround
+
+autoload -Uz select-bracketed select-quoted
+zle -N select-quoted
+zle -N select-bracketed
+for km in viopp visual; do
+  bindkey -M $km -- '-' vi-up-line-or-history
+  for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
+    bindkey -M $km $c select-quoted
+  done
+  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+    bindkey -M $km $c select-bracketed
+  done
+done
+
+cursor_mode() {
+    # See https://ttssh2.osdn.jp/manual/4/en/usage/tips/vim.html for cursor shapes
+    cursor_block='\e[2 q'
+    cursor_beam='\e[6 q'
+
+    function zle-keymap-select {
+        if [[ ${KEYMAP} == vicmd ]] ||
+            [[ $1 = 'block' ]]; then
+            echo -ne $cursor_block
+        elif [[ ${KEYMAP} == main ]] ||
+            [[ ${KEYMAP} == viins ]] ||
+            [[ ${KEYMAP} = '' ]] ||
+            [[ $1 = 'beam' ]]; then
+            echo -ne $cursor_beam
+        fi
+    }
+
+    zle-line-init() {
+        echo -ne $cursor_beam
+    }
+
+    zle -N zle-keymap-select
+    zle -N zle-line-init
 }
-zle -N zle-keymap-select
-zle-line-init() {
-    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
-    echo -ne "\e[5 q"
-}
-zle -N zle-line-init
-echo -ne '\e[5 q' # Use beam shape cursor on startup.
-preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+cursor_mode
 
 
 
@@ -220,6 +193,7 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 [ -f ~/.zsh/zsh-autopair/autopair.zsh ] && source ~/.zsh/zsh-autopair/autopair.zsh && autopair-init
 [ -f ~/.zsh/z/z.sh ] && . ~/.zsh/z/z.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 
 
 # Bind key
@@ -264,7 +238,7 @@ create() {
 open() {
     local file
     file=$(fzf-tmux -d +m --preview "cat {}") &&
-    vim $file
+    nvim $file
 }
 
 checkout() {
@@ -330,21 +304,3 @@ _showcolor256_bg() {
     echo -nE " $code "
     echo -ne "\033[0m"
 }
-
-man() {
-    LESS_TERMCAP_mb=$'\e[1;32m'\
-    LESS_TERMCAP_md=$'\e[1;32m'\
-    LESS_TERMCAP_me=$'\e[0m'\
-    LESS_TERMCAP_se=$'\e[0m'\
-    LESS_TERMCAP_so=$'\e[01;33m'\
-    LESS_TERMCAP_ue=$'\e[0m'\
-    LESS_TERMCAP_us=$'\e[1;4;31m'\
-    command man "$@"
-}
-
-# Random color script
-if [ -f /usr/local/bin/colorscript ]; then
-    colorscript random
-fi
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

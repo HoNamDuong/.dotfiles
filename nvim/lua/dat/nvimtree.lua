@@ -40,7 +40,7 @@ nvimtree.setup({
         },
     },
     filters = {
-        custom = { "/.git" },
+        custom = { ".git/" },
     },
     git = {
         ignore = false,

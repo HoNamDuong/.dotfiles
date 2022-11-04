@@ -36,6 +36,7 @@ whichkey.setup({
 
 whichkey.register({
     [";"] = { name = "Command" },
+    ["<Tab>"] = { name = "Tab" },
     s = { name = "Search", g = { name = "Git" } },
     c = { name = "QuickFix" },
     t = { name = "Toggle..." },

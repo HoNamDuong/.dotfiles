@@ -54,7 +54,7 @@ gitsigns.setup({
         map("n", "<leader>gts", gs.toggle_signs, { desc = "Toggle sign column [Git]" })
         map("n", "<leader>gtw", gs.toggle_word_diff, { desc = "Toggle word diff [Git]" })
 
-        -- -- Text object
-        -- map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+        -- Text object
+        map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
     end,
 })

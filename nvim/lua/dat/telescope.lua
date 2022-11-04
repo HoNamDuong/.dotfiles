@@ -7,18 +7,22 @@ local actions = require("telescope.actions")
 
 telescope.setup({
     defaults = {
-        prompt_prefix = "   ",
-        selection_caret = "  ",
-        entry_prefix = "  ",
-        multi_icon = " + ",
+        prompt_prefix = "  ",
+        selection_caret = " ",
+        entry_prefix = " ",
+        multi_icon = "+",
         path_display = { "truncate" },
-        wrap_results = true,
-        file_ignore_patterns = { ".git/", "node_modules", "yarn.lock" },
+        -- wrap_results = true,
+        file_ignore_patterns = { "./.git/", "node_modules", "yarn.lock" },
         mappings = {
             i = {
                 ["<Down>"] = actions.move_selection_next,
                 ["<Up>"] = actions.move_selection_previous,
                 ["<esc>"] = actions.close,
+                ["<CR>"] = function()
+                    vim.cmd.stopinsert()
+                    vim.cmd([[call feedkeys("\<CR>")]])
+                end,
             },
         },
     },
@@ -34,7 +38,7 @@ vim.keymap.set("n", "<leader>sC", "<cmd>Telescope colorscheme<CR>", { desc = "Co
 vim.keymap.set("n", "<leader>sH", "<cmd>Telescope highlights<CR>", { desc = "Highlight" })
 vim.keymap.set("n", "<leader>sB", "<cmd>Telescope builtin theme=dropdown previewer=false<CR>", { desc = "Builtin" })
 vim.keymap.set("n", "<leader>sc", "<cmd>Telescope commands<CR>", { desc = "Commands" })
-vim.keymap.set("n", "<leader>sf", "<cmd>Telescope find_files hidden=true<CR>", { desc = "Find File" })
+vim.keymap.set("n", "<leader>sf", "<cmd>Telescope find_files<CR>", { desc = "Find File" })
 vim.keymap.set("n", "<leader>sh", "<cmd>Telescope help_tags<CR>", { desc = "Find Help" })
 vim.keymap.set("n", "<leader>sk", "<cmd>Telescope keymaps<CR>", { desc = "Keymaps" })
 vim.keymap.set("n", "<leader>sl", "<cmd>Telescope live_grep<CR>", { desc = "Find Text" })

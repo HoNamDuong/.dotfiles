@@ -43,10 +43,12 @@ vim.opt.jumpoptions = "view" -- preserve view while jumping
 vim.opt.textwidth = 80 -- Maximum width of text that is being inserted
 vim.opt.colorcolumn = "+1" -- Set the colour column to highlight one column after the 'textwidth'
 
--- fold
+-- fold option
+-- vim.opt.foldcolumn = "1"
 vim.opt.foldmethod = "expr"
-vim.opt.foldlevel = 99
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
 
 -- spell languages
 vim.opt.spelllang = "en"

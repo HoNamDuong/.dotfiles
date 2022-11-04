@@ -15,6 +15,7 @@ do
     echo "6 Htop"
     echo "7 Vim"
     echo "8 Nvim"
+    echo "9 Ripgrep"
     read -p "Enter your choice: " choice
     case $choice in
     0)
@@ -121,6 +122,10 @@ do
         ln -sfv $path/nvim/lua/dat/lsp/settings/sumneko_lua.lua $HOME/.config/nvim/lua/dat/lsp/settings/sumneko_lua.lua
         ln -sfv $path/nvim/lua/dat/lsp/settings/emmet_ls.lua $HOME/.config/nvim/lua/dat/lsp/settings/emmet_ls.lua
         ln -sfv $path/nvim/lua/dat/lsp/settings/tsserver.lua $HOME/.config/nvim/lua/dat/lsp/settings/tsserver.lua
+        ;;
+    9)
+        ### Ripgrep
+        ln -sfv $path/.ripgreprc $HOME/.ripgreprc
         ;;
     *)
         echo "Sorry, choice understand"

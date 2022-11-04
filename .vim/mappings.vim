@@ -11,10 +11,12 @@ nnoremap <C-Up>     :resize -2<CR>
 nnoremap <C-Down>   :resize +2<CR>
 nnoremap <C-Left>   :vertical resize -2<CR>
 nnoremap <C-Right>  :vertical resize +2<CR>
+" Delete single character without copying into register
+nnoremap x      "_x
 
 " Motion cursor
-nnoremap <S-h> ^
-nnoremap <S-l> g_
+nnoremap <S-h>  ^
+nnoremap <S-l>  g_
 
 " Previous
 nnoremap <leader>bb    :b#<CR>
@@ -35,8 +37,6 @@ nnoremap <leader>q  :qa!<CR>
 nnoremap <leader>a  ggVG
 " Stop the highlightin
 nnoremap <leader>h  :noh<CR>
-" Remove unwanted whitespace
-nnoremap <leader>s  :%s/\s\+$//e<CR> :noh<CR>
 " Toggle wrap
 nnoremap <leader>z  :set wrap!<CR>
 

@@ -37,7 +37,7 @@ cat /etc/apt/sources.list.d/nodesource.list
 # Install Node.js and npm
 sudo apt install nodejs
 # Install yarn
-curl -o- -L https://yarnpkg.com/install.sh | bash
+sudo npm install --global yarn
 
 # Verify the version of Node.js , npm and yarn
 node -v

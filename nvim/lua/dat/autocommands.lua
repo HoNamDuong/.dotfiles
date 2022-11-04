@@ -40,6 +40,27 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
     desc = "Disable cursorline on insert",
 })
 
+vim.api.nvim_create_autocmd("BufRead", {
+    callback = function()
+        vim.api.nvim_create_autocmd("BufWinEnter", {
+            once = true,
+            callback = function()
+                vim.defer_fn(function()
+                    vim.cmd([[:silent! loadview]])
+                end, 60)
+            end,
+            desc = "Load the view for the current file",
+        })
+    end,
+})
+
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+    callback = function()
+        vim.cmd([[:mkview]])
+    end,
+    desc = "Store the view for the current window",
+})
+
 if vim.fn.has("wsl") == 1 then
     vim.api.nvim_create_autocmd("TextYankPost", {
         group = vim.api.nvim_create_augroup("Yank", { clear = true }),
@@ -49,24 +70,3 @@ if vim.fn.has("wsl") == 1 then
         desc = "Yanking to windows clipboard from nvim (WSL)",
     })
 end
-
--- vim.api.nvim_create_autocmd({ "TextYankPost" }, {
---     callback = function()
---         vim.highlight.on_yank({
---             higroup = "IncSearch",
---             timeout = 1000,
---         })
---         vim.notify("Yank Successfully")
---     end,
---     desc = "Highlight on yank",
--- })
-
--- vim.cmd([[
--- " Yanking to windows clipboard from vim (WSL2)
--- if system('uname -r') =~ "microsoft"
---     augroup Yank
---         autocmd!
---         autocmd TextYankPost * :call system('/mnt/c/windows/system32/clip.exe ',@")
---     augroup END
--- endif
--- ]])

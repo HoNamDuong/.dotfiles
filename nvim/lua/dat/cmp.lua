@@ -22,7 +22,7 @@ cmp.setup({
         end,
     },
     completion = {
-        completeopt = "menu,menuone,noinsert",
+        -- completeopt = "menu,menuone,noinsert",
         keyword_length = 1,
     },
     mapping = cmp.mapping.preset.insert({
@@ -30,13 +30,24 @@ cmp.setup({
         ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
         ["<CR>"] = cmp.mapping.confirm({ select = true }),
         ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+        ["<C-j>"] = cmp.mapping(function(fallback)
+            if luasnip.jumpable(1) then
+                luasnip.jump(1)
+            else
+                fallback()
+            end
+        end, { "i", "s" }),
         ["<C-e>"] = cmp.mapping({
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
         }),
         ["<Tab>"] = cmp.mapping(function(fallback)
-            if luasnip.jumpable(1) then
-                luasnip.jump(1)
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif luasnip.expandable() then
+                luasnip.expand()
+            elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
             elseif check_backspace() then
                 fallback()
             else
@@ -44,7 +55,9 @@ cmp.setup({
             end
         end, { "i", "s" }),
         ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if luasnip.jumpable(-1) then
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
                 luasnip.jump(-1)
             else
                 fallback()
@@ -59,7 +72,7 @@ cmp.setup({
                 luasnip = "[LuaSnip]",
                 nvim_lua = "[Lua]",
                 nvim_lsp = "[LSP]",
-                nvim_lsp_signature_help = "[LSP S]",
+                nvim_lsp_signature_help = "[LSP Signature]",
                 buffer = "[Buffer]",
                 path = "[Path]",
             })[entry.source.name]
