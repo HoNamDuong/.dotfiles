@@ -42,7 +42,7 @@ fun! Start()
     setlocal nomodifiable nomodified
     " Key map
     nnoremap <buffer><silent> n :enew<CR>
-    nnoremap <buffer><silent> p :Telescope project display_type=full<CR>
+    nnoremap <buffer><silent> p :Telescope project display_type=full theme=dropdown<CR>
     nnoremap <buffer><silent> h :Telescope oldfiles<CR>
     nnoremap <buffer><silent> v :e $MYVIMRC<CR>
     nnoremap <buffer><silent> c :checkhealth<CR>

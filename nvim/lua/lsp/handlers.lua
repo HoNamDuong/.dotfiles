@@ -57,7 +57,8 @@ local function keymaps(bufnr)
     -- keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Displays hover information" })
     keymap(bufnr, "n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Displays hover information" })
     keymap(bufnr, "n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", { desc = "Lists all the implementations" })
-    keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", { desc = "Lists all the references" })
+    -- keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", { desc = "Lists all the references" })
+    keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references<CR>", { desc = "Lists all the references" })
     keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Show diagnostics floating window" })
 
     keymap(bufnr, "n", "[d", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<CR>", { desc = "Previous diagnostic" })
@@ -88,13 +89,27 @@ M.on_attach = function(client, bufnr)
         client.server_capabilities.documentFormattingProvider = false
     end
 
+    if client.name == "jsonls" then
+        client.server_capabilities.documentFormattingProvider = false
+    end
+
     keymaps(bufnr)
 
     local status_illuminate, illuminate = pcall(require, "illuminate")
     if not status_illuminate then
         return
     end
+
     illuminate.on_attach(client)
+
+    local status_navic, navic = pcall(require, "nvim-navic")
+    if not status_navic then
+        return
+    end
+
+    if client.server_capabilities.documentSymbolProvider then
+        navic.attach(client, bufnr)
+    end
 end
 
 return M

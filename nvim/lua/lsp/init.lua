@@ -5,6 +5,6 @@ end
 
 require("lspconfig.ui.windows").default_options.border = "single"
 
-require("dat.lsp.mason")
-require("dat.lsp.handlers").setup()
-require("dat.lsp.nullls")
+require("lsp.mason")
+require("lsp.handlers").setup()
+require("lsp.nullls")

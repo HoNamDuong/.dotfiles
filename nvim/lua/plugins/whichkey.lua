@@ -37,7 +37,7 @@ whichkey.setup({
 whichkey.register({
     [";"] = { name = "Command" },
     ["<Tab>"] = { name = "Tab" },
-    s = { name = "Search", g = { name = "Git" } },
+    s = { name = "Search", g = { name = "Git" }, l = { name = "LSP" } },
     c = { name = "QuickFix" },
     t = { name = "Toggle..." },
     b = { name = "Buffer" },

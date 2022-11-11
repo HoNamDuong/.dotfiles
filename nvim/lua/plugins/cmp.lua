@@ -26,6 +26,8 @@ cmp.setup({
         keyword_length = 1,
     },
     mapping = cmp.mapping.preset.insert({
+        ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+        ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
         ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
         ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
         ["<CR>"] = cmp.mapping.confirm({ select = true }),
@@ -95,7 +97,6 @@ cmp.setup({
         { name = "path" },
     },
     cmp.setup.cmdline("/", {
-        mapping = cmp.mapping.preset.cmdline(),
         sources = { { name = "buffer" } },
     }),
     window = {

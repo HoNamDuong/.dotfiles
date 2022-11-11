@@ -39,6 +39,8 @@ keymap.set("n", "<leader>bb", "<cmd>b#<CR>", { desc = "Switch to other buffer" }
 keymap.set("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Delete buffer" })
 keymap.set("n", "<leader>ba", "<cmd>%bdelete<CR>", { desc = "Delete all buffers" })
 keymap.set("n", "<leader>bq", "<cmd>bd!<CR>", { desc = "Delete buffer[!]" })
+keymap.set("n", "<leader>bp", "<cmd>bprevious<CR>", { desc = "Previous buffer" })
+keymap.set("n", "<leader>bn", "<cmd>bnext<CR>", { desc = "Next buffer" })
 keymap.set("n", "[b", "<cmd>bprevious<CR>", { desc = "Previous buffer" })
 keymap.set("n", "]b", "<cmd>bnext<CR>", { desc = "Next buffer" })
 -- Tab
@@ -70,6 +72,10 @@ keymap.set("n", "]q", "<cmd>cnext<CR>", { desc = "Next quickfix" })
 -- Insert --
 -- Delete previous word
 keymap.set("i", "<C-H>", "<C-W>", { desc = "Backward kill word" })
+
+-- Terminal --
+-- Exit terminal mode
+keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- Visual --
 -- Search for visually selected text

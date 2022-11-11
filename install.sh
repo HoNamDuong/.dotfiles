@@ -15,7 +15,9 @@ do
     echo "6 Htop"
     echo "7 Vim"
     echo "8 Nvim"
-    echo "9 Ripgrep"
+    echo "9 Snippets"
+    echo "10 Ripgrep"
+    
     read -p "Enter your choice: " choice
     case $choice in
     0)
@@ -78,52 +80,66 @@ do
         ;;
     8)
         ### Nvim
+        # # .config/snippets
+        # [ ! -d $HOME/.config/snippets ] && mkdir -v $HOME/.config/snippets
+        # ln -sfv $path/snippets/javascript.json $HOME/.config/snippets/javascript.json
+        # ln -sfv $path/snippets/package.json $HOME/.config/snippets/package.json
+        # .config
+        [ ! -d $HOME/.config ] && mkdir -v $HOME/.config
+        # .config/nvim
+        [ ! -d $HOME/.config/nvim ] && mkdir -v $HOME/.config/nvim
+        ln -sfv $path/nvim/init.lua $HOME/.config/nvim/init.lua
+        # .config/nvim/lua
+        [ ! -d $HOME/.config/nvim/lua ] && mkdir -v $HOME/.config/nvim/lua
+        # .config/nvim/lua/core
+        [ ! -d $HOME/.config/nvim/lua/core ] && mkdir -v $HOME/.config/nvim/lua/core
+        ln -sfv $path/nvim/lua/core/options.lua $HOME/.config/nvim/lua/core/options.lua
+        ln -sfv $path/nvim/lua/core/keymaps.lua $HOME/.config/nvim/lua/core/keymaps.lua
+        ln -sfv $path/nvim/lua/core/plugins.lua $HOME/.config/nvim/lua/core/plugins.lua
+        ln -sfv $path/nvim/lua/core/autocommands.lua $HOME/.config/nvim/lua/core/autocommands.lua
+        ln -sfv $path/nvim/lua/core/startscreen.lua $HOME/.config/nvim/lua/core/startscreen.lua
+        # .config/nvim/lua/plugins
+        [ ! -d $HOME/.config/nvim/lua/plugins ] && mkdir -v $HOME/.config/nvim/lua/plugins
+        ln -sfv $path/nvim/lua/plugins/colorscheme.lua $HOME/.config/nvim/lua/plugins/colorscheme.lua
+        ln -sfv $path/nvim/lua/plugins/lualine.lua $HOME/.config/nvim/lua/plugins/lualine.lua
+        ln -sfv $path/nvim/lua/plugins/bufferline.lua $HOME/.config/nvim/lua/plugins/bufferline.lua
+        ln -sfv $path/nvim/lua/plugins/nvimtree.lua $HOME/.config/nvim/lua/plugins/nvimtree.lua
+        ln -sfv $path/nvim/lua/plugins/telescope.lua $HOME/.config/nvim/lua/plugins/telescope.lua
+        ln -sfv $path/nvim/lua/plugins/treesitter.lua $HOME/.config/nvim/lua/plugins/treesitter.lua
+        ln -sfv $path/nvim/lua/plugins/gitsigns.lua $HOME/.config/nvim/lua/plugins/gitsigns.lua
+        ln -sfv $path/nvim/lua/plugins/colorizer.lua $HOME/.config/nvim/lua/plugins/colorizer.lua
+        ln -sfv $path/nvim/lua/plugins/illuminate.lua $HOME/.config/nvim/lua/plugins/illuminate.lua
+        ln -sfv $path/nvim/lua/plugins/autopairs.lua $HOME/.config/nvim/lua/plugins/autopairs.lua
+        ln -sfv $path/nvim/lua/plugins/comment.lua $HOME/.config/nvim/lua/plugins/comment.lua
+        ln -sfv $path/nvim/lua/plugins/lsp.lua $HOME/.config/nvim/lua/plugins/lsp.lua
+        ln -sfv $path/nvim/lua/plugins/cmp.lua $HOME/.config/nvim/lua/plugins/cmp.lua
+        ln -sfv $path/nvim/lua/plugins/whichkey.lua $HOME/.config/nvim/lua/plugins/whichkey.lua
+        ln -sfv $path/nvim/lua/plugins/dressing.lua $HOME/.config/nvim/lua/plugins/dressing.lua
+        ln -sfv $path/nvim/lua/plugins/breadcrumbs.lua $HOME/.config/nvim/lua/plugins/breadcrumbs.lua
+        ln -sfv $path/nvim/lua/plugins/scrollbar.lua $HOME/.config/nvim/lua/plugins/scrollbar.lua
+        # .config/nvim/lua/lsp
+        [ ! -d $HOME/.config/nvim/lua/lsp ] && mkdir -v $HOME/.config/nvim/lua/lsp
+        ln -sfv $path/nvim/lua/lsp/init.lua $HOME/.config/nvim/lua/lsp/init.lua
+        ln -sfv $path/nvim/lua/lsp/mason.lua $HOME/.config/nvim/lua/lsp/mason.lua
+        ln -sfv $path/nvim/lua/lsp/handlers.lua $HOME/.config/nvim/lua/lsp/handlers.lua
+        ln -sfv $path/nvim/lua/lsp/nullls.lua $HOME/.config/nvim/lua/lsp/nullls.lua
+        # .config/nvim/lua/lsp/settings
+        [ ! -d $HOME/.config/nvim/lua/lsp/settings ] && mkdir -v $HOME/.config/nvim/lua/lsp/settings
+        ln -sfv $path/nvim/lua/lsp/settings/sumneko_lua.lua $HOME/.config/nvim/lua/lsp/settings/sumneko_lua.lua
+        ln -sfv $path/nvim/lua/lsp/settings/emmet_ls.lua $HOME/.config/nvim/lua/lsp/settings/emmet_ls.lua
+        ln -sfv $path/nvim/lua/lsp/settings/tsserver.lua $HOME/.config/nvim/lua/lsp/settings/tsserver.lua
+        ln -sfv $path/nvim/lua/lsp/settings/jsonls.lua $HOME/.config/nvim/lua/lsp/settings/jsonls.lua
+        ;;
+    9)
+        ### Snippets 
         # .config
         [ ! -d $HOME/.config ] && mkdir -v $HOME/.config
         # .config/snippets
         [ ! -d $HOME/.config/snippets ] && mkdir -v $HOME/.config/snippets
         ln -sfv $path/snippets/javascript.json $HOME/.config/snippets/javascript.json
         ln -sfv $path/snippets/package.json $HOME/.config/snippets/package.json
-        # .config/nvim
-        [ ! -d $HOME/.config/nvim ] && mkdir -v $HOME/.config/nvim
-        ln -sfv $path/nvim/init.lua $HOME/.config/nvim/init.lua
-        # .config/nvim/lua
-        [ ! -d $HOME/.config/nvim/lua ] && mkdir -v $HOME/.config/nvim/lua
-        # .config/nvim/lua/dat
-        [ ! -d $HOME/.config/nvim/lua/dat ] && mkdir -v $HOME/.config/nvim/lua/dat
-        ln -sfv $path/nvim/lua/dat/options.lua $HOME/.config/nvim/lua/dat/options.lua
-        ln -sfv $path/nvim/lua/dat/keymaps.lua $HOME/.config/nvim/lua/dat/keymaps.lua
-        ln -sfv $path/nvim/lua/dat/plugins.lua $HOME/.config/nvim/lua/dat/plugins.lua
-        ln -sfv $path/nvim/lua/dat/autocommands.lua $HOME/.config/nvim/lua/dat/autocommands.lua
-        ln -sfv $path/nvim/lua/dat/colorscheme.lua $HOME/.config/nvim/lua/dat/colorscheme.lua
-        ln -sfv $path/nvim/lua/dat/lualine.lua $HOME/.config/nvim/lua/dat/lualine.lua
-        ln -sfv $path/nvim/lua/dat/bufferline.lua $HOME/.config/nvim/lua/dat/bufferline.lua
-        ln -sfv $path/nvim/lua/dat/nvimtree.lua $HOME/.config/nvim/lua/dat/nvimtree.lua
-        ln -sfv $path/nvim/lua/dat/telescope.lua $HOME/.config/nvim/lua/dat/telescope.lua
-        ln -sfv $path/nvim/lua/dat/treesitter.lua $HOME/.config/nvim/lua/dat/treesitter.lua
-        ln -sfv $path/nvim/lua/dat/gitsigns.lua $HOME/.config/nvim/lua/dat/gitsigns.lua
-        ln -sfv $path/nvim/lua/dat/colorizer.lua $HOME/.config/nvim/lua/dat/colorizer.lua
-        ln -sfv $path/nvim/lua/dat/illuminate.lua $HOME/.config/nvim/lua/dat/illuminate.lua
-        ln -sfv $path/nvim/lua/dat/autopairs.lua $HOME/.config/nvim/lua/dat/autopairs.lua
-        ln -sfv $path/nvim/lua/dat/comment.lua $HOME/.config/nvim/lua/dat/comment.lua
-        ln -sfv $path/nvim/lua/dat/lsp.lua $HOME/.config/nvim/lua/dat/lsp.lua
-        ln -sfv $path/nvim/lua/dat/cmp.lua $HOME/.config/nvim/lua/dat/cmp.lua
-        ln -sfv $path/nvim/lua/dat/startscreen.lua $HOME/.config/nvim/lua/dat/startscreen.lua
-        ln -sfv $path/nvim/lua/dat/whichkey.lua $HOME/.config/nvim/lua/dat/whichkey.lua
-        ln -sfv $path/nvim/lua/dat/dressing.lua $HOME/.config/nvim/lua/dat/dressing.lua
-        # .config/nvim/lua/lsp
-        [ ! -d $HOME/.config/nvim/lua/dat/lsp ] && mkdir -v $HOME/.config/nvim/lua/dat/lsp
-        ln -sfv $path/nvim/lua/dat/lsp/init.lua $HOME/.config/nvim/lua/dat/lsp/init.lua
-        ln -sfv $path/nvim/lua/dat/lsp/mason.lua $HOME/.config/nvim/lua/dat/lsp/mason.lua
-        ln -sfv $path/nvim/lua/dat/lsp/handlers.lua $HOME/.config/nvim/lua/dat/lsp/handlers.lua
-        ln -sfv $path/nvim/lua/dat/lsp/nullls.lua $HOME/.config/nvim/lua/dat/lsp/nullls.lua
-        # .config/nvim/lua/lsp/settings
-        [ ! -d $HOME/.config/nvim/lua/dat/lsp/settings ] && mkdir -v $HOME/.config/nvim/lua/dat/lsp/settings
-        ln -sfv $path/nvim/lua/dat/lsp/settings/sumneko_lua.lua $HOME/.config/nvim/lua/dat/lsp/settings/sumneko_lua.lua
-        ln -sfv $path/nvim/lua/dat/lsp/settings/emmet_ls.lua $HOME/.config/nvim/lua/dat/lsp/settings/emmet_ls.lua
-        ln -sfv $path/nvim/lua/dat/lsp/settings/tsserver.lua $HOME/.config/nvim/lua/dat/lsp/settings/tsserver.lua
         ;;
-    9)
+    10)
         ### Ripgrep
         ln -sfv $path/.ripgreprc $HOME/.ripgreprc
         ;;
