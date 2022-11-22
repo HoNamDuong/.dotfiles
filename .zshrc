@@ -13,6 +13,7 @@ autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
+autoload -U colors && colors
 
 # Exports
 export RIPGREP_CONFIG_PATH=~/.ripgreprc
@@ -24,36 +25,21 @@ fi
 
 
 
-# Autoload vcs and colors
+# Prompt
 autoload -Uz vcs_info
-autoload -U colors && colors
-
-# Enable only git
-zstyle ':vcs_info:*' enable git
-
-# Setup a hook that runs before every ptompt.
-precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
-
-# Add a function to check for untracked files in the directory.
-# from https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples
+precmd () { vcs_info }
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' formats '%F{blue}[%F{green}%c%F{red}%u %F{yellow} %F{magenta}%b%F{blue}]%f '
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
-#
-+vi-git-untracked(){
+zstyle ':vcs_info:*' enable git 
++vi-git-untracked() {
     if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
-        git status --porcelain | grep '??' &> /dev/null ; then
-        # This will show the marker if there are any untracked files in repo.
-        # If instead you want to show the marker only if there are untracked
-        # files in $PWD, use:
-        #[[ -n $(git ls-files --others --exclude-standard) ]] ; then
-        hook_com[staged]+='!' # signify new files with a bang
+        [[ $(git ls-files --other --directory --exclude-standard | sed q | wc -l | tr -d ' ') == 1 ]] ; then
+        hook_com[unstaged]+='?'
     fi
 }
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:git:*' formats "%{$fg[blue]%}[%{$fg[red]%}%m%u%c %{$fg[yellow]%} %{$fg[magenta]%}%b%{$fg[blue]%}]%{$reset_color%} "
-# Set up the prompt (with git branch name)
-setopt PROMPT_SUBST
-# PROMPT='%B%F{green}[%f%b%F{white}%n%f%F{green}@%f%F{green}%M%f%B%F{green}]%f%b %(?:%B%F{green}➜%f%b :%B%F{red}➜%f%b )%F{blue}%~%f '
+
+setopt prompt_subst
 PROMPT=' %(?:%B%F{green}➜%f%b :%B%F{red}➜%f%b )%F{blue}%c%f '
 PROMPT+='${vcs_info_msg_0_}'
 RPROMPT='%B%F{8}%*%f%b'
@@ -158,32 +144,6 @@ for km in viopp visual; do
     bindkey -M $km $c select-bracketed
   done
 done
-
-# cursor_mode() {
-#     # See https://ttssh2.osdn.jp/manual/4/en/usage/tips/vim.html for cursor shapes
-#     cursor_block='\e[2 q'
-#     cursor_beam='\e[6 q'
-#
-#     function zle-keymap-select {
-#         if [[ ${KEYMAP} == vicmd ]] ||
-#             [[ $1 = 'block' ]]; then
-#             echo -ne $cursor_block
-#         elif [[ ${KEYMAP} == main ]] ||
-#             [[ ${KEYMAP} == viins ]] ||
-#             [[ ${KEYMAP} = '' ]] ||
-#             [[ $1 = 'beam' ]]; then
-#             echo -ne $cursor_beam
-#         fi
-#     }
-#
-#     zle-line-init() {
-#         echo -ne $cursor_beam
-#     }
-#
-#     zle -N zle-keymap-select
-#     zle -N zle-line-init
-# }
-# cursor_mode
 
 
 
