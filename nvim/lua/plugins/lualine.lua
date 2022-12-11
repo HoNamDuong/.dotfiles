@@ -69,6 +69,6 @@ lualine.setup({
         lualine_z = { "mode" },
     },
     winbar = {
-        lualine_a = { { navic.get_location } },
+        lualine_c = { { navic.get_location, cond = navic.is_available } },
     },
 })

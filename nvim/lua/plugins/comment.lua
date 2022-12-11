@@ -17,6 +17,7 @@ comment.setup({
         ---Extra mapping; `gco`, `gcO`, `gcA`
         extra = false,
     },
+    pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
 })
 
 -- Comment

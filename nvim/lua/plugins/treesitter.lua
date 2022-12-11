@@ -4,6 +4,10 @@ if not status then
 end
 
 configs.setup({
+    context_commentstring = {
+        enable = true,
+        enable_autocmd = false,
+    },
     auto_install = true,
     highlight = { enable = true },
     autopairs = { enable = true },
