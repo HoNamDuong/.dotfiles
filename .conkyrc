@@ -1,0 +1,100 @@
+
+-- vim: ts=4 sw=4 noet ai cindent syntax=lua
+--[[
+Conky, a system monitor, based on torsmo
+
+Any original torsmo code is licensed under the BSD license
+
+All code written since the fork of torsmo is licensed under the GPL
+
+Please see COPYING for details
+
+Copyright (c) 2004, Hannu Saransaari and Lauri Hakkarainen
+Copyright (c) 2005-2012 Brenden Matthews, Philip Kovacs, et. al. (see AUTHORS)
+All rights reserved.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+]]
+
+
+conky.config = {
+	update_interval = 1,
+	cpu_avg_samples = 2,
+	net_avg_samples = 2,
+	out_to_console = false,
+	override_utf8_locale = true,
+	double_buffer = true,
+	no_buffers = true,
+	text_buffer_size = 32768,
+	imlib_cache_size = 0,
+	own_window = true,
+	own_window_type = 'normal',
+	own_window_argb_visual = true,
+	own_window_argb_value = 50,
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	border_inner_margin = 5,
+	border_outer_margin = 0,
+	xinerama_head = 1,
+	alignment = 'bottom_right',
+	gap_x = 0,
+	gap_y = 33,
+	draw_shades = false,
+	draw_outline = false,
+	draw_borders = false,
+	draw_graph_borders = true,
+	use_xft = true,
+	font = 'Ubuntu Mono:size=12',
+	xftalpha = 0.8,
+	uppercase = false,
+	default_color = 'white',
+	own_window_colour = '#000000',
+	minimum_width = 300, minimum_height = 0,
+	alignment = 'top_right',
+
+};
+
+conky.text = [[
+${font sans-serif:bold:size=12}SYSTEM 
+${font sans-serif:normal:size=12}$sysname $kernel $alignr $machine
+Host:$alignr$nodename
+Uptime:$alignr$uptime
+File System: $alignr${fs_type}
+Processes: $alignr ${execi 1000 ps aux | wc -l}
+
+${font sans-serif:bold:size=12}CPU 
+${font sans-serif:normal:size=12}${execi 1000 grep model /proc/cpuinfo | cut -d : -f2 | tail -1 | sed 's/\s//'}
+${font sans-serif:normal:size=12}${cpugraph cpu1}
+CPU: ${cpu cpu1}% ${cpubar cpu1}
+
+${font sans-serif:bold:size=12}MEMORY 
+${font sans-serif:normal:size=12}RAM $alignc $mem / $memmax $alignr $memperc%
+${membar}
+SWAP $alignc ${swap} / ${swapmax} $alignr ${swapperc}%
+${swapbar}
+
+${font sans-serif:bold:size=12}DISK USAGE 
+${font sans-serif:normal:size=12}${fs_used /} / ${fs_size /} $alignr ${fs_used_perc /}%
+${fs_bar /}
+
+${font sans-serif:bold:size=12}GPU
+${font sans-serif:normal:size=12}${exec nvidia-smi -L | cut -c 1-33} 
+Freq:$alignr${nvidia gpufreq} Mhz
+Temperature $alignr${nvidia temp}°C
+Used:$alignr${exec nvidia-smi -i 0 -q -d MEMORY |grep "Used" | cut -c 45-55 | head -1 }
+Utilization:$alignr${color3}${exec nvidia-smi -i 0 | grep % | cut -c 61-63} %
+
+${font Ubuntu:bold:size=12}NETWORK 
+${font sans-serif:normal:size=12}Local IPs:${alignr}External IP:
+${execi 1000 ip a | grep inet | grep -vw lo | grep -v inet6 | cut -d \/ -f1 | sed 's/[^0-9\.]*//g'}  ${alignr}${execi 1000  wget -q -O- http://ipecho.net/plain; echo}
+Down: ${downspeed eno1}  ${alignr}Up: ${upspeed eno1} 
+]];

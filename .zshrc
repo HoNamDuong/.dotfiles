@@ -1,10 +1,10 @@
 # Disable ctrl-s to freeze terminal.
 stty stop undef
 
-# Set tmux
-case $- in *i*)
-    [ -z "$TMUX" ] && exec tmux
-esac
+# # Set tmux
+# case $- in *i*)
+#     [ -z "$TMUX" ] && exec tmux
+# esac
 
 # Autoload
 autoload -U select-word-style

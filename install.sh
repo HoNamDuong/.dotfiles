@@ -17,6 +17,10 @@ do
     echo "8 Nvim"
     echo "9 Snippets"
     echo "10 Ripgrep"
+    echo "11 Conky"
+    echo "12 I3"
+    echo "13 Alacritty"
+    echo "14 Rofi"
     
     read -p "Enter your choice: " choice
     case $choice in
@@ -142,6 +146,34 @@ do
     10)
         ### Ripgrep
         ln -sfv $path/.ripgreprc $HOME/.ripgreprc
+        ;;
+    11)
+        ### Conky
+        ln -sfv $path/.conkyrc $HOME/.conkyrc
+        ;;
+    12)
+        ### I3 
+        # .config
+        [ ! -d $HOME/.config ] && mkdir -v $HOME/.config
+        # .config/i3
+        [ ! -d $HOME/.config/i3 ] && mkdir -v $HOME/.config/i3
+        ln -sfv $path/i3/config $HOME/.config/i3/config
+        ;;
+    13)
+        ### Alacritty 
+        # .config
+        [ ! -d $HOME/.config ] && mkdir -v $HOME/.config
+        # .config/alacritty
+        [ ! -d $HOME/.config/alacritty ] && mkdir -v $HOME/.config/alacritty
+        ln -sfv $path/alacritty/alacritty.yml $HOME/.config/alacritty/alacritty.yml
+        ;;
+    14)
+        ### Rofi 
+        # .config
+        [ ! -d $HOME/.config ] && mkdir -v $HOME/.config
+        # .config/rofi
+        [ ! -d $HOME/.config/rofi ] && mkdir -v $HOME/.config/rofi
+        ln -sfv $path/rofi/config.rasi $HOME/.config/rofi/config.rasi
         ;;
     *)
         echo "Sorry, choice understand"
