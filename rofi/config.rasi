@@ -1,7 +1,7 @@
-configuratin {
-    modi: "window,run,drun,combi";
-    combi-modi: "window,drun,ssh";
-/*	modi: "window,run,ssh";*/
+configuration {
+    modi: "window,windowcd,run,ssh,drun,combi,keys";
+    sidebar-mode: true;
+/* show-icons: true; */
 /*	width: 50;*/
 /*	lines: 15;*/
 /*	columns: 1;*/
@@ -12,7 +12,6 @@ configuratin {
 /*	yoffset: 0;*/
 /*	xoffset: 0;*/
 /*	fixed-num-lines: true;*/
-/*	show-icons: false;*/
 /*	terminal: "rofi-sensible-terminal";*/
 /*	ssh-client: "ssh";*/
 /*	ssh-command: "{terminal} -e {ssh-client} {host} [-p {port}]";*/
@@ -31,7 +30,6 @@ configuratin {
 /*	sorting-method: ;*/
 /*	case-sensitive: false;*/
 /*	cycle: true;*/
-/*	sidebar-mode: false;*/
 /*	eh: 1;*/
 /*	auto-select: false;*/
 /*	parse-hosts: false;*/
@@ -145,4 +143,4 @@ configuratin {
 /*	me-accept-entry: "MouseDPrimary";*/
 /*	me-accept-custom: "Control+MouseDPrimary";*/
 }
-@import "/usr/share/rofi/themes/Arc-Dark.rasi"
+@import "/home/dat/.config/rofi/themes/iceberg-dark.rasi"

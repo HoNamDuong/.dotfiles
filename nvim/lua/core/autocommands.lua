@@ -61,12 +61,12 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     desc = "Store the view for the current window",
 })
 
-if vim.fn.has("wsl") == 1 then
-    vim.api.nvim_create_autocmd("TextYankPost", {
-        group = vim.api.nvim_create_augroup("Yank", { clear = true }),
-        callback = function()
-            vim.fn.system("clip.exe", vim.fn.getreg('"'))
-        end,
-        desc = "Yanking to windows clipboard from nvim (WSL)",
-    })
-end
+-- if vim.fn.has("wsl") == 1 then
+--     vim.api.nvim_create_autocmd("TextYankPost", {
+--         group = vim.api.nvim_create_augroup("Yank", { clear = true }),
+--         callback = function()
+--             vim.fn.system("clip.exe", vim.fn.getreg('"'))
+--         end,
+--         desc = "Yanking to windows clipboard from nvim (WSL)",
+--     })
+-- end

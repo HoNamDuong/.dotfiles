@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# Manage power with rofi
+option=`echo -e "Lock screen\nLogout\nReboot\nPoweroff\nSuspend\nHibernate" | rofi -lines 6 -width 300 -dmenu -p system`
+
+case $option in
+    'Lock screen')
+        i3lock --no-unlock-indicator --pointer=default --color "000000"
+        ;;
+    'Logout')
+        i3-msg exit
+        ;;
+    'Reboot')
+        /usr/bin/systemctl reboot
+        ;;
+    'Poweroff')
+        /usr/bin/systemctl poweroff
+        ;;
+    'Suspend')
+        /usr/bin/systemctl suspend 
+        ;;
+    'Hibernate')
+        sudo /usr/bin/systemctl hibernate 
+        ;;
+esac

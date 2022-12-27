@@ -158,6 +158,13 @@ do
         # .config/i3
         [ ! -d $HOME/.config/i3 ] && mkdir -v $HOME/.config/i3
         ln -sfv $path/i3/config $HOME/.config/i3/config
+        # .config/i3/bin
+        [ ! -d $HOME/.config/i3/bin ] && mkdir -v $HOME/.config/i3/bin
+        ln -sfv $path/i3/bin/power $HOME/.config/i3/bin/power
+        chmod +x ~/.config/i3/bin/power
+        # .config/i3status
+        [ ! -d $HOME/.config/i3status ] && mkdir -v $HOME/.config/i3status
+        ln -sfv $path/i3status/config $HOME/.config/i3status/config
         ;;
     13)
         ### Alacritty 
@@ -174,6 +181,9 @@ do
         # .config/rofi
         [ ! -d $HOME/.config/rofi ] && mkdir -v $HOME/.config/rofi
         ln -sfv $path/rofi/config.rasi $HOME/.config/rofi/config.rasi
+        # .config/rofi/themes
+        [ ! -d $HOME/.config/rofi/themes ] && mkdir -v $HOME/.config/rofi/themes
+        ln -sfv $path/rofi/themes/iceberg-dark.rasi $HOME/.config/rofi/themes/iceberg-dark.rasi
         ;;
     *)
         echo "Sorry, choice understand"
