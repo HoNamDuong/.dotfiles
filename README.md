@@ -1,109 +1,48 @@
-### Update and upgrade
+<h1 align="center">dotfiles ❤ ~/</h1>
 
-```bash
-sudo apt update
-sudo apt upgrade
-```
+![Screenshot](./Images/Screenshot.png)
 
-### Install packages
+<p align="center">
+    <b>Screenshots</b><br>
+    <a href="">Rofi</a>&nbsp;&nbsp;&nbsp;
+    <a href="">Dunst</a>&nbsp;&nbsp;&nbsp;
+    <a href="">Zsh</a>&nbsp;&nbsp;&nbsp;
+    <a href="">tmux</a>&nbsp;&nbsp;&nbsp;
+</p>
 
-```bash
-# Install zsh and ...
-sudo apt install zsh make tig neofetch tree ripgrep
-# Set zsh as default shell
-chsh -s $(which zsh)
-```
+## Details
 
-### Clone .dotfiles and setup
+- GUI
+  - [i3](https://github.com/i3/i3) - A tiling window manager.
+  - [Alacritty](https://github.com/alacritty/alacritty) - A cross-platform, GPU-accelerated terminal emulator.
+  - [Rofi](https://github.com/davatorium/rofi) - A window switcher, application launcher and dmenu replacement.
+  - [Dunst](https://github.com/dunst-project/dunst) - A highly configurable and lightweight notification daemon.
+  - [picom](https://github.com/yshui/picom) - A lightweight compositor for X11.
+  - [conky](https://github.com/brndnmtthws/conky) - Light-weight system monitor for X, that displays any kind of information on your desktop.
+  - [Feh](https://feh.finalrewind.org/) - Wallpaper.
+- CLI
+  - [Zsh](https://github.com/zsh-users/zsh) - A shell designed for interactive use, although it is also a powerful scripting language.
+    - [z](https://github.com/rupa/z) - Tracks your most used directories, based on frecency.
+  - [tmux](https://github.com/tmux/tmux) - A terminal multiplexer.
+  - [Neovim](https://github.com/neovim/neovim) - Hyperextensible Vim-based text editor.
+    - [mason.nvim](https://github.com/williamboman/mason.nvim) - Easily install and manage LSP servers, DAP servers, linters, and formatters.
+    - [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) - A parser generator tool and an incremental parsing library.
+    - [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua) - A File Explorer For Neovim Written In Lua.
+    - [bufferline.nvim](https://github.com/nvim-tree/nvim-tree.lua) - A snazzy nail_care buffer line (with tabpage integration) for Neovim built using lua.
+    - [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) - A blazing fast and easy to configure Neovim statusline written in Lua.
+    - [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) - Find, Filter, Preview, Pick. All lua, all the time.
+    - [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) - A completion engine plugin for neovim written in Lua.
+    - [tokyonight.nvim](https://github.com/folke/tokyonight.nvim) - A dark and light Neovim theme written in Lua.
+    - [which-key.nvim](https://github.com/folke/which-key.nvim) - Displays a popup with possible keybindings of the command you started typing.
+  - [tig](https://github.com/jonas/tig) - Text-mode interface for Git.
+  - [htop](https://github.com/htop-dev/htop) - An interactive process viewer.
+  - [LSD](https://github.com/Peltoche/lsd) - GNU ls with lots of added features like colors, icons, tree-view, more formatting options etc.
+  - [fzf](https://github.com/junegunn/fzf) - A command-line fuzzy finder.
+  - [ripgrep](https://github.com/BurntSushi/ripgrep) - A line-oriented search tool that recursively searches directories for a regex pattern.
+  - [colorscript](https://gitlab.com/dwt1/shell-color-scripts) - A collection of terminal color scripts.
 
-```bash
-# Clone .dotfiles
-cd ~ && git clone https://github.com/HoNamDuong/.dotfiles.git
-# Config git credential
-git config --global credential.helper "store --file ~/.git-credentials"
+## Setup
 
-# Run install.sh
-cd ~/.dotfiles
-sh install.sh
-```
+Install [GUI](./GUI.md) (for Ubuntu)
 
-### Installing Node.js and npm from [NodeSource](https://github.com/nodesource/distributions)
-
-```bash
-# Download and execute the NodeSource installation script:
-cd ~ && curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-# View APT sources list for NodeSource Nodejs 16 repo
-cat /etc/apt/sources.list.d/nodesource.list
-# Install Node.js and npm
-sudo apt install nodejs
-# Install yarn
-sudo npm install --global yarn
-
-# Verify the version of Node.js , npm and yarn
-node -v
-npm -v
-yarn -v
-```
-
-### Install Neovim with [Building Neovim](https://github.com/neovim/neovim/wiki/Building-Neovim)
-
-```bash
-# 1. Install build prerequisites on your system
-sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
-# 2. Clone neovim
-git clone https://github.com/neovim/neovim
-# 3. Set build type determines
-cd neovim
-make distclean && make CMAKE_BUILD_TYPE=Release
-# 4. Install Neovim
-git checkout v0.8.0
-sudo make install
-
-# Check version of Neovim
-nvim -v
-```
-
-```bash
-# Install dependencies for Neovim
-sudo npm install --global neovim tree-sitter-cli
-```
-
-Uninstall Neovim
-
-```bash
-# To uninstall after make install, just delete the CMAKE_INSTALL_PREFIX artifacts
-sudo rm /usr/local/bin/nvim
-sudo rm -r /usr/local/share/nvim/
-```
-
-### Install [fzf](https://github.com/junegunn/fzf) with Git
-
-```bash
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
-```
-
-### Install [lsd](https://github.com/Peltoche/lsd) with dpkg
-
-```bash
-cd ~ && wget https://github.com/Peltoche/lsd/releases/download/0.23.1/lsd_0.23.1_amd64.deb
-sudo dpkg -i lsd_0.23.1_amd64.deb
-```
-
-### Install [fd](https://github.com/sharkdp/fd) with dpkg
-
-```bash
-cd ~ && wget https://github.com/sharkdp/fd/releases/download/v8.4.0/fd_8.4.0_amd64.deb
-sudo dpkg -i fd_8.4.0_amd64.deb
-```
-
-### Install [colorscript](./colorscript/README.md)
-
-```bash
-# Install
-cd ~/.dotfiles/colorscript
-sudo make install
-
-# Removal
-sudo make uninstall
-```
+Install [CLI](./CLI.md)

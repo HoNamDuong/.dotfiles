@@ -1,6 +1,7 @@
 configuration {
     modi: "window,windowcd,run,ssh,drun,combi,keys";
     sidebar-mode: true;
+    show-match: true;
 /* show-icons: true; */
 /*	width: 50;*/
 /*	lines: 15;*/
@@ -52,7 +53,6 @@ configuration {
 /*	fake-background: "screenshot";*/
 /*	window-format: "{w}    {c}   {t}";*/
 /*	click-to-exit: true;*/
-/*	show-match: true;*/
 /*	theme: ;*/
 /*	color-normal: ;*/
 /*	color-urgent: ;*/

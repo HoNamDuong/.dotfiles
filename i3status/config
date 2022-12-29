@@ -34,6 +34,7 @@ order += "tztime localtime"
 # order += "volume mic" 
 order += "volume master"
 
+
 # disk "/" {
 #     format = "<span foreground='#7aa2f7'> </span> %avail "
 #     prefix_type = custom

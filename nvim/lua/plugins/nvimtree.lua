@@ -62,6 +62,7 @@ nvimtree.setup({
             list = {
                 { key = "v", cb = callback("vsplit") },
                 { key = "s", cb = callback("split") },
+                { key = "d", cb = callback("trash") },
             },
         },
     },

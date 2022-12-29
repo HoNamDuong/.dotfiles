@@ -264,3 +264,8 @@ _showcolor256_bg() {
     echo -nE " $code "
     echo -ne "\033[0m"
 }
+
+# Random color script
+if [ -f /usr/local/bin/colorscript ]; then
+    colorscript random
+fi

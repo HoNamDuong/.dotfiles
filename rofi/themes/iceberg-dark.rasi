@@ -132,7 +132,7 @@
     padding:    10px 0;
     text-color: @normal-foreground;
     /* children:   [ prompt ,textbox-prompt-colon ,entry ,case-indicator ]; */
-    children:   [ prompt ,entry ,case-indicator ];
+    children:   [ entry ,case-indicator ];
 }
 #prompt {
     text-color: @normal-foreground;
@@ -146,6 +146,7 @@
 }
 #entry {
     spacing:    0;
+    padding:    0 10px;
     text-color: @normal-foreground;
 }
 #case-indicator {

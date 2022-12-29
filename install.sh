@@ -21,6 +21,8 @@ do
     echo "12 I3"
     echo "13 Alacritty"
     echo "14 Rofi"
+    echo "15 Dunst"
+    echo "16 Picom"
     
     read -p "Enter your choice: " choice
     case $choice in
@@ -184,6 +186,22 @@ do
         # .config/rofi/themes
         [ ! -d $HOME/.config/rofi/themes ] && mkdir -v $HOME/.config/rofi/themes
         ln -sfv $path/rofi/themes/iceberg-dark.rasi $HOME/.config/rofi/themes/iceberg-dark.rasi
+        ;;
+    15)
+        ### Dunst 
+        # .config
+        [ ! -d $HOME/.config ] && mkdir -v $HOME/.config
+        # .config/alacritty
+        [ ! -d $HOME/.config/dunst ] && mkdir -v $HOME/.config/dunst
+        ln -sfv $path/dunst/dunstrc $HOME/.config/dunst/dunstrc
+        ;;
+    16)
+        ### Picom 
+        # .config
+        [ ! -d $HOME/.config ] && mkdir -v $HOME/.config
+        # .config/picom
+        [ ! -d $HOME/.config/picom ] && mkdir -v $HOME/.config/picom
+        ln -sfv $path/picom/picom.conf $HOME/.config/picom/picom.conf
         ;;
     *)
         echo "Sorry, choice understand"
