@@ -4,7 +4,10 @@ window:
   opacity: 0.95
 
 font:
-  size: 14
+  normal:
+    family: JetBrainsMono NF
+
+  size: 13
   builtin_box_drawing: true
 
 # If `true`, bold text is drawn using the bright color variants.

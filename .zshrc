@@ -152,7 +152,7 @@ done
 [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [ -f ~/.zsh/zsh-autopair/autopair.zsh ] && source ~/.zsh/zsh-autopair/autopair.zsh && autopair-init
 [ -f ~/.zsh/z/z.sh ] && . ~/.zsh/z/z.sh
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f /usr/bin/fzf ] && source /usr/share/fzf/completion.zsh && source /usr/share/fzf/key-bindings.zsh
 
 
 
@@ -265,7 +265,7 @@ _showcolor256_bg() {
     echo -ne "\033[0m"
 }
 
-# Random color script
-if [ -f /usr/local/bin/colorscript ]; then
-    colorscript random
-fi
+# # Random color script
+# if [ -f /usr/local/bin/colorscript ]; then
+#     colorscript random
+# fi

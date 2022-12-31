@@ -43,6 +43,8 @@
 
 ## Setup
 
-Install [GUI](./GUI.md) (for Ubuntu)
+Install [OS](./OS.md)
+
+Install [GUI](./GUI.md)
 
 Install [CLI](./CLI.md)

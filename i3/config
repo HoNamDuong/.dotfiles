@@ -1,5 +1,3 @@
-# i3 config file (v4)
-
 # SETTINGS
 
 # Set key $mod
@@ -32,6 +30,12 @@ for_window [class="^.*"] border pixel 2
 default_border pixel 2
 default_floating_border pixel 2
 
+# Configure 10px of space between windows and to the screen edges.
+gaps inner 10
+
+# Only enable outer gaps when there is exactly one window or split container on the workspace.
+smart_gaps on
+
 # Hide borders at the edge of the screen
 hide_edge_borders smart
 
@@ -41,7 +45,7 @@ default_orientation horizontal
 # Set colours various window states
 # detail https://i3wm.org/docs/userguide.html#client_colors
 # class                     border  backgr. text    indicator  child_border
-client.focused              #3b4261 #3b4261 #c8d3f5 #565f89
+client.focused              #565f89 #565f89 #c8d3f5 #565f89 
 client.unfocused            #1a1b26 #16161e #565f89 #1a1b26 
 client.focused_inactive     #1a1b26 #16161e #565f89 #1a1b26
 # client.focused_tab_title    #1a1b26 #16161e #565f89 #1a1b26
@@ -66,8 +70,11 @@ exec --no-startup-id nvidia-settings --load-config-only
 # Start ibus
 exec --no-startup-id ibus-daemon --xim -d -r
 
-# Start compositor
-exec_always --no-startup-id picom
+# Authorized
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+# # Start compositor
+# exec_always --no-startup-id picom
 
 
 
@@ -177,8 +184,7 @@ bindsym --release Ctrl+Print exec --no-startup-id gnome-screenshot -w
 # Open terminal
 bindsym $mod+Return split h exec --no-startup-id i3-sensible-terminal
 bindsym $mod+Shift+Return split v exec --no-startup-id i3-sensible-terminal
-# Control
-bindsym $mod+i exec gnome-control-center 
+
 # Search applications
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -i -fn 'JetBrainsMono NF-12' -nb '#1a1b26' -sb '#3b4261' -sf '#c8d3f5'"
 # Search command
@@ -188,16 +194,12 @@ bindsym $mod+Shift+d exec --no-startup-id dmenu_run -fn 'JetBrainsMono NF-12' -n
 bindsym $mod+p exec --no-startup-id rofi -show drun -show-icons
 # Search command
 bindsym $mod+Shift+p exec --no-startup-id rofi -show run
-# bindsym $mod+d exec --no-startup-id rofi -show drun
 
 # Switching window with Alt+Tab 
 bindsym Mod1+Tab exec --no-startup-id rofi -show window -show-icons
 
 # Build menu power with rofi
-bindsym $mod+F4 exec ~/.config/i3/bin/power
-
-# Rename workspace with i3-input using numbers and text
-bindsym $mod+n exec i3-input -F 'rename workspace to "%s"' -P 'New name for this workspace: '
+bindsym $mod+x exec ~/.config/i3/bin/power
 
 # Resize window (you can also use the mouse for that)
 mode "RESIZE" {
@@ -231,8 +233,8 @@ mode "POWER" {
     bindsym q exec --no-startup-id i3-msg exit, mode "default"
     bindsym r exec systemctl reboot 
     bindsym p exec systemctl poweroff
-    bindsym s exec sudo systemctl suspend
-    bindsym h exec sudo systemctl hibernate 
+    bindsym s exec systemctl suspend
+    bindsym h exec systemctl hibernate 
 
     # Back to normal: Enter or Escape or $mod+Shift+q 
     bindsym Return          mode "default"
@@ -278,19 +280,13 @@ bindsym $mod+Shift+9 move container to workspace number $ws9; workspace $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10; workspace $ws10
 
 # Start applications on specific workspaces
-assign [class="Code"] $ws2
-assign [title="Google Dich"] $ws3
-assign [class="Nautilus"] $ws4
-assign [class="vlc"] $ws6
-assign [class="discord"] $ws8
-assign [class="Telegram"] $ws8
-assign [class="Gnome-control-center"] $ws10
-
-# Assign to certain workspace
+assign [instance="code"] $ws2
+assign [instance="nemo"] $ws4
+assign [instance="vlc"] $ws6
+assign [instance="discord"] $ws8
+assign [instance="telegram"] $ws8
 assign [window_role="browser"] $ws3
 
-# Switch to workspace with urgent window automatically
-for_window [urgent="latest"] focus
 # set specific windows to floating mode
 for_window [window_role="app"] floating enable
 for_window [window_role="pop-up"] floating enable
@@ -299,9 +295,16 @@ for_window [window_role="task_dialog"] floating enable
 for_window [window_role="Preferences"] floating enable
 for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
-for_window [class="feh"] floating enable, resize set 800 450, move position center  
-for_window [class="Gnome-(calendar|calculator|power-statistics)"] floating enable focus
-for_window [class="conky"] border pixel 0 
+for_window [instance="vlc"] floating enable 
+for_window [instance="pavucontrol"] floating enable 
+for_window [instance="nvidia-settings"] floating enable 
+for_window [instance="lxappearance"] floating enable 
+for_window [instance="feh"] floating enable, move position center  
+for_window [instance="conky"] border pixel 0 
+for_window [instance="google-chrome"] border pixel 0 
+
+# Switch to workspace with urgent window automatically
+for_window [urgent="latest"] focus
 
 
 
@@ -309,7 +312,6 @@ for_window [class="conky"] border pixel 0
 
 bar {
     status_command i3status 
-    # status_command i3status | python3 ~/.config/i3status/microphone.py 
     separator_symbol " " 
     workspace_buttons       yes
     strip_workspace_numbers yes
@@ -335,4 +337,4 @@ bar {
     }
 }
 
-exec --no-startup-id sh -c 'sleep 1; i3-msg "workspace $ws9"'
+exec --no-startup-id sh -c 'sleep 1; i3-msg "workspace number $ws9"'

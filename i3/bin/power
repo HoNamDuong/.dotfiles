@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
 # Manage power with rofi
-option=`echo -e "Lock screen\nLogout\nReboot\nPoweroff\nSuspend\nHibernate" | rofi -lines 6 -width 300 -dmenu -p system`
+option=`echo -e "Lock screen\nLogout\nReboot\nPoweroff\nSuspend\nHibernate" | rofi -l 6 -theme-str '\
+#window { width: 200px; }\
+#mainbox { children: [ listview ]; }\
+#listview { scrollbar: false; }\
+' -dmenu -p system`
 
 case $option in
     'Lock screen')
@@ -20,6 +24,6 @@ case $option in
         /usr/bin/systemctl suspend 
         ;;
     'Hibernate')
-        sudo /usr/bin/systemctl hibernate 
+        /usr/bin/systemctl hibernate 
         ;;
 esac

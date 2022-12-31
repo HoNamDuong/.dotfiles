@@ -23,6 +23,7 @@ do
     echo "14 Rofi"
     echo "15 Dunst"
     echo "16 Picom"
+    echo "17 Xprofile"
     
     read -p "Enter your choice: " choice
     case $choice in
@@ -202,6 +203,10 @@ do
         # .config/picom
         [ ! -d $HOME/.config/picom ] && mkdir -v $HOME/.config/picom
         ln -sfv $path/picom/picom.conf $HOME/.config/picom/picom.conf
+        ;;
+    17)
+        ### Xprofile 
+        ln -sfv $path/.xprofile $HOME/.xprofile
         ;;
     *)
         echo "Sorry, choice understand"

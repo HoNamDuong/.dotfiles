@@ -39,8 +39,8 @@ vim.opt.whichwrap:append("<,>,[,],h,l") -- keys allowed to move to the previous/
 -- vim.opt.iskeyword:append("-") -- treats words with `-` as single words
 vim.opt.termguicolors = true -- set term gui colors (most terminals support this)
 vim.opt.jumpoptions = "view" -- preserve view while jumping
-vim.opt.textwidth = 80 -- Maximum width of text that is being inserted
-vim.opt.colorcolumn = "+1" -- Set the colour column to highlight one column after the 'textwidth'
+-- vim.opt.textwidth = 80 -- Maximum width of text that is being inserted
+-- vim.opt.colorcolumn = "+1" -- Set the colour column to highlight one column after the 'textwidth'
 vim.opt.fillchars.eob = " " -- show empty lines at the end of a buffer as ` ` {default `~`}
 vim.opt.fillchars:append({
     horiz = "━",

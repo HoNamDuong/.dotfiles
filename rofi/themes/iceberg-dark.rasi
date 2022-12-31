@@ -14,6 +14,9 @@
 
     spacing:                     1;
 
+    red:                         @palette-red;
+    blue:                        @palette-blue;
+
     /* Base colors */
     background:                  @palette-bg0;
     foreground:                  @palette-fg1;
@@ -76,7 +79,17 @@
     scrollbar:    true;
 }
 #element {
+    border:  0;
     padding: 5px 10px ;                 
+}
+#element-text {
+    background-color: inherit;
+    text-color:       inherit;
+    padding: 0 0 0 10px;
+}
+#element-icon {
+    background-color: inherit;
+    text-color:       inherit;
 }
 #element.normal.normal {
     background-color: @normal-background;
@@ -129,8 +142,7 @@
 
 #inputbar {
     spacing:    0;
-    padding:    10px 0;
-    text-color: @normal-foreground;
+    padding:    8px 0;
     /* children:   [ prompt ,textbox-prompt-colon ,entry ,case-indicator ]; */
     children:   [ entry ,case-indicator ];
 }
