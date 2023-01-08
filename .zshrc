@@ -16,9 +16,9 @@ zle -N down-line-or-beginning-search
 autoload -U colors && colors
 
 # Exports
-export RIPGREP_CONFIG_PATH=~/.ripgreprc
-export EDITOR="nvim"
-export VISUAL="nvim"
+export RIPGREP_CONFIG_PATH=~/.config/ripgrep/.ripgreprc
+export _Z_DATA=~/.cache/.z 
+
 if [ "$TERM" != "xterm-256color" ]; then
     export TERM=xterm-256color
 fi
@@ -70,14 +70,14 @@ setopt HIST_VERIFY # Do not execute immediately upon history expansion.
 
 HISTSIZE=10000
 SAVEHIST=10000
-HISTFILE=~/.zsh_history
+HISTFILE=~/.cache/.zsh_history
 
 
 
 # Basic auto/tab complete:
 autoload -U compinit
 zmodload zsh/complist
-compinit
+compinit -d ~/.cache/.zcompdump
 # Include hidden files.
 _comp_options+=(globdots)
 # Case-insensitive (all), partial-word, and then substring completion.

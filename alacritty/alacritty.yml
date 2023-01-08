@@ -1,11 +1,10 @@
 window:
   decorations: full
-
-  opacity: 0.95
+  # opacity: 0.95
 
 font:
-  normal:
-    family: JetBrainsMono NF
+  # normal:
+  #   family: JetBrainsMono Nerd Font
 
   size: 13
   builtin_box_drawing: true

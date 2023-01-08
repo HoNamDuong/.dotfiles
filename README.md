@@ -16,6 +16,7 @@
   - [i3](https://github.com/i3/i3) - A tiling window manager.
   - [Alacritty](https://github.com/alacritty/alacritty) - A cross-platform, GPU-accelerated terminal emulator.
   - [Rofi](https://github.com/davatorium/rofi) - A window switcher, application launcher and dmenu replacement.
+    - [Rofi](https://github.com/adi1090x/rofi) - A huge collection of Rofi based custom Applets, Launchers & Powermenus..
   - [Dunst](https://github.com/dunst-project/dunst) - A highly configurable and lightweight notification daemon.
   - [picom](https://github.com/yshui/picom) - A lightweight compositor for X11.
   - [conky](https://github.com/brndnmtthws/conky) - Light-weight system monitor for X, that displays any kind of information on your desktop.
@@ -43,8 +44,8 @@
 
 ## Setup
 
-Install [OS](./OS.md)
+Install [OS](./Markdowns/OS.md)
 
-Install [GUI](./GUI.md)
+Install [GUI](./Markdowns/GUI.md)
 
-Install [CLI](./CLI.md)
+Install [CLI](./Markdowns/CLI.md)

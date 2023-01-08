@@ -40,7 +40,11 @@ do
         ;;
     2)
         ### Tmux
-        ln -sfv $path/.tmux.conf $HOME/.tmux.conf
+        # .config
+        [ ! -d $HOME/.config ] && mkdir -v $HOME/.config
+        # .config/tmux
+        [ ! -d $HOME/.config/tmux ] && mkdir -v $HOME/.config/tmux
+        ln -sfv $path/tmux/tmux.conf $HOME/.config/tmux/tmux.conf
         ;;
     3)
         ### Lsd
@@ -59,7 +63,11 @@ do
         ;;
     5)
         ### Tig
-        ln -sfv $path/.tigrc $HOME/.tigrc
+        # .config
+        [ ! -d $HOME/.config ] && mkdir -v $HOME/.config
+        # .config/tig
+        [ ! -d $HOME/.config/tig ] && mkdir -v $HOME/.config/tig
+        ln -sfv $path/tig/config $HOME/.config/tig/config
         ;;
     6)
         ### Htop
@@ -67,7 +75,7 @@ do
         [ ! -d $HOME/.config ] && mkdir -v $HOME/.config
         # .config/htop
         [ ! -d $HOME/.config/htop ] && mkdir -v $HOME/.config/htop
-        ln -sfv $path/htoprc $HOME/.config/htop/htoprc
+        ln -sfv $path/htop/htoprc $HOME/.config/htop/htoprc
         ;;
     7)
         ### Vim
@@ -148,11 +156,19 @@ do
         ;;
     10)
         ### Ripgrep
-        ln -sfv $path/.ripgreprc $HOME/.ripgreprc
+        # .config
+        [ ! -d $HOME/.config ] && mkdir -v $HOME/.config
+        # .config/ripgrep
+        [ ! -d $HOME/.config/ripgrep ] && mkdir -v $HOME/.config/ripgrep
+        ln -sfv $path/ripgrep/.ripgreprc $HOME/.config/ripgrep/.ripgreprc
         ;;
     11)
         ### Conky
-        ln -sfv $path/.conkyrc $HOME/.conkyrc
+        # .config
+        [ ! -d $HOME/.config ] && mkdir -v $HOME/.config
+        # .config/conky
+        [ ! -d $HOME/.config/conky ] && mkdir -v $HOME/.config/conky
+        ln -sfv $path/conky/conky.conf $HOME/.config/conky/conky.conf
         ;;
     12)
         ### I3 
@@ -161,10 +177,6 @@ do
         # .config/i3
         [ ! -d $HOME/.config/i3 ] && mkdir -v $HOME/.config/i3
         ln -sfv $path/i3/config $HOME/.config/i3/config
-        # .config/i3/bin
-        [ ! -d $HOME/.config/i3/bin ] && mkdir -v $HOME/.config/i3/bin
-        ln -sfv $path/i3/bin/power $HOME/.config/i3/bin/power
-        chmod +x ~/.config/i3/bin/power
         # .config/i3status
         [ ! -d $HOME/.config/i3status ] && mkdir -v $HOME/.config/i3status
         ln -sfv $path/i3status/config $HOME/.config/i3status/config
@@ -184,9 +196,22 @@ do
         # .config/rofi
         [ ! -d $HOME/.config/rofi ] && mkdir -v $HOME/.config/rofi
         ln -sfv $path/rofi/config.rasi $HOME/.config/rofi/config.rasi
+        # .config/rofi/bin
+        [ ! -d $HOME/.config/rofi/bin ] && mkdir -v $HOME/.config/rofi/bin
+        ln -sfv $path/rofi/bin/powermenu $HOME/.config/rofi/bin/powermenu
+        chmod +x ~/.config/rofi/bin/powermenu
+        ln -sfv $path/rofi/bin/launcher $HOME/.config/rofi/bin/launcher
+        chmod +x ~/.config/rofi/bin/launcher
+        ln -sfv $path/rofi/bin/apps $HOME/.config/rofi/bin/apps
+        chmod +x ~/.config/rofi/bin/apps
+        ln -sfv $path/rofi/bin/windows $HOME/.config/rofi/bin/windows
+        chmod +x ~/.config/rofi/bin/windows
         # .config/rofi/themes
         [ ! -d $HOME/.config/rofi/themes ] && mkdir -v $HOME/.config/rofi/themes
-        ln -sfv $path/rofi/themes/iceberg-dark.rasi $HOME/.config/rofi/themes/iceberg-dark.rasi
+        ln -sfv $path/rofi/themes/powermenu.rasi $HOME/.config/rofi/themes/powermenu.rasi
+        ln -sfv $path/rofi/themes/apps.rasi $HOME/.config/rofi/themes/apps.rasi
+        ln -sfv $path/rofi/themes/windows.rasi $HOME/.config/rofi/themes/windows.rasi
+        ln -sfv $path/rofi/themes/launcher.rasi $HOME/.config/rofi/themes/launcher.rasi
         ;;
     15)
         ### Dunst 

@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+# Current Theme
+theme="$HOME/.config/rofi/themes/powermenu.rasi"
+
+list_col='6'
+list_row='1'
+
+# Message
+mesg="Uptime : `uptime -p | sed -e 's/up //g'`"
+
+# Options
+shutdown=''
+reboot=''
+lock=''
+suspend=''
+logout=''
+hibernate=""
+
+# Rofi CMD
+rofi_cmd() {
+	rofi \
+        -theme-str "listview {columns: $list_col; lines: $list_row;}" \
+        -dmenu \
+		-mesg "$mesg" \
+		-markup-rows \
+		-theme "$theme"
+}
+
+# Pass variables to rofi dmenu
+run_rofi() {
+	echo -e "$lock\n$suspend\n$logout\n$reboot\n$shutdown\n$hibernate" | rofi_cmd
+}
+
+# Actions
+chosen="$(run_rofi)"
+case ${chosen} in
+    $shutdown)
+        /usr/bin/systemctl poweroff
+        ;;
+    $reboot)
+        /usr/bin/systemctl reboot
+        ;;
+    $lock)
+        i3lock --no-unlock-indicator --pointer=default --color "000000"
+        ;;
+    $suspend)
+        /usr/bin/systemctl suspend 
+        ;;
+    $hibernate)
+        /usr/bin/systemctl suspend 
+        ;;
+    $logout)
+        i3-msg exit
+        ;;
+esac

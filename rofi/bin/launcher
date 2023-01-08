@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+theme="$HOME/.config/rofi/themes/launcher.rasi"
+
+## Run
+rofi \
+    -show run \
+    -theme "$theme"

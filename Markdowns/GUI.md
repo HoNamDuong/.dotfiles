@@ -1,8 +1,6 @@
 ### Update and upgrade
 
-```bash
-sudo pacman -Syu
-```
+    sudo pacman -Syu
 
 ### Optional add nice color to pacman output
 
@@ -67,7 +65,7 @@ Enable Start lightdm
 ### Install packages
 
     # Install i3, lxappearance ...
-    sudo pacman -Sy i3 rofi dunst picom lxappearance dmenu conky ranger alacritty vlc gnome-screenshot
+    sudo pacman -Sy i3 perl-anyevent-i3 rofi dunst picom lxappearance dmenu conky ranger alacritty vlc gnome-screenshot
 
 ### Installing X Window applications (Optional)
 
@@ -101,3 +99,18 @@ Few more optional tools that are recommended we can find in AUR
 ### Run
 
 Log out of your system and log in again. While logging in, be sure to select i3 session as your login screen.
+
+### Add nerd font
+
+Default Font Paths for fontconfig:
+
+    /usr/share/fonts/
+    ~/.local/share/fonts/
+
+### Enable dark mode for google-chrome
+
+     nvim ./.local/share/applications/google-chrome.desktop
+
+Find line include "Exec=" and add:
+
+     --force-dark-mode --enable-features=WebUIDarkMode

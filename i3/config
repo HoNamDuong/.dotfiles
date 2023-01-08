@@ -2,10 +2,11 @@
 
 # Set key $mod
 set $mod Mod4
+set $alt Mod1
 
 # Font for window titles
-# font pango:monospace 8
-font pango:JetBrainsMono NF bold 11
+font pango:monospace 12
+# font pango:JetBrains Mono Nerd Font 11
 
 # Position title
 title_align center
@@ -17,7 +18,7 @@ set $up k
 set $right l
 
 # Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
+floating_modifier $alt
 
 # Focus follows mouse
 focus_follows_mouse no
@@ -178,28 +179,28 @@ bindsym $mod+minus scratchpad show
 
 # Shortcut applications
 # Screenshot
-bindsym --release Print exec --no-startup-id gnome-screenshot
-bindsym --release $mod+Print exec --no-startup-id gnome-screenshot -a
-bindsym --release Ctrl+Print exec --no-startup-id gnome-screenshot -w
+bindsym Print --release exec --no-startup-id gnome-screenshot
+bindsym Ctrl+Print --release exec --no-startup-id gnome-screenshot -w
+bindsym Shift+Print --release exec --no-startup-id gnome-screenshot -a
 # Open terminal
 bindsym $mod+Return split h exec --no-startup-id i3-sensible-terminal
 bindsym $mod+Shift+Return split v exec --no-startup-id i3-sensible-terminal
 
 # Search applications
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -i -fn 'JetBrainsMono NF-12' -nb '#1a1b26' -sb '#3b4261' -sf '#c8d3f5'"
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -i -fn 'JetBrainsMono NF-12' -nf '#c8d3f5' -nb '#1a1b26' -sb '#3b4261' -sf '#c8d3f5'"
 # Search command
 bindsym $mod+Shift+d exec --no-startup-id dmenu_run -fn 'JetBrainsMono NF-12' -nf '#c8d3f5' -nb '#1a1b26' -sf '#c8d3f5' -sb '#3b4261'  
 
 # Search applications
-bindsym $mod+p exec --no-startup-id rofi -show drun -show-icons
+bindcode 133 --release exec --no-startup-id ~/.config/rofi/bin/apps 
 # Search command
-bindsym $mod+Shift+p exec --no-startup-id rofi -show run
+bindsym $mod+p exec --no-startup-id ~/.config/rofi/bin/launcher 
 
 # Switching window with Alt+Tab 
-bindsym Mod1+Tab exec --no-startup-id rofi -show window -show-icons
+bindsym $alt+Tab exec --no-startup-id ~/.config/rofi/bin/windows 
 
 # Build menu power with rofi
-bindsym $mod+x exec ~/.config/i3/bin/power
+bindsym $mod+x exec --no-startup-id ~/.config/rofi/bin/powermenu
 
 # Resize window (you can also use the mouse for that)
 mode "RESIZE" {
@@ -255,7 +256,7 @@ set $ws8  "8:   Chat "
 set $ws9  "9:   General "
 set $ws10 "0:   Settings "
 
-# switch to workspace
+# Switch to workspace
 bindsym $mod+1 workspace number $ws1
 bindsym $mod+2 workspace number $ws2
 bindsym $mod+3 workspace number $ws3
@@ -287,7 +288,7 @@ assign [instance="discord"] $ws8
 assign [instance="telegram"] $ws8
 assign [window_role="browser"] $ws3
 
-# set specific windows to floating mode
+# Set specific windows to floating mode
 for_window [window_role="app"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable
