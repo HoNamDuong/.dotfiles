@@ -1,12 +1,11 @@
 # SETTINGS
-
-# Set key $mod
+# Set key $mod and $alt
 set $mod Mod4
 set $alt Mod1
 
 # Font for window titles
-font pango:monospace 12
-# font pango:JetBrains Mono Nerd Font 11
+# font pango:monospace 12
+font pango:Hack Nerd Font Mono 12
 
 # Position title
 title_align center
@@ -17,7 +16,7 @@ set $down j
 set $up k
 set $right l
 
-# Use Mouse+$mod to drag floating windows to their wanted position
+# Use Mouse+$alt to drag floating windows to their wanted position
 floating_modifier $alt
 
 # Focus follows mouse
@@ -40,8 +39,12 @@ smart_gaps on
 # Hide borders at the edge of the screen
 hide_edge_borders smart
 
-# orientation for new workspaces
+# Orientation for new workspaces
 default_orientation horizontal
+
+# Constraining floating window size
+# floating_minimum_size 300 x 300
+floating_maximum_size 1280 x 720
 
 # Set colours various window states
 # detail https://i3wm.org/docs/userguide.html#client_colors
@@ -57,16 +60,19 @@ client.background           #1a1b26
 
 
 # STARTUP
-
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
 # Set wallpaper with feh
-exec --no-startup-id feh --recursive --bg-fill --randomize ~/Pictures/Wallpapers/
+# exec --no-startup-id feh --no-fehbg --recursive --bg-fill --randomize ~/Pictures/Wallpapers/
+exec --no-startup-id nitrogen --restore
 
 # Load config nvidia-settings
 exec --no-startup-id nvidia-settings --load-config-only
+
+# Enable numlock:
+exec --no-startup-id numlockx
 
 # Start ibus
 exec --no-startup-id ibus-daemon --xim -d -r
@@ -80,7 +86,6 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 
 # BINDING 
-
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
@@ -116,6 +121,9 @@ bindsym $mod+Shift+space floating toggle
 # Change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
+# Move floatng window center
+bindsym $mod+c move absolute position center
+
 # Focus the parent container
 bindsym $mod+a focus parent
 # Focus the child container
@@ -125,7 +133,6 @@ bindsym $mod+Shift+a focus child
 # bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
-
 
 # Change focus
 bindsym $mod+$left focus left
@@ -202,6 +209,88 @@ bindsym $alt+Tab exec --no-startup-id ~/.config/rofi/bin/windows
 # Build menu power with rofi
 bindsym $mod+x exec --no-startup-id ~/.config/rofi/bin/powermenu
 
+# Define names for workspaces
+set $ws1  "1:   Terminal "
+set $ws2  "2:   Code "
+set $ws3  "3:   Chromium "
+set $ws4  "4:   Files "
+set $ws5  "5:   Documents "
+set $ws6  "6:   Media "
+set $ws7  "7:   Design "
+set $ws8  "8:   Chat "
+set $ws9  "9:   General "
+set $ws10 "0:   Settings "
+
+# Switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# Move to workspace with focused container
+bindsym $mod+Shift+1 move container to workspace number $ws1; workspace $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2; workspace $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3; workspace $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4; workspace $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5; workspace $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6; workspace $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7; workspace $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8; workspace $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9; workspace $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10; workspace $ws10
+
+
+
+# SETTINGS WORKSPACES AND APPLICATIONS
+# Start applications on specific workspaces
+assign [instance="code"] $ws2
+assign [instance="nemo"] $ws4
+assign [instance="vlc"] $ws6
+assign [instance="discord"] $ws8
+assign [instance="telegram"] $ws8
+assign [window_role="(?i)browser"] $ws3
+
+# # Enable window icons for all windows with extra horizontal padding of 1px
+# for_window [all] title_window_icon padding 10px
+
+# make a terminal sticky that was started as a notepad
+for_window [instance="mousepad"] sticky enable
+
+# Set specific windows to floating mode
+# for_window [window_role="app"] floating enable
+for_window [window_role="pop-up"] floating enable
+# for_window [window_role="bubble"] floating enable
+# for_window [window_role="task_dialog"] floating enable
+# for_window [window_role="Preferences"] floating enable
+# for_window [window_type="dialog"] floating enable
+# for_window [window_type="menu"] floating enable
+for_window [instance="vlc"] floating enable 
+for_window [instance="pavucontrol"] floating enable 
+for_window [instance="nvidia-settings"] floating enable 
+for_window [instance="lxappearance"] floating enable 
+for_window [instance="mousepad"] floating enable 
+for_window [instance="nitrogen"] floating enable 
+for_window [instance="spotify"] floating enable, move window to workspace $ws6 
+for_window [instance="feh"] floating enable, move position center  
+for_window [instance="conky"] border pixel 0 
+for_window [window_role="(?i)browser"] border pixel 0 
+
+# Switch to workspace with urgent window automatically
+for_window [urgent="latest"] focus
+
+# Inner and outer gaps for all windows on a specific workspace.
+workspace $ws9 gaps horizontal 100
+workspace $ws9 gaps vertical 20
+
+
+
+# SETTING MODES
 # Resize window (you can also use the mouse for that)
 mode "RESIZE" {
     # These bindings trigger as soon as you enter the resize mode
@@ -244,85 +333,156 @@ mode "POWER" {
 }
 bindsym $mod+Shift+q mode "POWER"
 
-# Define names for workspaces
-set $ws1  "1:   Terminal "
-set $ws2  "2:   Code "
-set $ws3  "3:   Chromium "
-set $ws4  "4:   Files "
-set $ws5  "5:   Documents "
-set $ws6  "6:   Media "
-set $ws7  "7:   Design "
-set $ws8  "8:   Chat "
-set $ws9  "9:   General "
-set $ws10 "0:   Settings "
+# Change gaps mode
+set $mode_gaps GAPS (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_horiz Horizontal Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_verti Vertical Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_top Top Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_right Right Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_bottom Bottom Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_left Left Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+g mode "$mode_gaps"
 
-# Switch to workspace
-bindsym $mod+1 workspace number $ws1
-bindsym $mod+2 workspace number $ws2
-bindsym $mod+3 workspace number $ws3
-bindsym $mod+4 workspace number $ws4
-bindsym $mod+5 workspace number $ws5
-bindsym $mod+6 workspace number $ws6
-bindsym $mod+7 workspace number $ws7
-bindsym $mod+8 workspace number $ws8
-bindsym $mod+9 workspace number $ws9
-bindsym $mod+0 workspace number $ws10
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym h      mode "$mode_gaps_horiz"
+        bindsym v      mode "$mode_gaps_verti"
+        bindsym t      mode "$mode_gaps_top"
+        bindsym r      mode "$mode_gaps_right"
+        bindsym b      mode "$mode_gaps_bottom"
+        bindsym l      mode "$mode_gaps_left"
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
 
-# Move to workspace with focused container
-bindsym $mod+Shift+1 move container to workspace number $ws1; workspace $ws1
-bindsym $mod+Shift+2 move container to workspace number $ws2; workspace $ws2
-bindsym $mod+Shift+3 move container to workspace number $ws3; workspace $ws3
-bindsym $mod+Shift+4 move container to workspace number $ws4; workspace $ws4
-bindsym $mod+Shift+5 move container to workspace number $ws5; workspace $ws5
-bindsym $mod+Shift+6 move container to workspace number $ws6; workspace $ws6
-bindsym $mod+Shift+7 move container to workspace number $ws7; workspace $ws7
-bindsym $mod+Shift+8 move container to workspace number $ws8; workspace $ws8
-bindsym $mod+Shift+9 move container to workspace number $ws9; workspace $ws9
-bindsym $mod+Shift+0 move container to workspace number $ws10; workspace $ws10
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
 
-# Start applications on specific workspaces
-assign [instance="code"] $ws2
-assign [instance="nemo"] $ws4
-assign [instance="vlc"] $ws6
-assign [instance="discord"] $ws8
-assign [instance="telegram"] $ws8
-assign [window_role="browser"] $ws3
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
 
-# Set specific windows to floating mode
-for_window [window_role="app"] floating enable
-for_window [window_role="pop-up"] floating enable
-for_window [window_role="bubble"] floating enable
-for_window [window_role="task_dialog"] floating enable
-for_window [window_role="Preferences"] floating enable
-for_window [window_type="dialog"] floating enable
-for_window [window_type="menu"] floating enable
-for_window [instance="vlc"] floating enable 
-for_window [instance="pavucontrol"] floating enable 
-for_window [instance="nvidia-settings"] floating enable 
-for_window [instance="lxappearance"] floating enable 
-for_window [instance="feh"] floating enable, move position center  
-for_window [instance="conky"] border pixel 0 
-for_window [instance="google-chrome"] border pixel 0 
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
 
-# Switch to workspace with urgent window automatically
-for_window [urgent="latest"] focus
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_horiz" {
+        bindsym plus  gaps horizontal current plus 5
+        bindsym minus gaps horizontal current minus 5
+        bindsym 0     gaps horizontal current set 0
+
+        bindsym Shift+plus  gaps horizontal all plus 5
+        bindsym Shift+minus gaps horizontal all minus 5
+        bindsym Shift+0     gaps horizontal all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_verti" {
+        bindsym plus  gaps vertical current plus 5
+        bindsym minus gaps vertical current minus 5
+        bindsym 0     gaps vertical current set 0
+
+        bindsym Shift+plus  gaps vertical all plus 5
+        bindsym Shift+minus gaps vertical all minus 5
+        bindsym Shift+0     gaps vertical all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_top" {
+        bindsym plus  gaps top current plus 5
+        bindsym minus gaps top current minus 5
+        bindsym 0     gaps top current set 0
+
+        bindsym Shift+plus  gaps top all plus 5
+        bindsym Shift+minus gaps top all minus 5
+        bindsym Shift+0     gaps top all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_right" {
+        bindsym plus  gaps right current plus 5
+        bindsym minus gaps right current minus 5
+        bindsym 0     gaps right current set 0
+
+        bindsym Shift+plus  gaps right all plus 5
+        bindsym Shift+minus gaps right all minus 5
+        bindsym Shift+0     gaps right all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_bottom" {
+        bindsym plus  gaps bottom current plus 5
+        bindsym minus gaps bottom current minus 5
+        bindsym 0     gaps bottom current set 0
+
+        bindsym Shift+plus  gaps bottom all plus 5
+        bindsym Shift+minus gaps bottom all minus 5
+        bindsym Shift+0     gaps bottom all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_left" {
+        bindsym plus  gaps left current plus 5
+        bindsym minus gaps left current minus 5
+        bindsym 0     gaps left current set 0
+
+        bindsym Shift+plus  gaps left all plus 5
+        bindsym Shift+minus gaps left all minus 5
+        bindsym Shift+0     gaps left all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
 
 
 
 # BAR AND COLOR BAR
-
 bar {
+    output primary
+
+    # i3bar_command i3bar --transparency
     status_command i3status 
-    separator_symbol " " 
-    workspace_buttons       yes
+    position top
+
+    # Minimal width for workspace buttons
+    workspace_min_width 100
+
+    # Strip workspace numbers/name
     strip_workspace_numbers yes
+    strip_workspace_name no
 
     # Disabling mouse scroll workspace switching on bar 
     bindsym button4         nop
     bindsym button5         nop
 
-    # mode dock
-    position top
+    tray_output primary
+    tray_padding 0
+
+    # height 22
+
+    separator_symbol " " 
+
     colors {
         # Whole color settings
         background #1a1b26 

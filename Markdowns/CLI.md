@@ -19,7 +19,7 @@ chsh -s $(which zsh)
 # Clone .dotfiles
 cd ~ && git clone https://github.com/HoNamDuong/.dotfiles.git
 # Config git credential
-git config --global credential.helper "store --file ~/.git-credentials"
+git config --global credential.helper "store --file ~/.config/git/.git-credentials"
 git config --global user.email "example@domain.com"
 git config --global user.name "username"
 

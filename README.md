@@ -1,4 +1,4 @@
-<h1 align="center">dotfiles ❤ ~/</h1>
+<h1 align="center"> ❤ ~/.dotfiles</h1>
 
 ![Screenshot](./Images/Screenshot.png)
 

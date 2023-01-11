@@ -50,7 +50,7 @@ memory {
 
 volume master {
     format = "<span foreground='#7aa2f7'> </span>%volume"
-    format_muted = "婢 %volume"
+    format_muted = "婢 muted"
     device = "default"
     mixer = "Master"
     mixer_idx = 0

@@ -2,6 +2,14 @@
 
     sudo pacman -Syu
 
+    sudo timedatectl set-ntp
+    timedatectl status
+
+### Install font
+
+    sudo pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
+    sudo pacman -S ttf-hack-nerd
+
 ### Optional add nice color to pacman output
 
 The final touch is to add some color to the package manager
@@ -17,6 +25,7 @@ The final touch is to add some color to the package manager
     git clone https://aur.archlinux.org/yay.git && \
     cd yay && \
     makepkg -si && \
+    yay --editmenu --nodiffmenu --save
 
 ### Installing Xorg packages, i3 and video drivers
 
@@ -31,41 +40,29 @@ The first step is to disable Intel Integrated Graphics Controller
     echo “install i915 /bin/false” | sudo tee --append /etc/modprobe.d/blacklist.conf && \
     cat /etc/modprobe.d/blacklist.conf
 
-
-    sudo pacman -S nvidia nvidia-utils nvidia-settings xorg-server xorg-apps xorg-xinit i3 numlockx -noconfirm -needed
+    sudo pacman -S nvidia nvidia-utils nvidia-settings xorg-server xorg-apps xorg-xinit --noconfirm --needed
+    sudo pacman -S vulkan-icd-loader
+    mkinitcpio -P
 
 Note: Nvidia non open source drivers may conflict with nouveau OS drivers and in below case to make drivers work I needed to blacklist nouveau drivers
 
     cat /usr/lib/modprobe.d/nvidia.conf
     blacklist nouveau
 
-### Install Display manager
+Install i3
 
-I am using lightdm as is very light and fast display manager but you can install any other Display Manager you are familiar with. Ex. GDM, LXDM, XDM etc.
+    sudo pacman -S i3 perl-anyevent-i3 alacritty --noconfirm --needed
 
-    sudo pacman -S lightdm lightdm-gtk-greeter --noconfirm --needed
+### Install packages
 
-Enable Start lightdm
-
-    sudo systemctl enable lightdm && \
-    sudo systemctl start lightdm
-
-### Configure lightdm
-
-    grep 'autologin-user=\|autologin-session=\|greeter-session=' /etc/lightdm/lightdm.conf && \
-    sudo sed -i 's/#autologin-user=/autologin-user=$USER/g' /etc/lightdm/lightdm.conf && \
-    sudo sed -i 's/#autologin-session=/autologin-session=i3/g' /etc/lightdm/lightdm.conf && \
-    sudo sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-gtk-greeter/g' /etc/lightdm/lightdm.conf && \
-    grep 'autologin-user=\|autologin-session=\|greeter-session=' /etc/lightdm/lightdm.conf
+    # Install rofi, lxappearance ...
+    sudo pacman -Sy rofi dunst picom lxappearance dmenu conky ranger vlc numlockx feh w3m nitrogen gnome-screenshot
 
 ### Installing sound drivers and tools
 
     sudo pacman -S alsa-utils alsa-plugins alsa-lib pavucontrol pipewire pipewire-pulse --noconfirm --needed
-
-### Install packages
-
-    # Install i3, lxappearance ...
-    sudo pacman -Sy i3 perl-anyevent-i3 rofi dunst picom lxappearance dmenu conky ranger alacritty vlc gnome-screenshot
+    systemctl --user enable pipewire.service
+    systemctl --user enable pipewire-pulse.service
 
 ### Installing X Window applications (Optional)
 
@@ -80,7 +77,7 @@ Few more optional tools that are recommended we can find in AUR
     # Clone .dotfiles
     cd ~ && git clone https://github.com/HoNamDuong/.dotfiles.git
     # Config git credential
-    git config --global credential.helper "store --file ~/.git-credentials"
+    git config --global credential.helper "store --file ~/.config/git/git-credentials"
     git config --global user.email "example@domain.com"
     git config --global user.name "username"
 
@@ -94,7 +91,7 @@ Few more optional tools that are recommended we can find in AUR
 
 ### File manager
 
-    sudo pacman -S nemo nemo-fileroller
+    sudo pacman -S nemo nemo-fileroller ntfs-3g
 
 ### Run
 
@@ -109,8 +106,29 @@ Default Font Paths for fontconfig:
 
 ### Enable dark mode for google-chrome
 
-     nvim ./.local/share/applications/google-chrome.desktop
+    cp /usr/share/applications/google-chrome.desktop ~/.local/share/applications/google-chrome.desktop
+
+    nvim ~/.local/share/applications/google-chrome.desktop
 
 Find line include "Exec=" and add:
 
      --force-dark-mode --enable-features=WebUIDarkMode
+
+### Install Display manager
+
+I am using lightdm as is very light and fast display manager but you can install any other Display Manager you are familiar with. Ex. GDM, LXDM, XDM etc.
+
+    sudo pacman -S lightdm lightdm-gtk-greeter --noconfirm --needed
+
+### Configure lightdm
+
+    grep 'autologin-user=\|autologin-session=\|greeter-session=' /etc/lightdm/lightdm.conf && \
+    sudo sed -i 's/#autologin-user=/autologin-user=$USER/g' /etc/lightdm/lightdm.conf && \
+    sudo sed -i 's/#autologin-session=/autologin-session=i3/g' /etc/lightdm/lightdm.conf && \
+    sudo sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-gtk-greeter/g' /etc/lightdm/lightdm.conf && \
+    grep 'autologin-user=\|autologin-session=\|greeter-session=' /etc/lightdm/lightdm.conf
+
+Enable Start lightdm
+
+    sudo systemctl enable lightdm && \
+    sudo systemctl start lightdm

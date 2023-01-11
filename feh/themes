@@ -1,0 +1,7 @@
+feh \
+--image-bg black \
+--draw-filename \
+--draw-actions \
+--geometry 800x480 \
+--auto-zoom \
+--scale-down

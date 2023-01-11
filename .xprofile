@@ -1,12 +1,20 @@
 # Monitor config
-xrandr --output HDMI-0 --mode 1600x900
+xrandr --output HDMI-0 --primary --mode 1600x900
 
 # Environment variables set everywhere
 export EDITOR="nvim"
 export TERMINAL="alacritty"
-export BROWSER="google-chrome"
+export BROWSER="google-chrome-stable --force-dark-mode --enable-features=WebUIDarkMode"
+
+export GTK_IM_MODULE="ibus"
+export QT_IM_MODULE="ibus"
+export XMODIFIERS="@im=ibus"
+
+export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
+
+export ZDOTDIR="$HOME/.config/zsh"
 
 # XDG Paths
-export XDG_CONFIG_HOME=$HOME/.config
-export XDG_CACHE_HOME=$HOME/.cache
-export XDG_DATA_HOME=$HOME/.local/share
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"

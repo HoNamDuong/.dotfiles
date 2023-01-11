@@ -6,6 +6,9 @@ stty stop undef
 #     [ -z "$TMUX" ] && exec tmux
 # esac
 
+# Show last command name
+preexec() { print -Pn "\e]0;$1\a" }
+
 # Autoload
 autoload -U select-word-style
 select-word-style bash
@@ -14,10 +17,10 @@ autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 autoload -U colors && colors
+[ ! -d $HOME/.cache/zsh ] && mkdir -v $HOME/.cache/zsh
 
 # Exports
-export RIPGREP_CONFIG_PATH=~/.config/ripgrep/.ripgreprc
-export _Z_DATA=~/.cache/.z 
+export _Z_DATA=~/.cache/zsh/.z 
 
 if [ "$TERM" != "xterm-256color" ]; then
     export TERM=xterm-256color
@@ -70,14 +73,14 @@ setopt HIST_VERIFY # Do not execute immediately upon history expansion.
 
 HISTSIZE=10000
 SAVEHIST=10000
-HISTFILE=~/.cache/.zsh_history
+HISTFILE=~/.cache/zsh/.zsh_history
 
 
 
 # Basic auto/tab complete:
 autoload -U compinit
 zmodload zsh/complist
-compinit -d ~/.cache/.zcompdump
+compinit -d ~/.cache/zsh/.zcompdump
 # Include hidden files.
 _comp_options+=(globdots)
 # Case-insensitive (all), partial-word, and then substring completion.
@@ -148,10 +151,10 @@ done
 
 
 # Plugins
-[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-[ -f ~/.zsh/zsh-autopair/autopair.zsh ] && source ~/.zsh/zsh-autopair/autopair.zsh && autopair-init
-[ -f ~/.zsh/z/z.sh ] && . ~/.zsh/z/z.sh
+[ -f ~/.local/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source ~/.local/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+[ -f ~/.local/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source ~/.local/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[ -f ~/.local/share/zsh/zsh-autopair/autopair.zsh ] && source ~/.local/share/zsh/zsh-autopair/autopair.zsh && autopair-init
+[ -f ~/.local/share/zsh/z/z.sh ] && . ~/.local/share/zsh/z/z.sh
 [ -f /usr/bin/fzf ] && source /usr/share/fzf/completion.zsh && source /usr/share/fzf/key-bindings.zsh
 
 

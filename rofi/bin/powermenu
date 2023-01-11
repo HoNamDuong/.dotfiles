@@ -10,12 +10,20 @@ list_row='1'
 mesg="Uptime : `uptime -p | sed -e 's/up //g'`"
 
 # Options
+# shutdown=' Shutdown'
+# reboot=' Reboot'
+# lock=' Lock'
+# suspend=' Suspend'
+# logout=' Logout'
+# hibernate=" Hibernate"
+
 shutdown=''
 reboot=''
 lock=''
 suspend=''
 logout=''
 hibernate=""
+
 
 # Rofi CMD
 rofi_cmd() {
@@ -29,28 +37,28 @@ rofi_cmd() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-	echo -e "$lock\n$suspend\n$logout\n$reboot\n$shutdown\n$hibernate" | rofi_cmd
+	echo -e "$lock\n$logout\n$reboot\n$shutdown\n$suspend\n$hibernate" | rofi_cmd
 }
 
 # Actions
 chosen="$(run_rofi)"
 case ${chosen} in
-    $shutdown)
-        /usr/bin/systemctl poweroff
+    $lock)
+        i3lock --no-unlock-indicator --pointer=default --color "000000"
+        ;;
+    $logout)
+        i3-msg exit
         ;;
     $reboot)
         /usr/bin/systemctl reboot
         ;;
-    $lock)
-        i3lock --no-unlock-indicator --pointer=default --color "000000"
+    $shutdown)
+        /usr/bin/systemctl poweroff
         ;;
     $suspend)
         /usr/bin/systemctl suspend 
         ;;
     $hibernate)
         /usr/bin/systemctl suspend 
-        ;;
-    $logout)
-        i3-msg exit
         ;;
 esac
