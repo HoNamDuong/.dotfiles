@@ -31,7 +31,8 @@ BWhite='\033[1;37m'       # White
 [ ! -d $HOME/.config ] && mkdir -v $HOME/.config
 [ ! -d $HOME/.config/git ] && mkdir -v $HOME/.config/git
 [ ! -f ~/.config/git/config ] &&  touch ~/.config/git/config && echo "Create file config for git" 
-[ ! -f ~/.xprofile ] && ln -sfv $DIR/.xprofile $HOME/.xprofile && echo "Add file .xprofile"
+[ ! -f ~/.xprofile ] && ln -sfv $DIR/x/.xprofile $HOME/.xprofile && echo "Add file .xprofile"
+[ ! -f ~/.Xresources ] && ln -sfv $DIR/x/.Xresources $HOME/.Xresources && echo "Add file .Xresources"
 
 while :
 do
@@ -105,19 +106,19 @@ do
         ;;
     7)
         ### Vim
-        ln -sfv $DIR/.vimrc $HOME/.vimrc
+        ln -sfv $DIR//vim/.vimrc $HOME/.vimrc
         [ ! -d $HOME/.vim ] && mkdir -v $HOME/.vim
-        ln -sfv $DIR/.vim/mappings.vim $HOME/.vim/mappings.vim
-        ln -sfv $DIR/.vim/settings.vim $HOME/.vim/settings.vim
-        ln -sfv $DIR/.vim/statusline.vim $HOME/.vim/statusline.vim
-        ln -sfv $DIR/.vim/plugins.vim $HOME/.vim/plugins.vim
+        ln -sfv $DIR/vim/mappings.vim $HOME/.vim/mappings.vim
+        ln -sfv $DIR/vim/settings.vim $HOME/.vim/settings.vim
+        ln -sfv $DIR/vim/statusline.vim $HOME/.vim/statusline.vim
+        ln -sfv $DIR/vim/plugins.vim $HOME/.vim/plugins.vim
         # .vim/plug-config
-        [ ! -d $HOME/.vim/plug-config ] && mkdir -v $HOME/.vim/plug-config
-        ln -sfv $DIR/.vim/plug-config/fzf.vim $HOME/.vim/plug-config/fzf.vim
-        ln -sfv $DIR/.vim/plug-config/nerdcommenter.vim $HOME/.vim/plug-config/nerdcommenter.vim
-        ln -sfv $DIR/.vim/plug-config/nerdtree.vim $HOME/.vim/plug-config/nerdtree.vim
-        ln -sfv $DIR/.vim/plug-config/onedark.vim $HOME/.vim/plug-config/onedark.vim
-        ln -sfv $DIR/.vim/plug-config/buftabline.vim $HOME/.vim/plug-config/buftabline.vim
+        [ ! -d $HOME/vim/plug-config ] && mkdir -v $HOME/.vim/plug-config
+        ln -sfv $DIR/vim/plug-config/fzf.vim $HOME/.vim/plug-config/fzf.vim
+        ln -sfv $DIR/vim/plug-config/nerdcommenter.vim $HOME/.vim/plug-config/nerdcommenter.vim
+        ln -sfv $DIR/vim/plug-config/nerdtree.vim $HOME/.vim/plug-config/nerdtree.vim
+        ln -sfv $DIR/vim/plug-config/onedark.vim $HOME/.vim/plug-config/onedark.vim
+        ln -sfv $DIR/vim/plug-config/buftabline.vim $HOME/.vim/plug-config/buftabline.vim
         ;;
     8)
         ### Nvim
