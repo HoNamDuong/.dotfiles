@@ -55,6 +55,7 @@ do
     echo "15 Dunst"
     echo "16 Picom"
     echo "17 Feh"
+    echo "18 Awesome"
     
     read -p "Enter your choice: " choice
     case $choice in
@@ -242,6 +243,15 @@ do
         # .config/feh
         [ ! -d $HOME/.config/feh ] && mkdir -v $HOME/.config/feh
         ln -sfv $DIR/feh/themes $HOME/.config/feh/themes
+        ;;
+    18)
+        ### Awesome 
+        # .config/awesome
+        [ ! -d $HOME/.config/awesome ] && mkdir -v $HOME/.config/awesome
+        ln -sfv $DIR/awesome/theme.lua $HOME/.config/awesome/theme.lua
+        ln -sfv $DIR/awesome/rc.lua $HOME/.config/awesome/rc.lua
+        git clone https://github.com/lcpz/lain.git ~/.config/awesome/lain
+        git clone https://github.com/lcpz/awesome-freedesktop.git ~/.config/awesome/freedesktop
         ;;
     *)
         echo "Sorry, choice understand"
