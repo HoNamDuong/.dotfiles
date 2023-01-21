@@ -56,7 +56,8 @@ Install i3
 ### Install packages
 
     # Install rofi, lxappearance ...
-    sudo pacman -Sy rofi dunst picom lxappearance dmenu conky ranger vlc numlockx feh w3m nitrogen gnome-screenshot
+    sudo pacman -S rofi dunst picom lxappearance dmenu conky ranger vlc numlockx feh
+    sudo pacman -S w3m imagemagick nitrogen gnome-screenshot
 
 ### Installing sound drivers and tools
 

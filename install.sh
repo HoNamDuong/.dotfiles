@@ -56,6 +56,7 @@ do
     echo "16 Picom"
     echo "17 Feh"
     echo "18 Awesome"
+    echo "19 Neofetch"
     
     read -p "Enter your choice: " choice
     case $choice in
@@ -91,7 +92,7 @@ do
         ;;
     4)
         # Dircolors
-        ln -sfv $DIR/.dircolors $HOME/.dircolors
+        ln -sfv $DIR/dircolors/.dircolors $HOME/.dircolors
         ;;
     5)
         ### Tig
@@ -252,6 +253,12 @@ do
         ln -sfv $DIR/awesome/rc.lua $HOME/.config/awesome/rc.lua
         git clone https://github.com/lcpz/lain.git ~/.config/awesome/lain
         git clone https://github.com/lcpz/awesome-freedesktop.git ~/.config/awesome/freedesktop
+        ;;
+    19)
+        ### Neofetch 
+        # .config/neofetch
+        [ ! -d $HOME/.config/neofetch ] && mkdir -v $HOME/.config/neofetch
+        ln -sfv $DIR/neofetch/config.conf $HOME/.config/neofetch/config.conf
         ;;
     *)
         echo "Sorry, choice understand"
