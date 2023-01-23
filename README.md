@@ -2,14 +2,6 @@
 
 ![Screenshot](./Images/Screenshot.png)
 
-<p align="center">
-    <b>Screenshots</b><br>
-    <a href="">Rofi</a>&nbsp;&nbsp;&nbsp;
-    <a href="">Dunst</a>&nbsp;&nbsp;&nbsp;
-    <a href="">Zsh</a>&nbsp;&nbsp;&nbsp;
-    <a href="">tmux</a>&nbsp;&nbsp;&nbsp;
-</p>
-
 ## Details
 
 - GUI
@@ -20,7 +12,10 @@
   - [Dunst](https://github.com/dunst-project/dunst) - A highly configurable and lightweight notification daemon.
   - [picom](https://github.com/yshui/picom) - A lightweight compositor for X11.
   - [conky](https://github.com/brndnmtthws/conky) - Light-weight system monitor for X, that displays any kind of information on your desktop.
-  - [Feh](https://feh.finalrewind.org/) - Wallpaper.
+  - [nitrogen](https://github.com/l3ib/nitrogen) - Background browser and setter for X windows.
+  - [VLC media player](https://www.videolan.org/vlc/) - VLC is a free and open source cross-platform multimedia player and framework.
+  - [Feh](https://feh.finalrewind.org/) - A fast and light image viewer.
+  - [Nemo](https://github.com/linuxmint/nemo) - Nemo is the file manager.
 - CLI
   - [Zsh](https://github.com/zsh-users/zsh) - A shell designed for interactive use, although it is also a powerful scripting language.
     - [z](https://github.com/rupa/z) - Tracks your most used directories, based on frecency.
@@ -37,15 +32,15 @@
     - [which-key.nvim](https://github.com/folke/which-key.nvim) - Displays a popup with possible keybindings of the command you started typing.
   - [tig](https://github.com/jonas/tig) - Text-mode interface for Git.
   - [htop](https://github.com/htop-dev/htop) - An interactive process viewer.
+  - [ranger](https://github.com/ranger/ranger) - Ranger is a console file manager with VI key bindings.
   - [LSD](https://github.com/Peltoche/lsd) - GNU ls with lots of added features like colors, icons, tree-view, more formatting options etc.
   - [fzf](https://github.com/junegunn/fzf) - A command-line fuzzy finder.
   - [ripgrep](https://github.com/BurntSushi/ripgrep) - A line-oriented search tool that recursively searches directories for a regex pattern.
+  - [cava](https://github.com/karlstav/cava) - Cross-platform Audio Visualizer.
   - [colorscript](https://gitlab.com/dwt1/shell-color-scripts) - A collection of terminal color scripts.
 
-## Setup
+## Install and setup
 
-Install [OS](./Markdowns/OS.md)
+Dual boot Windows 10 and Arch linux [here](./Markdowns/DUAL.md)
 
-Install [GUI](./Markdowns/GUI.md)
-
-Install [CLI](./Markdowns/CLI.md)
+Setup for Arch [here](./Markdowns/SETUP.md)

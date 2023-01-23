@@ -260,6 +260,8 @@ assign [instance="nemo"] $ws4
 assign [instance="vlc"] $ws6
 assign [instance="discord"] $ws8
 assign [instance="telegram"] $ws8
+assign [instance="(?i)dbeaver"] $ws5
+assign [instance="postman"] $ws5
 assign [window_role="(?i)browser"] $ws3
 
 # # Enable window icons for all windows with extra horizontal padding of 1px

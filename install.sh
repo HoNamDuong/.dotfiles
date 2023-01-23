@@ -57,6 +57,7 @@ do
     echo "17 Feh"
     echo "18 Awesome"
     echo "19 Neofetch"
+    echo "20 Cava"
     
     read -p "Enter your choice: " choice
     case $choice in
@@ -259,6 +260,12 @@ do
         # .config/neofetch
         [ ! -d $HOME/.config/neofetch ] && mkdir -v $HOME/.config/neofetch
         ln -sfv $DIR/neofetch/config.conf $HOME/.config/neofetch/config.conf
+        ;;
+    20)
+        ### Cava 
+        # .config/cava
+        [ ! -d $HOME/.config/cava ] && mkdir -v $HOME/.config/cava
+        ln -sfv $DIR/cava/config $HOME/.config/cava/config
         ;;
     *)
         echo "Sorry, choice understand"
