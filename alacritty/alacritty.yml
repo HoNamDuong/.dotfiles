@@ -18,7 +18,6 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
-# TokyoNight Alacritty Colors
 colors:
   # Default colors
   primary:
@@ -59,8 +58,6 @@ selection:
   save_to_clipboard: true
 
 key_bindings:
-  - { key: V, mods: Control|Shift, action: Paste }
-  - { key: C, mods: Control|Shift, action: Copy }
   - { key: Space, mods: Control, chars: "\x00" }
   - { key: Back, mods: Control, chars: "\u0017" }
   - { key: Return, mods: Control|Shift, action: SpawnNewInstance }

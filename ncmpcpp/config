@@ -1,0 +1,13 @@
+### Connection settings ###
+mpd_host = "localhost"
+mpd_port = "6600"  
+mpd_music_dir = "~/Music"  
+
+### Music visualizer ###
+# visualizer_in_stereo = "no"
+visualizer_type = "spectrum"
+visualizer_look = "●●"
+
+### Progress bar ###
+progressbar_look = "▂▂▂"
+progressbar_elapsed_color = "yellow"

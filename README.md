@@ -8,19 +8,20 @@
   - [i3](https://github.com/i3/i3) - A tiling window manager.
   - [Alacritty](https://github.com/alacritty/alacritty) - A cross-platform, GPU-accelerated terminal emulator.
   - [Rofi](https://github.com/davatorium/rofi) - A window switcher, application launcher and dmenu replacement.
-    - [Rofi](https://github.com/adi1090x/rofi) - A huge collection of Rofi based custom Applets, Launchers & Powermenus..
+    - [Rofi collection](https://github.com/adi1090x/rofi) - A huge collection of Rofi based custom Applets, Launchers & Powermenus..
   - [Dunst](https://github.com/dunst-project/dunst) - A highly configurable and lightweight notification daemon.
   - [picom](https://github.com/yshui/picom) - A lightweight compositor for X11.
-  - [conky](https://github.com/brndnmtthws/conky) - Light-weight system monitor for X, that displays any kind of information on your desktop.
+  - [Conky](https://github.com/brndnmtthws/conky) - Light-weight system monitor for X, that displays any kind of information on your desktop.
   - [nitrogen](https://github.com/l3ib/nitrogen) - Background browser and setter for X windows.
   - [VLC media player](https://www.videolan.org/vlc/) - VLC is a free and open source cross-platform multimedia player and framework.
   - [Feh](https://feh.finalrewind.org/) - A fast and light image viewer.
   - [Nemo](https://github.com/linuxmint/nemo) - Nemo is the file manager.
+  - [Thunderbird](https://www.thunderbird.net/) - Thunderbird is a free email application that's easy to set up and customize - and it's loaded with great features.
 - CLI
-  - [Zsh](https://github.com/zsh-users/zsh) - A shell designed for interactive use, although it is also a powerful scripting language.
+  - [zsh](https://github.com/zsh-users/zsh) - A shell designed for interactive use, although it is also a powerful scripting language.
     - [z](https://github.com/rupa/z) - Tracks your most used directories, based on frecency.
   - [tmux](https://github.com/tmux/tmux) - A terminal multiplexer.
-  - [Neovim](https://github.com/neovim/neovim) - Hyperextensible Vim-based text editor.
+  - [nvim](https://github.com/neovim/neovim) - Hyperextensible Vim-based text editor.
     - [mason.nvim](https://github.com/williamboman/mason.nvim) - Easily install and manage LSP servers, DAP servers, linters, and formatters.
     - [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) - A parser generator tool and an incremental parsing library.
     - [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua) - A File Explorer For Neovim Written In Lua.
@@ -33,10 +34,12 @@
   - [tig](https://github.com/jonas/tig) - Text-mode interface for Git.
   - [htop](https://github.com/htop-dev/htop) - An interactive process viewer.
   - [ranger](https://github.com/ranger/ranger) - Ranger is a console file manager with VI key bindings.
-  - [LSD](https://github.com/Peltoche/lsd) - GNU ls with lots of added features like colors, icons, tree-view, more formatting options etc.
+  - [lsd](https://github.com/Peltoche/lsd) - GNU ls with lots of added features like colors, icons, tree-view, more formatting options etc.
   - [fzf](https://github.com/junegunn/fzf) - A command-line fuzzy finder.
   - [ripgrep](https://github.com/BurntSushi/ripgrep) - A line-oriented search tool that recursively searches directories for a regex pattern.
   - [cava](https://github.com/karlstav/cava) - Cross-platform Audio Visualizer.
+  - [mpd](https://github.com/MusicPlayerDaemon/MPD) - A flexible, powerful, server-side application for playing music.
+    - [ncmpcpp](https://github.com/ncmpcpp/ncmpcpp) - Featureful ncurses based MPD client inspired by ncmpc.
   - [colorscript](https://gitlab.com/dwt1/shell-color-scripts) - A collection of terminal color scripts.
 
 ## Install and setup

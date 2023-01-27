@@ -58,6 +58,7 @@ do
     echo "18 Awesome"
     echo "19 Neofetch"
     echo "20 Cava"
+    echo "21 Mpd and Ncmpcpp"
     
     read -p "Enter your choice: " choice
     case $choice in
@@ -266,6 +267,20 @@ do
         # .config/cava
         [ ! -d $HOME/.config/cava ] && mkdir -v $HOME/.config/cava
         ln -sfv $DIR/cava/config $HOME/.config/cava/config
+        ;;
+    21)
+        ### mpd and ncmpcpp 
+        # .cache/mpd
+        [ ! -d $HOME/.cache/mpd ] && mkdir -v $HOME/.cache/mpd
+        # .cache/mpd/playlists
+        [ ! -d $HOME/.cache/mpd/playlists ] && mkdir -v $HOME/.cache/mpd/playlists
+        # .config/mpd
+        [ ! -d $HOME/.config/mpd ] && mkdir -v $HOME/.config/mpd
+        ln -sfv $DIR/mpd/mpd.conf $HOME/.config/mpd/mpd.conf
+        # .config/ncmpcpp
+        [ ! -d $HOME/.config/ncmpcpp ] && mkdir -v $HOME/.config/ncmpcpp
+        ln -sfv $DIR/ncmpcpp/config $HOME/.config/ncmpcpp/config
+        ln -sfv $DIR/ncmpcpp/bindings $HOME/.config/ncmpcpp/bindings
         ;;
     *)
         echo "Sorry, choice understand"

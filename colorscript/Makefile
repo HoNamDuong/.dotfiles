@@ -1,5 +1,5 @@
 clean: 
-	rm -rf /opt/shell-color-scripts
+	rm -rf /opt/colorscript
 
 install: clean
 	mkdir -p /opt/colorscript/colorscripts
@@ -9,4 +9,3 @@ install: clean
 uninstall:
 	rm -rf /opt/colorscript
 	rm -f /usr/local/bin/colorscript
-
