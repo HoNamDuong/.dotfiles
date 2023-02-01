@@ -284,6 +284,7 @@ for_window [instance="nvidia-settings"] floating enable
 for_window [instance="lxappearance"] floating enable 
 for_window [instance="mousepad"] floating enable 
 for_window [instance="nitrogen"] floating enable 
+for_window [instance="system-config-printer"] floating enable 
 for_window [class="thunderbird"] floating enable 
 for_window [instance="spotify"] floating enable, move window to workspace $ws6 
 for_window [instance="feh"] floating enable, move position center  

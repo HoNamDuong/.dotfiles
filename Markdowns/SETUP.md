@@ -180,6 +180,18 @@ Few more optional tools that are recommended we can find in AUR
 
 Install [iBus](https://github.com/BambooEngine/ibus-bamboo) - Input framework for Linux OS.
 
+### Setup printer and scanner
+
+Printer:
+
+    sudo pacman -S cups system-config-printer
+
+Search and install driver for your printer [here](https://wiki.archlinux.org/title/CUPS/Printer-specific_problems)
+
+Scanner:
+
+    sudo pacman -S sane simple-scan
+
 ### Enable dark mode for google-chrome
 
 Find line include "Exec=" and add:
