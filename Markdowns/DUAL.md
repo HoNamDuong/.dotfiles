@@ -82,7 +82,7 @@ You can also add the -c <Country> flag if you want to, which will only select mi
 
 Dùng script pacstrap để cài đặt Arch Linux vào phân vùng có thể boot:
 
-    pacstrap /mnt base base-devel linux linux-firmware intel-ucode neovim
+    pacstrap /mnt base base-devel linux linux-firmware linux-headers intel-ucode neovim
 
 Tùy vào tốc độ download của bạn, quá trình cài đặt có thể mất khá nhiều thời gian.
 

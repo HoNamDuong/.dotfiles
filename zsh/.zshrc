@@ -21,6 +21,7 @@ autoload -U colors && colors
 
 # Exports
 export _Z_DATA=~/.cache/zsh/.z 
+export BAT_THEME="base16"
 
 if [ "$TERM" != "xterm-256color" ]; then
     export TERM=xterm-256color
@@ -188,6 +189,10 @@ else
     alias la='ls -a'
     alias lla='ls -al'
     alias tree='tree -a -F --dirsfirst -I ".git"'
+fi
+
+if [ -f /usr/bin/bat ]; then
+    alias cat='bat --paging=never --wrap=auto'
 fi
 
 

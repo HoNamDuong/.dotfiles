@@ -51,9 +51,9 @@ Install i3
 ### Install packages
 
     # Install rofi, lxappearance ...
-    sudo pacman -S rofi dunst picom lxappearance dmenu conky ranger vlc numlockx feh
-    sudo pacman -S neofetch w3m imagemagick nitrogen
-    sudo pacman -S zsh tig tree ripgrep fzf fd lsd ranger
+    sudo pacman -S rofi dunst picom lxappearance dmenu conky ranger vlc numlockx
+    sudo pacman -S viewnior neofetch w3m imagemagick nitrogen
+    sudo pacman -S zsh tig tree ripgrep fzf fd lsd ranger bat
 
     # Set zsh as default shell
     chsh -s $(which zsh)
@@ -160,9 +160,11 @@ Log out of your system and log in again. While logging in, be sure to select i3 
 
     # Clone .dotfiles
     cd ~ && git clone https://github.com/HoNamDuong/.dotfiles.git
+
     # Config git credential
     mkdir -p .config/git
     git config --global credential.helper "store --file ~/.config/git/.git-credentials"
+    git config --global core.autocrlf false
     git config --global user.email "example@domain.com"
     git config --global user.name "username"
 
@@ -172,11 +174,11 @@ Log out of your system and log in again. While logging in, be sure to select i3 
 
 ### Installing applications (Optional)
 
-    sudo pacman -S discord spotify-launcher telegram-desktop
+    sudo pacman -S discord spotify-launcher telegram-desktop thunderbird cmatrix
 
 Few more optional tools that are recommended we can find in AUR
 
-    yay -S google-chrome visual-studio-code-bin cava
+    yay -S google-chrome visual-studio-code-bin cava pipes.sh
 
 Install [iBus](https://github.com/BambooEngine/ibus-bamboo) - Input framework for Linux OS.
 

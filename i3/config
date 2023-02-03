@@ -223,8 +223,8 @@ set $ws5  "5:   Documents "
 set $ws6  "6:   Media "
 set $ws7  "7:   Design "
 set $ws8  "8:   Chat "
-set $ws9  "9:   General "
-set $ws10 "0:   Settings "
+set $ws9  "9:   Game "
+set $ws10 "0:   General "
 
 # Switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -262,6 +262,7 @@ assign [instance="telegram"] $ws8
 assign [instance="(?i)dbeaver"] $ws5
 assign [instance="postman"] $ws5
 assign [class="thunderbird"] $ws8
+assign [class="(?i)minecraft"] $ws9
 assign [window_role="(?i)browser"] $ws3
 
 # # Enable window icons for all windows with extra horizontal padding of 1px
@@ -284,8 +285,9 @@ for_window [instance="nvidia-settings"] floating enable
 for_window [instance="lxappearance"] floating enable 
 for_window [instance="mousepad"] floating enable 
 for_window [instance="nitrogen"] floating enable 
+for_window [instance="viewnior"] floating enable 
 for_window [instance="system-config-printer"] floating enable 
-for_window [class="thunderbird"] floating enable 
+# for_window [class="thunderbird"] floating enable 
 for_window [instance="spotify"] floating enable, move window to workspace $ws6 
 for_window [instance="feh"] floating enable, move position center  
 for_window [instance="conky"] border pixel 0 
@@ -294,9 +296,9 @@ for_window [window_role="(?i)browser"] border pixel 0
 # Switch to workspace with urgent window automatically
 for_window [urgent="latest"] focus
 
-# Inner and outer gaps for all windows on a specific workspace.
-workspace $ws9 gaps horizontal 100
-workspace $ws9 gaps vertical 20
+# # Inner and outer gaps for all windows on a specific workspace.
+# workspace $ws9 gaps horizontal 100
+# workspace $ws9 gaps vertical 20
 
 
 
@@ -507,5 +509,3 @@ bar {
         binding_mode       #c8d3f5 #c8d3f5 #1a1b26 
     }
 }
-
-exec --no-startup-id sh -c 'sleep 1; i3-msg "workspace number $ws9"'
