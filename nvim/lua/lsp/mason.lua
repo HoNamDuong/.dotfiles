@@ -14,13 +14,14 @@ if not status_lspconfig then
 end
 
 local servers = {
-    "sumneko_lua",
+    "lua_ls",
     "html",
     "cssls",
     "tailwindcss",
     "emmet_ls",
     "jsonls",
     "tsserver",
+    "intelephense",
 }
 
 mason.setup({

@@ -1,5 +1,6 @@
 # Monitor config
 xrandr --output HDMI-0 --primary --mode 1600x900
+# xrandr --output HDMI-0 --primary
 
 # Environment variables set everywhere
 export EDITOR="nvim"
@@ -13,6 +14,13 @@ export XMODIFIERS="@im=ibus"
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
 
 export ZDOTDIR="$HOME/.config/zsh"
+
+export QT_QPA_PLATFORMTHEME=qt5ct
+
+# export LIBVA_DRIVER_NAME="nvidia"
+# export LIBVA_DRIVERS_PATH="/usr/lib/dri"
+# export VDPAU_DRIVER="nvidia"
+# export NVD_BACKEND="direct"
 
 # XDG Paths
 export XDG_CONFIG_HOME="$HOME/.config"

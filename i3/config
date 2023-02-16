@@ -79,6 +79,9 @@ exec --no-startup-id ibus-daemon --xim -d -r
 # Authorized
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
+# Dropbox 
+exec --no-startup-id dropbox 
+
 # # Start compositor
 # exec_always --no-startup-id picom -b
 
@@ -283,10 +286,13 @@ for_window [instance="vlc"] floating enable
 for_window [instance="pavucontrol"] floating enable 
 for_window [instance="nvidia-settings"] floating enable 
 for_window [instance="lxappearance"] floating enable 
+for_window [instance="qt5ct"] floating enable 
 for_window [instance="mousepad"] floating enable 
 for_window [instance="nitrogen"] floating enable 
 for_window [instance="viewnior"] floating enable 
+for_window [instance="obsidian"] floating enable 
 for_window [instance="system-config-printer"] floating enable 
+for_window [class="mpv"] floating enable 
 # for_window [class="thunderbird"] floating enable 
 for_window [instance="spotify"] floating enable, move window to workspace $ws6 
 for_window [instance="feh"] floating enable, move position center  

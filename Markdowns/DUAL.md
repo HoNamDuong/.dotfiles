@@ -1,70 +1,91 @@
-## Dual boot Arch linux and Window 10
+# Dual boot Arch linux and Window 10
 
-### Change console font
+## Pre-installation checks
+
+Change console font
 
     setfont ter-132n
     setfont iso01-12x22
 
-### Kiểm tra máy có phải ở chế độ UEFI hay không
+The current set up assumes you have EFI-enabled BIOS.
+Once booted from a CD or USB stick, verify that the installation supports EFI.
 
-    ls /sys/firmware/efi/efivars
+    ls -la /sys/firmware/efi
 
-Nếu hiện ra một số thư mục hoặc file thì máy đang ở chế dộ UEFI
-
-### Kiểm tra kết nối mạng
+As you begin the installation, you might want to ensure that you have internet connectivity.
+Internet connectivity is crucial in setting time and date.
 
     ping 8.8.8.8 -c 4
 
-### Bật giao thức thời gian mạng (NTP)
+## Update time and date
 
-Bạn cần bật giao thức NTP và cho phép hệ thống cập nhật thời gian thông qua internet bằng lệnh sau:
+Update the system time and date using the `timedatectl` command
 
     timedatectl set-ntp true
 
-Để kiểm tra trạng thái của NTP, dùng lệnh:
+Confirm the time and date using the command
 
     timedatectl status
 
-### Phần vùng ổ đĩa
+## Create, format and mount Linux partitions
 
-Kiểm tra các phân vùng và tìm phần vùng trống
+In order to install a Linux system we need two main partitions:
 
-    lsblk
+- Boot (mounted on `/mnt/boot/efi`) - contains bootloader (we have already created this in Windows setup)
+- Root (mounted on `/mnt`) - the Linux root (`/`) where everything is installed
 
-Phần vùng ổ đĩa bằng lệnh cfdisk
+Run 'lsblk' to list the drives and partitions with their mountpoints, size and other information
 
-    cfdisk /dev/sdX
+    # Example:
+    NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+    nvme0n1     259:0    0 119.2G  0 disk
+    ├─nvme0n1p1 259:1    0   100M  0 part
+    ├─nvme0n1p2 259:2    0    16M  0 part
+    ├─nvme0n1p3 259:3    0  88.6G  0 part
+    └─nvme0n1p4 259:4    0   559M  0 part
 
-Trong đó, X là tên drive của ổ đĩa mà bạn muốn phân vùng
+Here, I have a drive named `nvme0n1`, and then some partition names followed by it. You may have `sda` or something else as the drive name. The partitions are as follows:
 
-Cần phải xác định các phân vùng của mình có tên là gì bằng câu lệnh blkid thường thì nó sẽ có dạng /dev/sd[X][y], trong đó X sẽ là a và b tương ứng với ổ đĩa 1 (SSD) và ổ đĩa 2 (HDD) của máy mình. Còn Y sẽ là số thứ tự phân vùng. Vì đang dual với window nên sử dụng chung phân vùng EFI
+- nvme01np1 - Boot partition
+- nvme0n1p2 - Microsoft reserved
+- nvme0n1p3 - Primary Windows Parittion (C: drive)
+- nvme0n1p4 - Windows recovery environment
 
-- EFI : /dev/sda1 EFI system
-- root : /dev/sda5 Linux filesystem
+Remember the boot partition name (`nvme0n1p1` in my case).
 
-Xác nhận các thay đổi trên ổ đĩa bằng cách chọn Write ở phía dưới màn hình. Nhập yes rồi nhấn Enter.
+We don't see the unallocated space we left for Arch because we haven't created a partition from the unallocated space yet.
+To do that type in:
 
-Chọn Quit rồi nhấn Enter để thoát khỏi màn hình cfdisk.
+    cfdisk /dev/nvme0n1
 
-Kiểm tra lại các phân vùng với lsblk
+Create a new partition with the remaining space with type `Linux filesystem`.
+After you are done partitioning select the `Write` button and write the changes to disk and `Quit` cfdisk.
+Now the partition should be listed when you run `lsblk` again.
 
-### Format and mount phân vùng
+After creating the root partition, we need to format it with a filesystem type -- I'll make it an ext4 partition.
+Run `mkfs.ext4` to format the partition with the ext4 filesystem:
 
-Tiến hành format phân vùng root sau đó mount để tiến hành cài đặt:
+    mkfs.ext4 /dev/nvme0n1p5
 
-    mkfs.ext4 /dev/sda5
-    mount /dev/sda5 /mnt
+Mount the root partition (replace `nvme0n1p6` with your root partition) to `/mnt`
 
-Kiểm tra lại các phân vùng với lsblk
+    mount /dev/nvme0n1p5 /mnt
 
-### Cài đặt kernel
+Mount the boot partition (the one we created in windows, `nvme0n1p1` in my case)
+
+    mkdir /mnt/boot/efi
+    mount --mkdir /dev/nvme0n1p1 /mnt/boot/efi
+
+## Installation kernel
+
+### Mirrors
 
 Synchronize the package databases and update the keyring (sometimes keyring can be a issue if the archiso is very old):
 
     pacman -Sy archlinux-keyring
 
-Arch linux packages are installed from mirrors defined in /etc/pacman.d/mirrorlist, if the download speed in the above command was slow, it could be an issue related to the mirrors.
-We can fix that by updating the mirrors, which you can do either manually or using reflector to automatically update the mirrors.
+Arch linux packages are installed from mirrors defined in `/etc/pacman.d/mirrorlist`, if the download speed in the above command was slow, it could be an issue related to the mirrors.
+We can fix that by updating the mirrors, which you can do either manually or using `reflector` to automatically update the mirrors.
 
 Install reflector with pacman:
 
@@ -78,150 +99,139 @@ Get the latest 6 mirrors sorted by speed and save using reflector:
 
     reflector --latest 6 --sort rate --download-timeout 100 --save /etc/pacman.d/mirrorlist
 
-You can also add the -c <Country> flag if you want to, which will only select mirrors from .
+You can also add the `-c <Country>` flag if you want to, which will only select mirrors from .
 
-Dùng script pacstrap để cài đặt Arch Linux vào phân vùng có thể boot:
+### Base Install
 
-    pacstrap /mnt base base-devel linux linux-firmware linux-headers intel-ucode neovim
+Use the pacstrap script to install the `base` and `linux` packages
 
-Tùy vào tốc độ download của bạn, quá trình cài đặt có thể mất khá nhiều thời gian.
+    pacstrap /mnt base base-devel linux linux-firmware intel-ucode neovim
 
-### Tạo file fstab
+The above command installs the base group, linux and linux firmware, packages necessary for building and development (base-devel) and neovim (CLI text editor) on the system.
 
-Sau khi cài đặt xong Arch Linux, bạn cần cấu hình các cài đặt như các phần hướng dẫn dưới đây.
+## Generate fstab file
 
-File fstab định nghĩa thứ tự mount các phân vùng ổ đĩa, thiết bị block, thiết bị từ xa và các nguồn dữ liệu khác. Tạo file fstab bằng lệnh sau:
+Fstab (filesystem table) located in `/etc/fstab` is a file that keeps track of all the partitions that a distro requires to boot along with their mountpoints.
+Generate the fstab file from /mnt and append into /mnt/etc/fstab:
 
     genfstab -U /mnt >> /mnt/etc/fstab
 
-### Sử dụng Arch-Chroot
+## Chroot and other configuration
 
-Thay đổi root sang hệ thống Arch mới đặt cài đặt bằng lệnh arch-chroot như sau:
+After installing the `base` group and generating the fstab, we will `chroot` into the Arch installation and configure some other things like the locale, timezone and hostname.
 
     arch-chroot /mnt
 
-### Cài đặt thời gian
+### Update timezone
 
-    # Xem list Zone bằng lệnh
+Find your region and city:
+
     ls /usr/share/zoneinfo
 
-    # link time zone Ho_Chi_Minh City vào /etc/localtime
+Update timezone (replace Region/City with your timezone):
+
     ln -sf /usr/share/zoneinfo/Asia/Ho_Chi_Minh /etc/localtime
 
-    # Config clock
+Sync system clock to hardware clock:
+
     hwclock —-systohc —-utc
 
-### Cài đặt ngôn ngữ và location
+### Set language, location and hostname
 
-Mở tệp locale.gen
+Generate locale and set teh `LANG` variable in the `locale.conf` file:
 
-    nvim /etc/locale.gen
     locale-gen
-
-Ở đây mình sẽ dùng en_US.UTF-8 nên sẽ bỏ dấu thăng ở dòng này và lưu file lại rồi chạy lệnh dưới locale-gen rồi lưu lại
-
-Add this content to the file:
-
-    nvim /etc/locale.conf
-
-    LANG=en_US.UTF-8
-    LANGUAGE=en_US
+    echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+    echo "LANGUAGE=en_US" >> /etc/locale.conf
 
 Add this content to the file:
 
     nvim /etc/vconsole.conf
     KEYMAP=us
 
-### Cài đặt Hostname file (tên máy tính)
+`hostname` is a unique name to identify a machine on a network.
+Create `hostname` file and add a hostname:
 
     echo yourhostname > /etc/hostname
 
-Sau đó, tạo một host file:
+After, create host file:
 
     touch /etc/hosts
 
-Thêm nội dung sau vào host file vừa mới tạo và lưu lại:
+Add this content to the file and save:
 
     127.0.0.1   localhost
     ::1         localhost
     127.0.1.1   yourhostname.localdomain    yourhostname
 
-### Thêm người dùng
-
-Cài đặt một mật khẩu root mới bằng lệnh passwd:
+Give root user a password:
 
     passwd
 
-Tạo user và thêm group cho user
+## Create a regular user (with superuser)
+
+Create user with wheel gropu (replace username with name)
 
     useradd -mG wheel username
 
-đặt mật khẩu cho user, nên tạo giống mật khẩu root
+Give a password to user:
 
     passwd username
 
-Sau đó, nhập password mới rồi nhập lại lần nữa để hoàn tất.
-
-### Chỉnh sửa sudo để user có quyền root
+Add sudo access to the user.
 
     EDITOR=nvim visudo
 
-Bỏ dấu # trước dòng #%wheel ALL=(ALL) ALL và lưu lại
-
+    # Uncomment:
     %wheel ALL=(ALL) ALL
-    # Set thời gian nhập lại mật khẩu
-    Defaults timestamp_timeout=0
 
-### Cài đặt Grub Bootloader
+## Install Grub Bootloader
 
-Đầu tiên, thêm các GRUB bootloader package vào hệ thống bằng pacman manager
-Thêm os-prober để phát hiên Window boot manager
+`grub` bootloader package alongside the efi boot manager package since we are using the UEFI mode.
+
+`os-prober` package which will enable Arch Linux to detect the Windows operating system.
+
+`efibootmgr` is a userspace application used to modify the UEFI Boot Manager.
 
     pacman -S grub efibootmgr os-prober
 
-install grub EFI to EFI partition mount as /boot
-And install a grub configuration file as shown.
-
     mkdir /boot/efi
-    mount /dev/sda1 /boot/efi
+    mount /dev/nvme0n1p1 /boot/efi
 
     grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB --recheck --debug
 
+This installs the grub on /boot which is mounted on `nvme0n1p1`, our boot partition
+
+Grub generate config:
+
     grub-mkconfig -o /boot/grub/grub.cfg
 
-The last line is an indication that Arch has detected the presence of Windows Boot manager on /dev/sda1 partition. Perfect!
+Here grub will generate the config and write it to grub.cfg. Make sure Linux and Windows both are detected here.
 
-### Cài đặt NetworkManager và kích hoạt
+## Install NetworkManager and enable
 
     pacman -S networkmanager network-manager-applet
     systemctl enable NetworkManager.service
 
-### Install useful linux tools
-
-    pacman -Syu && \
-    pacman -S htop git tmux wget
-
-### Exit và Reboot Usb cài Arch
+## Exit and reboot
 
     exit
     umount -R /mnt
     shutdown -r now
 
-### Set Window startup default
+## Set Windows startup default
 
-Login root user
-By default, os-prober is disabled in the grub config, hence it won't detect Windows.
-When generating config in next step, you'll get a warning saying os-prober is disabled.
-In /etc/default/grub.
+Login root user. By default, `os-prober` is disabled in the grub config, hence it won't detect Windows.
+When generating config in next step, you'll get a warning saying `os-prober` is disabled.
 
     nvim /etc/default/grub
 
-    # change
+    # Change
     GRUB_DEFAULT=saved
-    # uncomment
+    # Uncomment
     GRUB_DISABLE_OS_PROBER=false
 
-    mount /dev/sda1 /boot/efi
+    mount /dev/nvme0n1p1 /boot/efi
 
     grub-set-default 2
 

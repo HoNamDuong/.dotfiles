@@ -59,6 +59,7 @@ do
     echo "19 Neofetch"
     echo "20 Cava"
     echo "21 Mpd and Ncmpcpp"
+    echo "22 Mpv"
     
     read -p "Enter your choice: " choice
     case $choice in
@@ -281,6 +282,12 @@ do
         [ ! -d $HOME/.config/ncmpcpp ] && mkdir -v $HOME/.config/ncmpcpp
         ln -sfv $DIR/ncmpcpp/config $HOME/.config/ncmpcpp/config
         ln -sfv $DIR/ncmpcpp/bindings $HOME/.config/ncmpcpp/bindings
+        ;;
+    22)
+        ### mpv 
+        # .config/mpv
+        [ ! -d $HOME/.config/mpv ] && mkdir -v $HOME/.config/mpv
+        ln -sfv $DIR/mpv/mpv.conf $HOME/.config/mpv/mpv.conf
         ;;
     *)
         echo "Sorry, choice understand"

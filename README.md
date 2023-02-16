@@ -16,9 +16,12 @@
   - [Conky](https://github.com/brndnmtthws/conky) - Light-weight system monitor for X, that displays any kind of information on your desktop.
   - [nitrogen](https://github.com/l3ib/nitrogen) - Background browser and setter for X windows.
   - [VLC media player](https://www.videolan.org/vlc/) - VLC is a free and open source cross-platform multimedia player and framework.
+  - [Mpv](https://mpv.io/) - A free, open source, and cross-platform media player.
   - [Viewnior](https://siyanpanayotov.com/project/viewnior) - Fast and elegant image viewer.
   - [Nemo](https://github.com/linuxmint/nemo) - Nemo is the file manager.
   - [Thunderbird](https://www.thunderbird.net/) - Thunderbird is a free email application that's easy to set up and customize - and it's loaded with great features.
+  - [Dropbox](https://www.dropbox.com) - A file sharing system with a GNU/Linux client. Use it to transparently sync files across computers and architectures.
+  - [Obsidian](https://obsidian.md/) - A powerful and extensible knowledge base that works on top of your local folder of plain text files.
 - CLI
   - [zsh](https://github.com/zsh-users/zsh) - A shell designed for interactive use, although it is also a powerful scripting language.
     - [z](https://github.com/rupa/z) - Tracks your most used directories, based on frecency.
