@@ -73,8 +73,8 @@ Mount the root partition (replace `nvme0n1p6` with your root partition) to `/mnt
 
 Mount the boot partition (the one we created in windows, `nvme0n1p1` in my case)
 
-    mkdir /mnt/boot/efi
-    mount --mkdir /dev/nvme0n1p1 /mnt/boot/efi
+    mkdir -p /mnt/boot/efi
+    mount /dev/nvme0n1p1 /mnt/boot/efi
 
 ## Installation kernel
 
@@ -138,9 +138,20 @@ Sync system clock to hardware clock:
 
 ### Set language, location and hostname
 
-Generate locale and set teh `LANG` variable in the `locale.conf` file:
+The locale determines the system language, currency format, numbering and date on your system.
+This information is contained in the `/etc/locale.gen` file.
+
+    nim /etc/locale.gen
+
+    # Scroll and uncomment
+    en_US.UTF-8 UTF-8
+
+Save and exit the file. Next generate the locale configuration using the command:
 
     locale-gen
+
+Set teh `LANG` variable in the `locale.conf` file:
+
     echo "LANG=en_US.UTF-8" >> /etc/locale.conf
     echo "LANGUAGE=en_US" >> /etc/locale.conf
 
@@ -195,7 +206,7 @@ Add sudo access to the user.
 
     pacman -S grub efibootmgr os-prober
 
-    mkdir /boot/efi
+    mkdir -p /boot/efi
     mount /dev/nvme0n1p1 /boot/efi
 
     grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB --recheck --debug

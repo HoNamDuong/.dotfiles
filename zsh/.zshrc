@@ -172,7 +172,7 @@ alias rm='rm -iv'
 alias rmdir='rm -I -r'
 alias mkdir='mkdir -pv'
 alias ln='ln -v'
-
+alias ip='ip -color=auto'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'

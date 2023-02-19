@@ -5,7 +5,7 @@ DIR=$(pwd)
 
 ## Directories ----------------------------
 # Reset
-Color_Off='\033[0m'       # Text Reset
+Reset='\033[0m'       # Text Reset
 
 # Regular Colors
 Black='\033[0;30m'        # Black
@@ -27,44 +27,41 @@ BPurple='\033[1;35m'      # Purple
 BCyan='\033[1;36m'        # Cyan
 BWhite='\033[1;37m'       # White
 
-
-[ ! -d $HOME/.config ] && mkdir -v $HOME/.config
-[ ! -d $HOME/.config/git ] && mkdir -v $HOME/.config/git
-[ ! -f ~/.config/git/config ] &&  touch ~/.config/git/config && echo "Create file config for git" 
-[ ! -f ~/.xprofile ] && ln -sfv $DIR/x/.xprofile $HOME/.xprofile && echo "Add file .xprofile"
-[ ! -f ~/.Xresources ] && ln -sfv $DIR/x/.Xresources $HOME/.Xresources && echo "Add file .Xresources"
+clear
 
 while :
 do
     echo
-    echo "0 Quit"
-    echo "1 Zsh"
-    echo "2 Tmux"
-    echo "3 Lsd"
-    echo "4 Dircolors"
-    echo "5 Tig"
-    echo "6 Htop"
-    echo "7 Vim"
-    echo "8 Nvim"
-    echo "9 Snippets"
-    echo "10 Ripgrep"
-    echo "11 Conky"
-    echo "12 I3"
-    echo "13 Alacritty"
-    echo "14 Rofi"
-    echo "15 Dunst"
-    echo "16 Picom"
-    echo "17 Feh"
-    echo "18 Awesome"
-    echo "19 Neofetch"
-    echo "20 Cava"
-    echo "21 Mpd and Ncmpcpp"
-    echo "22 Mpv"
+    echo " 0 X"
+    echo " 1 Zsh"
+    echo " 2 Tmux"
+    echo " 3 Lsd"
+    echo " 4 Dircolors"
+    echo " 5 Tig"
+    echo " 6 Htop"
+    echo " 7 Vim"
+    echo " 8 Nvim"
+    echo " 9 Snippets"
+    echo " 10 Ripgrep"
+    echo " 11 Conky"
+    echo " 12 I3"
+    echo " 13 Alacritty"
+    echo " 14 Rofi"
+    echo " 15 Dunst"
+    echo " 16 Picom"
+    echo " 17 Feh"
+    echo " 18 Awesome"
+    echo " 19 Neofetch"
+    echo " 20 Cava"
+    echo " 21 Mpd and Ncmpcpp"
+    echo " 22 Mpv"
     
+    echo " Ctrl + C exit"
     read -p "Enter your choice: " choice
     case $choice in
     0)
-        break
+        [ ! -f ~/.xprofile ] && ln -sfv $DIR/x/.xprofile $HOME/.xprofile 
+        [ ! -f ~/.Xresources ] && ln -sfv $DIR/x/.Xresources $HOME/.Xresources
         ;;
     1)
         ### Zsh

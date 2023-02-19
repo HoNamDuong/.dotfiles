@@ -6,14 +6,6 @@
     sudo timedatectl set-ntp
     timedatectl status
 
-### Optional add nice color to pacman output
-
-The final touch is to add some color to the package manager
-
-    grep "Color" /etc/pacman.conf && \
-    sudo sed -i -e 's/#Color/Color/g' /etc/pacman.conf && \
-    grep "Color" /etc/pacman.conf
-
 ### Installing YAY
 
     mkdir Downloads && \
@@ -35,8 +27,8 @@ The first step is to disable Intel Integrated Graphics Controller
     echo "install i915 /bin/false" | sudo tee --append /etc/modprobe.d/blacklist.conf && \
     cat /etc/modprobe.d/blacklist.conf
 
-    sudo pacman -S nvidia nvidia-settings xorg xorg-xinit
-    sudo pacman -S vulkan-icd-loader vdpauinfo libva-utils libva-vdpau-driver
+    sudo pacman -S nvidia nvidia-settings xorg xorg-xinit vdpauinfo
+    sudo pacman -S libva-utils libva-vdpau-driver
 
 Remove `kms` from the HOOKS array in `/etc/mkinitcpio.conf` and regenerate the initramfs. This will prevent the initramfs from containing the nouveau module making sure the kernel cannot load it during early boot.
 
@@ -44,7 +36,7 @@ Remove `kms` from the HOOKS array in `/etc/mkinitcpio.conf` and regenerate the i
 
 Note: Nvidia non open source drivers may conflict with `nouveau` OS drivers and in below case to make drivers work I needed to blacklist nouveau drivers
 
-    cat /usr/lib/modprobe.d/nvidia.conf
+    cat /usr/lib/modprobe.d/nvidia-utils.conf
     blacklist nouveau
 
 Install i3
@@ -86,23 +78,24 @@ Log out of your system and log in again. While logging in, be sure to select i3 
     # Clone .dotfiles
     cd ~ && git clone https://github.com/HoNamDuong/.dotfiles.git
 
-    # Config git credential
+    # Run install.sh
+    cd ~/.dotfiles
+    ./install
+
+    # Config git
     mkdir -p .config/git
+    touch ~/.config/git/config
     git config --global credential.helper "store --file ~/.config/git/.git-credentials"
     git config --global core.autocrlf false
     git config --global user.email "example@domain.com"
     git config --global user.name "username"
 
-    # Run install.sh
-    cd ~/.dotfiles
-    sh install.sh
-
 ### Install font and packages
 
     sudo pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
-    sudo pacman -S ttf-hack-nerd
+    sudo pacman -S ttf-hack-nerd ttf-roboto-mono
 
-    sudo pacman -S zsh tig tree ripgrep fzf fd lsd ranger w3m bat neofetch imagemagick
+    sudo pacman -S zsh tig tree ripgrep fzf fd lsd ranger w3m bat neofetch imagemagick xclip
 
     # Set zsh as default shell
     chsh -s $(which zsh)
@@ -144,19 +137,6 @@ Log out of your system and log in again. While logging in, be sure to select i3 
     # Check version of Neovim
     nvim -v
 
-### Mount disk example
-
-    # To identify existing file systems
-    lsblk -f
-
-    # Change file fstab
-    sudo nvim /etc/fstab
-
-    # Add line
-    echo '# /dev/sda3
-    UUID=B0D45058D45022C0 /run/media/dat/Documents auto defaults,uid=1000,gid=1000 0 0
-    ' | sudo tee -a /etc/fstab
-
 ### Install theme, icon and cursor
 
 [Skeuos theme](https://aur.archlinux.org/packages/skeuos-gtk)
@@ -172,13 +152,13 @@ Log out of your system and log in again. While logging in, be sure to select i3 
 
 ### Installing sound drivers and tools
 
-    sudo pacman -S alsa-utils alsa-plugins alsa-lib pavucontrol pipewire pipewire-pulse
+    sudo pacman -S alsa-utils alsa-plugins pavucontrol pipewire-pulse
     systemctl --user enable pipewire-pulse.service
 
 ### Installing applications (Optional)
 
     sudo pacman -S viewnior nitrogen conky obsidian dbeaver
-    sudo pacman -S vlc mpv yt-dlp
+    sudo pacman -S vlc mpv yt-dlp mpd ncmpcpp
     sudo pacman -S discord spotify-launcher telegram-desktop thunderbird cmatrix
 
 Few more optional tools that are recommended we can find in AUR
@@ -191,32 +171,95 @@ Install [iBus](https://github.com/BambooEngine/ibus-bamboo) - Input framework fo
 
     sudo pacman -S nemo nemo-fileroller ntfs-3g
 
+Set Nemo as default file browser
+
+    xdg-mime default nemo.desktop inode/directory
+
 Change the default terminal emulator for Nemo
 
     gsettings set org.cinnamon.desktop.default-applications.terminal exec alacritty
 
     gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg -e
 
+Fix open file in a terminal
+
+    sudo ln -s $(which alacritty) /usr/bin/xterm
+
+    # Remove
+    sudo rm /usr/bin/xterm
+
+### Mount disk example
+
+    # To identify existing file systems
+    lsblk -f
+
+    # Change file fstab
+    sudo nvim /etc/fstab
+
+    # Example add line
+    echo '# /dev/sda3
+    UUID=B0D45058D45022C0 /run/media/dat/Documents auto defaults,uid=1000,gid=1000 0 0
+    ' | sudo tee -a /etc/fstab
+
 ### Setup printer and scanner
 
-Printer:
+#### Printer
 
     sudo pacman -S cups system-config-printer
 
+After installing these `enable` and `start` the cups.service in systemd.
+
+    sudo systemctl enable cups.service
+    sudo systemctl start cups.service
+
+Add user to the group `lg`:
+
+    sudo usermod -aG lp $USER
+
 Search and install driver for your printer [here](https://wiki.archlinux.org/title/CUPS/Printer-specific_problems)
 
-Scanner:
+#### Scanner
 
     sudo pacman -S sane simple-scan
 
+Check if the scanner is detected with correct driver installed.
+
+    scanimage -L
+
+### Install docker
+
+    sudo pacman -S docker docker-compose
+
+    # Start its Daemon using the systemctl command as shown below
+    sudo systemctl start docker.service
+
+    # Verify that Docker is running using the status option
+    sudo systemctl status docker.service
+
+    # Enable docker service
+    sudo systemctl enable docker.service
+
+    # Add the current user account to the Docker group using the following command
+    sudo usermod -aG docker $USER
+
 ### Enable dark mode for google-chrome
 
-Find line include `Exec=` and add:
+    touch ~/.config/chrome-flags.conf
+    # Add into file
+    --force-dark-mode
+    --enable-features=WebUIDarkMode
 
-     --force-dark-mode --enable-features=WebUIDarkMode
-
-    # Command
+    # Or command
     sudo sed -i '/^Exec=/s/$/ --force-dark-mode --enable-features=WebUIDarkMode/' /usr/share/applications/google-chrome.desktop
+
+### Optional add nice color to pacman output
+
+The final touch is to add some color to the package manager
+
+    sudo sed -i -e 's/#Color/Color/g' /etc/pacman.conf && \
+    sudo sed -i -e 's/#VerbosePkgLists/VerbosePkgLists/g' /etc/pacman.conf && \
+    grep "Color" /etc/pacman.conf
+    grep "VerbosePkgLists" /etc/pacman.conf
 
 ### Install [colorscript](../colorscript/README.md)
 

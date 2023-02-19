@@ -66,6 +66,7 @@ exec --no-startup-id nm-applet
 # Set wallpaper with feh
 # exec --no-startup-id feh --no-fehbg --recursive --bg-fill --randomize ~/Pictures/Wallpapers/
 exec --no-startup-id nitrogen --restore
+# exec_always --no-startup-id nitrogen --random --set-zoom-fill
 
 # Load config nvidia-settings
 exec --no-startup-id nvidia-settings --load-config-only
@@ -79,8 +80,8 @@ exec --no-startup-id ibus-daemon --xim -d -r
 # Authorized
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
-# Dropbox 
-exec --no-startup-id dropbox 
+# # Dropbox 
+# exec --no-startup-id dropbox 
 
 # # Start compositor
 # exec_always --no-startup-id picom -b
@@ -259,11 +260,12 @@ bindsym $mod+Shift+0 move container to workspace number $ws10; workspace $ws10
 # Start applications on specific workspaces
 assign [instance="code"] $ws2
 assign [instance="nemo"] $ws4
-assign [instance="vlc"] $ws6
-assign [instance="discord"] $ws8
-assign [instance="telegram"] $ws8
 assign [instance="(?i)dbeaver"] $ws5
 assign [instance="postman"] $ws5
+assign [instance="vlc"] $ws6
+assign [class="mpv"] $ws6
+assign [instance="discord"] $ws8
+assign [instance="telegram"] $ws8
 assign [class="thunderbird"] $ws8
 assign [class="(?i)minecraft"] $ws9
 assign [window_role="(?i)browser"] $ws3
