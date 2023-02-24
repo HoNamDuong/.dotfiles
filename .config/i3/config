@@ -208,15 +208,15 @@ bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -i -fn 'JetB
 bindsym $mod+Shift+d exec --no-startup-id dmenu_run -fn 'JetBrainsMono NF-12' -nf '#c8d3f5' -nb '#1a1b26' -sf '#c8d3f5' -sb '#3b4261'  
 
 # Search applications
-bindcode 133 --release exec --no-startup-id ~/.config/rofi/bin/apps 
+bindcode 133 --release exec --no-startup-id ~/.local/bin/apps 
 # Search command
-bindsym $mod+p exec --no-startup-id ~/.config/rofi/bin/launcher 
+bindsym $mod+p exec --no-startup-id ~/.local/bin/launcher 
 
 # Switching window with Alt+Tab 
-bindsym $alt+Tab exec --no-startup-id ~/.config/rofi/bin/windows 
+bindsym $alt+Tab exec --no-startup-id ~/.local/bin/windows 
 
 # Build menu power with rofi
-bindsym $mod+x exec --no-startup-id ~/.config/rofi/bin/powermenu
+bindsym $mod+x exec --no-startup-id ~/.local/bin/powermenu
 
 # Define names for workspaces
 set $ws1  "1:   Terminal "

@@ -44,8 +44,8 @@ cpu_usage {
 memory {
     # format = "RAM  %free %available (%used) / %total"
     format = "<span foreground='#1abc9c'>RAM</span> %percentage_used"
-    threshold_degraded = 50%
-    threshold_critical = 20%
+    threshold_degraded = 30%
+    threshold_critical = 10%
 }
 
 volume master {

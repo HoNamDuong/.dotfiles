@@ -18,14 +18,14 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 autoload -U colors && colors
 [ ! -d $HOME/.cache/zsh ] && mkdir -v $HOME/.cache/zsh
+setopt COMPLETE_ALIASES
 
 # Exports
 export _Z_DATA=~/.cache/zsh/.z 
-export BAT_THEME="base16"
-
-if [ "$TERM" != "xterm-256color" ]; then
-    export TERM=xterm-256color
-fi
+#
+# if [ "$TERM" != "xterm-256color" ]; then
+#     export TERM=xterm-256color
+# fi
 
 
 
@@ -43,8 +43,8 @@ zstyle ':vcs_info:*' enable git
     fi
 }
 
-setopt prompt_subst
-PROMPT=' %(?:%B%F{green}➜%f%b :%B%F{red}➜%f%b )%F{blue}%c%f '
+setopt PROMPT_SUBST
+PROMPT=' %(?:%B%F{green}➜%f%b :%B%F{red}%? ➜%f%b )%F{blue}%c%f '
 PROMPT+='${vcs_info_msg_0_}'
 RPROMPT='%B%F{8}%*%f%b'
 
@@ -152,10 +152,12 @@ done
 
 
 # Plugins
-[ -f ~/.local/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source ~/.local/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-[ -f ~/.local/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source ~/.local/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-[ -f ~/.local/share/zsh/zsh-autopair/autopair.zsh ] && source ~/.local/share/zsh/zsh-autopair/autopair.zsh && autopair-init
-[ -f ~/.local/share/zsh/z/z.sh ] && . ~/.local/share/zsh/z/z.sh
+[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[ -f /usr/share/zsh/plugins/zsh-autopair/autopair.zsh ] && source /usr/share/zsh/plugins/zsh-autopair/autopair.zsh
+[ -f /usr/share/zsh/plugins/zsh-z/zsh-z.plugin.zsh ] && source /usr/share/zsh/plugins/zsh-z/zsh-z.plugin.zsh
+
+# For fzf
 [ -f /usr/bin/fzf ] && source /usr/share/fzf/completion.zsh && source /usr/share/fzf/key-bindings.zsh
 
 
@@ -194,84 +196,6 @@ fi
 if [ -f /usr/bin/bat ]; then
     alias cat='bat --paging=never --wrap=auto'
 fi
-
-
-
-# Function
-create() {
-    mkdir -p "$(dirname "$1")" &&
-    touch "$1" && echo "touch: created file '$(basename $1)'"
-}
-
-open() {
-    local file
-    file=$(fzf-tmux -d +m --preview "cat {}") &&
-    nvim $file
-}
-
-checkout() {
-    local branches branc
-    branches=$(git branch) &&
-    branch=$(echo "$branches" | fzf-tmux -r 20% --reverse) &&
-    git checkout $(echo "$branch" | sed "s/.* //")
-}
-
-ShowColors256() {
-    local row col blockrow blockcol red green blue
-    local showcolor=_showcolor256_${1:-bg}
-
-    echo 16 standard color codes:
-    for row in {0..1}; do
-        for col in {0..7}; do
-            $showcolor $(( row*8 + col )) $row
-        done
-        echo
-    done
-    echo
-
-    echo 6·6·6 RGB color codes:
-    for blockrow in {0..2}; do
-        for red in {0..5}; do
-            for blockcol in {0..1}; do
-                green=$(( blockrow*2 + blockcol ))
-                for blue in {0..5}; do
-                    $showcolor $(( red*36 + green*6 + blue + 16 )) $green
-                done
-                echo -n "  "
-            done
-            echo
-        done
-        echo
-    done
-
-    echo 24 grayscale color codes:
-    for row in {0..1}; do
-        for col in {0..11}; do
-            $showcolor $(( row*12 + col + 232 )) $row
-        done
-        echo
-    done
-    echo
-}
-
-_showcolor256_fg() {
-    local code=$( printf %03d $1 )
-    echo -ne "\033[38;5;${code}m"
-    echo -nE " $code "
-    echo -ne "\033[0m"
-}
-
-_showcolor256_bg() {
-    if (( $2 % 2 == 0 )); then
-        echo -ne "\033[1;37m"
-    else
-        echo -ne "\033[0;30m"
-    fi
-    local code=$( printf %03d $1 )
-    echo -ne "\033[48;5;${code}m"
-    echo -nE " $code "
-    echo -ne "\033[0m"
-}
 
 # Random color script
 if [ -f /usr/local/bin/colorscript ]; then

@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+
+create() {
+    mkdir -p "$(dirname "$1")" &&
+    touch "$1" && echo "touch: created file '$(basename $1)'"
+}
+
+create "$1"

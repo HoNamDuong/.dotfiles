@@ -62,7 +62,7 @@ Change theme and background color in file:
     /etc/lightdm/lightdm-gtk-greeter.conf
 
     # Copy config for lightdm-gtk-greeter
-    sudo cp .dotfiles/lightdm/lightdm-gtk-greeter.conf /etc/lightdm/
+    sudo cp .dotfiles/.config/lightdm/lightdm-gtk-greeter.conf /etc/lightdm/
 
 Start lightdm
 
@@ -95,7 +95,11 @@ Log out of your system and log in again. While logging in, be sure to select i3 
     sudo pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
     sudo pacman -S ttf-hack-nerd ttf-roboto-mono
 
-    sudo pacman -S zsh tig tree ripgrep fzf fd lsd ranger w3m bat neofetch imagemagick xclip
+    sudo pacman -S tig tree ripgrep fzf fd lsd ranger w3m bat neofetch imagemagick xclip
+
+    # Install zsh
+    sudo pacman -S zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions
+    yay -S zsh-autopair zsh-z-git
 
     # Set zsh as default shell
     chsh -s $(which zsh)
@@ -261,10 +265,10 @@ The final touch is to add some color to the package manager
     grep "Color" /etc/pacman.conf
     grep "VerbosePkgLists" /etc/pacman.conf
 
-### Install [colorscript](../colorscript/README.md)
+### Install [colorscript](../.config/colorscript/README.md)
 
     # Install
-    cd ~/.dotfiles/colorscript
+    cd ~/.dotfiles/.config/colorscript
     sudo make install
 
     # Removal

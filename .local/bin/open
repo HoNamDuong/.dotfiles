@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+
+open() {
+    local file
+    file=$(fzf-tmux -d +m --preview "cat {}") &&
+    $EDITOR $file
+}
+
+open
