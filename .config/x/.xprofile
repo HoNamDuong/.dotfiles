@@ -21,10 +21,10 @@ export GTK_IM_MODULE="ibus"
 export QT_IM_MODULE="ibus"
 export XMODIFIERS="@im=ibus"
 
-# Environment variables set everywhere
+# Other
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export ZDOTDIR="$HOME/.config/zsh"
+export ZSHZ_DATA="$HOME/.cache/zsh/.z" 
 export BAT_THEME="base16"
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
-export FZF_DEFAULT_OPTS="--layout=reverse --height 40% --color=16"
-# export FZF_DEFAULT_OPTS='-layout=reverse --layout=reverse --color=bg:#1a1b26,bg+:#1a1b26,border:#a9b1d6,spinner:#e0af68,fg:#a9b1d6,fg+:#a9b1d6,header:#414868,info:#7aa2f7,pointer:#7dcfff,marker:#f7768e,prompt:#bb9af7,hl:#9ece6a,hl+:#9ece6a'
+

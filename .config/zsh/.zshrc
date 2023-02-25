@@ -18,14 +18,19 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 autoload -U colors && colors
 [ ! -d $HOME/.cache/zsh ] && mkdir -v $HOME/.cache/zsh
-setopt COMPLETE_ALIASES
 
-# Exports
-export _Z_DATA=~/.cache/zsh/.z 
-#
-# if [ "$TERM" != "xterm-256color" ]; then
-#     export TERM=xterm-256color
-# fi
+
+
+# FZF
+export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow"
+export FZF_DEFAULT_OPTS="--reverse --border --multi --info=inline --no-separator --bind='ctrl-/:toggle-preview' --color='bg:black,bg+:black,fg:white,fg+:bright-white,info:yellow,border:bright-black,spinner:yellow,header:blue,pointer:magenta,marker:cyan,prompt:magenta,hl:green,hl+:bright-green'"
+export FZF_CTRL_T_COMMAND='fd --hidden --follow'
+export FZF_CTRL_T_OPTS="--prompt='FILE/DIR ' --preview='(bat --style=numbers --color=always {} || tree -C {}) 2> /dev/null'"
+export FZF_ALT_C_COMMAND="fd --type d --hidden --follow" 
+export FZF_ALT_C_OPTS="--prompt='DIRECTORY ' --preview='tree -C {}'"
+export FZF_CTRL_R_OPTS="--prompt='HISTORY ' --preview-window=hidden"
+_fzf_compgen_path() { fd --hidden --follow . "$1"; }
+_fzf_compgen_dir() { fd --type d --hidden --follow . "$1"; }
 
 
 
@@ -78,7 +83,7 @@ HISTFILE=~/.cache/zsh/.zsh_history
 
 
 
-# Basic auto/tab complete:
+# Basic auto/tab complete
 autoload -U compinit
 zmodload zsh/complist
 compinit -d ~/.cache/zsh/.zcompdump

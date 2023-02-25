@@ -28,7 +28,6 @@
   - [simple-scan](https://gitlab.gnome.org/GNOME/simple-scan) - Simple scanning utility.
 - CLI
   - [zsh](https://github.com/zsh-users/zsh) - A shell designed for interactive use, although it is also a powerful scripting language.
-    - [z](https://github.com/rupa/z) - Tracks your most used directories, based on frecency.
   - [tmux](https://github.com/tmux/tmux) - A terminal multiplexer.
   - [nvim](https://github.com/neovim/neovim) - Hyperextensible Vim-based text editor.
     - [mason.nvim](https://github.com/williamboman/mason.nvim) - Easily install and manage LSP servers, DAP servers, linters, and formatters.

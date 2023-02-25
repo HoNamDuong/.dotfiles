@@ -2,7 +2,7 @@
 
 open() {
     local file
-    file=$(fzf-tmux -d +m --preview "cat {}") &&
+    file=$(fzf-tmux -d +m --preview "(bat --style=numbers --color=always {} || cat {} )") &&
     $EDITOR $file
 }
 

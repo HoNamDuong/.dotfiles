@@ -48,10 +48,10 @@ do
         ### I3 and i3status 
         ln -sfvr $DIR/.config/i3/ $HOME/.config/
         ln -sfvr $DIR/.config/i3status/ $HOME/.config/
-        ### Awesome 
-        git clone https://github.com/lcpz/lain.git ~/.config/awesome/lain
-        git clone https://github.com/lcpz/awesome-freedesktop.git ~/.config/awesome/freedesktop
-        ln -sfvr $DIR/.config/awesome/ $HOME/.config/
+        # ### Awesome 
+        # git clone https://github.com/lcpz/lain.git ~/.config/awesome/lain
+        # git clone https://github.com/lcpz/awesome-freedesktop.git ~/.config/awesome/freedesktop
+        # ln -sfvr $DIR/.config/awesome/ $HOME/.config/
         ### Picom 
         ln -sfvr $DIR/.config/picom/ $HOME/.config/
         ### Alacritty 
@@ -93,6 +93,8 @@ do
         ln -sfvr $DIR/.config/nvim/ $HOME/.config/
         ### Ripgrep
         ln -sfvr $DIR/.config/ripgrep/ $HOME/.config/
+        ### Fd
+        ln -sfvr $DIR/.config/fd/ $HOME/.config/
         ### Neofetch 
         ln -sfvr $DIR/.config/neofetch/ $HOME/.config/
         ### Cava 
