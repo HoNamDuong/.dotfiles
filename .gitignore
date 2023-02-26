@@ -2,3 +2,4 @@
 .config/nvim/plugin/
 .config/awesome/freedesktop/
 .config/awesome/lain/
+.local/bin/xterm

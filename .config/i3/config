@@ -58,36 +58,6 @@ client.background           #1a1b26
 
 
 
-# STARTUP
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
-
-# Set wallpaper with feh
-# exec --no-startup-id feh --no-fehbg --recursive --bg-fill --randomize ~/Pictures/Wallpapers/
-exec --no-startup-id nitrogen --restore
-# exec_always --no-startup-id nitrogen --random --set-zoom-fill
-
-# Load config nvidia-settings
-exec --no-startup-id nvidia-settings --load-config-only
-
-# Enable numlock:
-exec --no-startup-id numlockx
-
-# Start ibus
-exec --no-startup-id ibus-daemon --xim -d -r
-
-# Authorized
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-
-# # Dropbox 
-# exec --no-startup-id dropbox 
-
-# # Start compositor
-# exec_always --no-startup-id picom -b
-
-
-
 # BINDING 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status

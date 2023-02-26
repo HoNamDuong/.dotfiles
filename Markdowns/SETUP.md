@@ -187,10 +187,11 @@ Change the default terminal emulator for Nemo
 
 Fix open file in a terminal
 
-    sudo ln -s $(which alacritty) /usr/bin/xterm
+    # Make symbolic links
+    ln -s $(which alacritty) ~/.local/bin/xterm
 
     # Remove
-    sudo rm /usr/bin/xterm
+    rm ~/.local/bin/xterm
 
 ### Mount disk example
 

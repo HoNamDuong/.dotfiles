@@ -199,7 +199,8 @@ else
 fi
 
 if [ -f /usr/bin/bat ]; then
-    alias cat='bat --paging=never --wrap=auto'
+    alias bat='bat --paging=never --wrap=auto'
+    alias cat='bat'
 fi
 
 # Random color script

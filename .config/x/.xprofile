@@ -28,3 +28,19 @@ export ZSHZ_DATA="$HOME/.cache/zsh/.z"
 export BAT_THEME="base16"
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
 
+# Network Manager Applet
+nm-applet &
+# Set wallpaper
+nitrogen --restore &
+# Load config nvidia-settings
+nvidia-settings --load-config-only &
+# Enable numlock
+numlockx &
+# Ibus
+ibus-daemon --xim -d -r &
+# Dropbox
+/usr/bin/dropbox & 
+# Authentication
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+# # Compositor
+# picom -b
