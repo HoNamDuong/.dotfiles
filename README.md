@@ -1,6 +1,6 @@
 <h1 align="center"> ❤ ~/.dotfiles</h1>
 
-![Screenshot](./Images/Screenshot.png)
+![Screenshot](./screenshots/i3wm.png)
 
 ## Details
 
@@ -54,6 +54,6 @@
 
 ## Install and setup
 
-Dual boot Windows 10 and Arch linux [here](./Markdowns/DUAL.md)
+Dual boot Windows 10 and Arch linux [here](./docs/DUAL.md)
 
-Setup for Arch [here](./Markdowns/SETUP.md)
+Setup for Arch [here](./docs/SETUP.md)
