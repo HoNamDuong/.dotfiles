@@ -38,7 +38,7 @@ _fzf_compgen_dir() { fd --type d --hidden --follow . "$1"; }
 autoload -Uz vcs_info
 precmd () { vcs_info }
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' formats '%F{blue}[%F{green}%c%F{red}%u %F{yellow} %F{magenta}%b%F{blue}]%f '
+zstyle ':vcs_info:*' formats '%F{blue}[%F{green}%c%F{red}%u%F{yellow}%a %F{yellow} %F{magenta}%b%F{blue}]%f '
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 zstyle ':vcs_info:*' enable git 
 +vi-git-untracked() {
@@ -73,7 +73,7 @@ setopt GLOB_COMPLETE # Show autocompletion menu with globs
 setopt HIST_EXPIRE_DUPS_FIRST # Expire a duplicate event first when trimming history.
 setopt HIST_IGNORE_DUPS # Do not record an event that was just recorded again.
 setopt HIST_IGNORE_ALL_DUPS # Delete an old recorded event if a new event is a duplicate.
-setopt HIST_IGNORE_SPACE # Do not record an event starting with a space.
+# setopt HIST_IGNORE_SPACE # Do not record an event starting with a space.
 setopt HIST_SAVE_NO_DUPS # Do not write a duplicate event to the history file.
 setopt HIST_VERIFY # Do not execute immediately upon history expansion.
 

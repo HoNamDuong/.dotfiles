@@ -1,5 +1,10 @@
-.config/ncmpcpp/error.log
+# File type
+*.log
+
+# File
+.local/bin/xterm
+
+# Folder
 .config/nvim/plugin/
 .config/awesome/freedesktop/
 .config/awesome/lain/
-.local/bin/xterm
