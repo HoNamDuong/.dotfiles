@@ -32,10 +32,10 @@ clear
 while :
 do
     echo
-    echo    " [1] Config GUI"
-    echo    " [2] Config CLI"
-
-    echo    " [0] or [Ctrl + C] Quit"
+    echo -e  "${Green} [1] Config GUI   ${Reset}"
+    echo -e  "${Blue} [2] Config CLI    ${Reset}"
+    echo -e  "${Yellow} [0] Quit        ${Reset}"
+    echo
     read -p " Enter your choice: " choice
     case $choice in
     0)
@@ -56,10 +56,9 @@ do
         ln -sfvr $DIR/.config/picom/ $HOME/.config/
         ### Alacritty 
         ln -sfvr $DIR/.config/alacritty/ $HOME/.config/
-        # .fonts
-        [ ! -d $HOME/.fonts ] && mkdir -v $HOME/.fonts
-        ln -sfv $DIR/.fonts/feather.ttf $HOME/.fonts/feather.ttf
         ### Rofi 
+        [ ! -d $HOME/.local/share/fonts ] && mkdir -p $HOME/.local/share/fonts
+        ln -sfv $DIR/.local/share/fonts/feather.ttf $HOME/.local/share/fonts/feather.ttf
         ln -sfvr $DIR/.config/rofi/ $HOME/.config/
         ### Dunst 
         ln -sfvr $DIR/.config/dunst/ $HOME/.config/

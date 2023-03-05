@@ -38,7 +38,8 @@ _fzf_compgen_dir() { fd --type d --hidden --follow . "$1"; }
 autoload -Uz vcs_info
 precmd () { vcs_info }
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' formats '%F{blue}[%F{green}%c%F{red}%u%F{yellow}%a %F{yellow} %F{magenta}%b%F{blue}]%f '
+zstyle ':vcs_info:*' formats '%F{blue}[%F{green}%c%F{red}%u %F{yellow} %F{magenta}%b%F{blue}]%f '
+zstyle ':vcs_info:*' actionformats '%F{blue}[%F{green}%c%F{red}%u%F{cyan} %a %F{yellow} %F{magenta}%b%F{blue}]%f '
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 zstyle ':vcs_info:*' enable git 
 +vi-git-untracked() {

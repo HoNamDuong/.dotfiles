@@ -20,7 +20,7 @@ nvimtree.setup({
                 git = {
                     unstaged = "M",
                     staged = "M",
-                    unmerged = "",
+                    unmerged = "C",
                     renamed = "R",
                     untracked = "U",
                     deleted = "D",
@@ -28,9 +28,6 @@ nvimtree.setup({
                 },
             },
         },
-    },
-    filters = {
-        custom = { ".git/" },
     },
     git = {
         ignore = false,
