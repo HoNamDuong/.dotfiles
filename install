@@ -48,22 +48,18 @@ do
         ### I3 and i3status 
         ln -sfvr $DIR/.config/i3/ $HOME/.config/
         ln -sfvr $DIR/.config/i3status/ $HOME/.config/
-        # ### Awesome 
-        # git clone https://github.com/lcpz/lain.git ~/.config/awesome/lain
-        # git clone https://github.com/lcpz/awesome-freedesktop.git ~/.config/awesome/freedesktop
-        # ln -sfvr $DIR/.config/awesome/ $HOME/.config/
         ### Picom 
         ln -sfvr $DIR/.config/picom/ $HOME/.config/
         ### Alacritty 
         ln -sfvr $DIR/.config/alacritty/ $HOME/.config/
         ### Rofi 
+        # .local/share/fonts 
         [ ! -d $HOME/.local/share/fonts ] && mkdir -p $HOME/.local/share/fonts
         ln -sfv $DIR/.local/share/fonts/feather.ttf $HOME/.local/share/fonts/feather.ttf
+        # .config/rofi
         ln -sfvr $DIR/.config/rofi/ $HOME/.config/
         ### Dunst 
         ln -sfvr $DIR/.config/dunst/ $HOME/.config/
-        # ### Feh 
-        # ln -sfvr $DIR/.config/feh/ $HOME/.config/
         ### mpv 
         ln -sfvr $DIR/.config/mpv/ $HOME/.config/
         ### Conky
@@ -80,14 +76,12 @@ do
         ln -sfvr $DIR/.config/tmux/ $HOME/.config/
         ### Lsd
         ln -sfvr $DIR/.config/lsd/ $HOME/.config/
-        # Dircolors
+        ### Dircolors
         ln -sfv $DIR/.config/dircolors/.dircolors $HOME/.dircolors
         ### Tig
         ln -sfvr $DIR/.config/tig/ $HOME/.config/
         ### Htop
         ln -sfvr $DIR/.config/htop/ $HOME/.config/
-        # ### Vim
-        # ln -sfvr $DIR/.config/.vim/ $HOME/
         ### Nvim
         ln -sfvr $DIR/.config/nvim/ $HOME/.config/
         ### Ripgrep
