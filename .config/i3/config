@@ -3,6 +3,12 @@
 set $mod Mod4
 set $alt Mod1
 
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+
 # Font for window titles
 # font pango:monospace 12
 font pango:Hack Nerd Font Mono 12
@@ -10,14 +16,14 @@ font pango:Hack Nerd Font Mono 12
 # Position title
 title_align center
 
-# Home row direction keys, like vim
-set $left h
-set $down j
-set $up k
-set $right l
+# Drawing marks on window decoration
+show_marks yes
 
 # Use Mouse+$alt to drag floating windows to their wanted position
 floating_modifier $alt
+
+# Move tiling windows via drag & drop by left-clicking into the title bar,
+tiling_drag modifier titlebar
 
 # Focus follows mouse
 focus_follows_mouse no
@@ -27,8 +33,8 @@ hide_edge_borders none
 
 # Removes all title bars
 for_window [class="^.*"] border pixel 2
-default_border pixel 2
 default_floating_border pixel 2
+default_border pixel 2
 
 # Configure 10px of space between windows and to the screen edges.
 gaps inner 10
@@ -42,8 +48,12 @@ hide_edge_borders smart
 # Orientation for new workspaces
 default_orientation horizontal
 
+# # Layout mode for new containers
+# workspace_layout tabbed
+
 # Constraining floating window size
 # floating_maximum_size 1280 x 720
+# floating_minimum_size 75 x 50
 
 # Set colours various window states
 # detail https://i3wm.org/docs/userguide.html#client_colors
@@ -58,7 +68,16 @@ client.background           #1a1b26
 
 
 
-# BINDING 
+# MOUSE BINDINGS
+# The middle button over a titlebar kills the window
+bindsym --release button2 kill
+
+# The right button toggles floating
+bindsym button3 floating toggle
+
+
+
+# KEYBOARD BINDINGS
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
@@ -144,6 +163,11 @@ bindsym $mod+v split v; exec --no-startup-id notify-send 'Tile Vertically'
 bindsym $mod+Shift+minus move scratchpad
 # Show the next scratchpad window or hide the focused scratchpad window
 bindsym $mod+minus scratchpad show
+
+# Mark container
+bindsym $mod+m exec i3-msg mark $(rofi -dmenu -lines 0 -p 'Mark:')
+bindsym $mod+Shift+m exec i3-msg unmark $(rofi -dmenu -lines 0 -p 'Mark:') 
+bindsym $mod+Ctrl+m exec i3-msg [con_mark="$(rofi -dmenu -lines 0 -p 'Mark:')"] focus
 
 # # Show the terminal with Super+Enter
 # bindsym $mod+Return [class="terminal"] scratchpad show
@@ -243,6 +267,9 @@ assign [window_role="(?i)browser"] $ws3
 # # Enable window icons for all windows with extra horizontal padding of 1px
 # for_window [all] title_window_icon padding 10px
 
+# # Print all window titles bold
+# for_window [class=".*"] title_format "<b>%title</b>"
+
 # make a terminal sticky that was started as a notepad
 for_window [instance="mousepad"] sticky enable
 
@@ -262,7 +289,6 @@ for_window [instance="qt5ct"] floating enable
 for_window [instance="mousepad"] floating enable 
 for_window [instance="nitrogen"] floating enable 
 for_window [instance="viewnior"] floating enable 
-for_window [instance="obsidian"] floating enable 
 for_window [instance="system-config-printer"] floating enable 
 for_window [class="mpv"] floating enable 
 # for_window [class="thunderbird"] floating enable 
@@ -465,6 +491,9 @@ bar {
     # Disabling mouse scroll workspace switching on bar 
     bindsym button4         nop
     bindsym button5         nop
+
+    # Remane workspace
+    bindsym --release button3         exec i3-msg rename workspace to $(rofi -dmenu -lines 0 -p 'New name')
 
     tray_output primary
     tray_padding 0
