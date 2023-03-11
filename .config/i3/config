@@ -4,10 +4,10 @@ set $mod Mod4
 set $alt Mod1
 
 # Home row direction keys, like vim
-set $left h
-set $down j
-set $up k
-set $right l
+set $left   h
+set $down   j
+set $up     k
+set $right  l
 
 # Font for window titles
 # font pango:monospace 12
@@ -58,11 +58,11 @@ default_orientation horizontal
 # Set colours various window states
 # detail https://i3wm.org/docs/userguide.html#client_colors
 # class                     border  backgr. text    indicator  child_border
-client.focused              #565f89 #565f89 #16161e #565f89 
-client.unfocused            #1a1b26 #1a1b26 #565f89 #1a1b26 
-client.focused_inactive     #1a1b26 #1a1b26 #565f89 #1a1b26
-# client.focused_tab_title    #1a1b26 #1a1b26 #565f89 #1a1b26
-client.placeholder          #1a1b26 #1a1b26 #565f89 #1a1b26
+client.focused              #414868 #414868 #c8d3f5 #414868 
+client.unfocused            #1a1b26 #1a1b26 #414868 #1a1b26 
+client.focused_inactive     #1a1b26 #1a1b26 #414868 #1a1b26
+# client.focused_tab_title    #1a1b26 #1a1b26 #414868 #1a1b26
+client.placeholder          #1a1b26 #1a1b26 #414868 #1a1b26
 client.urgent               #ff757f #ff757f #16161e #ff757f
 client.background           #1a1b26
 
@@ -80,10 +80,10 @@ bindsym button3 floating toggle
 # KEYBOARD BINDINGS
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym XF86AudioRaiseVolume    exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume    exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute           exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute        exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Reload the configuration file
 bindsym $mod+Shift+c reload
@@ -129,28 +129,28 @@ bindsym $mod+Shift+Tab workspace prev
 bindsym $mod+grave workspace back_and_forth
 
 # Change focus
-bindsym $mod+$left focus left
-bindsym $mod+$down focus down
-bindsym $mod+$up focus up
+bindsym $mod+$left  focus left
+bindsym $mod+$down  focus down
+bindsym $mod+$up    focus up
 bindsym $mod+$right focus right
 
 # Alternatively, you can use the cursor keys:
-bindsym $mod+Left  focus left
-bindsym $mod+Down  focus down
-bindsym $mod+Up  focus up
+bindsym $mod+Left   focus left
+bindsym $mod+Down   focus down
+bindsym $mod+Up     focus up
 bindsym $mod+Right  focus right
 
 # Move focused window
-bindsym $mod+Shift+$left move left
-bindsym $mod+Shift+$down move down
-bindsym $mod+Shift+$up move up
-bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+$left    move left
+bindsym $mod+Shift+$down    move down
+bindsym $mod+Shift+$up      move up
+bindsym $mod+Shift+$right   move right
 
 # Alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+Left     move left
+bindsym $mod+Shift+Down     move down
+bindsym $mod+Shift+Up       move up
+bindsym $mod+Shift+Right    move right
 
 # Split in horizontal orientation
 bindsym $mod+Shift+v split h; exec --no-startup-id notify-send 'Tile Horizontally' 
@@ -165,9 +165,12 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 # Mark container
-bindsym $mod+m exec i3-msg mark $(rofi -dmenu -lines 0 -p 'Mark:')
-bindsym $mod+Shift+m exec i3-msg unmark $(rofi -dmenu -lines 0 -p 'Mark:') 
-bindsym $mod+Ctrl+m exec i3-msg [con_mark="$(rofi -dmenu -lines 0 -p 'Mark:')"] focus
+bindsym $mod+m exec i3-msg mark $(dmenu -l 0 -p 'Mark' -fn 'monospace-12' -nf '#c8d3f5' -nb '#1a1b26' -sf '#c8d3f5' -sb '#3b4261')
+bindsym $mod+Shift+m exec i3-msg unmark $(dmenu -l 0 -p 'Unmark' -fn 'monospace-12' -nf '#c8d3f5' -nb '#1a1b26' -sf '#c8d3f5' -sb '#3b4261') 
+bindsym $mod+Ctrl+m exec i3-msg [con_mark="$(dmenu -l 0 -p 'Focus mark' -fn 'monospace-12' -nf '#c8d3f5' -nb '#1a1b26' -sf '#c8d3f5' -sb '#3b4261')"] focus
+
+# Remane workspace
+bindsym $mod+Shift+w exec --no-startup-id i3-msg rename workspace to $(dmenu -l 0 -p "New name" -fn 'monospace-12' -nf '#c8d3f5' -nb '#1a1b26' -sf '#c8d3f5' -sb '#3b4261')
 
 # # Show the terminal with Super+Enter
 # bindsym $mod+Return [class="terminal"] scratchpad show
@@ -196,18 +199,15 @@ bindsym $mod+Shift+Return split v exec --no-startup-id i3-sensible-terminal
 bindsym $mod+n exec --no-startup-id dunstctl history-pop
 bindsym $mod+Shift+n exec --no-startup-id dunstctl close-all
 
-# Search applications
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="dmenu -i -fn 'JetBrainsMono NF-12' -nf '#c8d3f5' -nb '#1a1b26' -sb '#3b4261' -sf '#c8d3f5'"
-# Search command
-bindsym $mod+Shift+d exec --no-startup-id dmenu_run -fn 'JetBrainsMono NF-12' -nf '#c8d3f5' -nb '#1a1b26' -sf '#c8d3f5' -sb '#3b4261'  
+# Open launcher
+bindcode 133 --release exec --no-startup-id ~/.local/bin/launchers 
+# bindsym $mod+p --release exec --no-startup-id ~/.local/bin/launchers 
 
-# Search applications
-bindcode 133 --release exec --no-startup-id ~/.local/bin/apps 
-# Search command
-bindsym $mod+p exec --no-startup-id ~/.local/bin/launcher 
+# Command
+bindsym $mod++p exec --no-startup-id ~/.local/bin/launchers run  
 
 # Switching window with Alt+Tab 
-bindsym $alt+Tab exec --no-startup-id ~/.local/bin/windows 
+bindsym $alt+Tab exec --no-startup-id ~/.local/bin/launchers window 
 
 # Build menu power with rofi
 bindsym $mod+x exec --no-startup-id ~/.local/bin/powermenu
@@ -326,10 +326,9 @@ mode "RESIZE" {
     bindsym Up      resize shrink height 10 px or 10 ppt
     bindsym Right   resize grow width 10 px or 10 ppt
 
-    # Back to normal: Enter or Escape or $mod+r
+    # Back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
-    bindsym $mod+r mode "default"
 }
 bindsym $mod+r mode "RESIZE"
 
@@ -342,133 +341,78 @@ mode "POWER" {
     bindsym s exec systemctl suspend
     bindsym h exec systemctl hibernate 
 
-    # Back to normal: Enter or Escape or $mod+Shift+q 
+    # Back to normal: Enter or Escape 
     bindsym Return          mode "default"
     bindsym Escape          mode "default"
-    bindsym $mod+Shift+q    mode "default"
 }
 bindsym $mod+Shift+q mode "POWER"
 
 # Change gaps mode
-set $mode_gaps GAPS (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
+set $mode_gaps Gaps (o)uter, (i)nner, (h)orizontal, (v)ertical
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
 set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
 set $mode_gaps_horiz Horizontal Gaps: +|-|0 (local), Shift + +|-|0 (global)
 set $mode_gaps_verti Vertical Gaps: +|-|0 (local), Shift + +|-|0 (global)
-set $mode_gaps_top Top Gaps: +|-|0 (local), Shift + +|-|0 (global)
-set $mode_gaps_right Right Gaps: +|-|0 (local), Shift + +|-|0 (global)
-set $mode_gaps_bottom Bottom Gaps: +|-|0 (local), Shift + +|-|0 (global)
-set $mode_gaps_left Left Gaps: +|-|0 (local), Shift + +|-|0 (global)
 bindsym $mod+g mode "$mode_gaps"
 
 mode "$mode_gaps" {
-        bindsym o      mode "$mode_gaps_outer"
-        bindsym i      mode "$mode_gaps_inner"
-        bindsym h      mode "$mode_gaps_horiz"
-        bindsym v      mode "$mode_gaps_verti"
-        bindsym t      mode "$mode_gaps_top"
-        bindsym r      mode "$mode_gaps_right"
-        bindsym b      mode "$mode_gaps_bottom"
-        bindsym l      mode "$mode_gaps_left"
-        bindsym Return mode "$mode_gaps"
-        bindsym Escape mode "default"
+    bindsym o           mode "$mode_gaps_outer"
+    bindsym i           mode "$mode_gaps_inner"
+    bindsym h           mode "$mode_gaps_horiz"
+    bindsym v           mode "$mode_gaps_verti"
+
+    # Back to normal: Enter or Escape
+    bindsym Return      mode "$mode_gaps"
+    bindsym Escape      mode "default"
 }
 
 mode "$mode_gaps_outer" {
-        bindsym plus  gaps outer current plus 5
-        bindsym minus gaps outer current minus 5
-        bindsym 0     gaps outer current set 0
+    bindsym plus        gaps outer current plus 5
+    bindsym minus       gaps outer current minus 5
+    bindsym 0           gaps outer current set 0
 
-        bindsym Shift+plus  gaps outer all plus 5
-        bindsym Shift+minus gaps outer all minus 5
-        bindsym Shift+0     gaps outer all set 0
+    bindsym Shift+plus  gaps outer all plus 5
+    bindsym Shift+minus gaps outer all minus 5
+    bindsym Shift+0     gaps outer all set 0
 
-        bindsym Return mode "$mode_gaps"
-        bindsym Escape mode "default"
+    bindsym Return mode "$mode_gaps"
+    bindsym Escape mode "default"
 }
 mode "$mode_gaps_inner" {
-        bindsym plus  gaps inner current plus 5
-        bindsym minus gaps inner current minus 5
-        bindsym 0     gaps inner current set 0
+    bindsym plus        gaps inner current plus 5
+    bindsym minus       gaps inner current minus 5
+    bindsym 0           gaps inner current set 0
 
-        bindsym Shift+plus  gaps inner all plus 5
-        bindsym Shift+minus gaps inner all minus 5
-        bindsym Shift+0     gaps inner all set 0
+    bindsym Shift+plus  gaps inner all plus 5
+    bindsym Shift+minus gaps inner all minus 5
+    bindsym Shift+0     gaps inner all set 0
 
-        bindsym Return mode "$mode_gaps"
-        bindsym Escape mode "default"
+    bindsym Return mode "$mode_gaps"
+    bindsym Escape mode "default"
 }
 mode "$mode_gaps_horiz" {
-        bindsym plus  gaps horizontal current plus 5
-        bindsym minus gaps horizontal current minus 5
-        bindsym 0     gaps horizontal current set 0
+    bindsym plus        gaps horizontal current plus 5
+    bindsym minus       gaps horizontal current minus 5
+    bindsym 0           gaps horizontal current set 0
 
-        bindsym Shift+plus  gaps horizontal all plus 5
-        bindsym Shift+minus gaps horizontal all minus 5
-        bindsym Shift+0     gaps horizontal all set 0
+    bindsym Shift+plus  gaps horizontal all plus 5
+    bindsym Shift+minus gaps horizontal all minus 5
+    bindsym Shift+0     gaps horizontal all set 0
 
-        bindsym Return mode "$mode_gaps"
-        bindsym Escape mode "default"
+    bindsym Return mode "$mode_gaps"
+    bindsym Escape mode "default"
 }
 mode "$mode_gaps_verti" {
-        bindsym plus  gaps vertical current plus 5
-        bindsym minus gaps vertical current minus 5
-        bindsym 0     gaps vertical current set 0
+    bindsym plus        gaps vertical current plus 5
+    bindsym minus       gaps vertical current minus 5
+    bindsym 0           gaps vertical current set 0
 
-        bindsym Shift+plus  gaps vertical all plus 5
-        bindsym Shift+minus gaps vertical all minus 5
-        bindsym Shift+0     gaps vertical all set 0
+    bindsym Shift+plus  gaps vertical all plus 5
+    bindsym Shift+minus gaps vertical all minus 5
+    bindsym Shift+0     gaps vertical all set 0
 
-        bindsym Return mode "$mode_gaps"
-        bindsym Escape mode "default"
-}
-mode "$mode_gaps_top" {
-        bindsym plus  gaps top current plus 5
-        bindsym minus gaps top current minus 5
-        bindsym 0     gaps top current set 0
-
-        bindsym Shift+plus  gaps top all plus 5
-        bindsym Shift+minus gaps top all minus 5
-        bindsym Shift+0     gaps top all set 0
-
-        bindsym Return mode "$mode_gaps"
-        bindsym Escape mode "default"
-}
-mode "$mode_gaps_right" {
-        bindsym plus  gaps right current plus 5
-        bindsym minus gaps right current minus 5
-        bindsym 0     gaps right current set 0
-
-        bindsym Shift+plus  gaps right all plus 5
-        bindsym Shift+minus gaps right all minus 5
-        bindsym Shift+0     gaps right all set 0
-
-        bindsym Return mode "$mode_gaps"
-        bindsym Escape mode "default"
-}
-mode "$mode_gaps_bottom" {
-        bindsym plus  gaps bottom current plus 5
-        bindsym minus gaps bottom current minus 5
-        bindsym 0     gaps bottom current set 0
-
-        bindsym Shift+plus  gaps bottom all plus 5
-        bindsym Shift+minus gaps bottom all minus 5
-        bindsym Shift+0     gaps bottom all set 0
-
-        bindsym Return mode "$mode_gaps"
-        bindsym Escape mode "default"
-}
-mode "$mode_gaps_left" {
-        bindsym plus  gaps left current plus 5
-        bindsym minus gaps left current minus 5
-        bindsym 0     gaps left current set 0
-
-        bindsym Shift+plus  gaps left all plus 5
-        bindsym Shift+minus gaps left all minus 5
-        bindsym Shift+0     gaps left all set 0
-
-        bindsym Return mode "$mode_gaps"
-        bindsym Escape mode "default"
+    bindsym Return mode "$mode_gaps"
+    bindsym Escape mode "default"
 }
 
 
@@ -492,9 +436,6 @@ bar {
     bindsym button4         nop
     bindsym button5         nop
 
-    # Remane workspace
-    bindsym --release button3         exec i3-msg rename workspace to $(rofi -dmenu -lines 0 -p 'New name')
-
     tray_output primary
     tray_padding 0
 
@@ -509,7 +450,7 @@ bar {
         separator  #c8d3f5 
 
         # type             border  background font
-        focused_workspace  #3b4261 #3b4261 #c8d3f5 
+        focused_workspace  #414868 #414868 #c8d3f5 
         active_workspace   #1a1b26 #1a1b26 #c8d3f5 
         inactive_workspace #1a1b26 #1a1b26 #c8d3f5 
         urgent_workspace   #ff757f #ff757f #1a1b26 

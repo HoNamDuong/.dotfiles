@@ -1,9 +1,0 @@
-#!/usr/bin/bash
-
-open() {
-    local file
-    file=$(fzf-tmux -d +m --preview "(bat --style=numbers --color=always {} || cat {} )") &&
-    $EDITOR $file
-}
-
-open
