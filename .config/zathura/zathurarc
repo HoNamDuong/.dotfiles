@@ -1,0 +1,52 @@
+# Theme
+set notification-error-bg       "#f7768e"
+set notification-error-fg       "#1a1b26"
+set notification-warning-bg     "#e0af68"
+set notification-warning-fg     "#1a1b26"
+set notification-bg             "#a9b1d6"
+set notification-fg             "#1a1b26"
+
+set completion-bg               "#414868"
+set completion-fg               "#c0caf5"
+set completion-group-bg         "#414868"
+set completion-group-fg         "#c0caf5"
+set completion-highlight-bg     "#9ece6a"
+set completion-highlight-fg     "#1a1b26"
+
+set index-bg                    "#414868"
+set index-fg                    "#c0caf5"
+set index-active-bg             "#7aa2f7"
+set index-active-fg             "#1a1b26"
+
+set inputbar-bg                 "#1a1b26"
+set inputbar-fg                 "#c0caf5"
+
+set statusbar-bg                "#414868"
+set statusbar-fg                "#c0caf5"
+
+set highlight-color             "#e0af68"
+set highlight-active-color      "#f7768e"
+
+set default-bg                  "#1a1b26"
+set default-fg                  "#c0caf5"
+
+# set render-loading              "true"
+# set render-loading-bg           "#1a1b26"
+# set render-loading-fg           "#a9b1d6"
+
+set recolor-lightcolor          "#1a1b26"
+set recolor-darkcolor           "#c0caf5"
+
+# Font
+set font                        "monospace normal 12"
+
+# Enables recoloring
+set recolor                     "true"
+set recolor-keephue             "true"
+set recolor-reverse-video       "true"
+
+# Enable copy to clipboard
+set selection-clipboard         "clipboard"
+
+# Keyring
+map <M-z> set recolor

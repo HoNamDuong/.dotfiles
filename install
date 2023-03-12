@@ -64,10 +64,12 @@ do
         ln -sfvr $DIR/.config/mpv/ $HOME/.config/
         ### Conky
         ln -sfvr $DIR/.config/conky/ $HOME/.config/
-        ### bin 
-        ln -sfvr $DIR/.local/bin/ $HOME/.local/
+        ### Zathura
+        ln -sfvr $DIR/.config/zathura/ $HOME/.config/
         ;;
     2)
+        ### bin 
+        ln -sfvr $DIR/.local/bin/ $HOME/.local/
         ### Zsh
         # .cache/zsh
         [ ! -d $HOME/.cache/zsh ] && mkdir -v $HOME/.cache/zsh
@@ -84,6 +86,8 @@ do
         ln -sfvr $DIR/.config/htop/ $HOME/.config/
         ### Nvim
         ln -sfvr $DIR/.config/nvim/ $HOME/.config/
+        ### Ranger
+        ln -sfvr $DIR/.config/ranger/ $HOME/.config/
         ### Ripgrep
         ln -sfvr $DIR/.config/ripgrep/ $HOME/.config/
         ### Fd

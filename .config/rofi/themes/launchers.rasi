@@ -1,6 +1,6 @@
 /*****----- Global Properties -----*****/
 * {
-    font:                        "Hack Nerd Font Mono 13";
+    font:                        "Hack Nerd Font Mono 12";
 
     background:                  #1a1b26;
     foreground:                  #C0CAF5;
