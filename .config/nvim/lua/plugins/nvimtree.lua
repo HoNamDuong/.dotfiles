@@ -8,6 +8,8 @@ end
 
 local callback = require("nvim-tree.config").nvim_tree_callback
 
+vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Explorer" })
+
 nvimtree.setup({
     update_focused_file = {
         enable = true,

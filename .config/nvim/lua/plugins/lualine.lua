@@ -27,6 +27,16 @@ local location = {
     padding = 1,
 }
 
+local fileformat = {
+    "fileformat",
+    icons_enabled = true,
+    symbols = {
+        unix = "LF",
+        dos = "CRLF",
+        mac = "CR",
+    },
+}
+
 local spaces = function()
     return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
 end
@@ -64,7 +74,7 @@ lualine.setup({
         lualine_a = {},
         lualine_b = {},
         lualine_c = { "branch", "diff", diagnostics, lsp_progress },
-        lualine_x = { filetype, spaces, "encoding", location, "progress" },
+        lualine_x = { filetype, spaces, fileformat, "encoding", location, "progress" },
         lualine_y = { "filesize" },
         lualine_z = { "mode" },
     },

@@ -32,12 +32,14 @@ telescope.setup({
             },
         },
         -- wrap_results = true,
-        file_ignore_patterns = { "./.git/", "node_modules", "yarn.lock" },
+        -- file_ignore_patterns = { "./.git/", "node_modules" },
         mappings = {
             i = {
                 ["<Down>"] = actions.move_selection_next,
                 ["<Up>"] = actions.move_selection_previous,
-                ["<esc>"] = actions.close,
+                ["<C-j>"] = actions.move_selection_next,
+                ["<C-k>"] = actions.move_selection_previous,
+                ["<ESC>"] = actions.close,
                 ["<CR>"] = function()
                     vim.cmd.stopinsert()
                     vim.cmd([[call feedkeys("\<CR>")]])
