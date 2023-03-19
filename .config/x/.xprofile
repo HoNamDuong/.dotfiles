@@ -27,6 +27,8 @@ export ZDOTDIR="$HOME/.config/zsh"
 export ZSHZ_DATA="$HOME/.cache/zsh/.z" 
 export BAT_THEME="base16"
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
+export LIBVA_DRIVER_NAME="vdpau"
+export VDPAU_DRIVER="nvidia"
 
 # Network Manager Applet
 nm-applet &
@@ -38,9 +40,11 @@ nvidia-settings --load-config-only &
 numlockx &
 # Ibus
 ibus-daemon --xim -d -r &
-# Dropbox
-/usr/bin/dropbox & 
 # Authentication
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+# Display 
+conky -c ~/.config/conky/time.conf &
+# # Dropbox
+# /usr/bin/dropbox & 
 # # Compositor
 # picom -b
