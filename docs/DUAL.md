@@ -134,7 +134,7 @@ Update timezone (replace Region/City with your timezone):
 
 Sync system clock to hardware clock:
 
-    hwclock —-systohc —-utc
+    hwclock —-systohc --localtime
 
 ### Set language, location and hostname
 
@@ -153,12 +153,6 @@ Save and exit the file. Next generate the locale configuration using the command
 Set teh `LANG` variable in the `locale.conf` file:
 
     echo "LANG=en_US.UTF-8" >> /etc/locale.conf
-    echo "LANGUAGE=en_US" >> /etc/locale.conf
-
-Add this content to the file:
-
-    nvim /etc/vconsole.conf
-    KEYMAP=us
 
 `hostname` is a unique name to identify a machine on a network.
 Create `hostname` file and add a hostname:
@@ -205,6 +199,8 @@ Add sudo access to the user.
 `efibootmgr` is a userspace application used to modify the UEFI Boot Manager.
 
     pacman -S grub efibootmgr os-prober
+
+Mount the boot partition (the one we created in windows, `nvme0n1p1` in my case)
 
     mkdir -p /boot/efi
     mount /dev/nvme0n1p1 /boot/efi

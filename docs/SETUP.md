@@ -161,13 +161,13 @@ Log out of your system and log in again. While logging in, be sure to select i3 
 
 ### Installing applications (Optional)
 
-    sudo pacman -S viewnior nitrogen conky obsidian dbeaver
-    sudo pacman -S vlc mpv yt-dlp mpd ncmpcpp
+    sudo pacman -S viewnior nitrogen conky dbeaver
+    sudo pacman -S mpv yt-dlp mpd ncmpcpp
     sudo pacman -S discord spotify-launcher telegram-desktop thunderbird cmatrix
 
 Few more optional tools that are recommended we can find in AUR
 
-    yay -S google-chrome visual-studio-code-bin dropbox postman-bin cava pipes.sh
+    yay -S google-chrome visual-studio-code-bin postman-bin cava pipes.sh
 
 Install [iBus](https://github.com/BambooEngine/ibus-bamboo) - Input framework for Linux OS.
 
@@ -203,7 +203,7 @@ Fix open file in a terminal
 
     # Example add line
     echo '# /dev/sda3
-    UUID=B0D45058D45022C0 /run/media/dat/Documents auto defaults,uid=1000,gid=1000 0 0
+    UUID=1CC5-1EA1 /run/media/dat/Storage auto defaults,uid=1000,gid=1000 0 0
     ' | sudo tee -a /etc/fstab
 
 ### Setup printer and scanner
