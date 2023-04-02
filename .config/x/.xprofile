@@ -14,7 +14,7 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export EDITOR="nvim"
 export VISUAL="nvim"
 export TERMINAL="alacritty"
-export BROWSER="google-chrome-stable"
+# export BROWSER="google-chrome-stable"
 
 # Ibus
 export GTK_IM_MODULE="ibus"
@@ -44,7 +44,7 @@ ibus-daemon --xim -d -r &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 # Display 
 conky -c ~/.config/conky/time.conf &
-# # Dropbox
-# /usr/bin/dropbox & 
+# Insync
+[ -f ~/insync ] && . ~/insync &
 # # Compositor
 # picom -b

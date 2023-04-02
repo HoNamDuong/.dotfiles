@@ -59,10 +59,16 @@ run_command() {
 chosen="$(run_command)"
 case ${chosen} in
     $lock)
-        i3lock --no-unlock-indicator --pointer=default --color "000000"
+        if [[ -x '/usr/bin/i3lock' ]]; then
+            i3lock --no-unlock-indicator --pointer=default --color "000000"
+        fi
         ;;
     $logout)
-        i3-msg exit
+        if [[ "$DESKTOP_SESSION" == 'i3' ]]; then
+            i3-msg exit
+        else
+            exit 0
+        fi
         ;;
     $reboot)
         /usr/bin/systemctl reboot

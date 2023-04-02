@@ -82,7 +82,7 @@ textbox-prompt-colon {
 }
 entry {
     enabled:                     true;
-    padding:                     10px 0px;
+    padding:                     10px 5px;
     background-color:            inherit;
     text-color:                  inherit;
     cursor:                      text;

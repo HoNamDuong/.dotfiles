@@ -5,7 +5,8 @@
 ## Details
 
 - GUI
-  - [i3](https://github.com/i3/i3) - A tiling window manager.
+  - [i3wm](https://github.com/i3/i3) - A tiling window manager.
+  - [awesomewm](https://github.com/awesomeWM/awesome) - A highly configurable, next generation framework window manager for X.
   - [LightDM](https://github.com/canonical/lightdm) - LightDM is a cross-desktop display manager.
     - [LightDM GTK Greeter](https://github.com/Xubuntu/lightdm-gtk-greeter) - A greeter that has moderate requirements (GTK).
   - [Alacritty](https://github.com/alacritty/alacritty) - A cross-platform, GPU-accelerated terminal emulator.
@@ -15,13 +16,10 @@
   - [picom](https://github.com/yshui/picom) - A lightweight compositor for X11.
   - [Conky](https://github.com/brndnmtthws/conky) - Light-weight system monitor for X, that displays any kind of information on your desktop.
   - [nitrogen](https://github.com/l3ib/nitrogen) - Background browser and setter for X windows.
-  - [VLC media player](https://www.videolan.org/vlc/) - VLC is a free and open source cross-platform multimedia player and framework.
   - [Mpv](https://mpv.io/) - A free, open source, and cross-platform media player.
   - [Viewnior](https://siyanpanayotov.com/project/viewnior) - Fast and elegant image viewer.
   - [Nemo](https://github.com/linuxmint/nemo) - Nemo is the file manager.
   - [Thunderbird](https://www.thunderbird.net/) - Thunderbird is a free email application that's easy to set up and customize - and it's loaded with great features.
-  - [Dropbox](https://www.dropbox.com) - A file sharing system with a GNU/Linux client. Use it to transparently sync files across computers and architectures.
-  - [Obsidian](https://obsidian.md/) - A powerful and extensible knowledge base that works on top of your local folder of plain text files.
   - [IBus](https://github.com/ibus/ibus/wiki) - Next Generation Input Bus for Linux.
   - [Zathura](https://pwmt.org/projects/zathura/) - A highly customizable and functional document viewer.
   - [network-manager-applet](https://gitlab.gnome.org/GNOME/network-manager-applet) - Tray applet and an advanced network connection editor.

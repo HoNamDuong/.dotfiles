@@ -48,6 +48,8 @@ do
         ### I3 and i3status 
         ln -sfvr $DIR/.config/i3/ $HOME/.config/
         ln -sfvr $DIR/.config/i3status/ $HOME/.config/
+        ### Awesomewm 
+        ln -sfvr $DIR/.config/awesome/ $HOME/.config/
         ### Picom 
         ln -sfvr $DIR/.config/picom/ $HOME/.config/
         ### Alacritty 

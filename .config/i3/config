@@ -181,10 +181,8 @@ bindsym $mod+Shift+w exec --no-startup-id i3-msg rename workspace to $(dmenu -l 
 # # Move focused floating window to the current position of the cursor
 # bindsym $mod+Shift+m move position mouse
 
-# Exit i3 (logs you out of your X session)
-# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 # # Manage i3 session
-# bindsym $mod+Shift+e exec --no-startup-id i3-nagbar -t warning -f "pango:Hack 9" -m "Do you really want to exit?" -B "    Exit " "i3-msg exit" -B "    Lock " "pkill i3-nagbar && i3lock-fancy -f Source-Sans-Pro" -B "    Reboot " "pkill i3-nagbar && reboot" -B "    Shutdown " "pkill i3-nagbar && shutdown -h now"
+# bindsym $mod+Shift+e exec --no-startup-id i3-nagbar -t warning -m "Your choice?" -B "    Lock " "pkill i3-nagbar && i3lock" -B "    Logout " "pkill i3-nagbar && i3-msg exit" -B "    Reboot " "pkill i3-nagbar && reboot" -B "    Shutdown " "pkill i3-nagbar && shutdown -h now"
 
 # Shortcut applications
 # Screenshot
@@ -256,7 +254,6 @@ assign [instance="code"] $ws2
 assign [instance="nemo"] $ws4
 assign [instance="(?i)dbeaver"] $ws5
 assign [instance="postman"] $ws5
-assign [instance="vlc"] $ws6
 assign [class="mpv"] $ws6
 assign [instance="discord"] $ws8
 assign [instance="telegram"] $ws8
@@ -264,41 +261,32 @@ assign [class="thunderbird"] $ws8
 assign [class="(?i)minecraft"] $ws9
 assign [window_role="(?i)browser"] $ws3
 
-# # Enable window icons for all windows with extra horizontal padding of 1px
-# for_window [all] title_window_icon padding 10px
+# Enable window icons for all windows with extra horizontal padding of 1px
+for_window [all] title_window_icon padding 10px
+
+# Switch to workspace with urgent window automatically
+for_window [urgent="latest"] focus
 
 # # Print all window titles bold
 # for_window [class=".*"] title_format "<b>%title</b>"
 
 # make a terminal sticky that was started as a notepad
-for_window [instance="mousepad"] sticky enable
+for_window [title="Translate"] sticky enable
 
 # Set specific windows to floating mode
-# for_window [window_role="app"] floating enable
 for_window [window_role="pop-up"] floating enable
-# for_window [window_role="bubble"] floating enable
-# for_window [window_role="task_dialog"] floating enable
-# for_window [window_role="Preferences"] floating enable
-# for_window [window_type="dialog"] floating enable
-# for_window [window_type="menu"] floating enable
-for_window [instance="vlc"] floating enable 
+for_window [window_role="(?i)browser"] border pixel 0 
 for_window [instance="pavucontrol"] floating enable 
 for_window [instance="nvidia-settings"] floating enable 
 for_window [instance="lxappearance"] floating enable 
 for_window [instance="qt5ct"] floating enable 
-for_window [instance="mousepad"] floating enable 
 for_window [instance="nitrogen"] floating enable 
 for_window [instance="viewnior"] floating enable 
 for_window [instance="system-config-printer"] floating enable 
-for_window [class="mpv"] floating enable 
-# for_window [class="thunderbird"] floating enable 
 for_window [instance="spotify"] floating enable, move window to workspace $ws6 
-for_window [instance="feh"] floating enable, move position center  
+# for_window [class="thunderbird"] floating enable 
+for_window [class="mpv"] floating enable 
 for_window [instance="conky"] border pixel 0 
-for_window [window_role="(?i)browser"] border pixel 0 
-
-# Switch to workspace with urgent window automatically
-for_window [urgent="latest"] focus
 
 # # Inner and outer gaps for all windows on a specific workspace.
 # workspace $ws9 gaps horizontal 100
