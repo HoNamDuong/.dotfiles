@@ -99,7 +99,7 @@ Log out of your system and log in again. While logging in, be sure to select i3 
 
     # Install zsh
     sudo pacman -S zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions
-    yay -S zsh-autopair zsh-z-git
+    yay -S zsh-autopair-git zsh-z-git
 
     # Set zsh as default shell
     chsh -s $(which zsh)
@@ -162,8 +162,9 @@ Log out of your system and log in again. While logging in, be sure to select i3 
 ### Installing applications (Optional)
 
     sudo pacman -S viewnior nitrogen conky dbeaver
-    sudo pacman -S mpv yt-dlp mpd ncmpcpp
-    sudo pacman -S discord spotify-launcher telegram-desktop thunderbird cmatrix
+    sudo pacman -S mpv yt-dlp mpd ncmpcpp cmatrix
+    sudo pacman -S discord spotify-launcher telegram-desktop thunderbird
+    sudo pacman -S zathura zathura-pdf-mupdf
 
 Few more optional tools that are recommended we can find in AUR
 
@@ -192,19 +193,6 @@ Fix open file in a terminal
 
     # Remove
     rm ~/.local/bin/xterm
-
-### Mount disk example
-
-    # To identify existing file systems
-    lsblk -f
-
-    # Change file fstab
-    sudo nvim /etc/fstab
-
-    # Example add line
-    echo '# /dev/sda3
-    UUID=1CC5-1EA1 /run/media/dat/Storage auto defaults,uid=1000,gid=1000 0 0
-    ' | sudo tee -a /etc/fstab
 
 ### Setup printer and scanner
 

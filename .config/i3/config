@@ -9,6 +9,28 @@ set $down   j
 set $up     k
 set $right  l
 
+# Get variable from .Xresources
+set_from_resource $background       background  #1a1b26	
+set_from_resource $foreground       foreground  #c0caf5	
+
+set_from_resource $black            color0      #1a1b26	
+set_from_resource $red              color1      #f7768e	
+set_from_resource $green            color2      #9ece6a	
+set_from_resource $yellow           color3      #e0af68	
+set_from_resource $blue             color4      #7aa2f7	
+set_from_resource $purple           color5      #bb9af7	
+set_from_resource $cyan             color6      #7dcfff	
+set_from_resource $white            color7      #a9b1d6	
+
+set_from_resource $brightblack      color8      #414868	
+set_from_resource $brightred        color9      #f7768e	
+set_from_resource $brightgreen      color10     #9ece6a	
+set_from_resource $brightyellow     color11     #e0af68	
+set_from_resource $brightblue       color12     #7aa2f7	
+set_from_resource $brightpurple     color13     #bb9af7	
+set_from_resource $brightcyan       color14     #7dcfff	
+set_from_resource $brightwhite      color15     #c0caf5	
+
 # Font for window titles
 # font pango:monospace 12
 font pango:Hack Nerd Font Mono 12
@@ -57,14 +79,14 @@ default_orientation horizontal
 
 # Set colours various window states
 # detail https://i3wm.org/docs/userguide.html#client_colors
-# class                     border  backgr. text    indicator  child_border
-client.focused              #414868 #414868 #c8d3f5 #414868 
-client.unfocused            #1a1b26 #1a1b26 #414868 #1a1b26 
-client.focused_inactive     #1a1b26 #1a1b26 #414868 #1a1b26
-# client.focused_tab_title    #1a1b26 #1a1b26 #414868 #1a1b26
-client.placeholder          #1a1b26 #1a1b26 #414868 #1a1b26
-client.urgent               #ff757f #ff757f #16161e #ff757f
-client.background           #1a1b26
+# class                     border          backgr          text            indicator       child_border
+client.focused              $brightblack    $brightblack    $brightwhite    $brightblack 
+client.unfocused            $black          $black          $white          $black 
+client.focused_inactive     $black          $black          $white          $black 
+# client.focused_tab_title    $black          $black          $brightblack    $black 
+client.placeholder          $black          $black          $brightblack    $black 
+client.urgent               $red            $red            $black          $red 
+client.background           $black 
 
 
 
@@ -158,19 +180,18 @@ bindsym $mod+Shift+v split h; exec --no-startup-id notify-send 'Tile Horizontall
 # Split in vertical orientation
 bindsym $mod+v split v; exec --no-startup-id notify-send 'Tile Vertically'
 
-
 # Move the currently focused window to the scratchpad
 bindsym $mod+Shift+minus move scratchpad
 # Show the next scratchpad window or hide the focused scratchpad window
 bindsym $mod+minus scratchpad show
 
 # Mark container
-bindsym $mod+m exec i3-msg mark $(dmenu -l 0 -p 'Mark' -fn 'monospace-12' -nf '#c8d3f5' -nb '#1a1b26' -sf '#c8d3f5' -sb '#3b4261')
-bindsym $mod+Shift+m exec i3-msg unmark $(dmenu -l 0 -p 'Unmark' -fn 'monospace-12' -nf '#c8d3f5' -nb '#1a1b26' -sf '#c8d3f5' -sb '#3b4261') 
-bindsym $mod+Ctrl+m exec i3-msg [con_mark="$(dmenu -l 0 -p 'Focus mark' -fn 'monospace-12' -nf '#c8d3f5' -nb '#1a1b26' -sf '#c8d3f5' -sb '#3b4261')"] focus
+bindsym $mod+m exec i3-msg mark $(dmenu -l 0 -p 'Mark' -fn 'monospace-12' -nf '$brightwhite' -nb '$black' -sf '$brightwhite' -sb '$brightblack')
+bindsym $mod+Shift+m exec i3-msg unmark $(dmenu -l 0 -p 'Unmark' -fn 'monospace-12' -nf '$brightwhite' -nb '$black' -sf '$brightwhite' -sb '$brightblack') 
+bindsym $mod+Ctrl+m exec i3-msg [con_mark="$(dmenu -l 0 -p 'Focus mark' -fn 'monospace-12' -nf '$brightwhite' -nb '$black' -sf '$brightwhite' -sb '$brightblack')"] focus
 
 # Remane workspace
-bindsym $mod+Shift+w exec --no-startup-id i3-msg rename workspace to $(dmenu -l 0 -p "New name" -fn 'monospace-12' -nf '#c8d3f5' -nb '#1a1b26' -sf '#c8d3f5' -sb '#3b4261')
+bindsym $mod+Shift+w exec --no-startup-id i3-msg rename workspace to $(dmenu -l 0 -p "New name" -fn 'monospace-12' -nf '$brightwhite' -nb '$black' -sf '$brightwhite' -sb '$brightblack')
 
 # # Show the terminal with Super+Enter
 # bindsym $mod+Return [class="terminal"] scratchpad show
@@ -433,15 +454,15 @@ bar {
 
     colors {
         # Whole color settings
-        background #1a1b26 
-        statusline #c8d3f5 
-        separator  #c8d3f5 
+        background          $background 
+        statusline          $brightwhite 
+        separator           $brightwhite 
 
-        # type             border  background font
-        focused_workspace  #414868 #414868 #c8d3f5 
-        active_workspace   #1a1b26 #1a1b26 #c8d3f5 
-        inactive_workspace #1a1b26 #1a1b26 #c8d3f5 
-        urgent_workspace   #ff757f #ff757f #1a1b26 
-        binding_mode       #c8d3f5 #c8d3f5 #1a1b26 
+        # type              border          background      font
+        focused_workspace   $brightblack    $brightblack    $brightwhite 
+        active_workspace    $black          $black          $brightwhite 
+        inactive_workspace  $black          $black          $brightwhite 
+        urgent_workspace    $red            $red            $black 
+        binding_mode        $brightwhite    $brightwhite    $black 
     }
 }

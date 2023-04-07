@@ -2,6 +2,7 @@
     font = Monospace 12
     frame_width = 1
     max_icon_size = 100 
+    enable_recursive_icon_lookup = true
 
 [urgency_low]
     timeout = 10

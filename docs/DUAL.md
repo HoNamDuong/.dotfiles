@@ -134,14 +134,14 @@ Update timezone (replace Region/City with your timezone):
 
 Sync system clock to hardware clock:
 
-    hwclock —-systohc --localtime
+    hwclock —-systohc --utc --localtime
 
 ### Set language, location and hostname
 
 The locale determines the system language, currency format, numbering and date on your system.
 This information is contained in the `/etc/locale.gen` file.
 
-    nim /etc/locale.gen
+    nvim /etc/locale.gen
 
     # Scroll and uncomment
     en_US.UTF-8 UTF-8

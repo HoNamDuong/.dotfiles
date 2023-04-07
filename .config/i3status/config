@@ -16,8 +16,16 @@ order += "cpu_usage"
 order += "memory"
 order += "tztime local"
 
+volume master {
+    format = "<span foreground='#bb9af7'> </span>%volume"
+    format_muted = "婢 muted"
+    device = "default"
+    mixer = "Master"
+    mixer_idx = 0
+}
+
 cpu_usage {
-    format = "<span foreground='#bb9af7'>CPU</span> %usage"
+    format = "<span foreground='#7aa2f7'>CPU</span> %usage"
     max_threshold = 80
     degraded_threshold = 50
 }
@@ -26,14 +34,6 @@ memory {
     format = "<span foreground='#1abc9c'>RAM</span> %percentage_used"
     threshold_degraded = 30%
     threshold_critical = 10%
-}
-
-volume master {
-    format = "<span foreground='#7aa2f7'> </span>%volume"
-    format_muted = "婢 muted"
-    device = "default"
-    mixer = "Master"
-    mixer_idx = 0
 }
 
 tztime local {
