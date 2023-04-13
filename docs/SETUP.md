@@ -161,9 +161,11 @@ Log out of your system and log in again. While logging in, be sure to select i3 
 
 ### Installing applications (Optional)
 
-    sudo pacman -S viewnior nitrogen conky dbeaver
-    sudo pacman -S mpv yt-dlp mpd ncmpcpp cmatrix
-    sudo pacman -S discord spotify-launcher telegram-desktop thunderbird
+    sudo pacman -S viewnior nitrogen conky dbeaver cmatrix
+    sudo pacman -S discord telegram-desktop thunderbird
+    sudo pacman -S mpv yt-dlp
+    sudo pacman -S mpd mpc ncmpcpp mpd-mpris playerctl
+    sudo pacman -S spotify-launcher zenity ffmpeg4.4
     sudo pacman -S zathura zathura-pdf-mupdf
 
 Few more optional tools that are recommended we can find in AUR
@@ -174,7 +176,7 @@ Install [iBus](https://github.com/BambooEngine/ibus-bamboo) - Input framework fo
 
 ### File manager
 
-    sudo pacman -S nemo nemo-fileroller ntfs-3g
+    sudo pacman -S nemo nemo-fileroller ntfs-3g nemo-mediainfo-tab
 
 Set Nemo as default file browser
 
@@ -262,3 +264,24 @@ The final touch is to add some color to the package manager
 
     # Removal
     sudo make uninstall
+
+### Crontab setup
+
+    sudo pacman -S cronie
+
+    sudo systemctl enable --now cronie.service
+
+    # Edit crontab
+    crontab -e
+
+    # Example of job definition
+    .---------------- minute (0 - 59)
+    |  .------------- hour (0 - 23)
+    |  |  .---------- day of month (1 - 31)
+    |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+    |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+    |  |  |  |  |
+    *  *  *  *  * user-name  command to be executed
+
+    # Example job random wallpaper
+    */10 * * * * export DISPLAY=:0.0 && /bin/date && /usr/bin/nitrogen --set-zoom-fill --random --save &> /dev/null

@@ -48,7 +48,6 @@ return packer.startup(function(use)
     use("nvim-lua/plenary.nvim")
     -- Theme
     use("folke/tokyonight.nvim")
-    use("rebelot/kanagawa.nvim")
     -- Completion
     use("hrsh7th/nvim-cmp")
     use("hrsh7th/cmp-buffer")

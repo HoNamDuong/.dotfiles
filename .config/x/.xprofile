@@ -33,7 +33,7 @@ export VDPAU_DRIVER="nvidia"
 # Network Manager Applet
 nm-applet &
 # Set wallpaper
-nitrogen --restore &
+nitrogen --random --set-zoom-fill --save &> /dev/null &
 # Load config nvidia-settings
 nvidia-settings --load-config-only &
 # Enable numlock
@@ -43,7 +43,7 @@ ibus-daemon --xim -d -r &
 # Authentication
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 # Display 
-conky -c ~/.config/conky/time.conf &
+conky -c ~/.config/conky/time.conf &> /dev/null &
 # # Compositor
 # picom -b
 

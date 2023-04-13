@@ -11,6 +11,8 @@ require("awful.autofocus")
 local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
+-- Themes define colours, icons, font and wallpapers.
+beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 -- Notification library
 local naughty = require("naughty")
 -- Declarative object management
@@ -34,9 +36,6 @@ end)
 -- }}}
 
 -- {{{ Variable definitions
--- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
-
 -- This is used later as the default terminal and editor to run.
 local terminal = os.getenv("TERMINAL")
 local editor = os.getenv("EDITOR")
@@ -252,6 +251,34 @@ screen.connect_signal("request::desktop_decoration", function(s)
     -- System tray
     s.mysystray = wibox.widget.systray()
 
+    -- Music player
+    local myplayer_text = wibox.widget.textbox()
+    awful.spawn.with_line_callback("playerctl --follow metadata --format ' {{ uc(playerName) }} <{{status}}>{{ duration(position) }}:{{ duration(mpris:length) }} {{artist}}|{{title}}'", {
+        stdout = function(line)
+            myplayer_text:set_text(line:gsub("<Playing>", "  "):gsub("<.+>", "  "))
+        end,
+    })
+    s.myplayer = wibox.widget({
+        widget = myplayer_text,
+        buttons = {
+            awful.button({}, 1, function()
+                awful.spawn("playerctl previous")
+            end),
+            awful.button({}, 2, function()
+                awful.spawn("playerctl play-pause")
+            end),
+            awful.button({}, 3, function()
+                awful.spawn("playerctl next")
+            end),
+            -- awful.button({}, 4, function()
+            --     awful.spawn(("playerctl position %f%s"):format(10, "+"))
+            -- end),
+            -- awful.button({}, 5, function()
+            --     awful.spawn(("playerctl position %f%s"):format(10, "-"))
+            -- end),
+        },
+    })
+
     -- Create the wibox
     s.mywibox = awful.wibar({
         position = "top",
@@ -265,7 +292,11 @@ screen.connect_signal("request::desktop_decoration", function(s)
                 s.mytaglist,
                 s.mypromptbox,
             },
-            s.mytasklist, -- Middle widget
+            { -- Middle widget
+                layout = wibox.layout.fixed.horizontal,
+                s.mytasklist,
+                s.myplayer,
+            },
             { -- Right widgets
                 layout = wibox.layout.fixed.horizontal,
                 s.mysystray,
@@ -283,8 +314,8 @@ awful.mouse.append_global_mousebindings({
     awful.button({}, 3, function()
         awful.util.mymainmenu:toggle()
     end),
-    awful.button({}, 4, awful.tag.viewprev),
-    awful.button({}, 5, awful.tag.viewnext),
+    -- awful.button({}, 4, awful.tag.viewprev),
+    -- awful.button({}, 5, awful.tag.viewnext),
 })
 -- }}}
 
@@ -340,12 +371,19 @@ awful.keyboard.append_global_keybindings({
     awful.key({ modkey }, "k", function()
         awful.client.focus.byidx(-1)
     end, { description = "focus previous by index", group = "client" }),
-    awful.key({ altkey }, "Tab", function()
-        awful.client.focus.history.previous()
-        if client.focus then
-            client.focus:raise()
-        end
-    end, { description = "go back", group = "client" }),
+    -- awful.key({ altkey }, "Tab", function()
+    --     awful.client.focus.history.previous()
+    --     if client.focus then
+    --         client.focus:raise()
+    --     end
+    --     -- local c = awful.client.focus.history.list[2]
+    --     -- client.focus = c
+    --     -- local t = client.focus and client.focus.first_tag or nil
+    --     -- if t then
+    --     --     t:view_only()
+    --     -- end
+    --     -- c:raise()
+    -- end, { description = "go back", group = "client" }),
     awful.key({ modkey, "Control" }, "j", function()
         awful.screen.focus_relative(1)
     end, { description = "focus the next screen", group = "screen" }),
@@ -388,12 +426,12 @@ awful.keyboard.append_global_keybindings({
     awful.key({ modkey, "Control" }, "l", function()
         awful.tag.incncol(-1, nil, true)
     end, { description = "decrease the number of columns", group = "layout" }),
-    awful.key({ modkey }, "space", function()
-        awful.layout.inc(1)
-    end, { description = "select next", group = "layout" }),
-    awful.key({ modkey, "Shift" }, "space", function()
-        awful.layout.inc(-1)
-    end, { description = "select previous", group = "layout" }),
+    -- awful.key({ modkey }, "space", function()
+    --     awful.layout.inc(1)
+    -- end, { description = "select next", group = "layout" }),
+    -- awful.key({ modkey, "Shift" }, "space", function()
+    --     awful.layout.inc(-1)
+    -- end, { description = "select previous", group = "layout" }),
 })
 
 awful.keyboard.append_global_keybindings({
@@ -563,7 +601,6 @@ ruled.client.connect_signal("request::rules", function()
     -- Add titlebars to normal clients and dialogs
     ruled.client.append_rule({ id = "titlebars", rule_any = { type = { "normal", "dialog" } }, properties = { titlebars_enabled = true } })
     -- Applications
-    ruled.client.append_rule({ rule = { role = "browser" }, properties = { screen = 1, tag = tag3, border_width = 0 } })
     ruled.client.append_rule({ rule = { instance = "code" }, properties = { screen = 1, tag = tag2 } })
     ruled.client.append_rule({ rule = { instance = "nemo" }, properties = { tag = tag4 } })
     ruled.client.append_rule({ rule = { instance = "postman" }, properties = { tag = tag5 } })
@@ -574,6 +611,7 @@ ruled.client.connect_signal("request::rules", function()
     ruled.client.append_rule({ rule = { class = "thunderbird" }, properties = { tag = tag8 } })
     ruled.client.append_rule({ rule = { class = "Minecraft" }, properties = { tag = tag9 } })
     ruled.client.append_rule({ rule = { instance = "conky" }, properties = { border_width = 0 } })
+    ruled.client.append_rule({ rule = { role = "browser" }, properties = { tag = tag3, border_width = 1 } })
 end)
 -- }}}
 
@@ -641,7 +679,63 @@ client.connect_signal("property::urgent", function(c)
     c:jump_to()
 end)
 
--- Enable sloppy focus, so that focus follows mouse.
-client.connect_signal("mouse::enter", function(c)
-    c:emit_signal("request::activate", "mouse_enter", { raise = false })
-end)
+-- -- Enable sloppy focus, so that focus follows mouse.
+-- client.connect_signal("mouse::enter", function(c)
+--     c:emit_signal("request::activate", "mouse_enter", { raise = false })
+-- end)
+
+local layoutlist = awful.widget.layoutlist({
+    widget_template = {
+        {
+            {
+                id = "icon_role",
+                forced_height = 50,
+                forced_width = 50,
+                widget = wibox.widget.imagebox,
+            },
+            margins = 4,
+            widget = wibox.container.margin,
+        },
+        id = "background_role",
+        forced_width = 60,
+        forced_height = 60,
+        widget = wibox.container.background,
+    },
+})
+
+local layout_popup = awful.popup({
+    widget = layoutlist,
+    placement = awful.placement.centered,
+    ontop = true,
+    visible = false,
+})
+
+-- Make sure you remove the default Mod4+Space and Mod4+Shift+Space
+-- keybindings before adding this.
+awful.keygrabber({
+    start_callback = function()
+        layout_popup.visible = true
+    end,
+    stop_callback = function()
+        layout_popup.visible = false
+    end,
+    export_keybindings = true,
+    stop_event = "release",
+    stop_key = { "Escape", "Super_L", "Super_R" },
+    keybindings = {
+        {
+            { modkey },
+            " ",
+            function()
+                awful.layout.set((gears.table.cycle_value(layoutlist.layouts, layoutlist.current_layout, 1)))
+            end,
+        },
+        {
+            { modkey, "Shift" },
+            " ",
+            function()
+                awful.layout.set((gears.table.cycle_value(layoutlist.layouts, layoutlist.current_layout, -1)), nil)
+            end,
+        },
+    },
+})

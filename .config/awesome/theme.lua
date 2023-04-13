@@ -1,33 +1,33 @@
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
--- local current_theme = xresources.get_current_theme()
+local current_theme = xresources.get_current_theme()
 local dpi = xresources.apply_dpi
 
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
 
-local current_theme = {
-    background = "#1a1b26",
-    foreground = "#c0caf5",
-
-    color0 = "#1a1b26",
-    color1 = "#f7768e",
-    color2 = "#9ece6a",
-    color3 = "#e0af68",
-    color4 = "#7aa2f7",
-    color5 = "#bb9af7",
-    color6 = "#7dcfff",
-    color7 = "#a9b1d6",
-
-    color8 = "#414868",
-    color9 = "#f7768e",
-    color10 = "#9ece6a",
-    color11 = "#e0af68",
-    color12 = "#7aa2f7",
-    color13 = "#bb9af7",
-    color14 = "#7dcfff",
-    color15 = "#c0caf5",
-}
+-- local current_theme = {
+--     background = "#1a1b26",
+--     foreground = "#c0caf5",
+--
+--     color0 = "#1a1b26",
+--     color1 = "#f7768e",
+--     color2 = "#9ece6a",
+--     color3 = "#e0af68",
+--     color4 = "#7aa2f7",
+--     color5 = "#bb9af7",
+--     color6 = "#7dcfff",
+--     color7 = "#a9b1d6",
+--
+--     color8 = "#414868",
+--     color9 = "#f7768e",
+--     color10 = "#9ece6a",
+--     color11 = "#e0af68",
+--     color12 = "#7aa2f7",
+--     color13 = "#bb9af7",
+--     color14 = "#7dcfff",
+--     color15 = "#c0caf5",
+-- }
 
 local theme = {}
 

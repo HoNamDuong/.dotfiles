@@ -26,15 +26,3 @@ tokyonight.setup({
 })
 
 vim.cmd([[colorscheme tokyonight]])
---------------------------------------------------------------------------------
--- local status, kanagawa = pcall(require, "kanagawa")
--- if not status then
---     return
--- end
---
--- kanagawa.setup({
---     globalStatus = true, -- adjust window separators highlight for laststatus=3
--- })
---
--- vim.cmd([[colorscheme kanagawa]])
---------------------------------------------------------------------------------

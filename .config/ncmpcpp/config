@@ -1,7 +1,15 @@
 ### Connection settings ###
+ncmpcpp_directory = "~/.cache/ncmpcpp" 
+lyrics_directory  = "~/.cache/ncmpcpp/lyrics"
 mpd_host = "localhost"
 mpd_port = "6600"  
 mpd_music_dir = "~/Music"  
+
+### Behaviour ###
+mpd_connection_timeout = "5"
+execute_on_song_change = "songinfo"
+lyrics-autosave = "yes"
+external_editor = nvim
 
 ### Music visualizer ###
 # visualizer_in_stereo = "no"
