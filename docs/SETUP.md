@@ -161,16 +161,15 @@ Log out of your system and log in again. While logging in, be sure to select i3 
 
 ### Installing applications (Optional)
 
-    sudo pacman -S viewnior nitrogen conky dbeaver cmatrix
-    sudo pacman -S discord telegram-desktop thunderbird
-    sudo pacman -S mpv yt-dlp
-    sudo pacman -S mpd mpc ncmpcpp mpd-mpris playerctl
-    sudo pacman -S spotify-launcher zenity ffmpeg4.4
-    sudo pacman -S zathura zathura-pdf-mupdf
-
-Few more optional tools that are recommended we can find in AUR
-
-    yay -S google-chrome visual-studio-code-bin postman-bin cava pipes.sh
+    yay -S \
+    viewnior nitrogen conky dbeaver \
+    discord telegram-desktop thunderbird \
+    mpv yt-dlp mpv-mpris \
+    mpd mpc ncmpcpp mpd-mpris playerctl \
+    spotify-launcher zenity ffmpeg4.4 \
+    zathura zathura-pdf-mupdf \
+    google-chrome visual-studio-code-bin postman-bin \
+    cmatrix cava pipes.sh
 
 Install [iBus](https://github.com/BambooEngine/ibus-bamboo) - Input framework for Linux OS.
 

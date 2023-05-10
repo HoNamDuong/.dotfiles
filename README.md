@@ -45,10 +45,11 @@
   - [fzf](https://github.com/junegunn/fzf) - A command-line fuzzy finder.
   - [ripgrep](https://github.com/BurntSushi/ripgrep) - A line-oriented search tool that recursively searches directories for a regex pattern.
   - [cava](https://github.com/karlstav/cava) - Cross-platform Audio Visualizer.
-  - [CMatrix](https://github.com/abishekvashok/cmatrix) - Matrix like effect in your terminal.
+  - [cmatrix](https://github.com/abishekvashok/cmatrix) - Matrix like effect in your terminal.
   - [pipes.sh](https://github.com/pipeseroni/pipes.sh) - Animated pipes terminal screensaver.
   - [mpd](https://github.com/MusicPlayerDaemon/MPD) - A flexible, powerful, server-side application for playing music.
     - [ncmpcpp](https://github.com/ncmpcpp/ncmpcpp) - Featureful ncurses based MPD client inspired by ncmpc.
+  - [playerctl](https://github.com/altdesktop/playerctl) - For true players only: vlc, mpv, RhythmBox, web browsers, cmus, mpd, spotify and others.
   - [colorscript](https://gitlab.com/dwt1/shell-color-scripts) - A collection of terminal color scripts.
 
 ## Install and setup
