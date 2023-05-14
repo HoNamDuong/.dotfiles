@@ -12,14 +12,30 @@ local tasklist = function(s)
             awful.button({}, 3, function()
                 awful.menu.client_list({ theme = { width = 250 } })
             end),
-            awful.button({}, 4, function()
-                awful.client.focus.byidx(-1)
-            end),
-            awful.button({}, 5, function()
-                awful.client.focus.byidx(1)
-            end),
+            -- awful.button({}, 4, function()
+            --     awful.client.focus.byidx(-1)
+            -- end),
+            -- awful.button({}, 5, function()
+            --     awful.client.focus.byidx(1)
+            -- end),
         },
         layout = { layout = wibox.layout.fixed.horizontal },
+        -- widget_template = {
+        --     {
+        --         forced_height = 2,
+        --         id = "background_role",
+        --         widget = wibox.container.background,
+        --     },
+        --     {
+        --         awful.widget.clienticon,
+        --         top = 0,
+        --         bottom = 2,
+        --         left = 3,
+        --         right = 3,
+        --         widget = wibox.container.margin,
+        --     },
+        --     layout = wibox.layout.align.vertical,
+        -- },
         widget_template = {
             {
                 {
@@ -30,8 +46,8 @@ local tasklist = function(s)
                     margins = 2,
                     widget = wibox.container.margin,
                 },
-                left = 5,
-                right = 5,
+                left = 2,
+                right = 2,
                 widget = wibox.container.margin,
             },
             id = "background_role",

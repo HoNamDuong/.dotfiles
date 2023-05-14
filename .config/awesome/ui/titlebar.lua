@@ -1,5 +1,6 @@
 local awful = require("awful")
 local wibox = require("wibox")
+local beautiful = require("beautiful")
 
 client.connect_signal("request::titlebars", function(c)
     -- Buttons for the titlebar
@@ -16,7 +17,7 @@ client.connect_signal("request::titlebars", function(c)
     }
 
     awful.titlebar(c, {
-        -- size = 24
+        -- size = beautiful.height,
     }).widget = {
         { -- Left
             awful.titlebar.widget.iconwidget(c),
@@ -33,6 +34,7 @@ client.connect_signal("request::titlebars", function(c)
         },
         { -- Right
             awful.titlebar.widget.floatingbutton(c),
+            awful.titlebar.widget.minimizebutton(c),
             awful.titlebar.widget.maximizedbutton(c),
             awful.titlebar.widget.stickybutton(c),
             awful.titlebar.widget.ontopbutton(c),

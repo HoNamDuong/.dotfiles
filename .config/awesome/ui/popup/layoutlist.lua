@@ -1,22 +1,30 @@
 local awful = require("awful")
 local wibox = require("wibox")
+local dpi = require("beautiful.xresources").apply_dpi
 
 local layoutlist = awful.popup({
     widget = awful.widget.layoutlist({
         widget_template = {
             {
                 {
-                    id = "icon_role",
-                    forced_height = 50,
-                    forced_width = 50,
-                    widget = wibox.widget.imagebox,
+                    {
+                        id = "icon_role",
+                        widget = wibox.widget.imagebox,
+                    },
+                    margins = dpi(6),
+                    widget = wibox.container.margin,
                 },
-                margins = 4,
-                widget = wibox.container.margin,
+                {
+                    id = "text_role",
+                    halign = "center",
+                    valign = "center",
+                    widget = wibox.widget.textbox,
+                },
+                layout = wibox.layout.fixed.vertical,
             },
             id = "background_role",
-            forced_width = 60,
-            forced_height = 60,
+            forced_width = dpi(120),
+            forced_height = dpi(150),
             widget = wibox.container.background,
         },
     }),

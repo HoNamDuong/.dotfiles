@@ -10,7 +10,7 @@ local layoutlist = {
                     id = "icon_role",
                     widget = wibox.widget.imagebox,
                 },
-                margins = 4,
+                margins = 6,
                 widget = wibox.container.margin,
             },
             id = "background_role",

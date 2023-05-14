@@ -1,4 +1,6 @@
 local awful = require("awful")
 local tags = require("config").tags
 
-awful.tag(tags, nil, awful.layout.layouts[1])
+screen.connect_signal("request::desktop_decoration", function(s)
+    awful.tag(tags, s, awful.layout.layouts[1])
+end)
