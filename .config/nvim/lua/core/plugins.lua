@@ -47,6 +47,7 @@ return packer.startup(function(use)
     use("wbthomason/packer.nvim")
     use("nvim-lua/plenary.nvim")
     -- Theme
+    use("w0ng/vim-hybrid")
     use("folke/tokyonight.nvim")
     -- Completion
     use("hrsh7th/nvim-cmp")

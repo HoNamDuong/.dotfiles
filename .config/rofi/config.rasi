@@ -3,6 +3,10 @@ configuration {
 	modi:                       "drun,run,window";
     show-icons:                 true;
 
+    /*---------- Matching setting ----------*/
+	matching: "regex";
+	tokenize: true;
+
     /*---------- Display setting ----------*/
     display-drun:               "";
     display-run:                "";

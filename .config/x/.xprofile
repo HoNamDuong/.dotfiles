@@ -1,5 +1,9 @@
 # Monitor config
+# xrandr --output HDMI-0 --primary 
 xrandr --output HDMI-0 --primary --mode 1600x900
+
+# Set a delay of 500ms and a rate of 40Hz
+xset r rate 500 40
 
 # Adds ~/.local/bin and its subdirectories to $PATH
 export PATH="${PATH}:${HOME}/.local/bin"
@@ -44,8 +48,8 @@ ibus-daemon --xim -d -r &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 # Display 
 conky -c ~/.config/conky/time.conf &> /dev/null &
-# # Compositor
-# picom -b
+# Compositor
+picom -b
 
 # Auto commands
 [ -f ~/autocommand ] && . ~/autocommand &

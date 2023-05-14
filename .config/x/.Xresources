@@ -1,4 +1,4 @@
-! Color
+! Tokyonight theme
 *background:    #1a1b26	
 *foreground:    #c0caf5	
 
@@ -10,6 +10,7 @@
 *color5:        #bb9af7	
 *color6:        #7dcfff	
 *color7:        #a9b1d6	
+
 *color8:        #414868	
 *color9:        #f7768e	
 *color10:       #9ece6a	
@@ -18,3 +19,25 @@
 *color13:       #bb9af7	
 *color14:       #7dcfff	
 *color15:       #c0caf5	
+
+! ! Hybrid theme
+! *background:   #1d1f21
+! *foreground:   #c5c8c6
+!
+! *color0:       #282A2E 
+! *color1:       #cc6666
+! *color2:       #b5bd68
+! *color3:       #f0c674
+! *color4:       #81a2be
+! *color5:       #b294bb
+! *color6:       #8abeb7
+! *color7:       #c5c8c6
+!
+! *color8:       #373B41 
+! *color9:       #d54e53
+! *color10:      #b9ca4a
+! *color11:      #e7c547
+! *color12:      #7aa6da
+! *color13:      #c397d8
+! *color14:      #70c0b1
+! *color15:      #eaeaea

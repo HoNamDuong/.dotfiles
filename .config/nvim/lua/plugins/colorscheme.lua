@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 local status, tokyonight = pcall(require, "tokyonight")
 if not status then
     return
@@ -26,3 +26,5 @@ tokyonight.setup({
 })
 
 vim.cmd([[colorscheme tokyonight]])
+--------------------------------------------------------------------------------
+-- vim.cmd([[colorscheme hybrid]])

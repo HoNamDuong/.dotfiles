@@ -6,13 +6,10 @@ configuration {
 /*****----- Global Properties -----*****/
 * {
     font:                        "Hack Nerd Font Mono 12";
-
-    background:                  #1a1b26;
-    foreground:                  #C0CAF5;
-    selected:                    #2f334d;
-    active:                      #414868;
-    urgent:                      #F7768E;
 }
+
+@import                          "colors/tokyonight.rasi"
+/* @import                          "colors/hybrid.rasi" */
 
 /*****----- Main Window -----*****/
 window {

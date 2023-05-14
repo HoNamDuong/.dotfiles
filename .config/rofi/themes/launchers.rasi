@@ -2,12 +2,6 @@
 * {
     font:                        "Hack Nerd Font Mono 12";
 
-    background:                  #1a1b26;
-    foreground:                  #C0CAF5;
-    selected:                    #2f334d;
-    active:                      #414868;
-    urgent:                      #F7768E;
-
     border-colour:               var(active);
     handle-colour:               var(selected);
     background-colour:           var(background);
@@ -32,6 +26,9 @@
     alternate-active-background: var(active);
     alternate-active-foreground: var(background);
 }
+
+@import                          "colors/tokyonight.rasi"
+/* @import                          "colors/hybrid.rasi" */
 
 /*****----- Main Window -----*****/
 window {
