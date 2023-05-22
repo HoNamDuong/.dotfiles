@@ -1,6 +1,5 @@
 local awful = require("awful")
 local wibox = require("wibox")
-local beautiful = require("beautiful")
 
 local tasklist = require("ui.wibar.tasklist")
 local taglist = require("ui.wibar.taglist")
@@ -10,11 +9,11 @@ local textclock = require("ui.wibar.textclock")
 local systray = require("ui.wibar.systray")
 local player = require("ui.wibar.player")
 local prompt = require("ui.wibar.prompt")
+-- local volume = require("ui.wibar.volume")
 
 screen.connect_signal("request::desktop_decoration", function(s)
     s.wibox = awful.wibar({
         position = "top",
-        -- height = beautiful.height,
         screen = s,
         widget = {
             layout = wibox.layout.align.horizontal,
@@ -31,6 +30,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
                 layout = wibox.layout.flex.horizontal,
             },
             { -- Right
+                -- volume,
                 textclock,
                 layoutlist,
                 layout = wibox.layout.fixed.horizontal,

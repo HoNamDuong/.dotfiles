@@ -1,7 +1,7 @@
 local awful = require("awful")
 local menubar = require("menubar")
 local naughty = require("naughty")
-local util = require("util")
+local utils = require("utils")
 
 local mainmenu = require("ui.menu.mainmenu")
 local promptbox = require("ui.wibar.prompt")
@@ -94,11 +94,11 @@ awful.keyboard.append_global_keybindings({
 
     -- Non-empty tag browsing Super+Tab (Super+Shift+Tab)
     awful.key({ keys.super }, "Tab", function()
-        util.tag_view_nonempty(1)
+        utils.tag_view_nonempty(1)
     end, { description = "View next nonempty tag", group = "tag" }),
 
     awful.key({ keys.super, "Shift" }, "Tab", function()
-        util.tag_view_nonempty(-1)
+        utils.tag_view_nonempty(-1)
     end, { description = "View previous nonempty tag", group = "tag" }),
 })
 
@@ -358,14 +358,14 @@ awful.keyboard.append_global_keybindings({
     awful.key({ keys.super }, "F1", function()
         naughty.notification({
             title = "Test low",
-            text = "this is test low notification",
+            text = "this is test low notification this is test low notification this is test low notification this is test low notification this is test low notification",
             urgency = "low",
         })
     end, { description = "send test low notification", group = "test" }),
 
     awful.key({ keys.super }, "F2", function()
         naughty.notification({
-            title = "Test normal",
+            title = "Test normal this is test normal notification this is test normal notification ",
             text = "this is test normal notification",
             urgency = "normal",
             actions = {

@@ -13,6 +13,7 @@ require("core.bindings")
 
 -- Ui
 require("ui.notification")
+require("ui.popup.notifications")
 require("ui.titlebar")
 require("ui.wibar")
 

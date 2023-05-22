@@ -17,7 +17,7 @@ client.connect_signal("request::titlebars", function(c)
     }
 
     awful.titlebar(c, {
-        -- size = beautiful.height,
+        size = beautiful.useless_gap * 4,
     }).widget = {
         { -- Left
             awful.titlebar.widget.iconwidget(c),

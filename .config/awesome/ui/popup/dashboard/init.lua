@@ -25,7 +25,7 @@ end
 
 local dashboard = wibox({
     type = "toolbar",
-    border_width = 2,
+    border_width = beautiful.border_width,
     border_color = beautiful.palette.secondary,
     ontop = true,
     width = dpi(300),
@@ -50,7 +50,6 @@ dashboard:setup({
 
 function dashboard:toggle()
     self.visible = not self.visible
-    return self.visible
 end
 
 return dashboard

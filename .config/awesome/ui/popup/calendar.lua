@@ -1,55 +1,57 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
+local dpi = require("beautiful.xresources").apply_dpi
 
 local year_popup = awful.widget.calendar_popup.year({
     position = "cc",
-    spacing = 0,
+    spacing = dpi(0),
     week_numbers = true,
     start_sunday = false,
     long_weekdays = false,
     style_year = {
-        padding = 12,
-        border_width = 2,
+        padding = dpi(12),
+        border_width = dpi(2),
         bg_color = beautiful.palette.background,
         border_color = beautiful.palette.secondary,
     },
     style_month = {
-        padding = 6,
-        border_width = 0,
+        padding = dpi(6),
+        border_width = dpi(0),
         bg_color = beautiful.palette.background,
     },
     style_yearheader = {
         markup = function(t)
             return "<b>" .. t .. "</b>"
         end,
-        border_width = 0,
+        border_width = dpi(0),
     },
     style_header = {
         markup = function(t)
             return "<b>" .. t .. "</b>"
         end,
-        border_width = 0,
+        border_width = dpi(0),
     },
     style_weekday = {
-        padding = 6,
-        border_width = 0,
-        fg_color = beautiful.palette.fontground,
+        padding = dpi(6),
+        border_width = dpi(0),
+        fg_color = beautiful.palette.foreground,
         bg_color = beautiful.palette.secondary,
     },
     style_weeknumber = {
+        padding = dpi(6),
         border_width = 0,
         fg_color = beautiful.palette.secondary,
     },
     style_normal = {
-        padding = 6,
-        border_width = 0,
+        padding = dpi(6),
+        border_width = dpi(0),
     },
     style_focus = {
         markup = function(t)
             return "<b>" .. t .. "</b>"
         end,
-        padding = 6,
-        border_width = 0,
+        padding = dpi(6),
+        border_width = dpi(0),
         fg_color = beautiful.palette.background,
         bg_color = beautiful.palette.primary,
     },
@@ -57,14 +59,14 @@ local year_popup = awful.widget.calendar_popup.year({
 
 local month_popup = awful.widget.calendar_popup.month({
     position = "tr",
-    spacing = 0,
-    margin = 6,
+    spacing = dpi(0),
+    margin = beautiful.useless_gap * 2,
     week_numbers = true,
     start_sunday = false,
     long_weekdays = false,
     style_month = {
-        padding = 6,
-        border_width = 2,
+        padding = dpi(6),
+        border_width = dpi(2),
         bg_color = beautiful.palette.background,
         border_color = beautiful.palette.secondary,
     },
@@ -72,28 +74,29 @@ local month_popup = awful.widget.calendar_popup.month({
         markup = function(t)
             return "<b>" .. t .. "</b>"
         end,
-        border_width = 0,
+        border_width = dpi(0),
     },
     style_weekday = {
-        padding = 6,
-        border_width = 0,
-        fg_color = beautiful.palette.fontground,
+        padding = dpi(6),
+        border_width = dpi(0),
+        fg_color = beautiful.palette.foreground,
         bg_color = beautiful.palette.secondary,
     },
     style_weeknumber = {
-        border_width = 0,
+        padding = dpi(6),
+        border_width = dpi(0),
         fg_color = beautiful.palette.secondary,
     },
     style_normal = {
-        padding = 6,
-        border_width = 0,
+        padding = dpi(6),
+        border_width = dpi(0),
     },
     style_focus = {
         markup = function(t)
             return "<b>" .. t .. "</b>"
         end,
-        padding = 6,
-        border_width = 0,
+        padding = dpi(6),
+        border_width = dpi(0),
         fg_color = beautiful.palette.background,
         bg_color = beautiful.palette.primary,
     },

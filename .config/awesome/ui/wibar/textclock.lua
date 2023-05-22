@@ -3,6 +3,8 @@ local wibox = require("wibox")
 local calendar = require("ui.popup.calendar")
 
 local textclock = wibox.widget({
+    halign = "center",
+    valign = "center",
     buttons = {
         awful.button({}, 1, nil, function()
             calendar.month:toggle()

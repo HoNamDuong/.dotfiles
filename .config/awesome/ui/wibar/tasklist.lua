@@ -1,5 +1,6 @@
 local awful = require("awful")
 local wibox = require("wibox")
+local dpi = require("beautiful.xresources").apply_dpi
 
 local tasklist = function(s)
     return awful.widget.tasklist({
@@ -10,7 +11,7 @@ local tasklist = function(s)
                 c:activate({ context = "tasklist", action = "toggle_minimization" })
             end),
             awful.button({}, 3, function()
-                awful.menu.client_list({ theme = { width = 250 } })
+                awful.menu.client_list()
             end),
             -- awful.button({}, 4, function()
             --     awful.client.focus.byidx(-1)
@@ -22,16 +23,16 @@ local tasklist = function(s)
         layout = { layout = wibox.layout.fixed.horizontal },
         -- widget_template = {
         --     {
-        --         forced_height = 2,
         --         id = "background_role",
+        --         forced_height = dpi(2),
         --         widget = wibox.container.background,
         --     },
         --     {
         --         awful.widget.clienticon,
-        --         top = 0,
-        --         bottom = 2,
-        --         left = 3,
-        --         right = 3,
+        --         top = dpi(0),
+        --         bottom = dpi(2),
+        --         left = dpi(3),
+        --         right = dpi(3),
         --         widget = wibox.container.margin,
         --     },
         --     layout = wibox.layout.align.vertical,
@@ -43,11 +44,11 @@ local tasklist = function(s)
                         id = "icon_role",
                         widget = wibox.widget.imagebox,
                     },
-                    margins = 2,
+                    margins = dpi(2),
                     widget = wibox.container.margin,
                 },
-                left = 2,
-                right = 2,
+                left = dpi(2),
+                right = dpi(2),
                 widget = wibox.container.margin,
             },
             id = "background_role",

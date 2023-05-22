@@ -1,5 +1,6 @@
 local awful = require("awful")
 local wibox = require("wibox")
+local dpi = require("beautiful.xresources").apply_dpi
 
 local layoutlist = {
     layout = wibox.layout.fixed.horizontal,
@@ -10,7 +11,7 @@ local layoutlist = {
                     id = "icon_role",
                     widget = wibox.widget.imagebox,
                 },
-                margins = 6,
+                margins = dpi(2),
                 widget = wibox.container.margin,
             },
             id = "background_role",

@@ -44,6 +44,7 @@ theme.icon_theme = "Papirus-Dark"
 
 -- font
 theme.font = "Hack Nerd Font Mono 12"
+theme.font_name = "Hack Nerd Font Mono"
 
 -- background
 theme.bg_normal = theme.palette.background
@@ -98,7 +99,8 @@ theme.systray_icon_spacing = dpi(6)
 theme.bg_systray = theme.palette.background
 
 -- notification
-theme.notification_spacing = 6
+theme.notification_spacing = theme.useless_gap * 2
+theme.notification_icon = themes_path .. "default/other/notification.svg"
 
 -- hotkeys popup
 theme.hotkeys_font = theme.font
@@ -106,7 +108,10 @@ theme.hotkeys_modifiers_fg = theme.palette.primary
 theme.hotkeys_description_font = theme.font
 theme.hotkeys_border_width = dpi(2)
 theme.hotkeys_border_color = theme.palette.secondary
-theme.hotkeys_group_margin = dpi(30)
+theme.hotkeys_group_margin = theme.useless_gap * 4
+
+-- wibar
+theme.wibar_height = theme.useless_gap * 4
 
 -- -- generate taglist squares
 -- local taglist_square_size = dpi(28)
@@ -154,7 +159,7 @@ theme = theme_assets.recolor_titlebar(theme, theme.palette.white_bright, "focus"
 theme = theme_assets.recolor_titlebar(theme, theme.palette.primary, "focus", "hover")
 theme = theme_assets.recolor_titlebar(theme, theme.palette.secondary, "focus", "press")
 
--- Layout
+-- layout
 theme.layout_fairh = themes_path .. "default/layouts/fairh.png"
 theme.layout_fairv = themes_path .. "default/layouts/fairv.png"
 theme.layout_floating = themes_path .. "default/layouts/floating.png"
@@ -174,11 +179,15 @@ theme.layout_cornerse = themes_path .. "default/layouts/cornerse.png"
 
 -- theme = theme_assets.recolor_layout(theme, theme.palette.primary)
 
--- awesome
-theme.awesome_icon = theme_assets.awesome_icon(theme.menu_height, theme.palette.primary)
-
 -- other icon
--- theme.os_icon = themes_path .. "default/other/archlinux.svg"
+theme.menu_submenu_icon = recolor_image(themes_path .. "default/other/submenu.svg", theme.palette.secondary)
+theme.awesome_icon = recolor_image(themes_path .. "default/other/awesomewm.svg", theme.palette.primary)
 theme.os_icon = recolor_image(themes_path .. "default/other/archlinux.svg", theme.palette.primary)
+theme.bin_icon = recolor_image(themes_path .. "default/other/bin.svg", theme.palette.urgent)
+theme.setting_icon = recolor_image(themes_path .. "default/other/setting.svg", theme.palette.secondary)
+theme.refresh_icon = recolor_image(themes_path .. "default/other/refresh.svg", theme.palette.secondary)
+theme.book_icon = recolor_image(themes_path .. "default/other/book.svg", theme.palette.secondary)
+theme.keyboard_icon = recolor_image(themes_path .. "default/other/keyboard.svg", theme.palette.secondary)
+theme.dashboard_icon = recolor_image(themes_path .. "default/other/dashboard.svg", theme.palette.primary)
 
 return theme
