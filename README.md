@@ -5,17 +5,18 @@
 ## Details
 
 - GUI
-  - [i3wm](https://github.com/i3/i3) - A tiling window manager.
   - [awesomewm](https://github.com/awesomeWM/awesome) - A highly configurable, next generation framework window manager for X.
+  - [i3wm](https://github.com/i3/i3) - A tiling window manager.
+    - [Dunst](https://github.com/dunst-project/dunst) - A highly configurable and lightweight notification daemon.
   - [LightDM](https://github.com/canonical/lightdm) - LightDM is a cross-desktop display manager.
     - [LightDM GTK Greeter](https://github.com/Xubuntu/lightdm-gtk-greeter) - A greeter that has moderate requirements (GTK).
   - [Alacritty](https://github.com/alacritty/alacritty) - A cross-platform, GPU-accelerated terminal emulator.
   - [Rofi](https://github.com/davatorium/rofi) - A window switcher, application launcher and dmenu replacement.
     - [Rofi collection](https://github.com/adi1090x/rofi) - A huge collection of Rofi based custom Applets, Launchers & Powermenus..
-  - [Dunst](https://github.com/dunst-project/dunst) - A highly configurable and lightweight notification daemon.
   - [picom](https://github.com/yshui/picom) - A lightweight compositor for X11.
   - [Conky](https://github.com/brndnmtthws/conky) - Light-weight system monitor for X, that displays any kind of information on your desktop.
   - [nitrogen](https://github.com/l3ib/nitrogen) - Background browser and setter for X windows.
+  - [pavucontrol](https://freedesktop.org/software/pulseaudio/pavucontrol/) - PulseAudio Volume Control.
   - [Mpv](https://mpv.io/) - A free, open source, and cross-platform media player.
   - [Viewnior](https://siyanpanayotov.com/project/viewnior) - Fast and elegant image viewer.
   - [Nemo](https://github.com/linuxmint/nemo) - Nemo is the file manager.
@@ -26,6 +27,7 @@
   - [system-config-printer](https://github.com/OpenPrinting/system-config-printer) - A CUPS printer configuration tool and status applet.
   - [simple-scan](https://gitlab.gnome.org/GNOME/simple-scan) - Simple scanning utility.
 - CLI
+  - [yay](https://github.com/Jguer/yay) - Yet Another Yogurt - An AUR Helper Written in Go.
   - [zsh](https://github.com/zsh-users/zsh) - A shell designed for interactive use, although it is also a powerful scripting language.
   - [tmux](https://github.com/tmux/tmux) - A terminal multiplexer.
   - [nvim](https://github.com/neovim/neovim) - Hyperextensible Vim-based text editor.

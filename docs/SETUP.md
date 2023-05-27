@@ -1,49 +1,41 @@
-### Update and upgrade
+### Install packages
 
-    sudo pacman -Syu
-    sudo pacman -S htop git tmux wget
-
+    # Enable the NTP service (Network Time Synchronization)
     sudo timedatectl set-ntp
     timedatectl status
 
-### Installing YAY
+    # Update and upgrade
+    sudo pacman -Syu
 
+    # Install packages
+    sudo pacman -S git htop tmux wget tig tree ripgrep fzf fd lsd ranger w3m bat neofetch imagemagick xclip numlockx
+
+    # Download and install yay
     mkdir Downloads && \
     cd Downloads && \
     git clone https://aur.archlinux.org/yay.git && \
     cd yay && \
     makepkg -si
 
-### Installing Xorg packages, i3 and video drivers
+### Install shell
 
-Note: your video card may be different and you may need to install different video drivers, please consult Archlinux Wiki for correct video drivers installation
+    # Install zsh
+    yay -S zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions zsh-autopair-git zsh-z-git
 
-Find your video card
+    # Set zsh as default shell
+    chsh -s $(which zsh)
 
-    lspci | grep -e VGA -e 3D
+### Install window manager
 
-The first step is to disable Intel Integrated Graphics Controller
+    sudo pacman -S xorg xorg-xinit alacritty rofi picom conky i3lock
 
-    echo "install i915 /bin/false" | sudo tee --append /etc/modprobe.d/blacklist.conf && \
-    cat /etc/modprobe.d/blacklist.conf
+    # Install I3wm
+    sudo pacman -S i3 perl-anyevent-i3 dunst dmenu
 
-    sudo pacman -S nvidia nvidia-settings xorg xorg-xinit vdpauinfo
-    sudo pacman -S libva-utils libva-vdpau-driver
+    # Or install Awesomewm
+    yay -S awesome-git pamixer
 
-Remove `kms` from the HOOKS array in `/etc/mkinitcpio.conf` and regenerate the initramfs. This will prevent the initramfs from containing the nouveau module making sure the kernel cannot load it during early boot.
-
-    sudo mkinitcpio -P
-
-Note: Nvidia non open source drivers may conflict with `nouveau` OS drivers and in below case to make drivers work I needed to blacklist nouveau drivers
-
-    cat /usr/lib/modprobe.d/nvidia-utils.conf
-    blacklist nouveau
-
-Install i3
-
-    sudo pacman -S i3 perl-anyevent-i3 alacritty rofi dunst picom dmenu numlockx
-
-### Install Display manager and config
+### Install display manager
 
 I am using `lightdm` as is very light and fast display manager but you can install any other Display Manager you are familiar with. Ex. GDM, LXDM, XDM etc.
 
@@ -69,9 +61,34 @@ Start lightdm
     sudo systemctl enable lightdm && \
     sudo systemctl start lightdm
 
+### Install video drivers
+
+Note: your video card may be different and you may need to install different video drivers, please consult Archlinux Wiki for correct video drivers installation
+
+Find your video card
+
+    lspci | grep -e VGA -e 3D
+
+The first step is to disable Intel Integrated Graphics Controller
+
+    echo "install i915 /bin/false" | sudo tee --append /etc/modprobe.d/blacklist.conf && \
+    cat /etc/modprobe.d/blacklist.conf
+
+    sudo pacman -S nvidia nvidia-settings vdpauinfo
+    sudo pacman -S libva-utils libva-vdpau-driver
+
+Remove `kms` from the HOOKS array in `/etc/mkinitcpio.conf` and regenerate the initramfs. This will prevent the initramfs from containing the nouveau module making sure the kernel cannot load it during early boot.
+
+    sudo mkinitcpio -P
+
+Note: Nvidia non open source drivers may conflict with `nouveau` OS drivers and in below case to make drivers work I needed to blacklist nouveau drivers
+
+    cat /usr/lib/modprobe.d/nvidia-utils.conf
+    blacklist nouveau
+
 ### Run
 
-Log out of your system and log in again. While logging in, be sure to select i3 session as your login screen.
+Log out of your system and log in again.
 
 ### Clone .dotfiles and setup
 
@@ -90,19 +107,10 @@ Log out of your system and log in again. While logging in, be sure to select i3 
     git config --global user.email "example@domain.com"
     git config --global user.name "username"
 
-### Install font and packages
+### Install font
 
     sudo pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
     sudo pacman -S ttf-hack-nerd ttf-roboto-mono
-
-    sudo pacman -S tig tree ripgrep fzf fd lsd ranger w3m bat neofetch imagemagick xclip
-
-    # Install zsh
-    sudo pacman -S zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions
-    yay -S zsh-autopair-git zsh-z-git
-
-    # Set zsh as default shell
-    chsh -s $(which zsh)
 
 ### Keyring, polkit and screenshot
 
@@ -112,9 +120,9 @@ Log out of your system and log in again. While logging in, be sure to select i3 
 
     sudo pacman -S xdg-user-dirs
 
-    xdg-user-dirs-update
+    xdg-user-dirs-update --force
 
-### Installing Node.js, npm and yarn
+### Install Node.js, npm and yarn
 
     # Install Node.js and npm
     sudo pacman -S nodejs npm
@@ -152,17 +160,18 @@ Log out of your system and log in again. While logging in, be sure to select i3 
     # Application for Qt and Gtk
     sudo pacman -S lxappearance qt5ct
 
+    # Install theme
     yay -S  skeuos-gtk papirus-icon-theme vimix-cursors
 
-### Installing sound drivers and tools
+### Install sound drivers and tools
 
     sudo pacman -S alsa-utils alsa-plugins pavucontrol pipewire-pulse
     systemctl --user enable pipewire-pulse.service
 
-### Installing applications (Optional)
+### Install applications (Optional)
 
     yay -S \
-    viewnior nitrogen conky dbeaver \
+    viewnior nitrogen dbeaver \
     discord telegram-desktop thunderbird \
     mpv yt-dlp mpv-mpris \
     mpd mpc ncmpcpp mpd-mpris playerctl \
@@ -236,6 +245,15 @@ Check if the scanner is detected with correct driver installed.
     # Add the current user account to the Docker group using the following command
     sudo usermod -aG docker $USER
 
+### Install [colorscript](../.config/colorscript/README.md)
+
+    # Install
+    cd ~/.dotfiles/.config/colorscript
+    sudo make install
+
+    # Removal
+    sudo make uninstall
+
 ### Enable dark mode for google-chrome
 
     touch ~/.config/chrome-flags.conf
@@ -255,19 +273,12 @@ The final touch is to add some color to the package manager
     grep "Color" /etc/pacman.conf
     grep "VerbosePkgLists" /etc/pacman.conf
 
-### Install [colorscript](../.config/colorscript/README.md)
-
-    # Install
-    cd ~/.dotfiles/.config/colorscript
-    sudo make install
-
-    # Removal
-    sudo make uninstall
-
 ### Crontab setup
 
+    # Install
     sudo pacman -S cronie
 
+    # Enable
     sudo systemctl enable --now cronie.service
 
     # Edit crontab
