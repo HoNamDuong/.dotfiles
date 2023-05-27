@@ -12,7 +12,7 @@ local diagnostics = {
     "diagnostics",
     sources = { "nvim_diagnostic" },
     sections = { "error", "warn", "info", "hint" },
-    symbols = { error = " ", warn = " ", info = " ", hint = " " },
+    symbols = { error = " ", warn = " ", info = " ", hint = " " },
     always_visible = false,
     padding = 1,
 }
@@ -79,6 +79,22 @@ lualine.setup({
         lualine_z = { "mode" },
     },
     winbar = {
-        lualine_c = { { navic.get_location, cond = navic.is_available } },
+        lualine_c = {
+            {
+                function()
+                    return navic.get_location()
+                end,
+                cond = function()
+                    return navic.is_available()
+                end,
+            },
+        },
+    },
+    extensions = {
+        { sections = { lualine_c = {
+            function()
+                return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
+            end,
+        } }, filetypes = { "NvimTree" } },
     },
 })

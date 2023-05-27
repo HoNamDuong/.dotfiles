@@ -50,14 +50,14 @@ nvimtree.setup({
         enable = true,
         show_on_dirs = true,
         icons = {
-            hint = "",
+            hint = "",
             info = "",
             warning = "",
             error = "",
         },
     },
     view = {
-        width = 25,
+        width = 30,
         side = "left",
     },
 })

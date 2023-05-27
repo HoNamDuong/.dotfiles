@@ -13,6 +13,7 @@ bufferline.setup({
                 padding = 1,
             },
         },
+        diagnostics = "nvim_lsp",
         indicator = { style = "none" },
         separator_style = "thich",
         show_buffer_close_icons = false,
