@@ -14,6 +14,10 @@ config.power = {
     lock = "i3lock --no-unlock-indicator --pointer=default --color '000000'",
 }
 
+config.actions = {
+    random_wallpaper = "nitrogen --random --set-zoom-fill --save",
+}
+
 config.keys = {
     super = "Mod4",
     alt = "Mod1",
@@ -30,7 +34,7 @@ config.tags = {
     "  Chat ",
     "  Game ",
     "  General ",
-    --
+
     -- " 1 ",
     -- " 2 ",
     -- " 3 ",

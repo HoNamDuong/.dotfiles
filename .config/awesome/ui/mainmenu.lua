@@ -1,8 +1,8 @@
-local beautiful = require("beautiful")
 local config = require("config")
-local hotkeys = require("ui.popup.hotkeys")
+local beautiful = require("beautiful")
 local menu = require("awful.menu")
 local menu_gen = require("menubar.menu_gen")
+local hotkeys = require("ui.hotkeys")
 
 -- Source https://github.com/lcpz/awesome-freedesktop
 -- Use MenuBar parsing utils to build a menu for Awesome
@@ -89,6 +89,7 @@ local mainmenu = menu_build({
         },
     },
     after = {
+        { "Random wallpaper", config.actions.random_wallpaper, beautiful.image_icon },
         { "Lock", config.power.lock, beautiful.power_lock },
         { "Logout", config.power.logout, beautiful.power_logout },
         { "Sleep", config.power.sleep, beautiful.power_sleep },

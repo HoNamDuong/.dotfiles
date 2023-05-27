@@ -1,15 +1,23 @@
 local awful = require("awful")
 local wibox = require("wibox")
+local dpi = require("beautiful.xresources").apply_dpi
 
 local tasklist = require("ui.wibar.tasklist")
 local taglist = require("ui.wibar.taglist")
 local launcher = require("ui.wibar.launcher")
 local layoutlist = require("ui.wibar.layoutlist")
-local textclock = require("ui.wibar.textclock")
+local clock = require("ui.wibar.clock")
 local systray = require("ui.wibar.systray")
-local player = require("ui.wibar.player")
 local prompt = require("ui.wibar.prompt")
--- local volume = require("ui.wibar.volume")
+local player = require("ui.wibar.player")
+local volume = require("ui.wibar.volume")
+local mic = require("ui.wibar.mic")
+local cpu = require("ui.wibar.cpu")
+local memory = require("ui.wibar.memory")
+local gpu = require("ui.wibar.gpu")
+local net = require("ui.wibar.net")
+local thermal = require("ui.wibar.thermal")
+local fs = require("ui.wibar.fs")
 
 screen.connect_signal("request::desktop_decoration", function(s)
     s.wibox = awful.wibar({
@@ -19,10 +27,10 @@ screen.connect_signal("request::desktop_decoration", function(s)
             layout = wibox.layout.align.horizontal,
             { -- Left
                 launcher,
-                prompt,
                 taglist(s),
                 systray,
                 tasklist(s),
+                prompt,
                 layout = wibox.layout.fixed.horizontal,
             },
             { -- Middle
@@ -30,9 +38,17 @@ screen.connect_signal("request::desktop_decoration", function(s)
                 layout = wibox.layout.flex.horizontal,
             },
             { -- Right
-                -- volume,
-                textclock,
+                net,
+                fs,
+                gpu,
+                memory,
+                cpu,
+                thermal,
+                volume,
+                mic,
+                clock,
                 layoutlist,
+                spacing = dpi(6),
                 layout = wibox.layout.fixed.horizontal,
             },
         },

@@ -5,11 +5,11 @@ local beautiful = require("beautiful")
 local dpi = require("beautiful.xresources").apply_dpi
 local utils = require("utils")
 
-local volume = wibox.widget({
+local mic = wibox.widget({
     {
         {
-            id = "volume_icon",
-            image = beautiful.volume_icon,
+            id = "mic_icon",
+            image = beautiful.mic_icon,
             resize = true,
             halign = "center",
             widget = wibox.widget.imagebox,
@@ -23,31 +23,31 @@ local volume = wibox.widget({
         widget = wibox.container.margin,
     },
     {
-        id = "volume_text",
+        id = "mic_text",
         halign = "center",
         valign = "center",
         widget = wibox.widget.textbox,
     },
     layout = wibox.layout.fixed.horizontal,
-    set_volume = function(self, val)
+    set_mic = function(self, val)
         if string.match(val, "muted") then
-            self.volume_text.markup = utils.colorize_text(val, beautiful.palette.yellow)
-            self:get_children_by_id("volume_icon")[1].image = beautiful.volume_mute_icon
+            self.mic_text.markup = utils.colorize_text("off", beautiful.palette.yellow)
+            self:get_children_by_id("mic_icon")[1].image = beautiful.mic_off_icon
         else
-            self.volume_text.markup = val
-            self:get_children_by_id("volume_icon")[1].image = beautiful.volume_icon
+            self.mic_text.markup = val
+            self:get_children_by_id("mic_icon")[1].image = beautiful.mic_icon
         end
     end,
     buttons = {
         awful.button({}, 1, function()
-            awful.spawn("pamixer --toggle-mute")
+            awful.spawn("pamixer --default-source --toggle-mute")
         end),
         -- awful.button({}, 3, function() end),
         awful.button({}, 4, function()
-            awful.spawn("pamixer --increase" .. " " .. "5")
+            awful.spawn("pamixer --default-source --increase" .. " " .. "5")
         end),
         awful.button({}, 5, function()
-            awful.spawn("pamixer --decrease" .. " " .. "5")
+            awful.spawn("pamixer --default-source --decrease" .. " " .. "5")
         end),
     },
 })
@@ -57,10 +57,10 @@ gears.timer({
     call_now = true,
     autostart = true,
     callback = function()
-        awful.spawn.easy_async({ "sh", "-c", "pamixer --get-volume-human" }, function(out)
-            volume.volume = out
+        awful.spawn.easy_async({ "sh", "-c", "pamixer --default-source --get-volume-human" }, function(out)
+            mic.mic = out
         end)
     end,
 })
 
-return volume
+return mic

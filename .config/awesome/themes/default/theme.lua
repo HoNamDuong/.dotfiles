@@ -43,8 +43,7 @@ theme.palette = {
 theme.icon_theme = "Papirus-Dark"
 
 -- font
-theme.font = "Hack Nerd Font Mono 12"
-theme.font_name = "Hack Nerd Font Mono"
+theme.font = "Hack Nerd Font Mono"
 
 -- background
 theme.bg_normal = theme.palette.background
@@ -112,6 +111,9 @@ theme.hotkeys_group_margin = theme.useless_gap * 4
 
 -- wibar
 theme.wibar_height = theme.useless_gap * 4
+
+-- cursor
+theme.enable_spawn_cursor = false
 
 -- -- generate taglist squares
 -- local taglist_square_size = dpi(28)
@@ -188,6 +190,21 @@ theme.setting_icon = recolor_image(themes_path .. "default/other/setting.svg", t
 theme.refresh_icon = recolor_image(themes_path .. "default/other/refresh.svg", theme.palette.secondary)
 theme.book_icon = recolor_image(themes_path .. "default/other/book.svg", theme.palette.secondary)
 theme.keyboard_icon = recolor_image(themes_path .. "default/other/keyboard.svg", theme.palette.secondary)
+theme.image_icon = recolor_image(themes_path .. "default/other/image.svg", theme.palette.secondary)
 theme.dashboard_icon = recolor_image(themes_path .. "default/other/dashboard.svg", theme.palette.primary)
+theme.menu_icon = recolor_image(themes_path .. "default/other/menu.svg", theme.palette.primary)
+
+theme.download_icon = recolor_image(themes_path .. "default/other/download.svg", theme.palette.white)
+theme.upload_icon = recolor_image(themes_path .. "default/other/upload.svg", theme.palette.white)
+theme.hard_drive_icon = recolor_image(themes_path .. "default/other/hard_drive.svg", theme.palette.blue)
+theme.temperature_icon = recolor_image(themes_path .. "default/other/temperature.svg", theme.palette.magenta)
+theme.gpu_icon = recolor_image(themes_path .. "default/other/gpu.svg", theme.palette.cyan)
+theme.memory_icon = recolor_image(themes_path .. "default/other/memory.svg", theme.palette.green)
+theme.cpu_icon = recolor_image(themes_path .. "default/other/cpu.svg", theme.palette.magenta)
+theme.volume_icon = recolor_image(themes_path .. "default/other/volume.svg", theme.palette.blue)
+theme.volume_mute_icon = recolor_image(themes_path .. "default/other/volume_mute.svg", theme.palette.yellow)
+theme.mic_icon = recolor_image(themes_path .. "default/other/mic.svg", theme.palette.cyan)
+theme.mic_off_icon = recolor_image(themes_path .. "default/other/mic_off.svg", theme.palette.yellow)
+theme.calendar_icon = recolor_image(themes_path .. "default/other/calendar.svg", theme.palette.green)
 
 return theme

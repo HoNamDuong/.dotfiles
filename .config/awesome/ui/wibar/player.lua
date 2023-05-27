@@ -16,28 +16,41 @@ local stop = utils.colorize_text("", beautiful.palette.secondary)
 -- })
 
 local player_text = awful.widget.watch(
-    "playerctl metadata --format '{{ uc(playerName) }} <<{{status}}>> {{ duration(position) }}/{{ duration(mpris:length) }} {{artist}} | {{title}}'",
+    -- "playerctl metadata --format '{{ uc(playerName) }} <<{{status}}>> {{ duration(position) }}/{{ duration(mpris:length) }} {{artist}} | {{title}}'",
+    "playerctl metadata --format '{{ uc(playerName) }} <<{{status}}>> {{artist}} | {{title}}'",
     1,
     function(widget, stdout)
-        -- widget:set_markup_silently(stdout:gsub("<<Playing>>", play):gsub("<<Paused>>", pause):gsub("<<Stopped>>", stop):gsub("<<.+>>", ""))
-        -- widget.text = stdout
-        widget.text = stdout:gsub("<<Playing>>", ""):gsub("<<Paused>>", ""):gsub("<<Stopped>>", ""):gsub("<<.+>>", "")
-    end
+        widget:set_markup_silently(stdout:gsub("<<Playing>>", play):gsub("<<Paused>>", pause):gsub("<<Stopped>>", stop):gsub("<<.+>>", ""))
+        -- widget.text = stdout:gsub("<<Playing>>", ""):gsub("<<Paused>>", ""):gsub("<<Stopped>>", ""):gsub("<<.+>>", "")
+    end,
+    wibox.widget({
+        -- halign = "center",
+        valign = "center",
+        forced_width = dpi(480),
+        widget = wibox.widget.textbox(),
+    })
 )
 
 local player = wibox.widget({
-    widget = player_text,
-    halign = "center",
-    valign = "center",
+    widget = wibox.widget({
+        {
+            player_text,
+            left = beautiful.useless_gap * 2,
+            right = beautiful.useless_gap * 2,
+            widget = wibox.container.margin,
+        },
+        -- bg = beautiful.palette.secondary .. "50",
+        widget = wibox.container.background,
+    }),
     buttons = {
         awful.button({}, 1, function()
-            awful.spawn.with_shell("playerctl previous")
+            awful.spawn("playerctl previous")
         end),
         awful.button({}, 2, function()
-            awful.spawn.with_shell("playerctl play-pause")
+            awful.spawn("playerctl play-pause")
         end),
         awful.button({}, 3, function()
-            awful.spawn.with_shell("playerctl next")
+            awful.spawn("playerctl next")
         end),
         -- awful.button({}, 4, function()
         --     awful.spawn(("playerctl position %f%s"):format(10, "+"))
@@ -48,4 +61,4 @@ local player = wibox.widget({
     },
 })
 
-return wibox.container.margin(player, dpi(60), dpi(60), dpi(0), dpi(0))
+return player

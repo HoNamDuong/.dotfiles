@@ -3,10 +3,10 @@ local menubar = require("menubar")
 local naughty = require("naughty")
 local utils = require("utils")
 
-local mainmenu = require("ui.menu.mainmenu")
-local promptbox = require("ui.wibar.prompt")
-local layoutlist = require("ui.popup.layoutlist")
-local hotkeys = require("ui.popup.hotkeys")
+local mainmenu = require("ui.mainmenu")
+local prompt = require("ui.wibar.prompt")
+local layoutlist = require("ui.layoutlist")
+local hotkeys = require("ui.hotkeys")
 
 local apps = require("config").apps
 local keys = require("config").keys
@@ -52,10 +52,10 @@ awful.keyboard.append_global_keybindings({
 
     awful.key({ keys.super, "Shift" }, "q", awesome.quit, { description = "Quit awesome", group = "awesome" }),
 
-    -- awful.key({ modkey }, "a", function()
+    -- awful.key({ keys.super }, "a", function()
     --     awful.prompt.run({
     --         prompt = "Run Lua code: ",
-    --         textbox = promptbox.widget,
+    --         textbox = prompt.widget,
     --         exe_callback = awful.util.eval,
     --         history_path = awful.util.get_cache_dir() .. "/history_eval",
     --     })
@@ -66,7 +66,7 @@ awful.keyboard.append_global_keybindings({
     end, { description = "Power menu", group = "awesome" }),
 
     awful.key({ keys.super }, "r", function()
-        -- promptbox:run()
+        -- prompt:run()
         awful.spawn("launchers run")
     end, { description = "Run prompt", group = "launcher" }),
 
