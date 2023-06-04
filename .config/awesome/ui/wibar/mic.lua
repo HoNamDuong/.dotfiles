@@ -3,7 +3,7 @@ local gears = require("gears")
 local awful = require("awful")
 local beautiful = require("beautiful")
 local dpi = require("beautiful.xresources").apply_dpi
-local utils = require("utils")
+local pango = require("utils").pango
 
 local mic = wibox.widget({
     {
@@ -31,7 +31,7 @@ local mic = wibox.widget({
     layout = wibox.layout.fixed.horizontal,
     set_mic = function(self, val)
         if string.match(val, "muted") then
-            self.mic_text.markup = utils.colorize_text("off", beautiful.palette.yellow)
+            self.mic_text.markup = pango.span({ foreground = beautiful.palette.yellow, "off" })
             self:get_children_by_id("mic_icon")[1].image = beautiful.mic_off_icon
         else
             self.mic_text.markup = val
@@ -53,7 +53,7 @@ local mic = wibox.widget({
 })
 
 gears.timer({
-    timeout = 1,
+    timeout = 2,
     call_now = true,
     autostart = true,
     callback = function()

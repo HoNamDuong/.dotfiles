@@ -23,10 +23,11 @@ local clock = wibox.widget({
     },
     {
         id = "clock_text",
+        format = "%H:%M",
         halign = "center",
         valign = "center",
         full = false,
-        widget = wibox.widget.textclock("%H:%M"),
+        widget = wibox.widget.textclock(),
     },
     layout = wibox.layout.fixed.horizontal,
 })

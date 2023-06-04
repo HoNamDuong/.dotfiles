@@ -15,35 +15,34 @@ local mic = require("ui.wibar.mic")
 local cpu = require("ui.wibar.cpu")
 local memory = require("ui.wibar.memory")
 local gpu = require("ui.wibar.gpu")
-local net = require("ui.wibar.net")
-local thermal = require("ui.wibar.thermal")
-local fs = require("ui.wibar.fs")
+-- local net = require("ui.wibar.net")
+-- local thermal = require("ui.wibar.thermal")
+-- local fs = require("ui.wibar.fs")
 
 screen.connect_signal("request::desktop_decoration", function(s)
     s.wibox = awful.wibar({
         position = "top",
         screen = s,
         widget = {
-            layout = wibox.layout.align.horizontal,
             { -- Left
                 launcher,
                 taglist(s),
                 systray,
                 tasklist(s),
-                prompt,
                 layout = wibox.layout.fixed.horizontal,
             },
             { -- Middle
                 player,
-                layout = wibox.layout.flex.horizontal,
+                prompt,
+                layout = wibox.layout.fixed.horizontal,
             },
             { -- Right
-                net,
-                fs,
+                -- net,
+                -- fs,
                 gpu,
                 memory,
                 cpu,
-                thermal,
+                -- thermal,
                 volume,
                 mic,
                 clock,
@@ -51,6 +50,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
                 spacing = dpi(6),
                 layout = wibox.layout.fixed.horizontal,
             },
+            layout = wibox.layout.align.horizontal,
         },
     })
 end)

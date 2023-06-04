@@ -31,7 +31,7 @@ local gpu = wibox.widget({
 })
 
 gears.timer({
-    timeout = 1,
+    timeout = 2,
     call_now = true,
     autostart = true,
     callback = function()

@@ -6,6 +6,7 @@ local utils = require("utils")
 local mainmenu = require("ui.mainmenu")
 local prompt = require("ui.wibar.prompt")
 local layoutlist = require("ui.layoutlist")
+local switcher = require("ui.switcher")
 local hotkeys = require("ui.hotkeys")
 
 local apps = require("config").apps
@@ -71,7 +72,10 @@ awful.keyboard.append_global_keybindings({
     end, { description = "Run prompt", group = "launcher" }),
 
     awful.key({ keys.super }, "p", function()
-        -- menubar.show()
+        menubar.show()
+    end, { description = "Show menubar", group = "launcher" }),
+
+    awful.key({ keys.super }, "a", function()
         awful.spawn("launchers")
     end, { description = "Show the launcher", group = "launcher" }),
 
@@ -94,11 +98,11 @@ awful.keyboard.append_global_keybindings({
 
     -- Non-empty tag browsing Super+Tab (Super+Shift+Tab)
     awful.key({ keys.super }, "Tab", function()
-        utils.tag_view_nonempty(1)
+        utils.tag.view_nonempty(1)
     end, { description = "View next nonempty tag", group = "tag" }),
 
     awful.key({ keys.super, "Shift" }, "Tab", function()
-        utils.tag_view_nonempty(-1)
+        utils.tag.view_nonempty(-1)
     end, { description = "View previous nonempty tag", group = "tag" }),
 })
 
@@ -186,18 +190,18 @@ awful.keyboard.append_global_keybindings({
         awful.client.focus.byidx(-1)
     end, { description = "Focus previous by index", group = "client" }),
 
-    awful.key({ keys.alt }, "Tab", function()
-        -- awful.client.focus.history.previous()
-        -- if client.focus then
-        --     client.focus:raise()
-        -- end
-        local c = awful.client.focus.history.list[2]
-        client.focus = c
-        local t = client.focus and client.focus.first_tag or nil
-        if t then
-            t:view_only()
-        end
-    end, { description = "Go back client", group = "client" }),
+    -- awful.key({ keys.alt }, "Tab", function()
+    --     -- awful.client.focus.history.previous()
+    --     -- if client.focus then
+    --     --     client.focus:raise()
+    --     -- end
+    --     local c = awful.client.focus.history.list[2]
+    --     client.focus = c
+    --     local t = client.focus and client.focus.first_tag or nil
+    --     if t then
+    --         t:view_only()
+    --     end
+    -- end, { description = "Go back client", group = "client" }),
 
     awful.key({ keys.super, "Control" }, "n", function()
         local c = awful.client.restore()
@@ -351,10 +355,51 @@ awful.keygrabber({
     },
 })
 
+-- Switch client
+awful.keygrabber({
+    start_callback = function()
+        switcher:toggle()
+    end,
+    stop_callback = function()
+        switcher:toggle()
+    end,
+    export_keybindings = true,
+    stop_event = "release",
+    stop_key = { "Escape", "Alt_L", "Alt_R" },
+    keybindings = {
+        {
+            { keys.alt },
+            "Tab",
+            function()
+                switcher:select_next()
+            end,
+            {
+                description = "Select next client",
+                group = "client",
+            },
+        },
+        {
+            { keys.alt, "Shift" },
+            "Tab",
+            function()
+                switcher:select_previous()
+            end,
+            {
+                description = "Select previous client",
+                group = "client",
+            },
+        },
+    },
+})
+
 -- }}}
 
 -- TEST
 awful.keyboard.append_global_keybindings({
+    -- awful.key({ keys.alt }, "Tab", function()
+    --     switcher:toggle()
+    -- end, { description = "Decrease the number of columns", group = "test" }),
+
     awful.key({ keys.super }, "F1", function()
         naughty.notification({
             title = "Test low",

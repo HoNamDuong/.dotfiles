@@ -3,6 +3,7 @@ local xresources = require("beautiful.xresources")
 local dpi = require("beautiful.xresources").apply_dpi
 local filesystem = require("gears.filesystem")
 local recolor_image = require("gears.color").recolor_image
+local color = require("utils.color")
 
 local xrdb = xresources.get_current_theme()
 
@@ -12,7 +13,7 @@ local themes_path = string.match(filesystem.get_configuration_dir(), "^(/?.-)/*$
 local theme = {}
 
 -- color
-theme.palette = {
+theme.palette = setmetatable({
     background = xrdb.background,
     foreground = xrdb.foreground,
 
@@ -37,13 +38,15 @@ theme.palette = {
     primary = xrdb.color4, -- #7aa2f7
     secondary = xrdb.color8, -- #414868
     urgent = xrdb.color1, -- #f7768e
-}
+}, color.palette_metatable)
 
 -- icon application
 theme.icon_theme = "Papirus-Dark"
 
 -- font
-theme.font = "Hack Nerd Font Mono"
+theme.font_name = "Hack Nerd Font Mono"
+theme.font_size = 12
+theme.font = theme.font_name .. " " .. theme.font_size
 
 -- background
 theme.bg_normal = theme.palette.background
@@ -206,5 +209,16 @@ theme.volume_mute_icon = recolor_image(themes_path .. "default/other/volume_mute
 theme.mic_icon = recolor_image(themes_path .. "default/other/mic.svg", theme.palette.cyan)
 theme.mic_off_icon = recolor_image(themes_path .. "default/other/mic_off.svg", theme.palette.yellow)
 theme.calendar_icon = recolor_image(themes_path .. "default/other/calendar.svg", theme.palette.green)
+
+theme.previous_icon = recolor_image(themes_path .. "default/player/previous.svg", theme.palette.white)
+theme.play_icon = recolor_image(themes_path .. "default/player/play.svg", theme.palette.white)
+theme.stop_icon = recolor_image(themes_path .. "default/player/stop.svg", theme.palette.secondary)
+theme.pause_icon = recolor_image(themes_path .. "default/player/pause.svg", theme.palette.white)
+theme.next_icon = recolor_image(themes_path .. "default/player/next.svg", theme.palette.white)
+
+theme.arrow_down_icon = recolor_image(themes_path .. "default/other/arrow_down.svg", theme.palette.secondary)
+theme.arrow_up_icon = recolor_image(themes_path .. "default/other/arrow_up.svg", theme.palette.secondary)
+theme.arrow_right_icon = recolor_image(themes_path .. "default/other/arrow_right.svg", theme.palette.secondary)
+theme.arrow_left_icon = recolor_image(themes_path .. "default/other/arrow_left.svg", theme.palette.secondary)
 
 return theme

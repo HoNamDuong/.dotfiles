@@ -3,7 +3,7 @@ local gears = require("gears")
 local awful = require("awful")
 local beautiful = require("beautiful")
 local dpi = require("beautiful.xresources").apply_dpi
-local utils = require("utils")
+local pango = require("utils").pango
 
 local volume = wibox.widget({
     {
@@ -31,7 +31,7 @@ local volume = wibox.widget({
     layout = wibox.layout.fixed.horizontal,
     set_volume = function(self, val)
         if string.match(val, "muted") then
-            self.volume_text.markup = utils.colorize_text(val, beautiful.palette.yellow)
+            self.volume_text.markup = pango.span({ val, foreground = beautiful.palette.yellow })
             self:get_children_by_id("volume_icon")[1].image = beautiful.volume_mute_icon
         else
             self.volume_text.markup = val
@@ -53,7 +53,7 @@ local volume = wibox.widget({
 })
 
 gears.timer({
-    timeout = 1,
+    timeout = 2,
     call_now = true,
     autostart = true,
     callback = function()

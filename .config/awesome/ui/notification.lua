@@ -11,7 +11,7 @@ naughty.notification_list = wibox.widget({
 })
 
 local pointer = 0
-local min_widgets = 5
+local min_widgets = 3
 
 naughty.notification_list:connect_signal("button::press", function(_, _, _, button)
     if button == 5 then -- up scrolling
@@ -86,8 +86,7 @@ local function notification_item(n)
     -- message
     local message_n = wibox.widget({
         {
-            markup = "<span weight='normal'>" .. n.message .. "</span>",
-            -- font = "Roboto Medium 11",
+            markup = n.message,
             align = "left",
             valign = "center",
             wrap = "char",
@@ -134,38 +133,35 @@ local function notification_item(n)
         {
             {
                 {
+                    app_name_n,
+                    time_n,
                     {
-                        app_name_n,
-                        time_n,
-                        {
-                            id = "layout_role",
-                            layout = wibox.layout.fixed.horizontal,
-                        },
-                        layout = wibox.layout.align.horizontal,
+                        id = "delete_button",
+                        layout = wibox.layout.fixed.horizontal,
                     },
-                    {
-                        {
-                            image_n,
-                            {
-                                title_n,
-                                message_n,
-                                spacing = dpi(6),
-                                layout = wibox.layout.fixed.vertical,
-                            },
-                            spacing = dpi(12),
-                            layout = wibox.layout.fixed.horizontal,
-                        },
-                        top = dpi(12),
-                        bottom = dpi(12),
-                        widget = wibox.container.margin,
-                    },
-                    actions_n,
-                    layout = wibox.layout.fixed.vertical,
+                    layout = wibox.layout.align.horizontal,
                 },
-                margins = beautiful.useless_gap * 2,
-                widget = wibox.container.margin,
+                {
+                    {
+                        image_n,
+                        {
+                            title_n,
+                            message_n,
+                            spacing = dpi(6),
+                            layout = wibox.layout.fixed.vertical,
+                        },
+                        spacing = dpi(12),
+                        layout = wibox.layout.fixed.horizontal,
+                    },
+                    top = dpi(12),
+                    bottom = dpi(12),
+                    widget = wibox.container.margin,
+                },
+                actions_n,
+                layout = wibox.layout.fixed.vertical,
             },
-            layout = wibox.layout.fixed.vertical,
+            margins = beautiful.useless_gap * 2,
+            widget = wibox.container.margin,
         },
         border_width = beautiful.border_width,
         border_color = urgency_color,
@@ -206,7 +202,7 @@ naughty.connect_signal("request::display", function(n)
 
     -- widget
     local widget = wibox.widget(notification_item(n))
-    widget:get_children_by_id("layout_role")[1]:add(delete_button(widget, naughty.notification_list))
+    widget:get_children_by_id("delete_button")[1]:add(delete_button(widget, naughty.notification_list))
 
     naughty.notification_list:insert(1, widget)
 end)

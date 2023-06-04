@@ -1,64 +1,195 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
-local utils = require("utils")
+local gears = require("gears")
+local pango = require("utils").pango
 local dpi = require("beautiful.xresources").apply_dpi
+local icon_theme = require("menubar.icon_theme")
 
-local play = utils.colorize_text("", beautiful.palette.primary)
-local pause = utils.colorize_text("", beautiful.palette.urgent)
-local stop = utils.colorize_text("", beautiful.palette.secondary)
+local track_id_current = ""
 
--- local player_text = wibox.widget.textbox()
--- awful.spawn.with_line_callback("playerctl --follow metadata --format ' {{ uc(playerName) }} <{{status}}>{{ duration(position) }}:{{ duration(mpris:length) }} {{artist}} | {{title}}'", {
+local save_image_async_curl = function(url, filepath, callback)
+    awful.spawn.with_line_callback(string.format("curl -L -s %s -o %s", url, filepath), {
+        exit = callback,
+    })
+end
+
+local player = wibox.widget({
+    {
+        {
+            {
+                image = beautiful.previous_icon,
+                resize = true,
+                halign = "center",
+                valign = "center",
+                widget = wibox.widget.imagebox,
+                buttons = {
+                    awful.button({}, 1, function()
+                        awful.spawn("playerctl previous")
+                    end),
+                },
+            },
+            {
+                id = "player_control_icon",
+                image = beautiful.stop_icon,
+                resize = true,
+                halign = "center",
+                valign = "center",
+                widget = wibox.widget.imagebox,
+                buttons = {
+                    awful.button({}, 1, function()
+                        awful.spawn("playerctl play-pause")
+                    end),
+                },
+            },
+            {
+                image = beautiful.next_icon,
+                resize = true,
+                halign = "center",
+                valign = "center",
+                widget = wibox.widget.imagebox,
+                buttons = {
+                    awful.button({}, 1, function()
+                        awful.spawn("playerctl next")
+                    end),
+                },
+            },
+            {
+                {
+                    id = "player_icon",
+                    resize = true,
+                    halign = "center",
+                    valign = "center",
+                    widget = wibox.widget.imagebox,
+                },
+                margins = dpi(3),
+                widget = wibox.container.margin,
+            },
+            {
+                {
+                    id = "player_art_url",
+                    resize = true,
+                    halign = "center",
+                    valign = "center",
+                    visible = false,
+                    widget = wibox.widget.imagebox,
+                },
+                margins = dpi(3),
+                widget = wibox.container.margin,
+            },
+            {
+                -- {
+                id = "player_text",
+                valign = "center",
+                widget = wibox.widget.textbox,
+                -- },
+                -- speed = 50,
+                -- step_function = wibox.container.scroll.step_functions.nonlinear_back_and_forth,
+                -- widget = wibox.container.scroll.horizontal,
+            },
+            spacing = dpi(6),
+            layout = wibox.layout.fixed.horizontal,
+        },
+        left = dpi(6),
+        right = dpi(6),
+        widget = wibox.container.margin,
+    },
+    visible = false,
+    forced_width = dpi(480),
+    bg = beautiful.palette.secondary_150,
+    widget = wibox.container.background,
+})
+
+-- awful.spawn.with_line_callback("playerctl --follow metadata --format '{{playerName}}|{{status}}|{{artist}}|{{title}}|{{mpris:trackid}}|{{mpris:artUrl}}'", {
 --     stdout = function(line)
---         player_text.text(line)
+--         if line ~= "" then
+--             player.visible = true
+--
+--             -- Get player info
+--             local player_name, status, artist, title, track_id, art_url = string.match(line, "^(.-)%|(.-)%|(.-)%|(.-)%|(.-)%|(.-)$")
+--
+--             -- naughty.notification({
+--             --     text = "|" .. player_name .. "|\n" .. "|" .. status .. "|\n" .. "|" .. artist .. "|\n" .. "|" .. title .. "|\n" .. "|" .. track_id .. "|\n" .. "|" .. art_url .. "|",
+--             --     urgency = "low",
+--             -- })
+--
+--             -- Player name
+--             player:get_children_by_id("player_icon")[1].image = icon_theme():find_icon_path(player_name)
+--
+--             -- Player control icon
+--             local icon = ""
+--             if status == "Playing" then
+--                 icon = beautiful.pause_icon
+--             elseif status == "Paused" then
+--                 icon = beautiful.play_icon
+--             else
+--                 icon = beautiful.stop_icon
+--             end
+--             player:get_children_by_id("player_control_icon")[1].image = icon
+--
+--             -- Player artist and title
+--             player:get_children_by_id("player_text")[1].text = artist .. " | " .. title
+--
+--             -- Player track id
+--             if track_id_current ~= track_id then
+--                 track_id_current = track_id
+--
+--                 art_url = string.gsub(art_url, "%\n", "")
+--
+--                 -- Player art url
+--                 if art_url ~= "" then
+--                     if player_name == "mpd" then
+--                         player:get_children_by_id("player_art_url")[1].image = art_url:gsub("file://", "")
+--                     else
+--                         local art_path = os.tmpname()
+--                         save_image_async_curl(art_url, art_path, function()
+--                             player:get_children_by_id("player_art_url")[1].image = art_path
+--                         end)
+--                     end
+--                     player:get_children_by_id("player_art_url")[1].visible = true
+--                 else
+--                     player:get_children_by_id("player_art_url")[1].visible = false
+--                 end
+--             end
+--         else
+--             player.visible = false
+--         end
 --     end,
 -- })
 
-local player_text = awful.widget.watch(
-    -- "playerctl metadata --format '{{ uc(playerName) }} <<{{status}}>> {{ duration(position) }}/{{ duration(mpris:length) }} {{artist}} | {{title}}'",
-    "playerctl metadata --format '{{ uc(playerName) }} <<{{status}}>> {{artist}} | {{title}}'",
-    1,
-    function(widget, stdout)
-        widget:set_markup_silently(stdout:gsub("<<Playing>>", play):gsub("<<Paused>>", pause):gsub("<<Stopped>>", stop):gsub("<<.+>>", ""))
-        -- widget.text = stdout:gsub("<<Playing>>", ""):gsub("<<Paused>>", ""):gsub("<<Stopped>>", ""):gsub("<<.+>>", "")
-    end,
-    wibox.widget({
-        -- halign = "center",
-        valign = "center",
-        forced_width = dpi(480),
-        widget = wibox.widget.textbox(),
-    })
-)
+gears.timer({
+    timeout = 2,
+    call_now = true,
+    autostart = true,
+    callback = function()
+        awful.spawn.easy_async("playerctl metadata --format '{{playerName}}|{{status}}|{{artist}}|{{title}}'", function(stdout)
+            if stdout ~= "" then
+                player.visible = true
 
-local player = wibox.widget({
-    widget = wibox.widget({
-        {
-            player_text,
-            left = beautiful.useless_gap * 2,
-            right = beautiful.useless_gap * 2,
-            widget = wibox.container.margin,
-        },
-        -- bg = beautiful.palette.secondary .. "50",
-        widget = wibox.container.background,
-    }),
-    buttons = {
-        awful.button({}, 1, function()
-            awful.spawn("playerctl previous")
-        end),
-        awful.button({}, 2, function()
-            awful.spawn("playerctl play-pause")
-        end),
-        awful.button({}, 3, function()
-            awful.spawn("playerctl next")
-        end),
-        -- awful.button({}, 4, function()
-        --     awful.spawn(("playerctl position %f%s"):format(10, "+"))
-        -- end),
-        -- awful.button({}, 5, function()
-        --     awful.spawn(("playerctl position %f%s"):format(10, "-"))
-        -- end),
-    },
+                -- Get player info
+                local player_name, status, artist, title = string.match(stdout, "^(.-)%|(.-)%|(.-)%|(.-)$")
+
+                -- Player name
+                player:get_children_by_id("player_icon")[1].image = icon_theme():find_icon_path(player_name)
+
+                -- Player control icon
+                local icon = ""
+                if status == "Playing" then
+                    icon = beautiful.pause_icon
+                elseif status == "Paused" then
+                    icon = beautiful.play_icon
+                else
+                    icon = beautiful.stop_icon
+                end
+                player:get_children_by_id("player_control_icon")[1].image = icon
+
+                -- Player artist and title
+                player:get_children_by_id("player_text")[1].markup = pango.b(artist) .. " | " .. title
+            else
+                player.visible = false
+            end
+        end)
+    end,
 })
 
 return player

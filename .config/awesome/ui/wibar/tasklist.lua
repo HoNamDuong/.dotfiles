@@ -1,5 +1,6 @@
 local awful = require("awful")
 local wibox = require("wibox")
+-- local switcher = require("ui.switcher")
 local dpi = require("beautiful.xresources").apply_dpi
 
 local tasklist = function(s)
@@ -11,6 +12,7 @@ local tasklist = function(s)
                 c:activate({ context = "tasklist", action = "toggle_minimization" })
             end),
             awful.button({}, 3, function()
+                -- switcher()
                 awful.menu.client_list()
             end),
             -- awful.button({}, 4, function()
