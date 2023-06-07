@@ -1,6 +1,6 @@
 <h1 align="center"> ❤ ~/.dotfiles</h1>
 
-![Screenshot](./screenshots/i3wm.png)
+![Screenshot](./screenshots/awesomewm.png)
 
 ## Details
 
@@ -23,6 +23,8 @@
   - [Thunderbird](https://www.thunderbird.net/) - Thunderbird is a free email application that's easy to set up and customize - and it's loaded with great features.
   - [IBus](https://github.com/ibus/ibus/wiki) - Next Generation Input Bus for Linux.
   - [Zathura](https://pwmt.org/projects/zathura/) - A highly customizable and functional document viewer.
+  - [qalculate-gtk](https://qalculate.github.io/) - The ultimate desktop calculator.
+  - [arandr](https://github.com/haad/arandr) - ARandR is designed to provide a simple visual front end for XRandR.
   - [network-manager-applet](https://gitlab.gnome.org/GNOME/network-manager-applet) - Tray applet and an advanced network connection editor.
   - [system-config-printer](https://github.com/OpenPrinting/system-config-printer) - A CUPS printer configuration tool and status applet.
   - [simple-scan](https://gitlab.gnome.org/GNOME/simple-scan) - Simple scanning utility.
@@ -47,6 +49,7 @@
   - [fzf](https://github.com/junegunn/fzf) - A command-line fuzzy finder.
   - [ripgrep](https://github.com/BurntSushi/ripgrep) - A line-oriented search tool that recursively searches directories for a regex pattern.
   - [cava](https://github.com/karlstav/cava) - Cross-platform Audio Visualizer.
+  - [scrot](https://github.com/resurrecting-open-source-projects/scrot) - Command line screen capture utility.
   - [cmatrix](https://github.com/abishekvashok/cmatrix) - Matrix like effect in your terminal.
   - [pipes.sh](https://github.com/pipeseroni/pipes.sh) - Animated pipes terminal screensaver.
   - [mpd](https://github.com/MusicPlayerDaemon/MPD) - A flexible, powerful, server-side application for playing music.

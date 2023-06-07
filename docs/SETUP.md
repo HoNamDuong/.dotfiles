@@ -37,17 +37,9 @@
 
 ### Install display manager
 
-I am using `lightdm` as is very light and fast display manager but you can install any other Display Manager you are familiar with. Ex. GDM, LXDM, XDM etc.
+[lightdm](https://github.com/canonical/lightdm) is very light and fast display manager.
 
     sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
-
-Change file lightdm.conf
-
-    grep 'autologin-user=\|autologin-session=\|greeter-session=' /etc/lightdm/lightdm.conf && \
-    sudo sed -i 's/#autologin-user=/autologin-user=$USER/g' /etc/lightdm/lightdm.conf && \
-    sudo sed -i 's/#autologin-session=/autologin-session=i3/g' /etc/lightdm/lightdm.conf && \
-    sudo sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-gtk-greeter/g' /etc/lightdm/lightdm.conf && \
-    grep 'autologin-user=\|autologin-session=\|greeter-session=' /etc/lightdm/lightdm.conf
 
 Change theme and background color in file:
 
@@ -86,6 +78,16 @@ Note: Nvidia non open source drivers may conflict with `nouveau` OS drivers and 
     cat /usr/lib/modprobe.d/nvidia-utils.conf
     blacklist nouveau
 
+### Install sound drivers and tools
+
+    sudo pacman -S alsa-utils alsa-plugins pavucontrol pipewire-pulse
+    sudo systemctl --user enable pipewire-pulse.service
+
+### Creating default directories
+
+    sudo pacman -S xdg-user-dirs
+    xdg-user-dirs-update --force
+
 ### Run
 
 Log out of your system and log in again.
@@ -107,20 +109,23 @@ Log out of your system and log in again.
     git config --global user.email "example@domain.com"
     git config --global user.name "username"
 
-### Install font
+### Install theme, icon, cursor and font
 
+[Skeuos theme](https://aur.archlinux.org/packages/skeuos-gtk)
+
+[Papirus icon theme](https://archlinux.org/packages/community/any/papirus-icon-theme)
+
+[Vimix cursors](https://aur.archlinux.org/packages/vimix-cursors)
+
+    # Application for Qt and Gtk
+    sudo pacman -S lxappearance qt5ct
+
+    # Install theme
+    yay -S  skeuos-gtk papirus-icon-theme vimix-cursors
+
+    # Install font
     sudo pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
     sudo pacman -S ttf-hack-nerd ttf-roboto-mono
-
-### Keyring, polkit and screenshot
-
-    sudo pacman -S gnome-keyring polkit-gnome gnome-screenshot
-
-### Creating default directories
-
-    sudo pacman -S xdg-user-dirs
-
-    xdg-user-dirs-update --force
 
 ### Install Node.js, npm and yarn
 
@@ -149,35 +154,17 @@ Log out of your system and log in again.
     # Check version of Neovim
     nvim -v
 
-### Install theme, icon and cursor
-
-[Skeuos theme](https://aur.archlinux.org/packages/skeuos-gtk)
-
-[Papirus icon theme](https://archlinux.org/packages/community/any/papirus-icon-theme)
-
-[Vimix cursors](https://aur.archlinux.org/packages/vimix-cursors)
-
-    # Application for Qt and Gtk
-    sudo pacman -S lxappearance qt5ct
-
-    # Install theme
-    yay -S  skeuos-gtk papirus-icon-theme vimix-cursors
-
-### Install sound drivers and tools
-
-    sudo pacman -S alsa-utils alsa-plugins pavucontrol pipewire-pulse
-    systemctl --user enable pipewire-pulse.service
-
 ### Install applications (Optional)
 
     yay -S \
-    viewnior nitrogen dbeaver \
+    gnome-keyring polkit-gnome \
+    viewnior nitrogen qalculate-gtk arandr scrot \
     discord telegram-desktop thunderbird \
     mpv yt-dlp mpv-mpris \
     mpd mpc ncmpcpp mpd-mpris playerctl \
     spotify-launcher zenity ffmpeg4.4 \
     zathura zathura-pdf-mupdf \
-    google-chrome visual-studio-code-bin postman-bin \
+    google-chrome visual-studio-code-bin postman-bin dbeaver \
     cmatrix cava pipes.sh
 
 Install [iBus](https://github.com/BambooEngine/ibus-bamboo) - Input framework for Linux OS.
