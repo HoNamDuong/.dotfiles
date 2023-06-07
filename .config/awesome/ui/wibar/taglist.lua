@@ -1,4 +1,7 @@
 local awful = require("awful")
+local wibox = require("wibox")
+local beautiful = require("beautiful")
+local dpi = require("beautiful.xresources").apply_dpi
 
 local taglist = function(s)
     return awful.widget.taglist({
@@ -15,6 +18,28 @@ local taglist = function(s)
             -- awful.button({}, 5, function(t)
             --     awful.tag.viewnext(t.screen)
             -- end),
+        },
+        widget_template = {
+            {
+                {
+                    {
+                        id = "icon_role",
+                        widget = wibox.widget.imagebox,
+                    },
+                    {
+                        id = "text_role",
+                        widget = wibox.widget.textbox,
+                    },
+                    layout = wibox.layout.fixed.horizontal,
+                },
+                top = dpi(2),
+                bottom = dpi(2),
+                left = dpi(6),
+                right = dpi(6),
+                widget = wibox.container.margin,
+            },
+            id = "background_role",
+            widget = wibox.container.background,
         },
     })
 end

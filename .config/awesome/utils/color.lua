@@ -67,7 +67,7 @@ function M.palette_metatable.__index(t, k)
     value = (tonumber(value) - 100) / 100
 
     local source_color = t[name]
-    local new_color = M.change(source_color, { alpha = value })
+    local new_color = M.change(source_color, { lighten = value })
 
     rawset(t, k, new_color)
     return new_color

@@ -1,6 +1,6 @@
 local awful = require("awful")
 local ruled = require("ruled")
-local tags = require("config").tags
+local tag_name = require("config").tags.name
 local dpi = require("beautiful.xresources").apply_dpi
 
 -- Client
@@ -29,6 +29,9 @@ ruled.client.connect_signal("request::rules", function()
                 "nitrogen",
                 "viewnior",
                 "system-config-printer",
+                "nm-connection-editor",
+                "qalculate-gtk",
+                "arandr",
             },
             name = {
                 "Picture in picture",
@@ -38,6 +41,7 @@ ruled.client.connect_signal("request::rules", function()
         },
         properties = {
             floating = true,
+            placement = awful.placement.centered,
         },
     })
     -- Add titlebars to normal clients and dialogs
@@ -57,17 +61,17 @@ ruled.client.connect_signal("request::rules", function()
     ruled.client.append_rule({
         rule = { role = "browser" },
         properties = {
-            border_width = dpi(0),
+            -- border_width = dpi(0),
             -- titlebars_enabled = false,
-            tag = tags[3],
+            tag = tag_name[3],
         },
     })
-    ruled.client.append_rule({ rule = { instance = "code" }, properties = { tag = tags[2] } })
-    ruled.client.append_rule({ rule = { instance = "nemo" }, properties = { tag = tags[4] } })
-    ruled.client.append_rule({ rule_any = { instance = { "postman", "DBeaver" } }, properties = { tag = tags[5] } })
-    ruled.client.append_rule({ rule_any = { instance = { "mpv" }, class = { "Spotify" } }, properties = { tag = tags[6] } })
-    ruled.client.append_rule({ rule_any = { instance = { "telegram", "discord" }, class = { "thunderbird" } }, properties = { tag = tags[8] } })
-    ruled.client.append_rule({ rule = { class = "Minecraft" }, properties = { tag = tags[9] } })
+    ruled.client.append_rule({ rule = { instance = "code" }, properties = { tag = tag_name[2] } })
+    ruled.client.append_rule({ rule = { instance = "nemo" }, properties = { tag = tag_name[4] } })
+    ruled.client.append_rule({ rule_any = { instance = { "postman", "DBeaver" } }, properties = { tag = tag_name[5] } })
+    ruled.client.append_rule({ rule_any = { instance = { "mpv" }, class = { "Spotify" } }, properties = { tag = tag_name[6] } })
+    ruled.client.append_rule({ rule_any = { instance = { "telegram", "discord" }, class = { "thunderbird" } }, properties = { tag = tag_name[8] } })
+    ruled.client.append_rule({ rule = { class = "Minecraft" }, properties = { tag = tag_name[9] } })
     -- No border
     ruled.client.append_rule({ rule = { instance = "conky" }, properties = { border_width = dpi(0) } })
 end)

@@ -3,34 +3,43 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local dpi = require("beautiful.xresources").apply_dpi
 
+local cols_size = dpi(60) * 2
+local rows_size = dpi(60) * 2
+
 local function box_widget(widgets, width, height)
     return wibox.widget({
         widgets,
-        forced_width = dpi(width),
-        forced_height = dpi(height),
+        forced_width = width,
+        forced_height = height,
         -- border_width = beautiful.border_width,
         -- border_color = beautiful.border_focus,
         widget = wibox.container.background,
     })
 end
 
-local notifications_widget = require("ui.dashboard.notifications")
-local notifications = box_widget(notifications_widget, dpi(360), dpi(600))
-
-local powermenu_widget = require("ui.dashboard.powermenu")
-local powermenu = box_widget(powermenu_widget, dpi(120), dpi(600))
-
-local calendar_widget = require("ui.dashboard.calendar")
-local calendar = box_widget(calendar_widget, dpi(240), dpi(240))
+local profile_widget = require("ui.dashboard.profile")
+local profile = box_widget(profile_widget, cols_size * 2, rows_size * 1)
 
 local clock_widget = require("ui.dashboard.clock")
-local clock = box_widget(clock_widget, dpi(240), dpi(120))
+local clock = box_widget(clock_widget, cols_size * 2, rows_size * 1)
 
-local profile_widget = require("ui.dashboard.profile")
-local profile = box_widget(profile_widget, dpi(240), dpi(120))
+local calendar_widget = require("ui.dashboard.calendar")
+local calendar = box_widget(calendar_widget, cols_size * 2, rows_size * 2)
+
+local powermenu_widget = require("ui.dashboard.powermenu")
+local powermenu = box_widget(powermenu_widget, cols_size * 1, rows_size * 5)
+
+local notifications_widget = require("ui.dashboard.notifications")
+local notifications = box_widget(notifications_widget, cols_size * 3, rows_size * 5)
 
 local dashboard = awful.popup({
-    widget = {},
+    widget = {
+        homogeneous = true,
+        superpose = false,
+        forced_num_cols = 6,
+        forced_num_rows = 5,
+        layout = wibox.layout.grid,
+    },
     type = "toolbar",
     border_width = beautiful.border_width,
     border_color = beautiful.palette.secondary,
@@ -39,55 +48,13 @@ local dashboard = awful.popup({
     visible = false,
 })
 
-dashboard:setup({
-    homogeneous = true,
-    superpose = false,
-    -- spacing = beautiful.useless_gap * 2,
-    min_cols_size = dpi(120),
-    min_rows_size = dpi(120),
-    layout = wibox.layout.grid,
-})
-
-local first = wibox.widget({
-    {
-        text = "first",
-        widget = wibox.widget.textbox,
-    },
+local example = wibox.widget({
     border_width = beautiful.border_width,
-    border_color = beautiful.border_focus,
-    widget = wibox.container.background,
-})
-local second = wibox.widget({
-    {
-        text = "second",
-        widget = wibox.widget.textbox,
-    },
-    border_width = beautiful.border_width,
-    border_color = beautiful.border_focus,
-    widget = wibox.container.background,
-})
-local third = wibox.widget({
-    {
-        text = "first",
-        widget = wibox.widget.textbox,
-    },
-    border_width = beautiful.border_width,
-    border_color = beautiful.border_focus,
-    bg = beautiful.bg_normal,
+    border_color = beautiful.border_normal,
     widget = wibox.container.background,
 })
 
--- local powermenu = wibox.widget({
---     {
---         text = "powermenu",
---         widget = wibox.widget.textbox,
---     },
---     border_width = beautiful.border_width,
---     border_color = beautiful.border_focus,
---     bg = beautiful.bg_normal,
---     widget = wibox.container.background,
--- })
-
+dashboard.widget:add_widget_at(example, 2, 1, 1, 2)
 dashboard.widget:add_widget_at(profile, 1, 1, 1, 2)
 dashboard.widget:add_widget_at(clock, 3, 1, 1, 2)
 dashboard.widget:add_widget_at(calendar, 4, 1, 2, 2)

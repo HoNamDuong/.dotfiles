@@ -90,6 +90,7 @@ local mainmenu = menu_build({
     },
     after = {
         { "Random wallpaper", config.actions.random_wallpaper, beautiful.image_icon },
+        { "Take screenshot", config.actions.screenshot, beautiful.camera_icon },
         { "Lock", config.power.lock, beautiful.power_lock },
         { "Logout", config.power.logout, beautiful.power_logout },
         { "Sleep", config.power.sleep, beautiful.power_sleep },

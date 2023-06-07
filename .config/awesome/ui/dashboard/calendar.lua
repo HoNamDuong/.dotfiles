@@ -15,7 +15,7 @@ local function decorate_cell(widget, flag, date)
         widget.valign = "center"
         return wibox.widget({
             widget = wibox.container.background,
-            bg = is_weekend(date) and beautiful.palette.secondary_150,
+            bg = is_weekend(date) and beautiful.palette.secondary .. "80",
             widget,
         })
     elseif flag == "focus" then
@@ -91,6 +91,8 @@ local cal_control = wibox.widget({
             resize = true,
             halign = "center",
             valign = "center",
+            forced_width = dpi(6) * 6,
+            forced_height = dpi(6) * 6,
             widget = wibox.widget.imagebox,
             buttons = {
                 awful.button({}, 1, function()
@@ -104,10 +106,10 @@ local cal_control = wibox.widget({
     },
     {
         {
-            forced_width = dpi(170),
-            forced_height = dpi(30),
-            widget = wibox.container.background,
+            forced_width = dpi(6) * 30,
+            forced_height = dpi(6) * 5,
             bg = beautiful.palette.secondary .. "80",
+            widget = wibox.container.background,
             buttons = {
                 awful.button({}, 1, function()
                     today()
@@ -123,6 +125,8 @@ local cal_control = wibox.widget({
             resize = true,
             halign = "center",
             valign = "center",
+            forced_width = dpi(6) * 6,
+            forced_height = dpi(6) * 6,
             widget = wibox.widget.imagebox,
             buttons = {
                 awful.button({}, 1, function()
@@ -144,10 +148,10 @@ local calendar = wibox.widget({
         cal_content,
         layout = wibox.layout.stack,
     },
-    top = dpi(6),
-    bottom = dpi(6),
-    left = dpi(12),
-    right = dpi(12),
+    -- top = dpi(6),
+    -- bottom = dpi(6),
+    left = dpi(6) * 1,
+    right = dpi(6) * 1,
     widget = wibox.container.margin,
 })
 

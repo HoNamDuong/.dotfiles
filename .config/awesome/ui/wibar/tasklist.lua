@@ -1,7 +1,9 @@
 local awful = require("awful")
 local wibox = require("wibox")
--- local switcher = require("ui.switcher")
+local beautiful = require("beautiful")
+local gears = require("gears")
 local dpi = require("beautiful.xresources").apply_dpi
+local cairo = require("lgi").cairo
 
 local tasklist = function(s)
     return awful.widget.tasklist({
@@ -12,7 +14,6 @@ local tasklist = function(s)
                 c:activate({ context = "tasklist", action = "toggle_minimization" })
             end),
             awful.button({}, 3, function()
-                -- switcher()
                 awful.menu.client_list()
             end),
             -- awful.button({}, 4, function()
@@ -33,8 +34,8 @@ local tasklist = function(s)
         --         awful.widget.clienticon,
         --         top = dpi(0),
         --         bottom = dpi(2),
-        --         left = dpi(3),
-        --         right = dpi(3),
+        --         left = dpi(6),
+        --         right = dpi(6),
         --         widget = wibox.container.margin,
         --     },
         --     layout = wibox.layout.align.vertical,
@@ -42,19 +43,27 @@ local tasklist = function(s)
         widget_template = {
             {
                 {
-                    {
-                        id = "icon_role",
-                        widget = wibox.widget.imagebox,
-                    },
-                    margins = dpi(2),
-                    widget = wibox.container.margin,
+                    id = "icon_role",
+                    widget = wibox.widget.imagebox,
                 },
-                left = dpi(2),
-                right = dpi(2),
+                top = dpi(2),
+                bottom = dpi(2),
+                left = dpi(6),
+                right = dpi(6),
                 widget = wibox.container.margin,
             },
             id = "background_role",
             widget = wibox.container.background,
+            create_callback = function(self, c, index, objects)
+                if c and c.valid and not c.icon then
+                    local s = gears.surface(beautiful.package_icon)
+                    local img = cairo.ImageSurface.create(cairo.Format.ARGB32, s:get_width(), s:get_height())
+                    local cr = cairo.Context(img)
+                    cr:set_source_surface(s, 0, 0)
+                    cr:paint()
+                    c.icon = img._native
+                end
+            end,
         },
     })
 end

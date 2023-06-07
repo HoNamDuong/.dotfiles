@@ -7,20 +7,14 @@ local pango = require("utils").pango
 
 local mic = wibox.widget({
     {
-        {
-            id = "mic_icon",
-            image = beautiful.mic_icon,
-            resize = true,
-            halign = "center",
-            widget = wibox.widget.imagebox,
-        },
-        margins = {
-            left = dpi(6),
-            right = dpi(6),
-            top = dpi(3),
-            bottom = dpi(3),
-        },
-        widget = wibox.container.margin,
+        id = "mic_icon",
+        image = beautiful.mic_icon,
+        resize = true,
+        halign = "center",
+        valign = "center",
+        forced_width = dpi(6) * 3,
+        forced_height = dpi(6) * 3,
+        widget = wibox.widget.imagebox,
     },
     {
         id = "mic_text",
@@ -28,6 +22,7 @@ local mic = wibox.widget({
         valign = "center",
         widget = wibox.widget.textbox,
     },
+    spacing = dpi(6),
     layout = wibox.layout.fixed.horizontal,
     set_mic = function(self, val)
         if string.match(val, "muted") then
@@ -58,7 +53,7 @@ gears.timer({
     autostart = true,
     callback = function()
         awful.spawn.easy_async({ "sh", "-c", "pamixer --default-source --get-volume-human" }, function(out)
-            mic.mic = out
+            mic.mic = string.gsub(out, "%\n", "")
         end)
     end,
 })

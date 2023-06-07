@@ -10,6 +10,7 @@ local switcher = require("ui.switcher")
 local hotkeys = require("ui.hotkeys")
 
 local apps = require("config").apps
+local actions = require("config").actions
 local keys = require("config").keys
 
 -- {{{ Mouse bindings
@@ -53,39 +54,59 @@ awful.keyboard.append_global_keybindings({
 
     awful.key({ keys.super, "Shift" }, "q", awesome.quit, { description = "Quit awesome", group = "awesome" }),
 
-    -- awful.key({ keys.super }, "a", function()
-    --     awful.prompt.run({
-    --         prompt = "Run Lua code: ",
-    --         textbox = prompt.widget,
-    --         exe_callback = awful.util.eval,
-    --         history_path = awful.util.get_cache_dir() .. "/history_eval",
-    --     })
-    -- end, { description = "Lua execute prompt", group = "awesome" }),
-
     awful.key({ keys.super }, "x", function()
         awful.spawn("powermenu")
-    end, { description = "Power menu", group = "awesome" }),
+    end, { description = "Show power menu", group = "actions" }),
 
     awful.key({ keys.super }, "r", function()
-        -- prompt:run()
         awful.spawn("launchers run")
-    end, { description = "Run prompt", group = "launcher" }),
+    end, { description = "Run command", group = "actions" }),
+
+    awful.key({ keys.super, "Shift" }, "r", function()
+        -- awful.prompt.run({
+        --     prompt = "Run Lua code: ",
+        --     textbox = prompt.widget,
+        --     exe_callback = awful.util.eval,
+        --     history_path = awful.util.get_cache_dir() .. "/history_eval",
+        -- })
+        prompt:run()
+    end, { description = "Run prompt", group = "actions" }),
 
     awful.key({ keys.super }, "p", function()
         menubar.show()
-    end, { description = "Show menubar", group = "launcher" }),
+    end, { description = "Show menubar", group = "actions" }),
 
     awful.key({ keys.super }, "a", function()
         awful.spawn("launchers")
-    end, { description = "Show the launcher", group = "launcher" }),
+    end, { description = "Show the launcher", group = "actions" }),
 
     awful.key({ keys.super }, "Return", function()
         awful.spawn(apps.terminal)
-    end, { description = "Terminal", group = "launcher" }),
+    end, { description = "Open terminal", group = "actions" }),
 
     awful.key({ keys.super }, "b", function()
         awful.spawn(apps.browser)
-    end, { description = "Browser", group = "launcher" }),
+    end, { description = "Open browser", group = "actions" }),
+
+    awful.key({}, "Print", function()
+        awful.spawn.with_shell(actions.screenshot)
+    end, { description = "Take a screenshot of entire screen", group = "screenshot" }),
+
+    awful.key({ keys.control }, "Print", function()
+        awful.spawn.with_shell(actions.screenshot_window)
+    end, { description = "Take a screenshot of focused window", group = "screenshot" }),
+
+    awful.key({ keys.shift }, "Print", function()
+        awful.spawn.with_shell(actions.screenshot_area)
+    end, { description = "Take a screenshot of selection", group = "screenshot" }),
+
+    awful.key({ keys.super }, "Print", function()
+        awful.spawn.with_shell(actions.screenshot_delay)
+        naughty.notify({
+            message = "Take a screenshot of delay 5 second",
+            timeout = 4.5,
+        })
+    end, { description = "Take a screenshot of delay", group = "screenshot" }),
 })
 
 -- Tags related keybindings
@@ -106,10 +127,16 @@ awful.keyboard.append_global_keybindings({
     end, { description = "View previous nonempty tag", group = "tag" }),
 })
 
+awful.key.keygroups.numrow = {}
+
+for i = 1, 10 do
+    table.insert(awful.key.keygroups.numrow, { "#" .. i + 9, i })
+end
+
 awful.keyboard.append_global_keybindings({
     awful.key({
         modifiers = { keys.super },
-        keygroup = "numrow",
+        keygroup = awful.key.keygroup.NUMROW,
         description = "Only view tag",
         group = "tag",
         on_press = function(index)
@@ -123,7 +150,7 @@ awful.keyboard.append_global_keybindings({
 
     awful.key({
         modifiers = { keys.super, "Control" },
-        keygroup = "numrow",
+        keygroup = awful.key.keygroup.NUMROW,
         description = "Toggle tag",
         group = "tag",
         on_press = function(index)
@@ -137,7 +164,7 @@ awful.keyboard.append_global_keybindings({
 
     awful.key({
         modifiers = { keys.super, "Shift" },
-        keygroup = "numrow",
+        keygroup = awful.key.keygroup.NUMROW,
         description = "Move focused client to tag",
         group = "tag",
         on_press = function(index)
@@ -151,24 +178,24 @@ awful.keyboard.append_global_keybindings({
         end,
     }),
 
-    awful.key({
-        modifiers = { keys.super, "Control", "Shift" },
-        keygroup = "numrow",
-        description = "Toggle focused client on tag",
-        group = "tag",
-        on_press = function(index)
-            if client.focus then
-                local tag = client.focus.screen.tags[index]
-                if tag then
-                    client.focus:toggle_tag(tag)
-                end
-            end
-        end,
-    }),
+    -- awful.key({
+    --     modifiers = { keys.super, "Control", "Shift" },
+    --     keygroup = awful.key.keygroup.NUMROW,
+    --     description = "Toggle focused client on tag",
+    --     group = "tag",
+    --     on_press = function(index)
+    --         if client.focus then
+    --             local tag = client.focus.screen.tags[index]
+    --             if tag then
+    --                 client.focus:toggle_tag(tag)
+    --             end
+    --         end
+    --     end,
+    -- }),
 
     -- awful.key({
-    --     modifiers = { modkey },
-    --     keygroup = "numpad",
+    --     modifiers = { keys.super },
+    --     keygroup = awful.key.keygroup.NUMPAD,
     --     description = "Select layout directly",
     --     group = "layout",
     --     on_press = function(index)
@@ -189,19 +216,6 @@ awful.keyboard.append_global_keybindings({
     awful.key({ keys.super }, "k", function()
         awful.client.focus.byidx(-1)
     end, { description = "Focus previous by index", group = "client" }),
-
-    -- awful.key({ keys.alt }, "Tab", function()
-    --     -- awful.client.focus.history.previous()
-    --     -- if client.focus then
-    --     --     client.focus:raise()
-    --     -- end
-    --     local c = awful.client.focus.history.list[2]
-    --     client.focus = c
-    --     local t = client.focus and client.focus.first_tag or nil
-    --     if t then
-    --         t:view_only()
-    --     end
-    -- end, { description = "Go back client", group = "client" }),
 
     awful.key({ keys.super, "Control" }, "n", function()
         local c = awful.client.restore()
@@ -308,17 +322,9 @@ awful.keyboard.append_global_keybindings({
     awful.key({ keys.super, "Control" }, "l", function()
         awful.tag.incncol(-1, nil, true)
     end, { description = "Decrease the number of columns", group = "layout" }),
-
-    -- awful.key({ modkey }, "space", function()
-    --     awful.layout.inc(1)
-    -- end, { description = "Select next", group = "layout" }),
-
-    -- awful.key({ modkey, "Shift" }, "space", function()
-    --     awful.layout.inc(-1)
-    -- end, { description = "Select previous", group = "layout" }),
 })
 
--- Make sure you remove the default Mod4+Space and Mod4+Shift+Space
+-- Switch layout
 awful.keygrabber({
     start_callback = function()
         layoutlist.visible = true
@@ -391,19 +397,14 @@ awful.keygrabber({
         },
     },
 })
-
 -- }}}
 
 -- TEST
 awful.keyboard.append_global_keybindings({
-    -- awful.key({ keys.alt }, "Tab", function()
-    --     switcher:toggle()
-    -- end, { description = "Decrease the number of columns", group = "test" }),
-
     awful.key({ keys.super }, "F1", function()
         naughty.notification({
             title = "Test low",
-            text = "this is test low notification this is test low notification this is test low notification this is test low notification this is test low notification",
+            message = "this is test low notification this is test low notification this is test low notification this is test low notification this is test low notification",
             urgency = "low",
         })
     end, { description = "send test low notification", group = "test" }),
@@ -411,7 +412,7 @@ awful.keyboard.append_global_keybindings({
     awful.key({ keys.super }, "F2", function()
         naughty.notification({
             title = "Test normal this is test normal notification this is test normal notification ",
-            text = "this is test normal notification",
+            message = "this is test normal notification",
             urgency = "normal",
             actions = {
                 naughty.action({
@@ -430,7 +431,7 @@ awful.keyboard.append_global_keybindings({
     awful.key({ keys.super }, "F3", function()
         naughty.notification({
             title = "Test critical",
-            text = "this is test critical notification",
+            message = "this is test critical notification",
             urgency = "critical",
         })
     end, { description = "send test critical notification", group = "test" }),

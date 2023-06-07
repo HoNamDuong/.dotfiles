@@ -1,6 +1,7 @@
 local wibox = require("wibox")
 local gears = require("gears")
 local beautiful = require("beautiful")
+local pango = require("utils").pango
 local dpi = require("beautiful.xresources").apply_dpi
 
 -- Source https://github.com/vicious-widgets/vicious
@@ -45,20 +46,14 @@ end
 
 local mem = wibox.widget({
     {
-        {
-            id = "mem_icon",
-            image = beautiful.memory_icon,
-            resize = true,
-            halign = "center",
-            widget = wibox.widget.imagebox,
-        },
-        margins = {
-            left = dpi(6),
-            right = dpi(6),
-            top = dpi(3),
-            bottom = dpi(3),
-        },
-        widget = wibox.container.margin,
+        id = "mem_icon",
+        image = beautiful.memory_icon,
+        resize = true,
+        halign = "center",
+        valign = "center",
+        forced_width = dpi(6) * 3,
+        forced_height = dpi(6) * 3,
+        widget = wibox.widget.imagebox,
     },
     {
         id = "mem_text",
@@ -66,6 +61,7 @@ local mem = wibox.widget({
         valign = "center",
         widget = wibox.widget.textbox,
     },
+    spacing = dpi(6),
     layout = wibox.layout.fixed.horizontal,
 })
 
@@ -74,7 +70,18 @@ gears.timer({
     call_now = true,
     autostart = true,
     callback = function()
-        mem:get_children_by_id("mem_text")[1].text = get_mem()[1] .. "%"
+        local usep = get_mem()[1]
+        local fg_color = beautiful.palette.low
+
+        if usep > 80 then
+            fg_color = beautiful.palette.high
+        elseif 50 <= usep and usep <= 80 then
+            fg_color = beautiful.palette.medium
+        else
+            fg_color = beautiful.palette.low
+        end
+
+        mem:get_children_by_id("mem_text")[1].markup = pango.span({ usep .. "%", foreground = fg_color })
     end,
 })
 

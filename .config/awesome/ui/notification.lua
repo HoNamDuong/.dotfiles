@@ -57,17 +57,13 @@ local function notification_item(n)
 
     -- image
     local image_n = wibox.widget({
-        {
-            image = n.icon and n.icon or recolor_image(beautiful.notification_icon, urgency_color),
-            resize = true,
-            halign = "center",
-            -- valign = "center",
-            widget = wibox.widget.imagebox,
-        },
-        strategy = "exact",
-        height = dpi(64),
-        width = dpi(64),
-        widget = wibox.container.constraint,
+        image = n.icon and n.icon or recolor_image(beautiful.notification_icon, urgency_color),
+        resize = true,
+        halign = "center",
+        -- valign = "center",
+        forced_width = dpi(60),
+        forced_height = dpi(60),
+        widget = wibox.widget.imagebox,
     })
 
     -- title
@@ -110,13 +106,13 @@ local function notification_item(n)
                             id = "text_role",
                             widget = wibox.widget.textbox,
                         },
-                        forced_height = dpi(32),
+                        forced_height = dpi(6) * 5,
                         layout = wibox.layout.fixed.horizontal,
                     },
                     widget = wibox.container.place,
                 },
                 strategy = "min",
-                width = dpi(100),
+                width = dpi(60) * 2,
                 widget = wibox.container.constraint,
             },
             bg = beautiful.palette.secondary,
@@ -136,8 +132,12 @@ local function notification_item(n)
                     app_name_n,
                     time_n,
                     {
-                        id = "delete_button",
-                        layout = wibox.layout.fixed.horizontal,
+                        {
+                            id = "delete_button",
+                            layout = wibox.layout.fixed.horizontal,
+                        },
+                        left = dpi(6),
+                        widget = wibox.container.margin,
                     },
                     layout = wibox.layout.align.horizontal,
                 },
@@ -150,11 +150,11 @@ local function notification_item(n)
                             spacing = dpi(6),
                             layout = wibox.layout.fixed.vertical,
                         },
-                        spacing = dpi(12),
+                        spacing = dpi(6) * 2,
                         layout = wibox.layout.fixed.horizontal,
                     },
-                    top = dpi(12),
-                    bottom = dpi(12),
+                    top = dpi(6) * 2,
+                    bottom = dpi(6) * 2,
                     widget = wibox.container.margin,
                 },
                 actions_n,
@@ -171,15 +171,11 @@ end
 
 local function delete_button(widget, notif_list)
     return {
-        {
-            image = beautiful.bin_icon,
-            resize = true,
-            forced_width = dpi(18),
-            forced_height = dpi(18),
-            widget = wibox.widget.imagebox,
-        },
-        left = dpi(6),
-        widget = wibox.container.margin,
+        image = beautiful.bin_icon,
+        resize = true,
+        forced_width = dpi(6) * 3,
+        forced_height = dpi(6) * 3,
+        widget = wibox.widget.imagebox,
         buttons = {
             awful.button({}, 1, function()
                 notif_list:remove_widgets(widget)
@@ -194,9 +190,9 @@ naughty.connect_signal("request::display", function(n)
     naughty.layout.box({
         type = "notification",
         notification = n,
-        border_width = 0,
-        minimum_width = dpi(360),
-        maximum_width = dpi(360),
+        border_width = dpi(0),
+        minimum_width = dpi(60) * 6,
+        maximum_width = dpi(60) * 6,
         widget_template = notification_item(n),
     })
 

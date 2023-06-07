@@ -8,20 +8,36 @@ local powermenu = wibox.widget({
     {
         {
             {
-                image = beautiful.power_lock,
+                image = beautiful.refresh_icon,
                 resize = true,
                 halign = "center",
                 valign = "center",
                 widget = wibox.widget.imagebox,
                 buttons = {
                     awful.button({}, 1, function()
-                        awful.spawn(config.power.lock)
+                        awesome.restart()
                     end),
                 },
             },
             margins = beautiful.useless_gap * 2,
             widget = wibox.container.margin,
         },
+        -- {
+        --     {
+        --         image = beautiful.power_lock,
+        --         resize = true,
+        --         halign = "center",
+        --         valign = "center",
+        --         widget = wibox.widget.imagebox,
+        --         buttons = {
+        --             awful.button({}, 1, function()
+        --                 awful.spawn(config.power.lock)
+        --             end),
+        --         },
+        --     },
+        --     margins = beautiful.useless_gap * 2,
+        --     widget = wibox.container.margin,
+        -- },
         {
             {
                 image = beautiful.power_logout,

@@ -16,35 +16,32 @@ config.power = {
 
 config.actions = {
     random_wallpaper = "nitrogen --random --set-zoom-fill --save",
+    screenshot = "scrot --multidisp --exec 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'",
+    screenshot_area = "scrot --select --freeze --exec 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'",
+    screenshot_window = "scrot --focused --border --exec 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'",
+    screenshot_delay = "scrot --delay 5 --exec 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'",
 }
 
 config.keys = {
     super = "Mod4",
     alt = "Mod1",
+    shift = "Shift",
+    control = "Control",
 }
 
 config.tags = {
-    "  Terminal ",
-    "  Code ",
-    "  Chromium ",
-    "  Files ",
-    "  Documents ",
-    "  Media ",
-    "  Design ",
-    "  Chat ",
-    "  Game ",
-    "  General ",
-
-    -- " 1 ",
-    -- " 2 ",
-    -- " 3 ",
-    -- " 4 ",
-    -- " 5 ",
-    -- " 6 ",
-    -- " 7 ",
-    -- " 8 ",
-    -- " 9 ",
-    -- " 0 ",
+    name = {
+        " Terminal ",
+        " Code ",
+        " Chromium ",
+        " Files ",
+        " Documents ",
+        " Media ",
+        " Design ",
+        " Chat ",
+        " Game ",
+        " General ",
+    },
 }
 
 return config

@@ -7,20 +7,14 @@ local pango = require("utils").pango
 
 local volume = wibox.widget({
     {
-        {
-            id = "volume_icon",
-            image = beautiful.volume_icon,
-            resize = true,
-            halign = "center",
-            widget = wibox.widget.imagebox,
-        },
-        margins = {
-            left = dpi(6),
-            right = dpi(6),
-            top = dpi(3),
-            bottom = dpi(3),
-        },
-        widget = wibox.container.margin,
+        id = "volume_icon",
+        image = beautiful.volume_icon,
+        resize = true,
+        halign = "center",
+        valign = "center",
+        forced_width = dpi(6) * 3,
+        forced_height = dpi(6) * 3,
+        widget = wibox.widget.imagebox,
     },
     {
         id = "volume_text",
@@ -28,6 +22,7 @@ local volume = wibox.widget({
         valign = "center",
         widget = wibox.widget.textbox,
     },
+    spacing = dpi(6),
     layout = wibox.layout.fixed.horizontal,
     set_volume = function(self, val)
         if string.match(val, "muted") then
@@ -58,7 +53,7 @@ gears.timer({
     autostart = true,
     callback = function()
         awful.spawn.easy_async({ "sh", "-c", "pamixer --get-volume-human" }, function(out)
-            volume.volume = out
+            volume.volume = string.gsub(out, "%\n", "")
         end)
     end,
 })

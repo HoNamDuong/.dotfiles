@@ -59,20 +59,14 @@ end
 
 local thermal = wibox.widget({
     {
-        {
-            id = "thermal_icon",
-            image = beautiful.temperature_icon,
-            resize = true,
-            halign = "center",
-            widget = wibox.widget.imagebox,
-        },
-        margins = {
-            left = dpi(6),
-            right = dpi(6),
-            top = dpi(3),
-            bottom = dpi(3),
-        },
-        widget = wibox.container.margin,
+        id = "thermal_icon",
+        image = beautiful.temperature_icon,
+        resize = true,
+        halign = "center",
+        valign = "center",
+        forced_width = dpi(6) * 3,
+        forced_height = dpi(6) * 3,
+        widget = wibox.widget.imagebox,
     },
     {
         id = "thermal_text",
@@ -80,6 +74,7 @@ local thermal = wibox.widget({
         valign = "center",
         widget = wibox.widget.textbox,
     },
+    spacing = dpi(6),
     layout = wibox.layout.fixed.horizontal,
 })
 

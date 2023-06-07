@@ -31,13 +31,13 @@ local function build_menu()
         add_client(client)
     end
 
-    local menu_width = dpi(320)
+    local menu_width = dpi(60) * 6
 
     local m = awful.menu({
         items = items,
         theme = {
             width = menu_width,
-            -- height = dpi(32),
+            height = dpi(6) * 8,
             font = beautiful.font,
         },
     })
@@ -47,8 +47,7 @@ local function build_menu()
     m:show({
         coords = {
             x = (s.width / 2) - (menu_width / 2),
-            -- y = (s.height / 2) - (m.height / 2),
-            y = 0,
+            y = (s.height / 2) - (m.height / 2),
         },
     })
 

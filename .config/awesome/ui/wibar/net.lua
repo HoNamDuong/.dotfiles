@@ -113,17 +113,13 @@ end
 
 local net = wibox.widget({
     {
-        {
-            image = beautiful.download_icon,
-            resize = true,
-            halign = "center",
-            widget = wibox.widget.imagebox,
-        },
-        margins = {
-            top = dpi(3),
-            bottom = dpi(3),
-        },
-        widget = wibox.container.margin,
+        image = beautiful.download_icon,
+        resize = true,
+        halign = "center",
+        valign = "center",
+        forced_width = dpi(6) * 3,
+        forced_height = dpi(6) * 3,
+        widget = wibox.widget.imagebox,
     },
     {
         id = "download_text",
@@ -132,17 +128,13 @@ local net = wibox.widget({
         widget = wibox.widget.textbox,
     },
     {
-        {
-            image = beautiful.upload_icon,
-            resize = true,
-            halign = "center",
-            widget = wibox.widget.imagebox,
-        },
-        margins = {
-            top = dpi(3),
-            bottom = dpi(3),
-        },
-        widget = wibox.container.margin,
+        image = beautiful.upload_icon,
+        resize = true,
+        halign = "center",
+        valign = "center",
+        forced_width = dpi(6) * 3,
+        forced_height = dpi(6) * 3,
+        widget = wibox.widget.imagebox,
     },
     {
         id = "upload_text",

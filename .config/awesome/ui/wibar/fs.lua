@@ -61,20 +61,14 @@ end
 
 local fs = wibox.widget({
     {
-        {
-            id = "fs_icon",
-            image = beautiful.hard_drive_icon,
-            resize = true,
-            halign = "center",
-            widget = wibox.widget.imagebox,
-        },
-        margins = {
-            left = dpi(6),
-            right = dpi(6),
-            top = dpi(3),
-            bottom = dpi(3),
-        },
-        widget = wibox.container.margin,
+        id = "fs_icon",
+        image = beautiful.hard_drive_icon,
+        resize = true,
+        halign = "center",
+        valign = "center",
+        forced_width = dpi(6) * 3,
+        forced_height = dpi(6) * 3,
+        widget = wibox.widget.imagebox,
     },
     {
         id = "fs_text",
@@ -82,6 +76,7 @@ local fs = wibox.widget({
         valign = "center",
         widget = wibox.widget.textbox,
     },
+    spacing = dpi(6),
     layout = wibox.layout.fixed.horizontal,
 })
 

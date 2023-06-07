@@ -7,7 +7,7 @@ local pango = require("utils").pango
 local user = wibox.widget({
     halign = "left",
     valign = "center",
-    font = beautiful.font_name .. " " .. 14,
+    font = beautiful.font,
     widget = wibox.widget.textbox,
 })
 

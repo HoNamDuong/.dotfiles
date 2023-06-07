@@ -1,6 +1,7 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
+local naughty = require("naughty")
 local gears = require("gears")
 local pango = require("utils").pango
 local dpi = require("beautiful.xresources").apply_dpi
@@ -55,27 +56,23 @@ local player = wibox.widget({
                 },
             },
             {
-                {
-                    id = "player_icon",
-                    resize = true,
-                    halign = "center",
-                    valign = "center",
-                    widget = wibox.widget.imagebox,
-                },
-                margins = dpi(3),
-                widget = wibox.container.margin,
+                id = "player_icon",
+                resize = true,
+                halign = "center",
+                valign = "center",
+                forced_width = dpi(6) * 3,
+                forced_height = dpi(6) * 3,
+                widget = wibox.widget.imagebox,
             },
             {
-                {
-                    id = "player_art_url",
-                    resize = true,
-                    halign = "center",
-                    valign = "center",
-                    visible = false,
-                    widget = wibox.widget.imagebox,
-                },
-                margins = dpi(3),
-                widget = wibox.container.margin,
+                id = "player_art_url",
+                resize = true,
+                visible = false,
+                halign = "center",
+                valign = "center",
+                forced_width = dpi(6) * 3,
+                forced_height = dpi(6) * 3,
+                widget = wibox.widget.imagebox,
             },
             {
                 -- {
@@ -95,8 +92,8 @@ local player = wibox.widget({
         widget = wibox.container.margin,
     },
     visible = false,
-    forced_width = dpi(480),
-    bg = beautiful.palette.secondary_150,
+    forced_width = dpi(60) * 8,
+    bg = beautiful.palette.secondary .. "80",
     widget = wibox.container.background,
 })
 
@@ -128,7 +125,7 @@ local player = wibox.widget({
 --             player:get_children_by_id("player_control_icon")[1].image = icon
 --
 --             -- Player artist and title
---             player:get_children_by_id("player_text")[1].text = artist .. " | " .. title
+--             player:get_children_by_id("player_text")[1].markup = " " .. pango.b(artist) .. " | " .. title
 --
 --             -- Player track id
 --             if track_id_current ~= track_id then
@@ -184,7 +181,7 @@ gears.timer({
                 player:get_children_by_id("player_control_icon")[1].image = icon
 
                 -- Player artist and title
-                player:get_children_by_id("player_text")[1].markup = pango.b(artist) .. " | " .. title
+                player:get_children_by_id("player_text")[1].markup = " " .. pango.b(artist) .. " | " .. title
             else
                 player.visible = false
             end
