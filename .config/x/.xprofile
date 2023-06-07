@@ -1,6 +1,6 @@
 # Monitor config
-# xrandr --output HDMI-0 --primary 
-xrandr --output HDMI-0 --primary --mode 1600x900
+# xrandr --output HDMI-0 --primary --mode 1600x900
+[ -f ~/.screenlayout/default.sh ] && . ~/.screenlayout/default.sh &
 
 # Set a delay of 500ms and a rate of 40Hz
 xset r rate 500 40
@@ -31,8 +31,6 @@ export ZDOTDIR="$HOME/.config/zsh"
 export ZSHZ_DATA="$HOME/.cache/zsh/.z" 
 export BAT_THEME="base16"
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
-export LIBVA_DRIVER_NAME="vdpau"
-export VDPAU_DRIVER="nvidia"
 
 # Network Manager Applet
 nm-applet &
@@ -48,8 +46,5 @@ ibus-daemon --xim -d -r &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 # Display 
 conky -c ~/.config/conky/time.conf &> /dev/null &
-# Compositor
-picom -b
-
-# Auto commands
-[ -f ~/autocommand ] && . ~/autocommand &
+# # Compositor
+# picom -b &
