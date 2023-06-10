@@ -26,6 +26,9 @@ local clock = box_widget(clock_widget, cols_size * 2, rows_size * 1)
 local calendar_widget = require("ui.dashboard.calendar")
 local calendar = box_widget(calendar_widget, cols_size * 2, rows_size * 2)
 
+local countdown_widget = require("ui.dashboard.countdown")
+local countdown = box_widget(countdown_widget, cols_size * 2, rows_size * 1)
+
 local powermenu_widget = require("ui.dashboard.powermenu")
 local powermenu = box_widget(powermenu_widget, cols_size * 1, rows_size * 5)
 
@@ -48,16 +51,10 @@ local dashboard = awful.popup({
     visible = false,
 })
 
-local example = wibox.widget({
-    border_width = beautiful.border_width,
-    border_color = beautiful.border_normal,
-    widget = wibox.container.background,
-})
-
-dashboard.widget:add_widget_at(example, 2, 1, 1, 2)
 dashboard.widget:add_widget_at(profile, 1, 1, 1, 2)
-dashboard.widget:add_widget_at(clock, 3, 1, 1, 2)
-dashboard.widget:add_widget_at(calendar, 4, 1, 2, 2)
+dashboard.widget:add_widget_at(clock, 2, 1, 1, 2)
+dashboard.widget:add_widget_at(calendar, 3, 1, 2, 2)
+dashboard.widget:add_widget_at(countdown, 5, 1, 1, 2)
 dashboard.widget:add_widget_at(powermenu, 1, 3, 5, 1)
 dashboard.widget:add_widget_at(notifications, 1, 4, 5, 3)
 

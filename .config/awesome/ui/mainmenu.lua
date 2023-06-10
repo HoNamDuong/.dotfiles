@@ -7,7 +7,7 @@ local hotkeys = require("ui.hotkeys")
 -- Source https://github.com/lcpz/awesome-freedesktop
 -- Use MenuBar parsing utils to build a menu for Awesome
 -- @return awful.menu
-local function menu_build(args)
+local function build_menu(args)
     local before = args.before or {}
     local after = args.after or {}
     local sub_menu = args.sub_menu or false
@@ -69,7 +69,7 @@ local function menu_build(args)
     return _menu
 end
 
-local mainmenu = menu_build({
+local mainmenu = build_menu({
     before = {
         {
             "Awesome",

@@ -15,6 +15,7 @@ local mic = require("ui.wibar.mic")
 local cpu = require("ui.wibar.cpu")
 local memory = require("ui.wibar.memory")
 local gpu = require("ui.wibar.gpu")
+local countdown = require("ui.wibar.countdown")
 -- local net = require("ui.wibar.net")
 -- local thermal = require("ui.wibar.thermal")
 -- local fs = require("ui.wibar.fs")
@@ -37,6 +38,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
                 layout = wibox.layout.fixed.horizontal,
             },
             { -- Right
+                countdown,
                 -- thermal,
                 -- net,
                 -- fs,

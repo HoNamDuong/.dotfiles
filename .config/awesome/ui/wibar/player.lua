@@ -79,6 +79,11 @@ local player = wibox.widget({
                 id = "player_text",
                 valign = "center",
                 widget = wibox.widget.textbox,
+                buttons = {
+                    awful.button({}, 1, function()
+                        awful.spawn("playerctl play-pause")
+                    end),
+                },
                 -- },
                 -- speed = 50,
                 -- step_function = wibox.container.scroll.step_functions.nonlinear_back_and_forth,
@@ -93,7 +98,7 @@ local player = wibox.widget({
     },
     visible = false,
     forced_width = dpi(60) * 8,
-    bg = beautiful.palette.secondary .. "80",
+    bg = beautiful.palette.secondary_60,
     widget = wibox.container.background,
 })
 

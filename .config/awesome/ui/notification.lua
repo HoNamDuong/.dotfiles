@@ -45,14 +45,10 @@ local function notification_item(n)
 
     -- time
     local time_n = wibox.widget({
-        {
-            markup = os.date("%H:%M:%S"),
-            halign = "right",
-            valign = "center",
-            widget = wibox.widget.textbox,
-        },
-        margins = { left = dpi(6) },
-        widget = wibox.container.margin,
+        markup = os.date(" %H:%M:%S "),
+        halign = "right",
+        valign = "center",
+        widget = wibox.widget.textbox,
     })
 
     -- image
@@ -131,14 +127,7 @@ local function notification_item(n)
                 {
                     app_name_n,
                     time_n,
-                    {
-                        {
-                            id = "delete_button",
-                            layout = wibox.layout.fixed.horizontal,
-                        },
-                        left = dpi(6),
-                        widget = wibox.container.margin,
-                    },
+                    id = "header_rule",
                     layout = wibox.layout.align.horizontal,
                 },
                 {
@@ -198,7 +187,7 @@ naughty.connect_signal("request::display", function(n)
 
     -- widget
     local widget = wibox.widget(notification_item(n))
-    widget:get_children_by_id("delete_button")[1]:add(delete_button(widget, naughty.notification_list))
+    widget:get_children_by_id("header_rule")[1].third = wibox.widget(delete_button(widget, naughty.notification_list))
 
     naughty.notification_list:insert(1, widget)
 end)

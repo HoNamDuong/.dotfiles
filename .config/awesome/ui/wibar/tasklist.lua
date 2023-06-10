@@ -3,6 +3,7 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local gears = require("gears")
 local dpi = require("beautiful.xresources").apply_dpi
+local clientmenu = require("ui.clientmenu")
 local cairo = require("lgi").cairo
 
 local tasklist = function(s)
@@ -13,8 +14,11 @@ local tasklist = function(s)
             awful.button({}, 1, function(c)
                 c:activate({ context = "tasklist", action = "toggle_minimization" })
             end),
-            awful.button({}, 3, function()
-                awful.menu.client_list()
+            awful.button({}, 2, function(c)
+                c:kill()
+            end),
+            awful.button({}, 3, function(c)
+                clientmenu:toggle(c)
             end),
             -- awful.button({}, 4, function()
             --     awful.client.focus.byidx(-1)

@@ -1,5 +1,6 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
+local keys = require("config").keys
 local dpi = require("beautiful.xresources").apply_dpi
 
 local switcher = { widget = nil }
@@ -17,6 +18,9 @@ local function build_menu()
             function()
                 if not c.valid then
                     return
+                end
+                if c.hidden then
+                    c.hidden = false
                 end
                 if not c:isvisible() then
                     awful.tag.viewmore(c:tags(), c.screen)
@@ -83,4 +87,40 @@ function switcher:select_previous()
     end
 end
 
-return switcher
+-- Switch client
+awful.keygrabber({
+    start_callback = function()
+        switcher:toggle()
+    end,
+    stop_callback = function()
+        switcher:toggle()
+    end,
+    export_keybindings = true,
+    stop_event = "release",
+    stop_key = { "Escape", "Alt_L", "Alt_R" },
+    keybindings = {
+        {
+            { keys.alt },
+            "Tab",
+            function()
+                switcher:select_next()
+            end,
+            {
+                description = "Select next client",
+                group = "client",
+            },
+        },
+        {
+            { keys.alt, "Shift" },
+            "Tab",
+            function()
+                switcher:select_previous()
+            end,
+            {
+                description = "Select previous client",
+                group = "client",
+            },
+        },
+    },
+})
+-- }}}

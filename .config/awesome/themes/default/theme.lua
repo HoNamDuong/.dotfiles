@@ -243,6 +243,9 @@ theme.arrow_up_icon = recolor_image(themes_path .. "default/other/arrow_up.svg",
 theme.arrow_right_icon = recolor_image(themes_path .. "default/other/arrow_right.svg", theme.palette.secondary)
 theme.arrow_left_icon = recolor_image(themes_path .. "default/other/arrow_left.svg", theme.palette.secondary)
 
+theme.add_icon = recolor_image(themes_path .. "default/other/add.svg", theme.palette.secondary)
+theme.subtract_icon = recolor_image(themes_path .. "default/other/subtract.svg", theme.palette.secondary)
+
 -- color icon
 theme.package_icon = themes_path .. "default/other/package.svg"
 

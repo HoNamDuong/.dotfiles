@@ -3,15 +3,13 @@ local menubar = require("menubar")
 local naughty = require("naughty")
 local utils = require("utils")
 
-local mainmenu = require("ui.mainmenu")
-local prompt = require("ui.wibar.prompt")
-local layoutlist = require("ui.layoutlist")
-local switcher = require("ui.switcher")
-local hotkeys = require("ui.hotkeys")
-
 local apps = require("config").apps
 local actions = require("config").actions
 local keys = require("config").keys
+
+local mainmenu = require("ui.mainmenu")
+local prompt = require("ui.wibar.prompt")
+local hotkeys = require("ui.hotkeys")
 
 -- {{{ Mouse bindings
 -- Global
@@ -323,81 +321,6 @@ awful.keyboard.append_global_keybindings({
         awful.tag.incncol(-1, nil, true)
     end, { description = "Decrease the number of columns", group = "layout" }),
 })
-
--- Switch layout
-awful.keygrabber({
-    start_callback = function()
-        layoutlist.visible = true
-    end,
-    stop_callback = function()
-        layoutlist.visible = false
-    end,
-    export_keybindings = true,
-    stop_event = "release",
-    stop_key = { "Escape", "Super_L", "Super_R" },
-    keybindings = {
-        {
-            { keys.super },
-            " ",
-            function()
-                awful.layout.inc(1)
-            end,
-            {
-                description = "Select next layout",
-                group = "layout",
-            },
-        },
-        {
-            { keys.super, "Shift" },
-            " ",
-            function()
-                awful.layout.inc(-1)
-            end,
-            {
-                description = "Select previous layout",
-                group = "layout",
-            },
-        },
-    },
-})
-
--- Switch client
-awful.keygrabber({
-    start_callback = function()
-        switcher:toggle()
-    end,
-    stop_callback = function()
-        switcher:toggle()
-    end,
-    export_keybindings = true,
-    stop_event = "release",
-    stop_key = { "Escape", "Alt_L", "Alt_R" },
-    keybindings = {
-        {
-            { keys.alt },
-            "Tab",
-            function()
-                switcher:select_next()
-            end,
-            {
-                description = "Select next client",
-                group = "client",
-            },
-        },
-        {
-            { keys.alt, "Shift" },
-            "Tab",
-            function()
-                switcher:select_previous()
-            end,
-            {
-                description = "Select previous client",
-                group = "client",
-            },
-        },
-    },
-})
--- }}}
 
 -- TEST
 awful.keyboard.append_global_keybindings({

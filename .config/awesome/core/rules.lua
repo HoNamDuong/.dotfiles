@@ -11,6 +11,7 @@ ruled.client.connect_signal("request::rules", function()
         rule = {},
         properties = {
             -- border_width = dpi(0),
+            -- titlebars_enabled = true,
             focus = awful.client.focus.filter,
             raise = true,
             screen = awful.screen.preferred,
@@ -33,47 +34,46 @@ ruled.client.connect_signal("request::rules", function()
                 "qalculate-gtk",
                 "arandr",
             },
-            name = {
-                "Picture in picture",
-            },
+            name = {},
             class = {},
-            role = {},
+            role = {
+                "pop-up",
+            },
         },
         properties = {
             floating = true,
             placement = awful.placement.centered,
         },
     })
-    -- Add titlebars to normal clients and dialogs
+    -- Picture in picture
     ruled.client.append_rule({
-        id = "titlebars",
         rule_any = {
-            type = {
-                "normal",
-                "dialog",
+            name = {
+                "Picture in picture",
             },
         },
         properties = {
-            titlebars_enabled = true,
+            floating = true,
+            ontop = true,
+            sticky = true,
+            titlebars_enabled = false,
         },
     })
-    -- Applications
+    -- No border
     ruled.client.append_rule({
-        rule = { role = "browser" },
+        rule = { instance = "conky" },
         properties = {
-            -- border_width = dpi(0),
-            -- titlebars_enabled = false,
-            tag = tag_name[3],
+            border_width = dpi(0),
         },
     })
+    -- Move to tag
+    ruled.client.append_rule({ rule = { role = "browser" }, properties = { tag = tag_name[3] } })
     ruled.client.append_rule({ rule = { instance = "code" }, properties = { tag = tag_name[2] } })
     ruled.client.append_rule({ rule = { instance = "nemo" }, properties = { tag = tag_name[4] } })
     ruled.client.append_rule({ rule_any = { instance = { "postman", "DBeaver" } }, properties = { tag = tag_name[5] } })
     ruled.client.append_rule({ rule_any = { instance = { "mpv" }, class = { "Spotify" } }, properties = { tag = tag_name[6] } })
     ruled.client.append_rule({ rule_any = { instance = { "telegram", "discord" }, class = { "thunderbird" } }, properties = { tag = tag_name[8] } })
     ruled.client.append_rule({ rule = { class = "Minecraft" }, properties = { tag = tag_name[9] } })
-    -- No border
-    ruled.client.append_rule({ rule = { instance = "conky" }, properties = { border_width = dpi(0) } })
 end)
 
 -- Notification

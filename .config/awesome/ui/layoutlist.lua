@@ -1,6 +1,7 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
+local keys = require("config").keys
 local dpi = require("beautiful.xresources").apply_dpi
 
 local layoutlist = awful.popup({
@@ -39,4 +40,39 @@ local layoutlist = awful.popup({
     visible = false,
 })
 
-return layoutlist
+-- Switch layout
+awful.keygrabber({
+    start_callback = function()
+        layoutlist.visible = true
+    end,
+    stop_callback = function()
+        layoutlist.visible = false
+    end,
+    export_keybindings = true,
+    stop_event = "release",
+    stop_key = { "Escape", "Super_L", "Super_R" },
+    keybindings = {
+        {
+            { keys.super },
+            " ",
+            function()
+                awful.layout.inc(1)
+            end,
+            {
+                description = "Select next layout",
+                group = "layout",
+            },
+        },
+        {
+            { keys.super, "Shift" },
+            " ",
+            function()
+                awful.layout.inc(-1)
+            end,
+            {
+                description = "Select previous layout",
+                group = "layout",
+            },
+        },
+    },
+})
