@@ -7,105 +7,69 @@ local dpi = require("beautiful.xresources").apply_dpi
 local powermenu = wibox.widget({
     {
         {
-            {
-                image = beautiful.refresh_icon,
-                resize = true,
-                halign = "center",
-                valign = "center",
-                widget = wibox.widget.imagebox,
-                buttons = {
-                    awful.button({}, 1, function()
-                        awesome.restart()
-                    end),
-                },
+            image = beautiful.logout_icon,
+            resize = true,
+            halign = "center",
+            valign = "center",
+            widget = wibox.widget.imagebox,
+            buttons = {
+                awful.button({}, 1, function()
+                    awful.spawn(config.actions.logout)
+                end),
             },
-            margins = beautiful.useless_gap * 2,
-            widget = wibox.container.margin,
         },
-        -- {
-        --     {
-        --         image = beautiful.power_lock,
-        --         resize = true,
-        --         halign = "center",
-        --         valign = "center",
-        --         widget = wibox.widget.imagebox,
-        --         buttons = {
-        --             awful.button({}, 1, function()
-        --                 awful.spawn(config.power.lock)
-        --             end),
-        --         },
-        --     },
-        --     margins = beautiful.useless_gap * 2,
-        --     widget = wibox.container.margin,
-        -- },
-        {
-            {
-                image = beautiful.power_logout,
-                resize = true,
-                halign = "center",
-                valign = "center",
-                widget = wibox.widget.imagebox,
-                buttons = {
-                    awful.button({}, 1, function()
-                        awful.spawn(config.power.logout)
-                    end),
-                },
-            },
-            margins = beautiful.useless_gap * 2,
-            widget = wibox.container.margin,
-        },
-        {
-            {
-                image = beautiful.power_sleep,
-                resize = true,
-                halign = "center",
-                valign = "center",
-                widget = wibox.widget.imagebox,
-                buttons = {
-                    awful.button({}, 1, function()
-                        awful.spawn(config.power.sleep)
-                    end),
-                },
-            },
-            margins = beautiful.useless_gap * 2,
-            widget = wibox.container.margin,
-        },
-        {
-            {
-                image = beautiful.power_restart,
-                resize = true,
-                halign = "center",
-                valign = "center",
-                widget = wibox.widget.imagebox,
-                buttons = {
-                    awful.button({}, 1, function()
-                        awful.spawn(config.power.restart)
-                    end),
-                },
-            },
-            margins = beautiful.useless_gap * 2,
-            widget = wibox.container.margin,
-        },
-        {
-            {
-                image = beautiful.power_shutdown,
-                resize = true,
-                halign = "center",
-                valign = "center",
-                widget = wibox.widget.imagebox,
-                buttons = {
-                    awful.button({}, 1, function()
-                        awful.spawn(config.power.shutdown)
-                    end),
-                },
-            },
-            margins = beautiful.useless_gap * 2,
-            widget = wibox.container.margin,
-        },
-        layout = wibox.layout.flex.vertical,
+        margins = dpi(6) * 4,
+        widget = wibox.container.margin,
     },
-    margins = beautiful.useless_gap * 2,
-    widget = wibox.container.margin,
+    {
+        {
+            image = beautiful.sleep_icon,
+            resize = true,
+            halign = "center",
+            valign = "center",
+            widget = wibox.widget.imagebox,
+            buttons = {
+                awful.button({}, 1, function()
+                    awful.spawn(config.actions.sleep)
+                end),
+            },
+        },
+        margins = dpi(6) * 4,
+        widget = wibox.container.margin,
+    },
+    {
+        {
+            image = beautiful.restart_icon,
+            resize = true,
+            halign = "center",
+            valign = "center",
+            widget = wibox.widget.imagebox,
+            buttons = {
+                awful.button({}, 1, function()
+                    awful.spawn(config.actions.restart)
+                end),
+            },
+        },
+        margins = dpi(6) * 4,
+        widget = wibox.container.margin,
+    },
+    {
+        {
+            image = beautiful.shutdown_icon,
+            resize = true,
+            halign = "center",
+            valign = "center",
+            widget = wibox.widget.imagebox,
+            buttons = {
+                awful.button({}, 1, function()
+                    awful.spawn(config.actions.shutdown)
+                end),
+            },
+        },
+        margins = dpi(6) * 4,
+        widget = wibox.container.margin,
+    },
+    layout = wibox.layout.flex.vertical,
 })
 
 return powermenu

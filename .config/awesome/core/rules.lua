@@ -12,8 +12,8 @@ ruled.client.connect_signal("request::rules", function()
         properties = {
             -- border_width = dpi(0),
             -- titlebars_enabled = true,
-            focus = awful.client.focus.filter,
             raise = true,
+            focus = awful.client.focus.filter,
             screen = awful.screen.preferred,
             placement = awful.placement.no_overlap + awful.placement.no_offscreen,
         },
@@ -38,6 +38,9 @@ ruled.client.connect_signal("request::rules", function()
             class = {},
             role = {
                 "pop-up",
+            },
+            type = {
+                "dialog",
             },
         },
         properties = {

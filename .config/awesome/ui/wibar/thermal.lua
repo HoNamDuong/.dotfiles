@@ -59,7 +59,7 @@ end
 
 local thermal = wibox.widget({
     {
-        id = "thermal_icon",
+        id = "icon_role",
         image = beautiful.temperature_icon,
         resize = true,
         halign = "center",
@@ -69,7 +69,7 @@ local thermal = wibox.widget({
         widget = wibox.widget.imagebox,
     },
     {
-        id = "thermal_text",
+        id = "text_role",
         halign = "center",
         valign = "center",
         widget = wibox.widget.textbox,
@@ -83,7 +83,7 @@ gears.timer({
     call_now = true,
     autostart = true,
     callback = function()
-        thermal:get_children_by_id("thermal_text")[1].text = get_thermal(nil, "thermal_zone4")[1] .. "°C"
+        thermal:get_children_by_id("text_role")[1].text = get_thermal(nil, "thermal_zone4")[1] .. "°C"
     end,
 })
 

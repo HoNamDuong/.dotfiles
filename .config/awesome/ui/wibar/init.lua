@@ -30,12 +30,12 @@ screen.connect_signal("request::desktop_decoration", function(s)
                 taglist(s),
                 systray,
                 tasklist(s),
+                prompt,
                 layout = wibox.layout.fixed.horizontal,
             },
             { -- Middle
-                prompt,
                 player,
-                layout = wibox.layout.fixed.horizontal,
+                widget = wibox.container.place,
             },
             { -- Right
                 countdown,

@@ -35,7 +35,7 @@ local function build_menu()
         add_client(client)
     end
 
-    local menu_width = dpi(60) * 6
+    local menu_width = dpi(6) * 10 * 6
 
     local m = awful.menu({
         items = items,

@@ -18,11 +18,4 @@ local launcher = awful.widget.button({
     },
 })
 
--- launcher:connect_signal("mouse::enter", function()
---     launcher.opacity = 0.6
--- end)
--- launcher:connect_signal("mouse::leave", function()
---     launcher.opacity = 1
--- end)
-
 return launcher

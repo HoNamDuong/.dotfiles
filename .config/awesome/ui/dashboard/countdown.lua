@@ -3,6 +3,7 @@ local wibox = require("wibox")
 local gears = require("gears")
 local awful = require("awful")
 local naughty = require("naughty")
+local config = require("config")
 local countdown_text = require("ui.wibar.countdown")
 local pango = require("utils").pango
 local dpi = require("beautiful.xresources").apply_dpi
@@ -18,10 +19,14 @@ local function clamp(value, min, max)
     return value
 end
 
+local function run()
+    awful.spawn(config.actions.shutdown)
+end
+
 local defuult_minute = 5
 
 local countdown = {
-    textbox = countdown_text:get_children_by_id("countdown_text")[1],
+    textbox = countdown_text:get_children_by_id("text_role")[1],
     minute = defuult_minute,
     second = 0,
 }
@@ -57,31 +62,30 @@ function countdown:start()
                 local seconds = math.fmod(self.second, 60)
                 self.textbox:set_markup(pango.span({
                     pango.b(string.format("%02d:%02d:%02d", hours, minutes, seconds)),
-                    foreground = beautiful.palette.yellow,
+                    foreground = beautiful.common.medium,
                 }))
                 self.second = self.second - 1
             else
                 self.textbox:set_markup(pango.span({
                     pango.b("Not scheduled"),
-                    foreground = beautiful.palette.yellow,
+                    foreground = beautiful.common.medium,
                 }))
                 self.timer:stop()
 
-                self.control:get_children_by_id("start_icon")[1].image = recolor_image(beautiful.play_icon, beautiful.palette.green)
-                self.control:get_children_by_id("stop_icon")[1].image = recolor_image(beautiful.stop_icon, beautiful.palette.secondary)
+                self.control:get_children_by_id("start_icon")[1].image = recolor_image(beautiful.play_icon, beautiful.common.low)
+                self.control:get_children_by_id("stop_icon")[1].image = recolor_image(beautiful.stop_icon, beautiful.common.secondary)
                 countdown_text.widget.visible = false
 
-                naughty.notify({
-                    message = "Countdown end",
-                })
+                -- run function
+                run()
             end
         end,
     })
 
     self.timer:start()
 
-    self.control:get_children_by_id("start_icon")[1].image = recolor_image(beautiful.play_icon, beautiful.palette.secondary)
-    self.control:get_children_by_id("stop_icon")[1].image = recolor_image(beautiful.stop_icon, beautiful.palette.red)
+    self.control:get_children_by_id("start_icon")[1].image = recolor_image(beautiful.play_icon, beautiful.common.secondary)
+    self.control:get_children_by_id("stop_icon")[1].image = recolor_image(beautiful.stop_icon, beautiful.common.high)
     self.minute = defuult_minute
     self:update_time()
     countdown_text.widget.visible = true
@@ -91,12 +95,12 @@ function countdown:stop()
     if self.timer and self.timer.started then
         self.textbox:set_markup(pango.span({
             pango.b("Not scheduled"),
-            foreground = beautiful.palette.yellow,
+            foreground = beautiful.common.medium,
         }))
         self.timer:stop()
 
-        self.control:get_children_by_id("start_icon")[1].image = recolor_image(beautiful.play_icon, beautiful.palette.green)
-        self.control:get_children_by_id("stop_icon")[1].image = recolor_image(beautiful.stop_icon, beautiful.palette.secondary)
+        self.control:get_children_by_id("start_icon")[1].image = recolor_image(beautiful.play_icon, beautiful.common.low)
+        self.control:get_children_by_id("stop_icon")[1].image = recolor_image(beautiful.stop_icon, beautiful.common.secondary)
         self.second = 0
         countdown_text.widget.visible = false
     end
@@ -105,10 +109,12 @@ end
 countdown.control = wibox.widget({
     {
         id = "start_icon",
-        image = recolor_image(beautiful.play_icon, beautiful.palette.green),
+        image = recolor_image(beautiful.play_icon, beautiful.common.low),
         resize = true,
         halign = "center",
         valign = "center",
+        forced_width = dpi(6) * 5,
+        forced_height = dpi(6) * 5,
         widget = wibox.widget.imagebox,
         buttons = {
             awful.button({}, 1, function()
@@ -118,10 +124,12 @@ countdown.control = wibox.widget({
     },
     {
         id = "stop_icon",
-        image = recolor_image(beautiful.stop_icon, beautiful.palette.secondary),
+        image = recolor_image(beautiful.stop_icon, beautiful.common.secondary),
         resize = true,
         halign = "center",
         valign = "center",
+        forced_width = dpi(6) * 5,
+        forced_height = dpi(6) * 5,
         widget = wibox.widget.imagebox,
         buttons = {
             awful.button({}, 1, function()
@@ -139,6 +147,8 @@ countdown.time = wibox.widget({
             resize = true,
             halign = "center",
             valign = "center",
+            forced_width = dpi(6) * 5,
+            forced_height = dpi(6) * 5,
             widget = wibox.widget.imagebox,
             buttons = {
                 awful.button({}, 1, function()
@@ -163,6 +173,8 @@ countdown.time = wibox.widget({
             resize = true,
             halign = "center",
             valign = "center",
+            forced_width = dpi(6) * 5,
+            forced_height = dpi(6) * 5,
             widget = wibox.widget.imagebox,
             buttons = {
                 awful.button({}, 1, function()
@@ -178,6 +190,8 @@ countdown.time = wibox.widget({
             resize = true,
             halign = "center",
             valign = "center",
+            forced_width = dpi(6) * 5,
+            forced_height = dpi(6) * 5,
             widget = wibox.widget.imagebox,
             buttons = {
                 awful.button({}, 1, function()
@@ -202,6 +216,8 @@ countdown.time = wibox.widget({
             resize = true,
             halign = "center",
             valign = "center",
+            forced_width = dpi(6) * 5,
+            forced_height = dpi(6) * 5,
             widget = wibox.widget.imagebox,
             buttons = {
                 awful.button({}, 1, function()
@@ -222,19 +238,18 @@ countdown.widget = wibox.widget({
                 margins = dpi(6),
                 widget = wibox.container.margin,
             },
-            bg = beautiful.palette.yellow_30,
+            bg = beautiful.common.medium_dark,
             widget = wibox.container.background,
         },
         {
             countdown.control,
-            nil,
             countdown.time,
-            layout = wibox.layout.align.horizontal,
+            layout = wibox.layout.fixed.horizontal,
         },
+        spacing = dpi(6),
         layout = wibox.layout.fixed.vertical,
     },
-    margins = dpi(6) * 2,
-    widget = wibox.container.margin,
+    widget = wibox.container.place,
 })
 
 return countdown.widget

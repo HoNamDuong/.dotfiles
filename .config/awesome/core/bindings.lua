@@ -8,8 +8,8 @@ local actions = require("config").actions
 local keys = require("config").keys
 
 local mainmenu = require("ui.mainmenu")
-local prompt = require("ui.wibar.prompt")
 local hotkeys = require("ui.hotkeys")
+local prompt = require("ui.wibar.prompt")
 
 -- {{{ Mouse bindings
 -- Global
@@ -52,35 +52,29 @@ awful.keyboard.append_global_keybindings({
 
     awful.key({ keys.super, "Shift" }, "q", awesome.quit, { description = "Quit awesome", group = "awesome" }),
 
-    awful.key({ keys.super }, "x", function()
-        awful.spawn("powermenu")
-    end, { description = "Show power menu", group = "actions" }),
-
     awful.key({ keys.super }, "r", function()
-        awful.spawn("launchers run")
-    end, { description = "Run command", group = "actions" }),
-
-    awful.key({ keys.super, "Shift" }, "r", function()
         -- awful.prompt.run({
         --     prompt = "Run Lua code: ",
         --     textbox = prompt.widget,
         --     exe_callback = awful.util.eval,
         --     history_path = awful.util.get_cache_dir() .. "/history_eval",
         -- })
-        prompt:run()
-    end, { description = "Run prompt", group = "actions" }),
-
-    awful.key({ keys.super }, "p", function()
-        menubar.show()
-    end, { description = "Show menubar", group = "actions" }),
+        -- prompt:run()
+        awful.spawn(apps.run)
+    end, { description = "Run command", group = "actions" }),
 
     awful.key({ keys.super }, "a", function()
-        awful.spawn("launchers")
-    end, { description = "Show the launcher", group = "actions" }),
+        -- menubar.show()
+        awful.spawn(apps.launcher)
+    end, { description = "Show launcher", group = "actions" }),
 
     awful.key({ keys.super }, "Return", function()
         awful.spawn(apps.terminal)
     end, { description = "Open terminal", group = "actions" }),
+
+    awful.key({ keys.super }, "x", function()
+        awful.spawn(apps.powermenu)
+    end, { description = "Show powermenu", group = "actions" }),
 
     awful.key({ keys.super }, "b", function()
         awful.spawn(apps.browser)
@@ -124,12 +118,6 @@ awful.keyboard.append_global_keybindings({
         utils.tag.view_nonempty(-1)
     end, { description = "View previous nonempty tag", group = "tag" }),
 })
-
-awful.key.keygroups.numrow = {}
-
-for i = 1, 10 do
-    table.insert(awful.key.keygroups.numrow, { "#" .. i + 9, i })
-end
 
 awful.keyboard.append_global_keybindings({
     awful.key({
@@ -322,40 +310,40 @@ awful.keyboard.append_global_keybindings({
     end, { description = "Decrease the number of columns", group = "layout" }),
 })
 
--- TEST
-awful.keyboard.append_global_keybindings({
-    awful.key({ keys.super }, "F1", function()
-        naughty.notification({
-            title = "Test low",
-            message = "this is test low notification this is test low notification this is test low notification this is test low notification this is test low notification",
-            urgency = "low",
-        })
-    end, { description = "send test low notification", group = "test" }),
-
-    awful.key({ keys.super }, "F2", function()
-        naughty.notification({
-            title = "Test normal this is test normal notification this is test normal notification ",
-            message = "this is test normal notification",
-            urgency = "normal",
-            actions = {
-                naughty.action({
-                    name = "Accept",
-                }),
-                naughty.action({
-                    name = "Refuse",
-                }),
-                naughty.action({
-                    name = "Ignore",
-                }),
-            },
-        })
-    end, { description = "send test notification", group = "test" }),
-
-    awful.key({ keys.super }, "F3", function()
-        naughty.notification({
-            title = "Test critical",
-            message = "this is test critical notification",
-            urgency = "critical",
-        })
-    end, { description = "send test critical notification", group = "test" }),
-})
+-- -- TEST
+-- awful.keyboard.append_global_keybindings({
+--     awful.key({ keys.super }, "F1", function()
+--         naughty.notification({
+--             title = "Test low",
+--             message = "this is test low notification this is test low notification this is test low notification this is test low notification this is test low notification",
+--             urgency = "low",
+--         })
+--     end, { description = "send test low notification", group = "test" }),
+--
+--     awful.key({ keys.super }, "F2", function()
+--         naughty.notification({
+--             title = "Test normal this is test normal notification this is test normal notification ",
+--             message = "this is test normal notification",
+--             urgency = "normal",
+--             actions = {
+--                 naughty.action({
+--                     name = "Accept",
+--                 }),
+--                 naughty.action({
+--                     name = "Refuse",
+--                 }),
+--                 naughty.action({
+--                     name = "Ignore",
+--                 }),
+--             },
+--         })
+--     end, { description = "send test notification", group = "test" }),
+--
+--     awful.key({ keys.super }, "F3", function()
+--         naughty.notification({
+--             title = "Test critical",
+--             message = "this is test critical notification",
+--             urgency = "critical",
+--         })
+--     end, { description = "send test critical notification", group = "test" }),
+-- })

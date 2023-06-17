@@ -97,8 +97,8 @@ local player = wibox.widget({
         widget = wibox.container.margin,
     },
     visible = false,
-    forced_width = dpi(60) * 8,
-    bg = beautiful.palette.secondary_60,
+    -- forced_width = dpi(6) * 10 * 8,
+    bg = beautiful.common.secondary_dark,
     widget = wibox.container.background,
 })
 
@@ -164,12 +164,13 @@ gears.timer({
     call_now = true,
     autostart = true,
     callback = function()
-        awful.spawn.easy_async("playerctl metadata --format '{{playerName}}|{{status}}|{{artist}}|{{title}}'", function(stdout)
+        awful.spawn.easy_async("playerctl metadata --format '{{playerName}}_|_{{status}}_|_{{artist}}_|_{{title}}'", function(stdout)
             if stdout ~= "" then
                 player.visible = true
+                stdout = pango.escape(stdout)
 
                 -- Get player info
-                local player_name, status, artist, title = string.match(stdout, "^(.-)%|(.-)%|(.-)%|(.-)$")
+                local player_name, status, artist, title = string.match(stdout, "^(.-)_|_(.-)_|_(.-)_|_(.-)$")
 
                 -- Player name
                 player:get_children_by_id("player_icon")[1].image = icon_theme():find_icon_path(player_name)

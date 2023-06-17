@@ -1,6 +1,5 @@
 local awful = require("awful")
 local wibox = require("wibox")
-local beautiful = require("beautiful")
 local keys = require("config").keys
 local dpi = require("beautiful.xresources").apply_dpi
 
@@ -15,20 +14,20 @@ local layoutlist = awful.popup({
                             widget = wibox.widget.imagebox,
                         },
                         strategy = "exact",
-                        height = dpi(60) * 2,
-                        width = dpi(60) * 2,
+                        height = dpi(6) * 10 * 2,
+                        width = dpi(6) * 10 * 2,
                         widget = wibox.container.constraint,
                     },
                     {
                         id = "text_role",
                         halign = "center",
                         valign = "center",
-                        font = beautiful.font,
                         widget = wibox.widget.textbox,
                     },
+                    spacing = dpi(6),
                     layout = wibox.layout.fixed.vertical,
                 },
-                margins = beautiful.useless_gap * 2,
+                margins = dpi(6) * 2,
                 widget = wibox.container.margin,
             },
             id = "background_role",

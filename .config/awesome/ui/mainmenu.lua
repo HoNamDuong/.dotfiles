@@ -91,11 +91,11 @@ local mainmenu = build_menu({
     after = {
         { "Random wallpaper", config.actions.random_wallpaper, beautiful.image_icon },
         { "Take screenshot", config.actions.screenshot, beautiful.camera_icon },
-        { "Lock", config.power.lock, beautiful.power_lock },
-        { "Logout", config.power.logout, beautiful.power_logout },
-        { "Sleep", config.power.sleep, beautiful.power_sleep },
-        { "Restart", config.power.restart, beautiful.power_restart },
-        { "Shutdown", config.power.shutdown, beautiful.power_shutdown },
+        { "Lock", config.actions.lock, beautiful.lock_icon },
+        { "Logout", config.actions.logout, beautiful.logout_icon },
+        { "Sleep", config.actions.sleep, beautiful.sleep_icon },
+        { "Restart", config.actions.restart, beautiful.restart_icon },
+        { "Shutdown", config.actions.shutdown, beautiful.shutdown_icon },
     },
 })
 

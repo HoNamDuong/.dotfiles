@@ -61,7 +61,7 @@ end
 
 local fs = wibox.widget({
     {
-        id = "fs_icon",
+        id = "icon_role",
         image = beautiful.hard_drive_icon,
         resize = true,
         halign = "center",
@@ -71,7 +71,7 @@ local fs = wibox.widget({
         widget = wibox.widget.imagebox,
     },
     {
-        id = "fs_text",
+        id = "text_role",
         halign = "center",
         valign = "center",
         widget = wibox.widget.textbox,
@@ -86,7 +86,7 @@ gears.timer({
     autostart = true,
     callback = function()
         get_fs(function(fs_info)
-            fs:get_children_by_id("fs_text")[1].text = format("${/ used_p}", fs_info) .. "%"
+            fs:get_children_by_id("text_role")[1].text = format("${/ used_p}", fs_info) .. "%"
         end)
     end,
 })

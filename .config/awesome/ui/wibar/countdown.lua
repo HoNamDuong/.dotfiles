@@ -7,8 +7,8 @@ local countdown = wibox.widget({
     {
         {
             {
-                id = "countdown_text",
-                markup = pango.span({ pango.b("Not scheduled"), foreground = beautiful.palette.yellow }),
+                id = "text_role",
+                markup = pango.span({ pango.b("Not scheduled"), foreground = beautiful.common.medium }),
                 halign = "center",
                 valign = "center",
                 widget = wibox.widget.textbox,
@@ -18,7 +18,7 @@ local countdown = wibox.widget({
             widget = wibox.container.margin,
         },
         visible = false,
-        bg = beautiful.palette.yellow_30,
+        bg = beautiful.common.medium_dark,
         widget = wibox.container.background,
     },
     left = dpi(6),

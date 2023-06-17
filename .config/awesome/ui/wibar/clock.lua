@@ -6,7 +6,7 @@ local dpi = require("beautiful.xresources").apply_dpi
 
 local clock = wibox.widget({
     {
-        id = "clock_icon",
+        id = "icon_role",
         image = beautiful.calendar_icon,
         resize = true,
         halign = "center",
@@ -16,7 +16,7 @@ local clock = wibox.widget({
         widget = wibox.widget.imagebox,
     },
     {
-        id = "clock_text",
+        id = "text_role",
         format = "%H:%M",
         halign = "center",
         valign = "center",
@@ -32,7 +32,7 @@ clock:add_button(awful.button({}, 1, nil, function()
 end))
 
 clock:add_button(awful.button({}, 3, nil, function()
-    local widget = clock["clock_text"]
+    local widget = clock["text_role"]
 
     if widget.full then
         widget.format = "%H:%M"

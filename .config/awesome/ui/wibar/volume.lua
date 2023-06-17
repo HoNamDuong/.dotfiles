@@ -7,7 +7,7 @@ local pango = require("utils").pango
 
 local volume = wibox.widget({
     {
-        id = "volume_icon",
+        id = "icon_role",
         image = beautiful.volume_icon,
         resize = true,
         halign = "center",
@@ -17,20 +17,20 @@ local volume = wibox.widget({
         widget = wibox.widget.imagebox,
     },
     {
-        id = "volume_text",
+        id = "text_role",
         halign = "center",
         valign = "center",
         widget = wibox.widget.textbox,
     },
     spacing = dpi(6),
     layout = wibox.layout.fixed.horizontal,
-    set_volume = function(self, val)
+    set_value = function(self, val)
         if string.match(val, "muted") then
-            self.volume_text.markup = pango.span({ val, foreground = beautiful.palette.yellow })
-            self:get_children_by_id("volume_icon")[1].image = beautiful.volume_mute_icon
+            self["text_role"].markup = pango.span({ val, foreground = beautiful.common.medium })
+            self:get_children_by_id("icon_role")[1].image = beautiful.volume_mute_icon
         else
-            self.volume_text.markup = val
-            self:get_children_by_id("volume_icon")[1].image = beautiful.volume_icon
+            self["text_role"].markup = val
+            self:get_children_by_id("icon_role")[1].image = beautiful.volume_icon
         end
     end,
     buttons = {
@@ -49,11 +49,10 @@ local volume = wibox.widget({
 
 gears.timer({
     timeout = 2,
-    call_now = true,
     autostart = true,
     callback = function()
         awful.spawn.easy_async({ "sh", "-c", "pamixer --get-volume-human" }, function(out)
-            volume.volume = string.gsub(out, "%\n", "")
+            volume.value = string.gsub(out, "%\n", "")
         end)
     end,
 })

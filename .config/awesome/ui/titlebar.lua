@@ -1,6 +1,6 @@
 local awful = require("awful")
 local wibox = require("wibox")
-local beautiful = require("beautiful")
+local dpi = require("beautiful.xresources").apply_dpi
 
 client.connect_signal("request::titlebars", function(c)
     -- Buttons for the titlebar
@@ -17,7 +17,7 @@ client.connect_signal("request::titlebars", function(c)
     }
 
     awful.titlebar(c, {
-        size = beautiful.useless_gap * 4,
+        size = dpi(6) * 4,
     }).widget = {
         { -- Left
             awful.titlebar.widget.iconwidget(c),

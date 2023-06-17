@@ -7,7 +7,7 @@ local pango = require("utils").pango
 
 local mic = wibox.widget({
     {
-        id = "mic_icon",
+        id = "icon_role",
         image = beautiful.mic_icon,
         resize = true,
         halign = "center",
@@ -17,27 +17,26 @@ local mic = wibox.widget({
         widget = wibox.widget.imagebox,
     },
     {
-        id = "mic_text",
+        id = "text_role",
         halign = "center",
         valign = "center",
         widget = wibox.widget.textbox,
     },
     spacing = dpi(6),
     layout = wibox.layout.fixed.horizontal,
-    set_mic = function(self, val)
+    set_value = function(self, val)
         if string.match(val, "muted") then
-            self.mic_text.markup = pango.span({ foreground = beautiful.palette.yellow, "off" })
-            self:get_children_by_id("mic_icon")[1].image = beautiful.mic_off_icon
+            self["text_role"].markup = pango.span({ foreground = beautiful.common.medium, "off" })
+            self:get_children_by_id("icon_role")[1].image = beautiful.mic_off_icon
         else
-            self.mic_text.markup = val
-            self:get_children_by_id("mic_icon")[1].image = beautiful.mic_icon
+            self["text_role"].markup = val
+            self:get_children_by_id("icon_role")[1].image = beautiful.mic_icon
         end
     end,
     buttons = {
         awful.button({}, 1, function()
             awful.spawn("pamixer --default-source --toggle-mute")
         end),
-        -- awful.button({}, 3, function() end),
         awful.button({}, 4, function()
             awful.spawn("pamixer --default-source --increase" .. " " .. "5")
         end),
@@ -49,11 +48,10 @@ local mic = wibox.widget({
 
 gears.timer({
     timeout = 2,
-    call_now = true,
     autostart = true,
     callback = function()
         awful.spawn.easy_async({ "sh", "-c", "pamixer --default-source --get-volume-human" }, function(out)
-            mic.mic = string.gsub(out, "%\n", "")
+            mic.value = string.gsub(out, "%\n", "")
         end)
     end,
 })

@@ -98,11 +98,11 @@ local function build_menu(c)
             close_buttom,
         },
         theme = {
-            -- border_color = c.active and beautiful.palette.primary,
+            -- border_color = c.active and beautiful.common.primary,
         },
     })
 
-    menu:show({})
+    menu:show()
 
     return menu
 end

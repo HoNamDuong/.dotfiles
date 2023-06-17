@@ -14,39 +14,38 @@ local function decorate_cell(widget, flag, date)
         widget.halign = "center"
         widget.valign = "center"
         return wibox.widget({
-            widget = wibox.container.background,
-            bg = is_weekend(date) and beautiful.palette.secondary .. "80",
             widget,
+            forced_width = dpi(6) * 5,
+            forced_height = dpi(6) * 5,
+            bg = is_weekend(date) and beautiful.common.secondary_dark,
+            widget = wibox.container.background,
         })
     elseif flag == "focus" then
         widget.halign = "center"
         widget.valign = "center"
         return wibox.widget({
-            widget = wibox.container.background,
-            bg = beautiful.palette.primary,
-            fg = beautiful.palette.black,
             widget,
+            bg = beautiful.common.primary,
+            fg = beautiful.common.background,
+            widget = wibox.container.background,
         })
     elseif flag == "weeknumber" then
+        widget.halign = "center"
         widget.valign = "center"
-        widget.markup = pango.i(pango.span({ foreground = beautiful.palette.secondary, widget.text, " " }))
+        widget.markup = pango.i(pango.span({ foreground = beautiful.common.secondary, widget.text }))
         return widget
     elseif flag == "weekday" then
         widget.halign = "center"
+        widget.valign = "center"
         widget.markup = pango.i(widget.text)
         return wibox.widget({
-            widget = wibox.container.background,
-            bg = beautiful.palette.secondary,
             widget,
+            bg = beautiful.common.secondary,
+            widget = wibox.container.background,
         })
     elseif flag == "monthheader" or flag == "header" then
-        widget.halign = "center"
         widget.markup = pango.b(widget.text)
-        return wibox.widget({
-            widget = wibox.container.margin,
-            margins = dpi(6),
-            widget,
-        })
+        return widget
     elseif flag == "month" then
         return widget
     else
@@ -61,7 +60,7 @@ local cal_content = wibox.widget({
     long_weekdays = false,
     start_sunday = false,
     spacing = dpi(0),
-    font = beautiful.font,
+    font = beautiful.font_name .. " " .. 12,
     widget = wibox.widget.calendar.month,
 })
 
@@ -91,8 +90,8 @@ local cal_control = wibox.widget({
             resize = true,
             halign = "center",
             valign = "center",
-            forced_width = dpi(6) * 6,
-            forced_height = dpi(6) * 6,
+            forced_width = dpi(6) * 5,
+            forced_height = dpi(6) * 5,
             widget = wibox.widget.imagebox,
             buttons = {
                 awful.button({}, 1, function()
@@ -106,9 +105,9 @@ local cal_control = wibox.widget({
     },
     {
         {
-            forced_width = dpi(6) * 30,
+            forced_width = dpi(6) * 5 * 6,
             forced_height = dpi(6) * 5,
-            bg = beautiful.palette.secondary .. "80",
+            bg = beautiful.common.secondary_dark,
             widget = wibox.container.background,
             buttons = {
                 awful.button({}, 1, function()
@@ -125,8 +124,8 @@ local cal_control = wibox.widget({
             resize = true,
             halign = "center",
             valign = "center",
-            forced_width = dpi(6) * 6,
-            forced_height = dpi(6) * 6,
+            forced_width = dpi(6) * 5,
+            forced_height = dpi(6) * 5,
             widget = wibox.widget.imagebox,
             buttons = {
                 awful.button({}, 1, function()
@@ -148,11 +147,7 @@ local calendar = wibox.widget({
         cal_content,
         layout = wibox.layout.stack,
     },
-    -- top = dpi(6),
-    -- bottom = dpi(6),
-    left = dpi(6) * 1,
-    right = dpi(6) * 1,
-    widget = wibox.container.margin,
+    widget = wibox.container.place,
 })
 
 return calendar

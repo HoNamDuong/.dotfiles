@@ -46,7 +46,7 @@ end
 
 local mem = wibox.widget({
     {
-        id = "mem_icon",
+        id = "icon_role",
         image = beautiful.memory_icon,
         resize = true,
         halign = "center",
@@ -56,7 +56,7 @@ local mem = wibox.widget({
         widget = wibox.widget.imagebox,
     },
     {
-        id = "mem_text",
+        id = "text_role",
         halign = "center",
         valign = "center",
         widget = wibox.widget.textbox,
@@ -71,17 +71,15 @@ gears.timer({
     autostart = true,
     callback = function()
         local usep = get_mem()[1]
-        local fg_color = beautiful.palette.low
+        local fg_color = beautiful.common.low
 
         if usep > 80 then
-            fg_color = beautiful.palette.high
+            fg_color = beautiful.common.high
         elseif 50 <= usep and usep <= 80 then
-            fg_color = beautiful.palette.medium
-        else
-            fg_color = beautiful.palette.low
+            fg_color = beautiful.common.medium
         end
 
-        mem:get_children_by_id("mem_text")[1].markup = pango.span({ usep .. "%", foreground = fg_color })
+        mem:get_children_by_id("text_role")[1].markup = pango.span({ usep .. "%", foreground = fg_color })
     end,
 })
 

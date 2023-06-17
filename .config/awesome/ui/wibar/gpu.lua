@@ -6,7 +6,7 @@ local dpi = require("beautiful.xresources").apply_dpi
 
 local gpu = wibox.widget({
     {
-        id = "gpu_icon",
+        id = "icon_role",
         image = beautiful.gpu_icon,
         resize = true,
         halign = "center",
@@ -16,7 +16,7 @@ local gpu = wibox.widget({
         widget = wibox.widget.imagebox,
     },
     {
-        id = "gpu_text",
+        id = "text_role",
         halign = "center",
         valign = "center",
         widget = wibox.widget.textbox,
@@ -33,8 +33,8 @@ gears.timer({
         awful.spawn.easy_async({ "sh", "-c", "nvidia-smi --query-gpu=memory.used,temperature.gpu --format=csv,noheader" }, function(out)
             local used, temperature = string.match(out, "^(.-)%, (.-)$")
 
-            local  text = used .. " " .. temperature .. "°C" 
-            gpu:get_children_by_id("gpu_text")[1].text = string.gsub(text, "%\n", "")
+            local text = used .. " " .. temperature .. "°C"
+            gpu:get_children_by_id("text_role")[1].text = string.gsub(text, "%\n", "")
         end)
     end,
 })

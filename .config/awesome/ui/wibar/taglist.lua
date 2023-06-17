@@ -1,6 +1,5 @@
 local awful = require("awful")
 local wibox = require("wibox")
-local beautiful = require("beautiful")
 local dpi = require("beautiful.xresources").apply_dpi
 
 local taglist = function(s)
@@ -30,6 +29,7 @@ local taglist = function(s)
                         id = "text_role",
                         widget = wibox.widget.textbox,
                     },
+                    spacing = dpi(6),
                     layout = wibox.layout.fixed.horizontal,
                 },
                 top = dpi(2),

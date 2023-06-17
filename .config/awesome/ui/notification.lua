@@ -29,11 +29,11 @@ end)
 
 local function notification_item(n)
     -- urgency color
-    local urgency_color = beautiful.palette.secondary
+    local urgency_color = beautiful.common.secondary
     if n.urgency == "normal" then
-        urgency_color = beautiful.palette.primary
+        urgency_color = beautiful.common.primary
     elseif n.urgency == "critical" then
-        urgency_color = beautiful.palette.urgent
+        urgency_color = beautiful.common.high
     end
 
     -- app name
@@ -57,8 +57,8 @@ local function notification_item(n)
         resize = true,
         halign = "center",
         -- valign = "center",
-        forced_width = dpi(60),
-        forced_height = dpi(60),
+        forced_width = dpi(6) * 10,
+        forced_height = dpi(6) * 10,
         widget = wibox.widget.imagebox,
     })
 
@@ -98,20 +98,15 @@ local function notification_item(n)
             {
                 {
                     {
-                        {
-                            id = "text_role",
-                            widget = wibox.widget.textbox,
-                        },
-                        forced_height = dpi(6) * 5,
-                        layout = wibox.layout.fixed.horizontal,
+                        id = "text_role",
+                        widget = wibox.widget.textbox,
                     },
-                    widget = wibox.container.place,
+                    margins = dpi(6),
+                    widget = wibox.container.margin,
                 },
-                strategy = "min",
-                width = dpi(60) * 2,
-                widget = wibox.container.constraint,
+                widget = wibox.container.place,
             },
-            bg = beautiful.palette.secondary,
+            bg = beautiful.common.secondary,
             widget = wibox.container.background,
         },
         style = {
@@ -149,7 +144,7 @@ local function notification_item(n)
                 actions_n,
                 layout = wibox.layout.fixed.vertical,
             },
-            margins = beautiful.useless_gap * 2,
+            margins = dpi(6) * 2,
             widget = wibox.container.margin,
         },
         border_width = beautiful.border_width,
@@ -175,18 +170,21 @@ end
 
 -- Default
 naughty.connect_signal("request::display", function(n)
+    -- template
+    local widget_template = notification_item(n)
+
     -- popup
     naughty.layout.box({
         type = "notification",
         notification = n,
         border_width = dpi(0),
-        minimum_width = dpi(60) * 6,
-        maximum_width = dpi(60) * 6,
-        widget_template = notification_item(n),
+        minimum_width = dpi(6) * 10 * 6,
+        maximum_width = dpi(6) * 10 * 6,
+        widget_template = widget_template,
     })
 
     -- widget
-    local widget = wibox.widget(notification_item(n))
+    local widget = wibox.widget(widget_template)
     widget:get_children_by_id("header_rule")[1].third = wibox.widget(delete_button(widget, naughty.notification_list))
 
     naughty.notification_list:insert(1, widget)
