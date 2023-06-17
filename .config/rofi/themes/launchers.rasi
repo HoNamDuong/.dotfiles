@@ -1,4 +1,7 @@
 /*****----- Global Properties -----*****/
+/* @import                          "colors/tokyonight.rasi" */
+@import                          "colors/hybrid.rasi"
+
 * {
     font:                        "Hack Nerd Font Mono 12";
 
@@ -26,9 +29,6 @@
     alternate-active-background: var(active);
     alternate-active-foreground: var(background);
 }
-
-@import                          "colors/tokyonight.rasi"
-/* @import                          "colors/hybrid.rasi" */
 
 /*****----- Main Window -----*****/
 window {

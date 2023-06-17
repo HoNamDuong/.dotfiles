@@ -4,8 +4,8 @@ configuration {
     show-icons:                 true;
 
     /*---------- Matching setting ----------*/
-	matching: "regex";
-	tokenize: true;
+	matching:                   "regex";
+	tokenize:                   true;
 
     /*---------- Display setting ----------*/
     display-drun:               "";
@@ -13,8 +13,8 @@ configuration {
     display-window:             "";
 
     /*---------- Keybindings ----------*/
-    me-select-entry: "";
-    me-accept-entry: [ MousePrimary, MouseSecondary, MouseDPrimary ];
+    me-select-entry:            "";
+    me-accept-entry:            [ MousePrimary, MouseSecondary, MouseDPrimary ];
 }
 
 @theme "~/.config/rofi/themes/launchers.rasi"

@@ -4,12 +4,13 @@ configuration {
 }
 
 /*****----- Global Properties -----*****/
+/* @import                          "colors/tokyonight.rasi" */
+@import                          "colors/hybrid.rasi"
+
 * {
     font:                        "Hack Nerd Font Mono 12";
 }
 
-@import                          "colors/tokyonight.rasi"
-/* @import                          "colors/hybrid.rasi" */
 
 /*****----- Main Window -----*****/
 window {

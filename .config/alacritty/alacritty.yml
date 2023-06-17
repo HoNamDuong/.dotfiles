@@ -18,63 +18,65 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
-# Tokyonight theme
-colors:
-  # Default colors
-  primary:
-    background: "#1a1b26"
-    foreground: "#c0caf5"
+schemes:
+  # Tokyonight theme
+  Tokyonight: &Tokyonight # Default colors
+    primary:
+      background: "#1a1b26"
+      foreground: "#c0caf5"
 
-  # Normal colors
-  normal:
-    black: "#1a1b26"
-    red: "#f7768e"
-    green: "#9ece6a"
-    yellow: "#e0af68"
-    blue: "#7aa2f7"
-    magenta: "#bb9af7"
-    cyan: "#7dcfff"
-    white: "#a9b1d6"
+    # Normal colors
+    normal:
+      black: "#1a1b26"
+      red: "#f7768e"
+      green: "#9ece6a"
+      yellow: "#e0af68"
+      blue: "#7aa2f7"
+      magenta: "#bb9af7"
+      cyan: "#7dcfff"
+      white: "#a9b1d6"
 
-  # Bright colors
-  bright:
-    black: "#414868"
-    red: "#f7768e"
-    green: "#9ece6a"
-    yellow: "#e0af68"
-    blue: "#7aa2f7"
-    magenta: "#bb9af7"
-    cyan: "#7dcfff"
-    white: "#c0caf5"
+    # Bright colors
+    bright:
+      black: "#414868"
+      red: "#f7768e"
+      green: "#9ece6a"
+      yellow: "#e0af68"
+      blue: "#7aa2f7"
+      magenta: "#bb9af7"
+      cyan: "#7dcfff"
+      white: "#c0caf5"
 
-# # Hybrid theme
-# colors:
-#   # Default colors
-#   primary:
-#     background: "#1d1f21"
-#     foreground: "#c5c8c6"
-#   # Normal colors
-#
-#   normal:
-#     black: "#1d1f21"
-#     red: "#cc6666"
-#     green: "#b5bd68"
-#     yellow: "#f0c674"
-#     blue: "#81a2be"
-#     magenta: "#b294bb"
-#     cyan: "#8abeb7"
-#     white: "#c5c8c6"
-#
-#   # Bright colors
-#   bright:
-#     black: "#373B41"
-#     red: "#d54e53"
-#     green: "#b9ca4a"
-#     yellow: "#e7c547"
-#     blue: "#7aa6da"
-#     magenta: "#c397d8"
-#     cyan: "#70c0b1"
-#     white: "#eaeaea"
+  # Hybrid theme
+  Hybrid: &Hybrid # Default colors
+    primary:
+      background: "#1d1f21"
+      foreground: "#c5c8c6"
+
+    # Normal colors
+    normal:
+      black: "#1d1f21"
+      red: "#cc6666"
+      green: "#b5bd68"
+      yellow: "#f0c674"
+      blue: "#81a2be"
+      magenta: "#b294bb"
+      cyan: "#8abeb7"
+      white: "#c5c8c6"
+
+    # Bright colors
+    bright:
+      black: "#373B41"
+      red: "#d54e53"
+      green: "#b9ca4a"
+      yellow: "#e7c547"
+      blue: "#7aa6da"
+      magenta: "#c397d8"
+      cyan: "#70c0b1"
+      white: "#eaeaea"
+
+# colors: *Tokyonight
+colors: *Hybrid
 
 # Live config reload (changes require restart)
 live_config_reload: true
