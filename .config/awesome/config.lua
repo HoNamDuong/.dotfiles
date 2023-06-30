@@ -3,6 +3,7 @@ local config = {}
 config.apps = {
     terminal = os.getenv("TERMINAL"),
     editor = os.getenv("TERMINAL") .. " -e " .. os.getenv("EDITOR"),
+    music = "spotify-launcher",
     browser = "google-chrome-stable",
     launcher = "launchers",
     run = "launchers run",

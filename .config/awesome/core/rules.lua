@@ -75,8 +75,10 @@ ruled.client.connect_signal("request::rules", function()
     ruled.client.append_rule({ rule = { instance = "nemo" }, properties = { tag = tag_name[4] } })
     ruled.client.append_rule({ rule_any = { instance = { "postman", "DBeaver" } }, properties = { tag = tag_name[5] } })
     ruled.client.append_rule({ rule_any = { instance = { "mpv" }, class = { "Spotify" } }, properties = { tag = tag_name[6] } })
+    ruled.client.append_rule({ rule_any = { instance = { "gimp" } }, properties = { tag = tag_name[7] } })
     ruled.client.append_rule({ rule_any = { instance = { "telegram", "discord" }, class = { "thunderbird" } }, properties = { tag = tag_name[8] } })
     ruled.client.append_rule({ rule = { class = "Minecraft" }, properties = { tag = tag_name[9] } })
+    ruled.client.append_rule({ rule_any = { instance = { "lxappearance" } }, properties = { tag = tag_name[10] } })
 end)
 
 -- Notification
@@ -97,13 +99,13 @@ ruled.notification.connect_signal("request::rules", function()
     ruled.notification.append_rule({
         rule = { urgency = "normal" },
         properties = {
-            implicit_timeout = 20,
+            implicit_timeout = 10,
         },
     })
     ruled.notification.append_rule({
         rule = { urgency = "critical" },
         properties = {
-            never_timeout = true,
+            implicit_timeout = 20,
         },
     })
 end)

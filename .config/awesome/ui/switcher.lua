@@ -3,15 +3,14 @@ local beautiful = require("beautiful")
 local keys = require("config").keys
 local dpi = require("beautiful.xresources").apply_dpi
 
-local switcher = { widget = nil }
+local clients_menu = nil
 
-local function build_menu()
+local function get_items()
     local items = {}
 
-    local function add_client(c)
+    for _, c in ipairs(awful.client.focus.history.list) do
         local tag = c:tags()[1]
-
-        local name = (tag.name or "") .. " " .. (c.class or "") .. " | " .. (c.name or "")
+        local name = (tag.name or "") .. " | " .. (c.class or "") .. " | " .. (c.name or "")
 
         items[#items + 1] = {
             name,
@@ -31,69 +30,59 @@ local function build_menu()
         }
     end
 
-    for _, client in ipairs(awful.client.focus.history.list) do
-        add_client(client)
-    end
-
-    local menu_width = dpi(6) * 10 * 6
-
-    local m = awful.menu({
-        items = items,
-        theme = {
-            width = menu_width,
-            height = dpi(6) * 8,
-            font = beautiful.font,
-        },
-    })
-
-    local s = awful.screen.focused().workarea
-
-    m:show({
-        coords = {
-            x = (s.width / 2) - (menu_width / 2),
-            y = (s.height / 2) - (m.height / 2),
-        },
-    })
-
-    return m
+    return items
 end
 
-function switcher:toggle()
-    if self.widget and self.widget.wibox.visible then
-        local sel = self.widget.sel or 0
-        self.widget:hide()
-        self.widget:exec(sel)
-        self.widget = nil
+local function toggle()
+    if clients_menu and clients_menu.wibox.visible then
+        local sel = clients_menu.sel or 0
+        clients_menu:exec(sel)
+        clients_menu:hide()
+        clients_menu = nil
     else
-        self.widget = build_menu()
-        self.widget:item_enter(1)
+        local workarea = awful.screen.focused().workarea
+        local items = get_items()
+        clients_menu = awful.menu({
+            items = items,
+            theme = {
+                width = dpi(6) * 10 * 6,
+                height = dpi(6) * 8,
+                font = beautiful.font,
+            },
+        })
+        clients_menu:show({
+            coords = {
+                x = (workarea.width - clients_menu.width) / 2,
+                y = (workarea.height - clients_menu.height) / 2,
+            },
+        })
+        clients_menu:item_enter(1)
     end
-    return self
 end
 
-function switcher:select_next()
-    if self.widget and self.widget.wibox.visible then
-        local sel = self.widget.sel or 0
-        local sel_new = sel + 1 > #self.widget.items and 1 or sel + 1
-        self.widget:item_enter(sel_new)
+local function select_next()
+    if clients_menu and clients_menu.wibox.visible then
+        local sel = clients_menu.sel or 0
+        local sel_new = sel + 1 > #clients_menu.items and 1 or sel + 1
+        clients_menu:item_enter(sel_new)
     end
 end
 
-function switcher:select_previous()
-    if self.widget and self.widget.wibox.visible then
-        local sel = self.widget.sel or 0
-        local sel_new = sel - 1 < 1 and #self.widget.items or sel - 1
-        self.widget:item_enter(sel_new)
+local function select_previous()
+    if clients_menu and clients_menu.wibox.visible then
+        local sel = clients_menu.sel or 0
+        local sel_new = sel - 1 < 1 and #clients_menu.items or sel - 1
+        clients_menu:item_enter(sel_new)
     end
 end
 
 -- Switch client
 awful.keygrabber({
     start_callback = function()
-        switcher:toggle()
+        toggle()
     end,
     stop_callback = function()
-        switcher:toggle()
+        toggle()
     end,
     export_keybindings = true,
     stop_event = "release",
@@ -103,23 +92,17 @@ awful.keygrabber({
             { keys.alt },
             "Tab",
             function()
-                switcher:select_next()
+                select_next()
             end,
-            {
-                description = "Select next client",
-                group = "client",
-            },
+            { description = "Select next client", group = "client" },
         },
         {
             { keys.alt, "Shift" },
             "Tab",
             function()
-                switcher:select_previous()
+                select_previous()
             end,
-            {
-                description = "Select previous client",
-                group = "client",
-            },
+            { description = "Select previous client", group = "client" },
         },
     },
 })

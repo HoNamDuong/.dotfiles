@@ -4,13 +4,14 @@ local menu = require("awful.menu")
 local menu_gen = require("menubar.menu_gen")
 local hotkeys = require("ui.hotkeys")
 
+-- Add other category
+menu_gen.all_categories.other = { app_type = "Other", name = "Other", icon_name = "applications-other", use = false }
+
 -- Source https://github.com/lcpz/awesome-freedesktop
 -- Use MenuBar parsing utils to build a menu for Awesome
--- @return awful.menu
 local function build_menu(args)
     local before = args.before or {}
     local after = args.after or {}
-    local sub_menu = args.sub_menu or false
 
     local result = {}
     local _menu = menu({ items = before })
@@ -22,7 +23,10 @@ local function build_menu(args)
         end
 
         -- Get items table
-        for k, v in pairs(entries) do
+        for _, v in pairs(entries) do
+            if not v.category then
+                v.category = "other"
+            end
             for _, cat in pairs(result) do
                 if cat[1] == v.category then
                     table.insert(cat[2], { v.name, v.cmdline, v.icon })
@@ -38,7 +42,7 @@ local function build_menu(args)
                 -- Remove unused categories
                 table.remove(result, i)
             else
-                --Sort entries alphabetically (by name)
+                -- Sort entries alphabetically (by name)
                 table.sort(v[2], function(a, b)
                     return string.byte(a[1]) < string.byte(b[1])
                 end)
@@ -51,11 +55,6 @@ local function build_menu(args)
         table.sort(result, function(a, b)
             return string.byte(a[1]) < string.byte(b[1])
         end)
-
-        -- Add menu item to hold the generated menu
-        if sub_menu then
-            result = { { sub_menu, result } }
-        end
 
         -- Add items to menu
         for _, v in pairs(result) do
@@ -70,6 +69,7 @@ local function build_menu(args)
 end
 
 local mainmenu = build_menu({
+    sub_menu = "Applications",
     before = {
         {
             "Awesome",

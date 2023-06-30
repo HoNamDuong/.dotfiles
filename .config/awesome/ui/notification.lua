@@ -122,26 +122,23 @@ local function notification_item(n)
                 {
                     app_name_n,
                     time_n,
+                    nil,
                     id = "header_rule",
                     layout = wibox.layout.align.horizontal,
                 },
                 {
+                    image_n,
                     {
-                        image_n,
-                        {
-                            title_n,
-                            message_n,
-                            spacing = dpi(6),
-                            layout = wibox.layout.fixed.vertical,
-                        },
-                        spacing = dpi(6) * 2,
-                        layout = wibox.layout.fixed.horizontal,
+                        title_n,
+                        message_n,
+                        spacing = dpi(6),
+                        layout = wibox.layout.fixed.vertical,
                     },
-                    top = dpi(6) * 2,
-                    bottom = dpi(6) * 2,
-                    widget = wibox.container.margin,
+                    spacing = dpi(6) * 2,
+                    layout = wibox.layout.fixed.horizontal,
                 },
                 actions_n,
+                spacing = dpi(6) * 2,
                 layout = wibox.layout.fixed.vertical,
             },
             margins = dpi(6) * 2,
@@ -153,7 +150,7 @@ local function notification_item(n)
     }
 end
 
-local function delete_button(widget, notif_list)
+local function delete_button(widget)
     return {
         image = beautiful.bin_icon,
         resize = true,
@@ -162,7 +159,7 @@ local function delete_button(widget, notif_list)
         widget = wibox.widget.imagebox,
         buttons = {
             awful.button({}, 1, function()
-                notif_list:remove_widgets(widget)
+                naughty.notification_list:remove_widgets(widget)
             end),
         },
     }
@@ -185,7 +182,7 @@ naughty.connect_signal("request::display", function(n)
 
     -- widget
     local widget = wibox.widget(widget_template)
-    widget:get_children_by_id("header_rule")[1].third = wibox.widget(delete_button(widget, naughty.notification_list))
+    widget:get_children_by_id("header_rule")[1].third = wibox.widget(delete_button(widget))
 
     naughty.notification_list:insert(1, widget)
 end)

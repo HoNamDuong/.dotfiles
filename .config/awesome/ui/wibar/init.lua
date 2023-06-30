@@ -9,7 +9,7 @@ local layoutlist = require("ui.wibar.layoutlist")
 local clock = require("ui.wibar.clock")
 local systray = require("ui.wibar.systray")
 local prompt = require("ui.wibar.prompt")
-local player = require("ui.wibar.player")
+local playerbox = require("ui.wibar.playerbox")
 local volume = require("ui.wibar.volume")
 local mic = require("ui.wibar.mic")
 local cpu = require("ui.wibar.cpu")
@@ -34,11 +34,16 @@ screen.connect_signal("request::desktop_decoration", function(s)
                 layout = wibox.layout.fixed.horizontal,
             },
             { -- Middle
-                player,
-                widget = wibox.container.place,
+                countdown,
+                {
+                    playerbox,
+                    layout = wibox.layout.align.horizontal,
+                    -- widget = wibox.container.place,
+                },
+                nil,
+                layout = wibox.layout.align.horizontal,
             },
             { -- Right
-                countdown,
                 -- thermal,
                 -- net,
                 -- fs,

@@ -74,7 +74,7 @@ function countdown:start()
 
                 self.control:get_children_by_id("start_icon")[1].image = recolor_image(beautiful.play_icon, beautiful.common.low)
                 self.control:get_children_by_id("stop_icon")[1].image = recolor_image(beautiful.stop_icon, beautiful.common.secondary)
-                countdown_text.widget.visible = false
+                countdown_text.visible = false
 
                 -- run function
                 run()
@@ -88,7 +88,7 @@ function countdown:start()
     self.control:get_children_by_id("stop_icon")[1].image = recolor_image(beautiful.stop_icon, beautiful.common.high)
     self.minute = defuult_minute
     self:update_time()
-    countdown_text.widget.visible = true
+    countdown_text.visible = true
 end
 
 function countdown:stop()
@@ -102,7 +102,7 @@ function countdown:stop()
         self.control:get_children_by_id("start_icon")[1].image = recolor_image(beautiful.play_icon, beautiful.common.low)
         self.control:get_children_by_id("stop_icon")[1].image = recolor_image(beautiful.stop_icon, beautiful.common.secondary)
         self.second = 0
-        countdown_text.widget.visible = false
+        countdown_text.visible = false
     end
 end
 

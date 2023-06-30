@@ -2,6 +2,7 @@ local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local dpi = require("beautiful.xresources").apply_dpi
+local keys = require("config").keys
 
 local cols_size = dpi(6) * 10 * 2
 local rows_size = dpi(6) * 10 * 2
@@ -32,52 +33,46 @@ local powermenu = box_widget(powermenu_widget, cols_size * 1, rows_size * 4)
 local notifications_widget = require("ui.dashboard.notifications")
 local notifications = box_widget(notifications_widget, cols_size * 3, rows_size * 4)
 
-local dashboard = awful.popup({
+local workarea = screen.primary.workarea
+
+local dashboard = wibox({
     widget = {
-        homogeneous = true,
-        superpose = false,
-        forced_num_cols = 6,
-        forced_num_rows = 4,
-        layout = wibox.layout.grid,
+        {
+            {
+                clock,
+                calendar,
+                countdown,
+                layout = wibox.layout.fixed.vertical,
+            },
+            powermenu,
+            layout = wibox.layout.fixed.horizontal,
+        },
+        notifications_widget,
+        nil,
+        layout = wibox.layout.align.vertical,
     },
-    type = "toolbar",
+    type = "dock",
+    screen = screen.primary,
+    visible = false,
+    ontop = true,
+    width = cols_size * 3.,
+    height = workarea.height - (beautiful.useless_gap * 4) - beautiful.wibar_height,
     border_width = beautiful.border_width,
     border_color = beautiful.common.secondary,
-    placement = awful.placement.centered,
-    ontop = true,
-    visible = false,
 })
 
-dashboard.widget:add_widget_at(clock, 1, 1, 1, 2)
-dashboard.widget:add_widget_at(calendar, 2, 1, 2, 2)
-dashboard.widget:add_widget_at(countdown, 4, 1, 1, 2)
-dashboard.widget:add_widget_at(powermenu, 1, 3, 4, 1)
-dashboard.widget:add_widget_at(notifications, 1, 4, 4, 3)
-
-local grabber = function(_, key, event)
-    if event == "press" then
-        if key == "Escape" then
-            dashboard:hide()
-        end
-    end
-end
-
-function dashboard:show()
-    awful.keygrabber.run(grabber)
-    self.visible = true
-end
-
-function dashboard:hide()
-    awful.keygrabber.stop(grabber)
-    self.visible = false
-end
+awful.placement.bottom_left(dashboard, {
+    margins = beautiful.useless_gap * 2,
+})
 
 function dashboard:toggle()
-    if self.visible then
-        self:hide()
-    else
-        self:show()
-    end
+    self.visible = not self.visible
 end
+
+awful.keyboard.append_global_keybindings({
+    awful.key({ keys.super }, "d", function()
+        dashboard:toggle()
+    end, { description = "Toggle dashboard", group = "actions" }),
+})
 
 return dashboard

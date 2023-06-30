@@ -7,6 +7,22 @@ local dpi = require("beautiful.xresources").apply_dpi
 local powermenu = wibox.widget({
     {
         {
+            image = beautiful.lock_icon,
+            resize = true,
+            halign = "center",
+            valign = "center",
+            widget = wibox.widget.imagebox,
+            buttons = {
+                awful.button({}, 1, function()
+                    awful.spawn(config.actions.lock)
+                end),
+            },
+        },
+        margins = dpi(6) * 4,
+        widget = wibox.container.margin,
+    },
+    {
+        {
             image = beautiful.logout_icon,
             resize = true,
             halign = "center",
@@ -21,22 +37,22 @@ local powermenu = wibox.widget({
         margins = dpi(6) * 4,
         widget = wibox.container.margin,
     },
-    {
-        {
-            image = beautiful.sleep_icon,
-            resize = true,
-            halign = "center",
-            valign = "center",
-            widget = wibox.widget.imagebox,
-            buttons = {
-                awful.button({}, 1, function()
-                    awful.spawn(config.actions.sleep)
-                end),
-            },
-        },
-        margins = dpi(6) * 4,
-        widget = wibox.container.margin,
-    },
+    -- {
+    --     {
+    --         image = beautiful.sleep_icon,
+    --         resize = true,
+    --         halign = "center",
+    --         valign = "center",
+    --         widget = wibox.widget.imagebox,
+    --         buttons = {
+    --             awful.button({}, 1, function()
+    --                 awful.spawn(config.actions.sleep)
+    --             end),
+    --         },
+    --     },
+    --     margins = dpi(6) * 4,
+    --     widget = wibox.container.margin,
+    -- },
     {
         {
             image = beautiful.restart_icon,

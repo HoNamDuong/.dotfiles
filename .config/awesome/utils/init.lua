@@ -92,4 +92,10 @@ function utils.pango.i(data)
     return "<i>" .. data .. "</i>"
 end
 
+---@param data string
+---@return string
+function utils.pango.u(data)
+    return "<u>" .. data .. "</u>"
+end
+
 return utils

@@ -147,6 +147,7 @@ local calendar = wibox.widget({
         cal_content,
         layout = wibox.layout.stack,
     },
+    valign = "top",
     widget = wibox.container.place,
 })
 
