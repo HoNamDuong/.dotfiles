@@ -7,7 +7,7 @@ mpd_music_dir = "~/Music"
 
 ### Behaviour ###
 mpd_connection_timeout = "5"
-execute_on_song_change = "songinfo"
+execute_on_song_change = "~/.config/ncmpcpp/notify"
 lyrics-autosave = "yes"
 external_editor = nvim
 

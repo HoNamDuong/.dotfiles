@@ -20,7 +20,8 @@ draw_bold_text_with_bright_colors: true
 
 schemes:
   # Tokyonight theme
-  Tokyonight: &Tokyonight # Default colors
+  Tokyonight: &Tokyonight 
+    # Default colors
     primary:
       background: "#1a1b26"
       foreground: "#c0caf5"
@@ -48,7 +49,8 @@ schemes:
       white: "#c0caf5"
 
   # Hybrid theme
-  Hybrid: &Hybrid # Default colors
+  Hybrid: &Hybrid 
+    # Default colors
     primary:
       background: "#1d1f21"
       foreground: "#c5c8c6"

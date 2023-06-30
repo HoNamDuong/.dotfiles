@@ -21,5 +21,6 @@ require("plugins.illuminate")
 require("plugins.dressing")
 require("plugins.breadcrumbs")
 require("plugins.scrollbar")
+require("plugins.spectre")
 -- LSP
 require("lsp")

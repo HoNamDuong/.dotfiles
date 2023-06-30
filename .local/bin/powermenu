@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # Message
-mesg="Uptime : `uptime -p | sed -e 's/up //g'`"
+mesg="Uptime: `uptime -p | sed -e 's/up //g'`"
 
 # Options
 if [ -f /usr/bin/rofi ]; then

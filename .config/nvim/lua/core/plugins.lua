@@ -83,6 +83,7 @@ return packer.startup(function(use)
     use("chaoren/vim-wordmotion")
     use("tpope/vim-surround")
     use("wellle/targets.vim")
+    use("nvim-pack/nvim-spectre")
     -- Explorer and find files
     use("folke/which-key.nvim")
     use("nvim-tree/nvim-tree.lua")

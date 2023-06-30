@@ -56,7 +56,7 @@ local dashboard = wibox({
     visible = false,
     ontop = true,
     width = cols_size * 3.,
-    height = workarea.height - (beautiful.useless_gap * 4) - beautiful.wibar_height,
+    height = workarea.height - (beautiful.useless_gap * 4) - (beautiful.border_width * 2) - beautiful.wibar_height,
     border_width = beautiful.border_width,
     border_color = beautiful.common.secondary,
 })

@@ -113,7 +113,7 @@ Log out of your system and log in again.
 
 [Skeuos theme](https://aur.archlinux.org/packages/skeuos-gtk)
 
-[Papirus icon theme](https://archlinux.org/packages/community/any/papirus-icon-theme)
+[Papirus icon theme](https://archlinux.org/packages/extra/any/papirus-icon-theme/)
 
 [Vimix cursors](https://aur.archlinux.org/packages/vimix-cursors)
 
@@ -171,7 +171,7 @@ Install [iBus](https://github.com/BambooEngine/ibus-bamboo) - Input framework fo
 
 ### File manager
 
-    sudo pacman -S nemo nemo-fileroller ntfs-3g nemo-mediainfo-tab
+    sudo pacman -S nemo nemo-fileroller nemo-mediainfo-tab ntfs-3g gvfs-mtp gvfs-gphoto2
 
 Set Nemo as default file browser
 
