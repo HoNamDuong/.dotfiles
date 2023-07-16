@@ -10,8 +10,6 @@ local recolor_image = require("gears.color").recolor_image
 local Playerctl = require("lgi").Playerctl
 local apps = require("config").apps
 
-local player_widget_list = {}
-
 local sel = 1
 
 local empty_player = wibox.widget({
@@ -26,36 +24,37 @@ local empty_player = wibox.widget({
     },
 })
 
-local player_current = wibox.widget({
-    empty_player,
+local player_widget_list = wibox.widget({
     layout = wibox.layout.fixed.horizontal,
 })
 
 local function next_player()
-    local sel_new = sel + 1 > #player_widget_list and 1 or sel + 1
-    player_current:set(1, player_widget_list[sel_new])
-    sel = sel_new
+    if #player_widget_list.children > 1 then
+        local sel_new = sel + 1 > #player_widget_list.children and 1 or sel + 1
+        player_widget_list.children[sel].visible = false
+        player_widget_list.children[sel_new].visible = true
+        sel = sel_new
+    end
 end
-
-local next_button = wibox.widget({
-    image = recolor_image(beautiful.arrow_down_icon, beautiful.common.foreground),
-    visible = false,
-    resize = true,
-    halign = "center",
-    valign = "center",
-    widget = wibox.widget.imagebox,
-    buttons = {
-        awful.button({}, 1, function()
-            next_player()
-        end),
-    },
-})
 
 local playerbox = wibox.widget({
     {
         {
-            next_button,
-            player_current,
+            id = "player_role",
+            {
+                image = recolor_image(beautiful.arrow_down_icon, beautiful.common.foreground),
+                visible = false,
+                resize = true,
+                halign = "center",
+                valign = "center",
+                widget = wibox.widget.imagebox,
+                buttons = {
+                    awful.button({}, 1, function()
+                        next_player()
+                    end),
+                },
+            },
+            empty_player,
             spacing = dpi(6),
             layout = wibox.layout.fixed.horizontal,
         },
@@ -66,6 +65,28 @@ local playerbox = wibox.widget({
     bg = beautiful.common.secondary_dark,
     widget = wibox.container.background,
 })
+
+player_widget_list:connect_signal("widget::layout_changed", function()
+    sel = 1
+
+    if #player_widget_list.children == 0 then
+        playerbox:get_children_by_id("player_role")[1]:set(2, empty_player)
+    else
+        playerbox:get_children_by_id("player_role")[1]:set(2, player_widget_list)
+
+        for i = 1, #player_widget_list.children, 1 do
+            player_widget_list.children[i].visible = false
+        end
+
+        player_widget_list.children[sel].visible = true
+
+        if #player_widget_list.children > 1 then
+            playerbox:get_children_by_id("player_role")[1].children[1].visible = true
+        else
+            playerbox:get_children_by_id("player_role")[1].children[1].visible = false
+        end
+    end
+end)
 
 local function build_player_widget(player)
     local widget = wibox.widget({
@@ -125,6 +146,7 @@ local function build_player_widget(player)
                 end),
             },
         },
+        visible = false,
         spacing = dpi(6),
         layout = wibox.layout.fixed.horizontal,
     })
@@ -143,7 +165,6 @@ local function build_player_widget(player)
     end
 
     local function initial()
-        widget.id = player.player_instance
         widget:get_children_by_id("player_control")[1].image = get_control_icon(player.playback_status)
         widget:get_children_by_id("player_icon")[1].image = icon_theme():find_icon_path(player.player_name)
         awful.spawn.easy_async("playerctl " .. "--player=" .. player.player_instance .. " metadata --format '{{artist}}\n{{title}}'", function(stdout)
@@ -188,9 +209,8 @@ gears.timer.delayed_call(function()
 
     for _, player in ipairs(manager.players) do
         local player_widget = build_player_widget(player)
-
-        table.insert(player_widget_list, 1, player_widget)
-        awesome.emit_signal("player_widget_list::changed")
+        player_widget.id = player.player_instance
+        player_widget_list:insert(1, player_widget)
     end
 
     function manager:on_name_appeared(name)
@@ -199,9 +219,8 @@ gears.timer.delayed_call(function()
 
     function manager:on_player_appeared(player)
         local player_widget = build_player_widget(player)
-
-        table.insert(player_widget_list, 1, player_widget)
-        awesome.emit_signal("player_widget_list::changed")
+        player_widget.id = player.player_instance
+        player_widget_list:insert(1, player_widget)
     end
 
     function manager:on_name_vanished(name)
@@ -219,27 +238,9 @@ gears.timer.delayed_call(function()
             end
             return nil
         end
+        local index = find_index(player_widget_list.children, player.player_instance)
 
-        local index = find_index(player_widget_list, player.player_instance)
-
-        table.remove(player_widget_list, index)
-        awesome.emit_signal("player_widget_list::changed")
-    end
-end)
-
-awesome.connect_signal("player_widget_list::changed", function()
-    sel = 1
-
-    if #player_widget_list == 0 then
-        player_current:set(1, empty_player)
-    else
-        player_current:set(1, player_widget_list[1])
-
-        if #player_widget_list > 1 then
-            next_button.visible = true
-        else
-            next_button.visible = false
-        end
+        player_widget_list:remove(index)
     end
 end)
 

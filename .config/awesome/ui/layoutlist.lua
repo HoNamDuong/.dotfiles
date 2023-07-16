@@ -1,5 +1,6 @@
 local awful = require("awful")
 local wibox = require("wibox")
+local beautiful = require("beautiful")
 local keys = require("config").keys
 local dpi = require("beautiful.xresources").apply_dpi
 
@@ -34,7 +35,10 @@ local layoutlist = awful.popup({
             widget = wibox.container.background,
         },
     }),
+    type = "dock",
     placement = awful.placement.centered,
+    border_width = beautiful.border_width,
+    border_color = beautiful.common.secondary,
     ontop = true,
     visible = false,
 })

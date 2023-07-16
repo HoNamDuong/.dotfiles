@@ -3,8 +3,8 @@ local menubar = require("menubar")
 local naughty = require("naughty")
 local utils = require("utils")
 
-local apps = require("config").apps
 local actions = require("config").actions
+local apps = require("config").apps
 local keys = require("config").keys
 
 local mainmenu = require("ui.mainmenu")
@@ -309,41 +309,4 @@ awful.keyboard.append_global_keybindings({
         awful.tag.incncol(-1, nil, true)
     end, { description = "Decrease the number of columns", group = "layout" }),
 })
-
--- -- TEST
--- awful.keyboard.append_global_keybindings({
---     awful.key({ keys.super }, "F1", function()
---         naughty.notification({
---             title = "Test low",
---             message = "this is test low notification this is test low notification this is test low notification this is test low notification this is test low notification",
---             urgency = "low",
---         })
---     end, { description = "send test low notification", group = "test" }),
---
---     awful.key({ keys.super }, "F2", function()
---         naughty.notification({
---             title = "Test normal this is test normal notification this is test normal notification ",
---             message = "this is test normal notification",
---             urgency = "normal",
---             actions = {
---                 naughty.action({
---                     name = "Accept",
---                 }),
---                 naughty.action({
---                     name = "Refuse",
---                 }),
---                 naughty.action({
---                     name = "Ignore",
---                 }),
---             },
---         })
---     end, { description = "send test notification", group = "test" }),
---
---     awful.key({ keys.super }, "F3", function()
---         naughty.notification({
---             title = "Test critical",
---             message = "this is test critical notification",
---             urgency = "critical",
---         })
---     end, { description = "send test critical notification", group = "test" }),
 -- })

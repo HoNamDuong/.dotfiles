@@ -37,8 +37,8 @@ screen.connect_signal("request::desktop_decoration", function(s)
                 countdown,
                 {
                     playerbox,
-                    layout = wibox.layout.align.horizontal,
-                    -- widget = wibox.container.place,
+                    -- layout = wibox.layout.align.horizontal,
+                    widget = wibox.container.place,
                 },
                 nil,
                 layout = wibox.layout.align.horizontal,

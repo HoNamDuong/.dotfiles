@@ -35,25 +35,36 @@ local volume = wibox.widget({
     end,
     buttons = {
         awful.button({}, 1, function()
-            awful.spawn("pamixer --toggle-mute")
+            awful.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")
+            awesome.emit_signal("volume::changed")
         end),
-        -- awful.button({}, 3, function() end),
         awful.button({}, 4, function()
-            awful.spawn("pamixer --increase" .. " " .. "5")
+            awful.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")
+            awesome.emit_signal("volume::changed")
         end),
         awful.button({}, 5, function()
-            awful.spawn("pamixer --decrease" .. " " .. "5")
+            awful.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")
+            awesome.emit_signal("volume::changed")
         end),
     },
 })
 
+awesome.connect_signal("volume::changed", function()
+    awful.spawn.easy_async({ "sh", "-c", "pactl get-sink-volume @DEFAULT_SINK@ | awk 'NR==1{print $5}' && pactl get-sink-mute @DEFAULT_SINK@ | awk 'NR==1{print $2}'" }, function(out)
+        local value, muted = string.match(out, "^(.-)\n(.-)$")
+        if muted == "yes\n" then
+            volume.value = string.gsub("muted", "%\n", "")
+        else
+            volume.value = string.gsub(value, "%\n", "")
+        end
+    end)
+end)
+
 gears.timer({
-    timeout = 2,
+    timeout = 5,
     autostart = true,
     callback = function()
-        awful.spawn.easy_async({ "sh", "-c", "pamixer --get-volume-human" }, function(out)
-            volume.value = string.gsub(out, "%\n", "")
-        end)
+        awesome.emit_signal("volume::changed")
     end,
 })
 

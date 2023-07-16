@@ -2,6 +2,7 @@ local wibox = require("wibox")
 local gears = require("gears")
 local awful = require("awful")
 local beautiful = require("beautiful")
+local naughty = require("naughty")
 local dpi = require("beautiful.xresources").apply_dpi
 local pango = require("utils").pango
 
@@ -26,7 +27,7 @@ local mic = wibox.widget({
     layout = wibox.layout.fixed.horizontal,
     set_value = function(self, val)
         if string.match(val, "muted") then
-            self["text_role"].markup = pango.span({ foreground = beautiful.common.medium, "off" })
+            self["text_role"].markup = pango.span({ foreground = beautiful.common.medium, val })
             self:get_children_by_id("icon_role")[1].image = beautiful.mic_off_icon
         else
             self["text_role"].markup = val
@@ -35,24 +36,36 @@ local mic = wibox.widget({
     end,
     buttons = {
         awful.button({}, 1, function()
-            awful.spawn("pamixer --default-source --toggle-mute")
+            awful.spawn("pactl set-source-mute @DEFAULT_SOURCE@ toggle")
+            awesome.emit_signal("mic::changed")
         end),
         awful.button({}, 4, function()
-            awful.spawn("pamixer --default-source --increase" .. " " .. "5")
+            awful.spawn("pactl set-source-volume @DEFAULT_SOURCE@ +5%")
+            awesome.emit_signal("mic::changed")
         end),
         awful.button({}, 5, function()
-            awful.spawn("pamixer --default-source --decrease" .. " " .. "5")
+            awful.spawn("pactl set-source-volume @DEFAULT_SOURCE@ -5%")
+            awesome.emit_signal("mic::changed")
         end),
     },
 })
 
+awesome.connect_signal("mic::changed", function()
+    awful.spawn.easy_async({ "sh", "-c", "pactl get-source-volume @DEFAULT_SOURCE@ | awk 'NR==1{print $5}' && pactl get-source-mute @DEFAULT_SOURCE@ | awk 'NR==1{print $2}'" }, function(out)
+        local value, muted = string.match(out, "^(.-)\n(.-)$")
+        if muted == "yes\n" then
+            mic.value = string.gsub("muted", "%\n", "")
+        else
+            mic.value = string.gsub(value, "%\n", "")
+        end
+    end)
+end)
+
 gears.timer({
-    timeout = 2,
+    timeout = 5,
     autostart = true,
     callback = function()
-        awful.spawn.easy_async({ "sh", "-c", "pamixer --default-source --get-volume-human" }, function(out)
-            mic.value = string.gsub(out, "%\n", "")
-        end)
+        awesome.emit_signal("mic::changed")
     end,
 })
 

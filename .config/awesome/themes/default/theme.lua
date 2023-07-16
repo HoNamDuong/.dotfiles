@@ -168,10 +168,10 @@ theme.titlebar_maximized_button_focus_inactive  = themes_path .. "default/titleb
 theme.titlebar_maximized_button_normal_active   = themes_path .. "default/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active    = themes_path .. "default/titlebar/maximized_focus_active.png"
 
-theme = theme_assets.recolor_titlebar(theme, theme.common.secondary, "normal")
+-- theme = theme_assets.recolor_titlebar(theme, theme.common.secondary, "normal")
 theme = theme_assets.recolor_titlebar(theme, theme.common.foreground, "normal", "hover")
 theme = theme_assets.recolor_titlebar(theme, theme.common.medium, "normal", "press")
-theme = theme_assets.recolor_titlebar(theme, theme.common.primary, "focus")
+-- theme = theme_assets.recolor_titlebar(theme, theme.common.primary, "focus")
 theme = theme_assets.recolor_titlebar(theme, theme.common.foreground, "focus", "hover")
 theme = theme_assets.recolor_titlebar(theme, theme.common.medium, "focus", "press")
 
