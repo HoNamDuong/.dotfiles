@@ -6,6 +6,7 @@ Change console font
 
     setfont ter-132n
     setfont iso01-12x22
+    setfont drdos8x16
 
 The current set up assumes you have EFI-enabled BIOS.
 Once booted from a CD or USB stick, verify that the installation supports EFI.
@@ -217,7 +218,7 @@ Here grub will generate the config and write it to grub.cfg. Make sure Linux and
 
 ## Install NetworkManager and enable
 
-    pacman -S networkmanager network-manager-applet
+    pacman -S networkmanager
     systemctl enable NetworkManager.service
 
 ## Exit and reboot
@@ -225,6 +226,11 @@ Here grub will generate the config and write it to grub.cfg. Make sure Linux and
     exit
     umount -R /mnt
     shutdown -r now
+
+## Enable the NTP service (Network Time Synchronization)
+
+    sudo timedatectl set-ntp true
+    timedatectl status
 
 ## Set Windows startup default
 

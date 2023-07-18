@@ -1,14 +1,11 @@
-### Install packages
+## Setup pacman wrapper
 
-    # Enable the NTP service (Network Time Synchronization)
-    sudo timedatectl set-ntp
-    timedatectl status
+| Package                             | Description                                       |
+| ----------------------------------- | ------------------------------------------------- |
+| [yay](https://github.com/Jguer/yay) | Yet Another Yogurt - An AUR Helper Written in Go. |
 
-    # Update and upgrade
-    sudo pacman -Syu
-
-    # Install packages
-    sudo pacman -S git htop tmux wget tig tree ripgrep fzf fd lsd ranger w3m bat neofetch imagemagick xclip numlockx
+    # Install git
+    sudo pacman -S git
 
     # Download and install yay
     mkdir Downloads && \
@@ -17,7 +14,167 @@
     cd yay && \
     makepkg -si
 
-### Install shell
+## Setup window manager
+
+| Package                                             | Description                                                                                  |
+| --------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| [Xorg](https://www.x.org/wiki/)                     | Xorg (commonly referred to as simply X) is the most popular display server among Linux users |
+| [Alacritty](https://github.com/alacritty/alacritty) | A cross-platform, GPU-accelerated terminal emulator.                                         |
+| [Picom](https://github.com/yshui/picom)             | A lightweight compositor for X11.                                                            |
+| [Awesomewm](https://awesomewm.org/)                 | A highly configurable, next generation framework window manager for X.                       |
+| [Slock](https://tools.suckless.org/slock)           | A simple screen locker for X.                                                                |
+| [I3wm](https://i3wm.org/)                           | A tiling window manager, completely written from scratch.                                    |
+| [Dunst](https://github.com/dunst-project/dunst)     | A highly configurable and lightweight notification daemon.                                   |
+
+    # X system, compositor and terminal
+    yay -S xorg picom alacritty
+
+    # Install Awesomewm
+    yay -S awesome-git slock
+
+    # Install I3wm
+    yay -S i3 perl-anyevent-i3 dunst
+
+## Setup display manager
+
+| Package                                                               | Description                                     |
+| --------------------------------------------------------------------- | ----------------------------------------------- |
+| [LightDM](https://github.com/canonical/lightdm)                       | Very light and fast display manager.            |
+| [LightDM GTK Greeter](https://github.com/Xubuntu/lightdm-gtk-greeter) | A greeter that has moderate requirements (GTK). |
+
+    # Install lightdm
+    yay -S lightdm lightdm-gtk-greeter
+
+    # Enable lightdm
+    sudo systemctl enable lightdm
+
+    # Copy config for lightdm-gtk-greeter
+    sudo cp .dotfiles/.config/lightdm/lightdm-gtk-greeter.conf /etc/lightdm/
+
+## Setup video driver
+
+Identify the graphics card (the Subsystem output shows the specific model).
+
+    lspci -v | grep -A1 -e VGA -e 3D
+
+Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installation) for correct video drivers installation.
+
+    # Example with NVIDIA
+    yay -S nvidia nvidia-settings
+
+    # (re-)generate all existing presets
+    sudo mkinitcpio -P
+
+## Setup sound driver
+
+| Package                                                                 | Description                                                                                                                                                                                        |
+| ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [PipeWire](https://gitlab.freedesktop.org/pipewire/pipewire)            | A new low-level multimedia framework. It aims to offer capture and playback for both audio and video with minimal latency and support for PulseAudio, JACK, ALSA and GStreamer-based applications. |
+| [pavucontrol](https://freedesktop.org/software/pulseaudio/pavucontrol/) | PulseAudio Volume Control.                                                                                                                                                                         |
+
+    # Install pipewire
+    yay -S pipewire wireplumber pipewire-audio pipewire-alsa pipewire-pulse pipewire-jack pavucontrol
+
+    # Enable pipewire’s services
+    systemctl --user enable pipewire pipewire-pulse
+
+## Restart system and login again
+
+## Clone .dotfiles repository and setup
+
+    # Clone .dotfiles
+    cd ~ && git clone https://github.com/HoNamDuong/.dotfiles.git
+
+    # Run install
+    cd ~/.dotfiles
+    ./install
+
+    # Create file config
+    mkdir -p .config/git
+    touch ~/.config/git/config
+
+    # Optional
+    git config --global credential.helper "store --file ~/.config/git/.git-credentials"
+    git config --global core.autocrlf false
+    git config --global user.email "example@domain.com"
+    git config --global user.name "username"
+
+## Install theme, icon, cursor, font and tools
+
+| Package                                                                            | Description                                                                   |
+| ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| [LXAppearance](https://github.com/lxde/lxappearance)                               | Feature-rich GTK+ theme switcher of the LXDE Desktop.                         |
+| [Qt5ct](https://sourceforge.net/projects/qt5ct/)                                   | Qt5 Configuration Utility.                                                    |
+| [Skeuos theme](https://aur.archlinux.org/packages/skeuos-gtk)                      | Light and Dark window themes based on a Skeuomorphic design.                  |
+| [Papirus icon theme](https://archlinux.org/packages/extra/any/papirus-icon-theme/) | Papirus icon theme.                                                           |
+| [Vimix cursors](https://aur.archlinux.org/packages/vimix-cursors)                  | An X Cursor theme inspired by Material design and based on capitaine-cursors. |
+
+    # Application for Qt and Gtk
+    yay -S lxappearance qt5ct
+
+    # Install theme, icon, cursors
+    yay -S  skeuos-gtk papirus-icon-theme vimix-cursors
+
+    # Install font
+    yay -S noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
+    yay -S ttf-hack-nerd ttf-roboto-mono-nerd
+
+## Install package and applications
+
+| Package (GUI)                                                                   | Description                                                                                                        |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| [ARandR](https://github.com/haad/arandr)                                        | ARandR is designed to provide a simple visual front end for XRandR.                                                |
+| [Nitrogen](https://github.com/l3ib/nitrogen)                                    | Background browser and setter for X windows.                                                                       |
+| [Network Manager Applet](https://gitlab.gnome.org/GNOME/network-manager-applet) | Tray applet and an advanced network connection editor.                                                             |
+| [Rofi](https://github.com/davatorium/rofi)                                      | A window switcher, application launcher and dmenu replacement.                                                     |
+| [IBus Bamboo](https://github.com/BambooEngine/ibus-bamboo)                      | Next Generation Input Bus for Linux.                                                                               |
+| [Viewnior](https://siyanpanayotov.com/project/viewnior)                         | Fast and elegant image viewer.                                                                                     |
+| [Mpv](https://mpv.io/)                                                          | A free, open source, and cross-platform media player.                                                              |
+| [Spotify](https://www.spotify.com/)                                             | A proprietary music streaming service                                                                              |
+| [Zathura](https://pwmt.org/projects/zathura/)                                   | A highly customizable and functional document viewer.                                                              |
+| [Google Chrome](https://www.google.com/chrome)                                  | The popular web browser by Google (Stable Channel)                                                                 |
+| [Thunderbird](https://www.thunderbird.net/)                                     | Thunderbird is a free email application that's easy to set up and customize - and it's loaded with great features. |
+| [Qalculate](https://qalculate.github.io/)                                       | The ultimate desktop calculator.                                                                                   |
+| [Magnifiqus](https://github.com/redtide/magnifiqus)                             | Qt based screen magnifier.                                                                                         |
+| [Screenkey](https://www.thregr.org/~wavexx/software/screenkey/)                 | A screencast tool to display your keys inspired by Screenflick.                                                    |
+
+| Package (CLI)                                                       | Description                                                                                    |
+| ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| [tmux](https://github.com/tmux/tmux)                                | A terminal multiplexer.                                                                        |
+| [tig](https://github.com/jonas/tig)                                 | Text-mode interface for Git.                                                                   |
+| [bat](https://github.com/sharkdp/bat)                               | Cat clone with syntax highlighting and git integration                                         |
+| [lsd](https://github.com/Peltoche/lsd)                              | GNU ls with lots of added features like colors, icons, tree-view, more formatting options etc. |
+| [ranger](https://github.com/ranger/ranger)                          | Ranger is a console file manager with VI key bindings.                                         |
+| [fzf](https://github.com/junegunn/fzf)                              | A command-line fuzzy finder.                                                                   |
+| [playerctl](https://github.com/altdesktop/playerctl)                | For true players only: vlc, mpv, RhythmBox, web browsers, cmus, mpd, spotify and others.       |
+| [xclip](https://github.com/astrand/xclip)                           | Command line interface to the X11 clipboard                                                    |
+| [numlockx](https://github.com/rg3/numlockx)                         | Turns on the numlock key in X11.                                                               |
+| [scrot](https://github.com/resurrecting-open-source-projects/scrot) | Command line screen capture utility.                                                           |
+| [btop](https://github.com/aristocratos/btop)                        | A monitor of system resources, bpytop ported to C++.                                           |
+| [neofetch](https://github.com/dylanaraps/neofetch)                  | A command-line system information tool written in bash 3.2+                                    |
+| [cava](https://github.com/karlstav/cava)                            | Cross-platform Audio Visualizer.                                                               |
+| [cmatrix](https://github.com/abishekvashok/cmatrix)                 | Matrix like effect in your terminal.                                                           |
+| [pipes.sh](https://github.com/pipeseroni/pipes.sh)                  | Animated pipes terminal screensaver.                                                           |
+
+    yay -S \
+    tmux tig lsd fzf bat ripgrep fd wget \
+    ranger-git w3m imagemagick \
+    btop htop cmatrix cava pipes.sh neofetch \
+    xdg-user-dirs xclip numlockx scrot playerctl \
+    gnome-keyring polkit-gnome \ 
+    rofi arandr network-manager-applet \
+    viewnior nitrogen qalculate-gtk magnifiqus screenkey \
+    mpv yt-dlp mpv-mpris \
+    spotify zenity ffmpeg4.4 \
+    zathura zathura-pdf-mupdf \
+    google-chrome discord telegram-desktop thunderbird \
+    visual-studio-code-bin postman-bin dbeaver
+
+## Setup shell
+
+| Package                                 | Description                                                                              |
+| --------------------------------------- | ---------------------------------------------------------------------------------------- |
+| [zsh](https://github.com/zsh-users/zsh) | A shell designed for interactive use, although it is also a powerful scripting language. |
 
     # Install zsh
     yay -S zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions zsh-autopair-git zsh-z-git
@@ -25,163 +182,33 @@
     # Set zsh as default shell
     chsh -s $(which zsh)
 
-### Install window manager
+## Setup text editor
 
-    sudo pacman -S xorg xorg-xinit alacritty rofi picom conky i3lock
+| Package                                  | Description                            |
+| ---------------------------------------- | -------------------------------------- |
+| [nvim](https://github.com/neovim/neovim) | Hyperextensible Vim-based text editor. |
 
-    # Install I3wm
-    sudo pacman -S i3 perl-anyevent-i3 dunst dmenu
+    # Deployment and management
+    yay -S nodejs npm yarn luarocks
 
-    # Or install Awesomewm
-    yay -S awesome-git pamixer
-
-### Install display manager
-
-[lightdm](https://github.com/canonical/lightdm) is very light and fast display manager.
-
-    sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
-
-Change theme and background color in file:
-
-    /etc/lightdm/lightdm-gtk-greeter.conf
-
-    # Copy config for lightdm-gtk-greeter
-    sudo cp .dotfiles/.config/lightdm/lightdm-gtk-greeter.conf /etc/lightdm/
-
-Start lightdm
-
-    sudo systemctl enable lightdm && \
-    sudo systemctl start lightdm
-
-### Install video drivers
-
-Note: your video card may be different and you may need to install different video drivers, please consult Archlinux Wiki for correct video drivers installation
-
-Find your video card
-
-    lspci | grep -e VGA -e 3D
-
-The first step is to disable Intel Integrated Graphics Controller
-
-    echo "install i915 /bin/false" | sudo tee --append /etc/modprobe.d/blacklist.conf && \
-    cat /etc/modprobe.d/blacklist.conf
-
-    sudo pacman -S nvidia nvidia-settings vdpauinfo
-    sudo pacman -S libva-utils libva-vdpau-driver
-
-Remove `kms` from the HOOKS array in `/etc/mkinitcpio.conf` and regenerate the initramfs. This will prevent the initramfs from containing the nouveau module making sure the kernel cannot load it during early boot.
-
-    sudo mkinitcpio -P
-
-Note: Nvidia non open source drivers may conflict with `nouveau` OS drivers and in below case to make drivers work I needed to blacklist nouveau drivers
-
-    cat /usr/lib/modprobe.d/nvidia-utils.conf
-    blacklist nouveau
-
-### Install sound drivers and tools
-
-    sudo pacman -S alsa-utils alsa-plugins pavucontrol pipewire-pulse
-    sudo systemctl --user enable pipewire-pulse.service
-
-### Creating default directories
-
-    sudo pacman -S xdg-user-dirs
-    xdg-user-dirs-update --force
-
-### Run
-
-Log out of your system and log in again.
-
-### Clone .dotfiles and setup
-
-    # Clone .dotfiles
-    cd ~ && git clone https://github.com/HoNamDuong/.dotfiles.git
-
-    # Run install.sh
-    cd ~/.dotfiles
-    ./install
-
-    # Config git
-    mkdir -p .config/git
-    touch ~/.config/git/config
-    git config --global credential.helper "store --file ~/.config/git/.git-credentials"
-    git config --global core.autocrlf false
-    git config --global user.email "example@domain.com"
-    git config --global user.name "username"
-
-### Install theme, icon, cursor and font
-
-[Skeuos theme](https://aur.archlinux.org/packages/skeuos-gtk)
-
-[Papirus icon theme](https://archlinux.org/packages/extra/any/papirus-icon-theme/)
-
-[Vimix cursors](https://aur.archlinux.org/packages/vimix-cursors)
-
-    # Application for Qt and Gtk
-    sudo pacman -S lxappearance qt5ct
-
-    # Install theme
-    yay -S  skeuos-gtk papirus-icon-theme vimix-cursors
-
-    # Install font
-    sudo pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
-    sudo pacman -S ttf-hack-nerd ttf-roboto-mono
-
-### Install Node.js, npm and yarn
-
-    # Install Node.js and npm
-    sudo pacman -S nodejs npm
-
-    # Install yarn
-    sudo npm install --global yarn
-
-    # Verify the version of Node.js , npm and yarn
-    node -v
-    npm -v
-    yarn -v
-
-### Install Neovim
-
-    # Deployment and management system for Lua modules
-    sudo pacman -S luarocks
-
-    # Install Neovim
-    sudo pacman -S neovim
-
-    # Install yarn
-    sudo npm install --global neovim
+    # Install
+    yay -S neovim
 
     # Check version of Neovim
     nvim -v
 
-### Install applications (Optional)
+## Setup file manager
 
-    yay -S \
-    gnome-keyring polkit-gnome \
-    viewnior nitrogen qalculate-gtk arandr scrot \
-    discord telegram-desktop thunderbird \
-    mpv yt-dlp mpv-mpris \
-    mpd mpc ncmpcpp mpd-mpris playerctl \
-    spotify-launcher zenity ffmpeg4.4 \
-    zathura zathura-pdf-mupdf \
-    google-chrome visual-studio-code-bin postman-bin dbeaver \
-    cmatrix cava pipes.sh
+| Package                                   | Description               |
+| ----------------------------------------- | ------------------------- |
+| [Nemo](https://github.com/linuxmint/nemo) | Nemo is the file manager. |
 
-Install [iBus](https://github.com/BambooEngine/ibus-bamboo) - Input framework for Linux OS.
-
-### File manager
-
-    sudo pacman -S nemo nemo-fileroller nemo-mediainfo-tab ntfs-3g gvfs-mtp gvfs-gphoto2
+    # Install
+    yay -S nemo nemo-fileroller nemo-mediainfo-tab ntfs-3g gvfs-mtp gvfs-gphoto2
 
 Set Nemo as default file browser
 
     xdg-mime default nemo.desktop inode/directory
-
-Change the default terminal emulator for Nemo
-
-    gsettings set org.cinnamon.desktop.default-applications.terminal exec alacritty
-
-    gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg -e
 
 Fix open file in a terminal
 
@@ -191,11 +218,16 @@ Fix open file in a terminal
     # Remove
     rm ~/.local/bin/xterm
 
-### Setup printer and scanner
+## Setup printer and scanner
+
+| Package                                                                        | Description                                          |
+| ------------------------------------------------------------------------------ | ---------------------------------------------------- |
+| [system-config-printer](https://github.com/OpenPrinting/system-config-printer) | A CUPS printer configuration tool and status applet. |
+| [simple-scan](https://gitlab.gnome.org/GNOME/simple-scan)                      | Simple scanning utility.                             |
 
 #### Printer
 
-    sudo pacman -S cups system-config-printer
+    yay -S cups system-config-printer
 
 After installing these `enable` and `start` the cups.service in systemd.
 
@@ -206,64 +238,24 @@ Add user to the group `lg`:
 
     sudo usermod -aG lp $USER
 
-Search and install driver for your printer [here](https://wiki.archlinux.org/title/CUPS/Printer-specific_problems)
+Search and install driver for your printer [here](https://wiki.archlinux.org/title/CUPS/Printer-specific_problems).
 
 #### Scanner
 
-    sudo pacman -S sane simple-scan
+    yay -S sane simple-scan
 
 Check if the scanner is detected with correct driver installed.
 
     scanimage -L
 
-### Install docker
+## Setup crontab
 
-    sudo pacman -S docker docker-compose
-
-    # Start its Daemon using the systemctl command as shown below
-    sudo systemctl start docker.service
-
-    # Verify that Docker is running using the status option
-    sudo systemctl status docker.service
-
-    # Enable docker service
-    sudo systemctl enable docker.service
-
-    # Add the current user account to the Docker group using the following command
-    sudo usermod -aG docker $USER
-
-### Install [colorscript](../.config/colorscript/README.md)
+| Package                                           | Description                                                               |
+| ------------------------------------------------- | ------------------------------------------------------------------------- |
+| [cronie](https://github.com/cronie-crond/cronie/) | Daemon that runs specified programs at scheduled times and related tools. |
 
     # Install
-    cd ~/.dotfiles/.config/colorscript
-    sudo make install
-
-    # Removal
-    sudo make uninstall
-
-### Enable dark mode for google-chrome
-
-    touch ~/.config/chrome-flags.conf
-    # Add into file
-    --force-dark-mode
-    --enable-features=WebUIDarkMode
-
-    # Or command
-    sudo sed -i '/^Exec=/s/$/ --force-dark-mode --enable-features=WebUIDarkMode/' /usr/share/applications/google-chrome.desktop
-
-### Optional add nice color to pacman output
-
-The final touch is to add some color to the package manager
-
-    sudo sed -i -e 's/#Color/Color/g' /etc/pacman.conf && \
-    sudo sed -i -e 's/#VerbosePkgLists/VerbosePkgLists/g' /etc/pacman.conf && \
-    grep "Color" /etc/pacman.conf
-    grep "VerbosePkgLists" /etc/pacman.conf
-
-### Crontab setup
-
-    # Install
-    sudo pacman -S cronie
+    yay -S cronie
 
     # Enable
     sudo systemctl enable --now cronie.service
@@ -280,5 +272,43 @@ The final touch is to add some color to the package manager
     |  |  |  |  |
     *  *  *  *  * user-name  command to be executed
 
-    # Example job random wallpaper
+    # Example job randomize wallpaper
     */10 * * * * export DISPLAY=:0.0 && /bin/date && /usr/bin/nitrogen --set-zoom-fill --random --save &> /dev/null
+
+## Setup docker
+
+| Package                           | Description                                                    |
+| --------------------------------- | -------------------------------------------------------------- |
+| [docker](https://www.docker.com/) | Pack, ship and run any application as a lightweight container. |
+
+    # Install packages
+    yay -S docker docker-compose
+
+    # Start its Daemon using the systemctl command as shown below
+    sudo systemctl start docker.service
+
+    # Verify that Docker is running using the status option
+    sudo systemctl status docker.service
+
+    # Enable docker service
+    sudo systemctl enable docker.service
+
+    # Add the current user account to the Docker group using the following command
+    sudo usermod -aG docker $USER
+
+## Enable dark mode for google-chrome
+
+    # Create flags file
+    touch ~/.config/chrome-flags.conf
+
+    # Add into file
+    --force-dark-mode
+    --enable-features=WebUIDarkMode
+
+## Optional pacman output
+
+    # Automatically enable colors only when pacman’s output is on a tty
+    sudo sed -i -e 's/#Color/Color/g' /etc/pacman.conf
+
+    # Displays name, version and size of target packages formatted as a table for upgrade, sync and remove operations
+    sudo sed -i -e 's/#VerbosePkgLists/VerbosePkgLists/g' /etc/pacman.conf
