@@ -23,7 +23,7 @@ config.actions = {
     screenshot_window = "scrot --focused --border --exec 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'",
     screenshot_delay = "scrot --delay 5 --exec 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'",
     -- other
-    random_wallpaper = "nitrogen --random --set-zoom-fill --save",
+    randomize_wallpaper = "nitrogen --random --set-zoom-fill --save",
 }
 
 config.keys = {

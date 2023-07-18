@@ -44,7 +44,5 @@ numlockx &
 ibus-daemon --xim -d -r &
 # Authentication
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-# Display 
-conky -c ~/.config/conky/time.conf &> /dev/null &
-# # Compositor
-# picom -b &
+# Compositor
+picom -b &

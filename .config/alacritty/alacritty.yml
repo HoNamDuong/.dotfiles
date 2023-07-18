@@ -1,32 +1,38 @@
+# Environment variables
 env:
   TERM: xterm-256color
 
+# Window config
 window:
+  # Window decorations
   decorations: full
-  # opacity: 0.95
 
   # Allow terminal applications to change Alacritty's window title.
   dynamic_title: true
 
+  # # Background opacity
+  # opacity: 0.95
+
+# Font configuration
 font:
+  # The normal (roman) font face to use.
   normal:
     family: Hack Nerd Font Mono
 
+  # Point size of the font
   size: 13
-  builtin_box_drawing: true
 
-# If `true`, bold text is drawn using the bright color variants.
+# When true, bold text is drawn using the bright variant of colors.
 draw_bold_text_with_bright_colors: true
 
+# Schemes 
 schemes:
   # Tokyonight theme
   Tokyonight: &Tokyonight 
-    # Default colors
     primary:
       background: "#1a1b26"
       foreground: "#c0caf5"
 
-    # Normal colors
     normal:
       black: "#1a1b26"
       red: "#f7768e"
@@ -37,7 +43,6 @@ schemes:
       cyan: "#7dcfff"
       white: "#a9b1d6"
 
-    # Bright colors
     bright:
       black: "#414868"
       red: "#f7768e"
@@ -50,12 +55,10 @@ schemes:
 
   # Hybrid theme
   Hybrid: &Hybrid 
-    # Default colors
     primary:
       background: "#1d1f21"
       foreground: "#c5c8c6"
 
-    # Normal colors
     normal:
       black: "#1d1f21"
       red: "#cc6666"
@@ -66,7 +69,6 @@ schemes:
       cyan: "#8abeb7"
       white: "#c5c8c6"
 
-    # Bright colors
     bright:
       black: "#373B41"
       red: "#d54e53"
@@ -77,12 +79,17 @@ schemes:
       cyan: "#70c0b1"
       white: "#eaeaea"
 
+# Colors
 # colors: *Tokyonight
 colors: *Hybrid
 
-# Live config reload (changes require restart)
-live_config_reload: true
+# Key bindings
+key_bindings:
+  - { key: Space, mods: Control, chars: "\x00" }
+  - { key: Back, mods: Control, chars: "\u0017" }
+  - { key: Return, mods: Control|Shift, action: SpawnNewInstance }
 
+# Selection
 selection:
   # This string contains all characters that are used as separators for
   # "semantic words" in Alacritty.
@@ -91,7 +98,5 @@ selection:
   # When set to `true`, selected text will be copied to the primary clipboard.
   save_to_clipboard: true
 
-key_bindings:
-  - { key: Space, mods: Control, chars: "\x00" }
-  - { key: Back, mods: Control, chars: "\u0017" }
-  - { key: Return, mods: Control|Shift, action: SpawnNewInstance }
+# Live config reload
+live_config_reload: true
