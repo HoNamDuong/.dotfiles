@@ -57,7 +57,6 @@ set default-fg                  "#eaeaea"
 set recolor-lightcolor          "#1d1f21"
 set recolor-darkcolor           "#eaeaea"
 
-
 # Font
 set font                        "monospace normal 12"
 

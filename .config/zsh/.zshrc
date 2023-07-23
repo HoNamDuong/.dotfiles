@@ -196,15 +196,8 @@ else
     alias lls='ls -l'
     alias la='ls -a'
     alias lla='ls -al'
-    alias tree='tree -a -F --dirsfirst -I ".git"'
 fi
 
 if [ -f /usr/bin/bat ]; then
     alias bat='bat --paging=never --wrap=auto'
-    alias cat='bat'
-fi
-
-# Random color script
-if [ -f /usr/local/bin/colorscript ]; then
-    colorscript random
 fi

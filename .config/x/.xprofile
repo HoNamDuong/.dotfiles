@@ -1,10 +1,3 @@
-# Monitor config
-# xrandr --output HDMI-0 --primary --mode 1600x900
-[ -f ~/.screenlayout/default.sh ] && . ~/.screenlayout/default.sh &
-
-# Set a delay of 500ms and a rate of 40Hz
-xset r rate 500 40
-
 # Adds ~/.local/bin and its subdirectories to $PATH
 export PATH="${PATH}:${HOME}/.local/bin"
 
@@ -18,7 +11,7 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export EDITOR="nvim"
 export VISUAL="nvim"
 export TERMINAL="alacritty"
-# export BROWSER="google-chrome-stable"
+export BROWSER="google-chrome-stable"
 
 # Ibus
 export GTK_IM_MODULE="ibus"
@@ -32,17 +25,24 @@ export ZSHZ_DATA="$HOME/.cache/zsh/.z"
 export BAT_THEME="base16"
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
 
+# Monitor config
+[ -f ~/.screenlayout/default.sh ] && . ~/.screenlayout/default.sh &
+# Set a delay of 500ms and a rate of 40Hz
+[ -f /usr/bin/xset ] && xset r rate 500 40
+# Lock the screen 5 minutes later
+[ -f /usr/bin/xset ] && xset s 300 300
+[ -f /usr/bin/xss-lock ] && xss-lock /usr/bin/slock &
 # Network Manager Applet
-nm-applet &
+[ -f /usr/bin/nm-applet ] && nm-applet &
 # Set wallpaper
-nitrogen --random --set-zoom-fill --save &> /dev/null &
+[ -f /usr/bin/nitrogen ] && nitrogen --random --set-zoom-fill --save &> /dev/null &
 # Load config nvidia-settings
-nvidia-settings --load-config-only &
+[ -f /usr/bin/nvidia-settings ] && nvidia-settings --load-config-only &
 # Enable numlock
-numlockx &
-# Ibus
-ibus-daemon --xim -d -r &
+[ -f /usr/bin/numlockx ] && numlockx &
+# Ibus Daemon
+[ -f /usr/bin/ibus-daemon ] && ibus-daemon --xim -d -r &
 # Authentication
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+[ -f /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 ] && /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 # Compositor
-picom -b &
+[ -f /usr/bin/picom ] && picom -b &

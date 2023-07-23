@@ -20,7 +20,7 @@ window {
     fullscreen:                  false;
     width:                       602px;
     x-offset:                    0px;
-    y-offset:                    30px;
+    y-offset:                    36px;
     cursor:                      "default";
     background-color:            @background;
 }

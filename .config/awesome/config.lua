@@ -3,10 +3,10 @@ local config = {}
 config.apps = {
     terminal = os.getenv("TERMINAL"),
     editor = os.getenv("TERMINAL") .. " -e " .. os.getenv("EDITOR"),
-    music = "spotify-launcher",
     browser = "google-chrome-stable",
-    launcher = "launchers",
-    run = "launchers run",
+    music = "spotify",
+    launcher = "launcher",
+    run = "run",
     powermenu = "powermenu",
 }
 
@@ -16,7 +16,7 @@ config.actions = {
     restart = "systemctl reboot",
     sleep = "systemctl suspend",
     logout = "loginctl kill-session ''",
-    lock = "i3lock --no-unlock-indicator --pointer=default --color '000000'",
+    lock = "loginctl lock-session",
     -- screenshot
     screenshot = "scrot --multidisp --exec 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'",
     screenshot_area = "scrot --select --freeze --exec 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'",

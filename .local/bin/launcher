@@ -1,0 +1,31 @@
+#!/usr/bin/bash
+
+if [ -f /usr/bin/rofi ]; then
+    theme="$HOME/.config/rofi/themes/launcher.rasi"
+    rofi \
+        -show drun \
+        -theme "$theme"
+elif [ -f /usr/bin/i3-dmenu-desktop ]; then
+    # i3-dmenu-desktop \
+    #     --dmenu="dmenu \
+    #         -i \
+    #         -p 'Applications' \
+    #         -fn 'monospace-12' \
+    #         -nf '#c8d3f5' \
+    #         -nb '#1a1b26' \
+    #         -sf '#c8d3f5' \
+    #         -sb '#3b4261' \
+    #         "
+    i3-dmenu-desktop \
+        --dmenu="dmenu \
+            -i \
+            -p 'Applications' \
+            -fn 'monospace-12' \
+            -nf '#c5c8c6' \
+            -nb '#1d1f21' \
+            -sf '#c5c8c6' \
+            -sb '#373B41' \
+            "
+else 
+    exit 0
+fi

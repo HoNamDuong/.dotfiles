@@ -17,4 +17,4 @@ configuration {
     me-accept-entry:            [ MousePrimary, MouseSecondary, MouseDPrimary ];
 }
 
-@theme "~/.config/rofi/themes/launchers.rasi"
+@theme "~/.config/rofi/themes/launcher.rasi"

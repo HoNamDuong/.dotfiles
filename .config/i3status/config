@@ -17,8 +17,8 @@ order += "memory"
 order += "tztime local"
 
 volume master {
-    format = "<span foreground='#bb9af7'> </span>%volume"
-    format_muted = "婢 muted"
+    format = "<span foreground='#bb9af7'>󰕾 </span>%volume"
+    format_muted = "󰖁 muted"
     device = "default"
     mixer = "Master"
     mixer_idx = 0

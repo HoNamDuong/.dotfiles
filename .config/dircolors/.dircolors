@@ -174,7 +174,7 @@ LINK 35
 
 # pipe, socket, block device, character device (blue bg)
 FIFO 30;44
-SOCK 35;44
+SOCK 35;
 DOOR 35;44 # Solaris 2.5 and later
 BLK  33;44
 CHR  37;44

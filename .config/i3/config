@@ -207,9 +207,10 @@ bindsym $mod+Shift+w exec --no-startup-id i3-msg rename workspace to $(dmenu -l 
 
 # Shortcut applications
 # Screenshot
-bindsym Print --release exec --no-startup-id gnome-screenshot
-bindsym Ctrl+Print --release exec --no-startup-id gnome-screenshot -w
-bindsym Shift+Print --release exec --no-startup-id gnome-screenshot -a
+bindsym Print --release exec --no-startup-id scrot --multidisp --exec 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'
+bindsym $mod+Print --release exec --no-startup-id scrot --delay 5 --exec 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f' 
+bindsym Ctrl+Print --release exec --no-startup-id scrot --focused --border --exec 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'
+bindsym Shift+Print --release exec --no-startup-id scrot --select --freeze --exec 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'
 # Open terminal
 bindsym $mod+Return split h exec --no-startup-id i3-sensible-terminal
 bindsym $mod+Shift+Return split v exec --no-startup-id i3-sensible-terminal
@@ -219,16 +220,12 @@ bindsym $mod+n exec --no-startup-id dunstctl history-pop
 bindsym $mod+Shift+n exec --no-startup-id dunstctl close-all
 
 # Open launcher
-bindcode 133 --release exec --no-startup-id ~/.local/bin/launchers 
-# bindsym $mod+p --release exec --no-startup-id ~/.local/bin/launchers 
+bindcode 133 --release exec --no-startup-id ~/.local/bin/launcher 
 
-# Command
-bindsym $mod++p exec --no-startup-id ~/.local/bin/launchers run  
+# Open run
+bindsym $mod++p exec --no-startup-id ~/.local/bin/run  
 
-# Switching window with Alt+Tab 
-bindsym $alt+Tab exec --no-startup-id ~/.local/bin/launchers window 
-
-# Build menu power with rofi
+# Open powermenu
 bindsym $mod+x exec --no-startup-id ~/.local/bin/powermenu
 
 # Define names for workspaces
@@ -343,8 +340,8 @@ bindsym $mod+r mode "RESIZE"
 
 # Shutdown, Reboot, Lock Screen, and Logout hibernate suspend
 mode "POWER" {
-    bindsym l exec --no-startup-id i3lock --no-unlock-indicator --pointer=default --color "000000", mode "default"
-    bindsym q exec --no-startup-id i3-msg exit, mode "default"
+    bindsym l --release exec loginctl lock-session, mode "default"  
+    bindsym q exec loginctl kill-session '' 
     bindsym r exec systemctl reboot 
     bindsym p exec systemctl poweroff
     bindsym s exec systemctl suspend

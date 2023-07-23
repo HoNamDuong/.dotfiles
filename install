@@ -64,8 +64,6 @@ do
         ln -sfvr $DIR/.config/dunst/ $HOME/.config/
         ### mpv 
         ln -sfvr $DIR/.config/mpv/ $HOME/.config/
-        ### Conky
-        ln -sfvr $DIR/.config/conky/ $HOME/.config/
         ### Zathura
         ln -sfvr $DIR/.config/zathura/ $HOME/.config/
         ;;
@@ -98,19 +96,6 @@ do
         ln -sfvr $DIR/.config/neofetch/ $HOME/.config/
         ### Cava 
         ln -sfvr $DIR/.config/cava/ $HOME/.config/
-        ### mpd and ncmpcpp 
-        # .cache/mpd
-        [ ! -d $HOME/.cache/mpd ] && mkdir -v $HOME/.cache/mpd
-        # .cache/mpd/playlists
-        [ ! -d $HOME/.cache/mpd/playlists ] && mkdir -v $HOME/.cache/mpd/playlists
-        # .config/mpd
-        ln -sfvr $DIR/.config/mpd/ $HOME/.config/
-        # .cache/ncmpcpp
-        [ ! -d $HOME/.cache/ncmpcpp ] && mkdir -v $HOME/.cache/ncmpcpp
-        # .cache/ncmpcpp/previews
-        [ ! -d $HOME/.cache/ncmpcpp/previews ] && mkdir -v $HOME/.cache/ncmpcpp/previews
-        # .config/ncmpcpp
-        ln -sfvr $DIR/.config/ncmpcpp/ $HOME/.config/
         ;;
     *)
         echo "Sorry, choice understand"
