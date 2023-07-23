@@ -8,15 +8,14 @@ This repository contains my personal Linux configuration files.
 
 Here are some details about my setup:
 
-| Task           | Name                                                |
-| -------------- | --------------------------------------------------- |
-| **Distro**     | Arch Linux                                          |
-| **WM**         | [Awesome](https://github.com/awesomeWM/awesome/)    |
-| **Compositor** | [Picom](https://github.com/yshui/picom)             |
-| **Launcher**   | [Rofi](https://github.com/davatorium/rofi/)         |
-| **Terminal**   | [Alacritty](https://github.com/alacritty/alacritty) |
-| **Shell**      | [Zsh](https://www.zsh.org/)                         |
-| **Editor**     | [Neovim](https://github.com/neovim/neovim/)         |
+|   **Distro**   |                     Arch Linux                      |
+| :------------: | :-------------------------------------------------: |
+|     **WM**     |  [Awesome](https://github.com/awesomeWM/awesome/)   |
+| **Compositor** |       [Picom](https://github.com/yshui/picom)       |
+|  **Launcher**  |     [Rofi](https://github.com/davatorium/rofi/)     |
+|  **Terminal**  | [Alacritty](https://github.com/alacritty/alacritty) |
+|   **Shell**    |             [Zsh](https://www.zsh.org/)             |
+|   **Editor**   |     [Neovim](https://github.com/neovim/neovim/)     |
 
 ## Gallery
 
@@ -25,6 +24,15 @@ Here are some details about my setup:
 <br>
 
 ![Screenshot](./screenshots/awesomewm.png)
+
+</details>
+<br>
+
+<details open>
+<summary>Powermenu</summary>
+<br>
+
+![Screenshot](./screenshots/powermenu.png)
 
 </details>
 <br>

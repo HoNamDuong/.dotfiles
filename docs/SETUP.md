@@ -21,19 +21,19 @@
 | [Xorg](https://www.x.org/wiki/)                     | Xorg (commonly referred to as simply X) is the most popular display server among Linux users |
 | [Alacritty](https://github.com/alacritty/alacritty) | A cross-platform, GPU-accelerated terminal emulator.                                         |
 | [Picom](https://github.com/yshui/picom)             | A lightweight compositor for X11.                                                            |
-| [Awesomewm](https://awesomewm.org/)                 | A highly configurable, next generation framework window manager for X.                       |
 | [Slock](https://tools.suckless.org/slock)           | A simple screen locker for X.                                                                |
+| [Xss-lock](https://tools.suckless.org/slock)        | Use external locker as X screen saver.                                                       |
+| [Awesomewm](https://awesomewm.org/)                 | A highly configurable, next generation framework window manager for X.                       |
 | [I3wm](https://i3wm.org/)                           | A tiling window manager, completely written from scratch.                                    |
-| [Dunst](https://github.com/dunst-project/dunst)     | A highly configurable and lightweight notification daemon.                                   |
 
-    # X system, compositor and terminal
-    yay -S xorg picom alacritty
+    # X system, compositor, terminal and screen locker
+    yay -S xorg picom alacritty slock xss-lock
 
     # Install Awesomewm
-    yay -S awesome-git slock
+    yay -S awesome-git
 
     # Install I3wm
-    yay -S i3 perl-anyevent-i3 dunst
+    yay -S i3 perl-anyevent-i3 dunst dmenu
 
 ## Setup display manager
 
@@ -161,7 +161,7 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
     ranger-git w3m imagemagick \
     btop htop cmatrix cava pipes.sh neofetch \
     xdg-user-dirs xclip numlockx scrot playerctl \
-    gnome-keyring polkit-gnome \ 
+    gnome-keyring polkit-gnome \
     rofi arandr network-manager-applet \
     viewnior nitrogen qalculate-gtk magnifiqus screenkey \
     mpv yt-dlp mpv-mpris \
