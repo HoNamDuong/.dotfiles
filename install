@@ -71,8 +71,6 @@ do
         ### bin 
         ln -sfvr $DIR/.local/bin/ $HOME/.local/
         ### Zsh
-        # .cache/zsh
-        [ ! -d $HOME/.cache/zsh ] && mkdir -v $HOME/.cache/zsh
         ln -sfvr $DIR/.config/zsh/ $HOME/.config/
         ### Tmux
         ln -sfvr $DIR/.config/tmux/ $HOME/.config/

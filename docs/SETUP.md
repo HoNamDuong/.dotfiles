@@ -177,7 +177,7 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
 | [zsh](https://github.com/zsh-users/zsh) | A shell designed for interactive use, although it is also a powerful scripting language. |
 
     # Install zsh
-    yay -S zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions zsh-autopair-git zsh-z-git
+    yay -S zsh zsh-autosuggestions-git zsh-syntax-highlighting-git zsh-completions-git zsh-autopair-git
 
     # Set zsh as default shell
     chsh -s $(which zsh)
