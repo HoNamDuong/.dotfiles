@@ -48,8 +48,8 @@ HISTFILE=~/.cache/zsh/.zsh_history
 autoload -Uz vcs_info
 precmd () { vcs_info }
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' formats        '%F{blue}[%F{yellow}%s%F{magenta}%b%F{green}%c%F{red}%u%F{blue}]%f '
-zstyle ':vcs_info:*' actionformats  '%F{blue}[%F{yellow}%s%F{magenta}%b%F{green}%c%F{red}%u%F{cyan}%a%F{blue}]%f '
+zstyle ':vcs_info:*' formats        '%F{blue}[%F{yellow}%s %F{magenta}%b %F{green}%c%F{red}%u%F{blue}]%f '
+zstyle ':vcs_info:*' actionformats  '%F{blue}[%F{yellow}%s %F{magenta}%b %F{green}%c%F{red}%u%F{cyan}%a%F{blue}]%f '
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 zstyle ':vcs_info:*' enable git 
 +vi-git-untracked() {

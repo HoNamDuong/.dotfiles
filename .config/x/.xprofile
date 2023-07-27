@@ -21,7 +21,6 @@ export XMODIFIERS="@im=ibus"
 # Other
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export ZDOTDIR="$HOME/.config/zsh"
-export ZSHZ_DATA="$HOME/.cache/zsh/.z" 
 export BAT_THEME="base16"
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
 
@@ -30,7 +29,7 @@ export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
 # Set a delay of 500ms and a rate of 40Hz
 [ -f /usr/bin/xset ] && xset r rate 500 40
 # Lock the screen 5 minutes later
-[ -f /usr/bin/xset ] && xset s 300 300
+[ -f /usr/bin/xset ] && xset s 600 600
 [ -f /usr/bin/xss-lock ] && xss-lock /usr/bin/slock &
 # Network Manager Applet
 [ -f /usr/bin/nm-applet ] && nm-applet &
