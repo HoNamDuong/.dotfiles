@@ -168,7 +168,8 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
     spotify zenity ffmpeg4.4 \
     zathura zathura-pdf-mupdf \
     google-chrome discord telegram-desktop thunderbird \
-    visual-studio-code-bin postman-bin dbeaver
+    visual-studio-code-bin postman-bin dbeaver \
+    minecraft-launcher
 
 ## Setup shell
 
@@ -209,6 +210,11 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
 Set Nemo as default file browser
 
     xdg-mime default nemo.desktop inode/directory
+
+Change the default terminal emulator for Nemo
+
+    gsettings set org.cinnamon.desktop.default-applications.terminal exec alacritty
+    gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg -e
 
 Fix open file in a terminal
 
@@ -295,6 +301,18 @@ Check if the scanner is detected with correct driver installed.
 
     # Add the current user account to the Docker group using the following command
     sudo usermod -aG docker $USER
+
+## Setup VirtualBox
+
+| Package                               | Description                                                    |
+| ------------------------------------- | -------------------------------------------------------------- |
+| [virtualbox](https://virtualbox.org/) | Powerful x86 virtualization for enterprise as well as home use |
+
+    # Install packages
+    yay -S virtualbox 
+
+    # Add user to the vboxusers group
+    sudo gpasswd -a $USER vboxusers
 
 ## Enable dark mode for google-chrome
 

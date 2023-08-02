@@ -135,7 +135,7 @@ Update timezone (replace Region/City with your timezone):
 
 Sync system clock to hardware clock:
 
-    hwclock —-systohc --utc --localtime
+    hwclock --systohc
 
 ### Set language, location and hostname
 
@@ -206,7 +206,7 @@ Mount the boot partition (the one we created in windows, `nvme0n1p1` in my case)
     mkdir -p /boot/efi
     mount /dev/nvme0n1p1 /boot/efi
 
-    grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB --recheck --debug
+    grub-install --target=x86_64-efi --efi-directory=/boot/efi --recheck --debug
 
 This installs the grub on /boot which is mounted on `nvme0n1p1`, our boot partition
 
