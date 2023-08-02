@@ -11,7 +11,7 @@ local tags = {
         beautiful.files_icon,
         beautiful.document_icon,
         beautiful.media_icon,
-        beautiful.edit_icon,
+        beautiful.tools_icon,
         beautiful.chat_icon,
         beautiful.game_icon,
         beautiful.general_icon,

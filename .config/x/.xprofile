@@ -43,5 +43,5 @@ export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
 [ -f /usr/bin/ibus-daemon ] && ibus-daemon --xim -d -r &
 # Authentication
 [ -f /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 ] && /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-# Compositor
-[ -f /usr/bin/picom ] && picom -b &
+# # Compositor
+# [ -f /usr/bin/picom ] && picom -b &

@@ -25,18 +25,22 @@ local gpu = wibox.widget({
     layout = wibox.layout.fixed.horizontal,
 })
 
-gears.timer({
-    timeout = 2,
-    call_now = true,
-    autostart = true,
-    callback = function()
-        awful.spawn.easy_async({ "sh", "-c", "nvidia-smi --query-gpu=memory.used,temperature.gpu --format=csv,noheader" }, function(out)
-            local used, temperature = string.match(out, "^(.-)%, (.-)$")
+awful.spawn.easy_async("which nvidia-smi", function(stdout, stderr, reason, exit_code)
+    if exit_code == 0 then
+        gears.timer({
+            timeout = 2,
+            call_now = true,
+            autostart = true,
+            callback = function()
+                awful.spawn.easy_async({ "sh", "-c", "nvidia-smi --query-gpu=memory.used,temperature.gpu --format=csv,noheader" }, function(out)
+                    local used, temperature = string.match(out, "^(.-)%, (.-)$")
 
-            local text = used .. " " .. temperature .. "°C"
-            gpu:get_children_by_id("text_role")[1].text = string.gsub(text, "%\n", "")
-        end)
-    end,
-})
+                    local text = used .. " " .. temperature .. "°C"
+                    gpu:get_children_by_id("text_role")[1].text = string.gsub(text, "%\n", "")
+                end)
+            end,
+        })
+    end
+end)
 
 return gpu

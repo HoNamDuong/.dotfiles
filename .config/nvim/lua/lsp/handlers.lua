@@ -49,6 +49,9 @@ M.setup = function()
     })
 end
 
+vim.keymap.set("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", { desc = "Formats a buffer" })
+vim.keymap.set("v", "<leader>lf", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", { desc = "Formats selected text" })
+
 local function keymaps(bufnr)
     local keymap = vim.api.nvim_buf_set_keymap
 
@@ -66,8 +69,6 @@ local function keymaps(bufnr)
 
     keymap(bufnr, "n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Renames all references" })
     keymap(bufnr, "n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Renames all references" })
-    keymap(bufnr, "n", "<leader>lf", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", { desc = "Formats a buffer" })
-    keymap(bufnr, "v", "<leader>lf", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", { desc = "Formats selected text" })
     keymap(bufnr, "n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>", { desc = "Selects a code action available" })
     keymap(bufnr, "n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", { desc = "Displays signature information" })
     keymap(bufnr, "n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", { desc = "Add buffer diagnostics to the location list" })

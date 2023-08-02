@@ -44,9 +44,9 @@ screen.connect_signal("request::desktop_decoration", function(s)
                 layout = wibox.layout.align.horizontal,
             },
             { -- Right
-                -- thermal,
                 -- net,
                 -- fs,
+                -- thermal,
                 gpu,
                 memory,
                 cpu,

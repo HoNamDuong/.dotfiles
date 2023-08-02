@@ -233,9 +233,9 @@ set $ws1  "1:   Terminal "
 set $ws2  "2:   Code "
 set $ws3  "3:   Chromium "
 set $ws4  "4:   Files "
-set $ws5  "5:   Documents "
+set $ws5  "5:   Document "
 set $ws6  "6:   Media "
-set $ws7  "7:   Design "
+set $ws7  "7: 󱁤  Tools "
 set $ws8  "8:   Chat "
 set $ws9  "9:   Game "
 set $ws10 "0:   General "
@@ -269,15 +269,14 @@ bindsym $mod+Shift+0 move container to workspace number $ws10; workspace $ws10
 # SETTINGS WORKSPACES AND APPLICATIONS
 # Start applications on specific workspaces
 assign [instance="code"] $ws2
+assign [instance="google-chrome"] $ws3
 assign [instance="nemo"] $ws4
-assign [instance="(?i)dbeaver"] $ws5
-assign [instance="postman"] $ws5
-assign [class="mpv"] $ws6
-assign [instance="discord"] $ws8
-assign [instance="telegram"] $ws8
-assign [class="thunderbird"] $ws8
+assign [instance="zathura"] $ws5
+assign [class="mpv|(?i)spotify"] $ws6
+assign [instance="(?i)dbeaver|postman|(?i)virtualbox|simple-scan"] $ws7
+assign [instance="discord|telegram|(?i)mail"] $ws8
 assign [class="(?i)minecraft"] $ws9
-assign [window_role="(?i)browser"] $ws3
+assign [instance="lxappearance|qt5ct|nitrogen|arandr|nm-connection-editor"] $ws10
 
 # Enable window icons for all windows with extra horizontal padding of 1px
 for_window [all] title_window_icon padding 10px
@@ -296,13 +295,14 @@ for_window [window_role="pop-up"] floating enable
 for_window [window_role="(?i)browser"] border pixel 0 
 for_window [instance="pavucontrol"] floating enable 
 for_window [instance="nvidia-settings"] floating enable 
-for_window [instance="lxappearance"] floating enable 
+for_window [instance="lxappearance"] floating enable move absolute position center 
+for_window [instance="arandr"] floating enable move absolute position center
 for_window [instance="qt5ct"] floating enable 
 for_window [instance="nitrogen"] floating enable 
 for_window [instance="viewnior"] floating enable 
+for_window [instance="qalculate-gtk"] floating enable 
+for_window [instance="nm-connection-editor"] floating enable 
 for_window [instance="system-config-printer"] floating enable 
-for_window [instance="spotify"] move window to workspace $ws6 
-# for_window [class="thunderbird"] floating enable 
 for_window [class="mpv"] floating enable 
 for_window [instance="conky"] border pixel 0 
 

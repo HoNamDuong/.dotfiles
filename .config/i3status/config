@@ -5,35 +5,45 @@ general {
     colors = true
     interval = 1
     markup = pango
-    color_good = "#9ece6a"
-    color_degraded = "#e0af68"
-    color_bad = "#ff757f"
     separator = false
+
+    # Hybrid
+    color_good = "#b9ca4a"
+    color_degraded = "#e7c547"
+    color_bad = "#d54e53"
+
+    # # Tokyonight
+    # color_good = "#9ece6a"
+    # color_degraded = "#e0af68"
+    # color_bad = "#ff757f"
 }
 
-order += "volume master"
-order += "cpu_usage"
 order += "memory"
+order += "cpu_usage"
+order += "volume master"
 order += "tztime local"
 
-volume master {
-    format = "<span foreground='#bb9af7'>󰕾 </span>%volume"
-    format_muted = "󰖁 muted"
-    device = "default"
-    mixer = "Master"
-    mixer_idx = 0
+memory {
+    format = "<span foreground='#70c0b1'>RAM</span> %percentage_used"
+    # format = "<span foreground='#7dcfff'>RAM</span> %percentage_used"
+    threshold_degraded = 30%
+    threshold_critical = 10%
 }
 
 cpu_usage {
-    format = "<span foreground='#7aa2f7'>CPU</span> %usage"
+    format = "<span foreground='#7aa6da'>CPU</span> %usage"
+    # format = "<span foreground='#7aa2f7'>CPU</span> %usage"
     max_threshold = 80
     degraded_threshold = 50
 }
 
-memory {
-    format = "<span foreground='#1abc9c'>RAM</span> %percentage_used"
-    threshold_degraded = 30%
-    threshold_critical = 10%
+volume master {
+    format = "<span foreground='#c397d8'>VOL</span> %volume"
+    # format = "<span foreground='#bb9af7'>VOL</span> %volume"
+    format_muted = "VOL muted"
+    device = "default"
+    mixer = "Master"
+    mixer_idx = 0
 }
 
 tztime local {

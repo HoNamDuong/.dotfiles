@@ -5,7 +5,7 @@ local dpi = require("beautiful.xresources").apply_dpi
 
 -- Client
 ruled.client.connect_signal("request::rules", function()
-    -- All clients will match this rule.
+    -- All clients will match this rule
     ruled.client.append_rule({
         id = "global",
         rule = {},
@@ -18,7 +18,7 @@ ruled.client.connect_signal("request::rules", function()
             placement = awful.placement.no_overlap + awful.placement.no_offscreen,
         },
     })
-    -- Floating clients.
+    -- Floating clients
     ruled.client.append_rule({
         id = "floating",
         rule_any = {
@@ -70,15 +70,46 @@ ruled.client.connect_signal("request::rules", function()
         },
     })
     -- Move to tag
-    ruled.client.append_rule({ rule = { role = "browser" }, properties = { tag = tag_name[3] } })
-    ruled.client.append_rule({ rule = { instance = "code" }, properties = { tag = tag_name[2] } })
-    ruled.client.append_rule({ rule = { instance = "nemo" }, properties = { tag = tag_name[4] } })
-    ruled.client.append_rule({ rule_any = { instance = { "postman", "DBeaver" } }, properties = { tag = tag_name[5] } })
-    ruled.client.append_rule({ rule_any = { instance = { "mpv" }, class = { "Spotify" } }, properties = { tag = tag_name[6] } })
-    ruled.client.append_rule({ rule_any = { instance = { "gimp" } }, properties = { tag = tag_name[7] } })
-    ruled.client.append_rule({ rule_any = { instance = { "telegram", "discord" }, class = { "thunderbird" } }, properties = { tag = tag_name[8] } })
-    ruled.client.append_rule({ rule = { class = "Minecraft" }, properties = { tag = tag_name[9] } })
-    ruled.client.append_rule({ rule_any = { instance = { "lxappearance" } }, properties = { tag = tag_name[10] } })
+    ruled.client.append_rule({
+        rule_any = { instance = {} },
+        properties = { tag = tag_name[1] },
+    })
+    ruled.client.append_rule({
+        rule_any = { instance = { "code" } },
+        properties = { tag = tag_name[2] },
+    })
+    ruled.client.append_rule({
+        rule_any = { instance = { "google-chrome" } },
+        properties = { tag = tag_name[3] },
+    })
+    ruled.client.append_rule({
+        rule_any = { instance = { "nemo" } },
+        properties = { tag = tag_name[4] },
+    })
+    ruled.client.append_rule({
+        rule_any = { instance = { "zathura" } },
+        properties = { tag = tag_name[5] },
+    })
+    ruled.client.append_rule({
+        rule_any = { instance = { "mpv" }, class = { "Spotify" } },
+        properties = { tag = tag_name[6] },
+    })
+    ruled.client.append_rule({
+        rule_any = { instance = { "postman", "DBeaver", "VirtualBox", "simple-scan" } },
+        properties = { tag = tag_name[7] },
+    })
+    ruled.client.append_rule({
+        rule_any = { instance = { "telegram", "discord" }, class = { "thunderbird" } },
+        properties = { tag = tag_name[8] },
+    })
+    ruled.client.append_rule({
+        rule_any = { instance = { "Minecraft" } },
+        properties = { tag = tag_name[9] },
+    })
+    ruled.client.append_rule({
+        rule_any = { instance = { "lxappearance", "qt5ct", "nitrogen", "arandr", "nm-connection-editor" } },
+        properties = { tag = tag_name[10] },
+    })
 end)
 
 -- Notification

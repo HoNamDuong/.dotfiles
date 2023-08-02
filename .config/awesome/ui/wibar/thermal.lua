@@ -28,7 +28,7 @@ end
 -- }}}
 
 -- {{{ Thermal widget type
-local get_thermal = function(format, warg)
+local get_thermal = function(warg)
     if not warg then
         return
     end
@@ -79,11 +79,11 @@ local thermal = wibox.widget({
 })
 
 gears.timer({
-    timeout = 1,
+    timeout = 2,
     call_now = true,
     autostart = true,
     callback = function()
-        thermal:get_children_by_id("text_role")[1].text = get_thermal(nil, "thermal_zone4")[1] .. "°C"
+        thermal:get_children_by_id("text_role")[1].text = get_thermal("thermal_zone4")[1] .. "°C"
     end,
 })
 

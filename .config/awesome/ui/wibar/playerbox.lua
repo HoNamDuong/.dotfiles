@@ -7,7 +7,6 @@ local pango = require("utils").pango
 local dpi = require("beautiful.xresources").apply_dpi
 local icon_theme = require("menubar.icon_theme")
 local recolor_image = require("gears.color").recolor_image
-local Playerctl = require("lgi").Playerctl
 local apps = require("config").apps
 
 local sel = 1
@@ -195,16 +194,14 @@ local function build_player_widget(player)
     return widget
 end
 
-local function init_player(name, manager)
-    local player = Playerctl.Player.new_from_name(name)
-    manager:manage_player(player)
-end
-
 gears.timer.delayed_call(function()
+    local Playerctl = require("lgi").Playerctl
+
     local manager = Playerctl.PlayerManager()
 
     for _, name in ipairs(manager.player_names) do
-        init_player(name, manager)
+        local player = Playerctl.Player.new_from_name(name)
+        manager:manage_player(player)
     end
 
     for _, player in ipairs(manager.players) do
@@ -214,7 +211,8 @@ gears.timer.delayed_call(function()
     end
 
     function manager:on_name_appeared(name)
-        init_player(name, manager)
+        local player = Playerctl.Player.new_from_name(name)
+        manager:manage_player(player)
     end
 
     function manager:on_player_appeared(player)

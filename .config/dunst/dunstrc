@@ -5,19 +5,28 @@
     enable_recursive_icon_lookup = true
 
 [urgency_low]
-    timeout = 10
-    background = "#1a1b26"
-    foreground = "#c8d3f5"
-    frame_color = "#3b4261"
+    timeout = 5
+    # background = "#1a1b26"
+    # foreground = "#c8d3f5"
+    # frame_color = "#3b4261"
+    background = "#1d1f21"
+    foreground = "#c5c8c6"
+    frame_color = "#373B41"
 
 [urgency_normal]
     timeout = 10
-    background = "#1a1b26"
-    foreground = "#c8d3f5"
-    frame_color = "#c8d3f5"
+    # background = "#1a1b26"
+    # foreground = "#c8d3f5"
+    # frame_color = "#c8d3f5"
+    background = "#1d1f21"
+    foreground = "#c5c8c6"
+    frame_color = "#c5c8c6"
 
 [urgency_critical]
-    timeout = 10
-    background = "#1a1b26"
-    foreground = "#e0af68"
-    frame_color = "#e0af68"
+    timeout = 20
+    # background = "#1a1b26"
+    # foreground = "#e0af68"
+    # frame_color = "#e0af68"
+    background = "#1d1f21"
+    foreground = "#f0c674"
+    frame_color = "#f0c674"

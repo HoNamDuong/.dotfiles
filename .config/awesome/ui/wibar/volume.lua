@@ -60,12 +60,16 @@ awesome.connect_signal("volume::changed", function()
     end)
 end)
 
-gears.timer({
-    timeout = 5,
-    autostart = true,
-    callback = function()
-        awesome.emit_signal("volume::changed")
-    end,
-})
+awful.spawn.easy_async("which pactl", function(stdout, stderr, reason, exit_code)
+    if exit_code == 0 then
+        gears.timer({
+            timeout = 5,
+            autostart = true,
+            callback = function()
+                awesome.emit_signal("volume::changed")
+            end,
+        })
+    end
+end)
 
 return volume

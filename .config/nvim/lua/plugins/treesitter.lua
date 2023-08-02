@@ -9,7 +9,7 @@ configs.setup({
         enable_autocmd = false,
     },
     auto_install = true,
-    highlight = { enable = true },
+    highlight = { enable = false },
     autopairs = { enable = true },
     indent = { enable = true },
     autotag = { enable = true },

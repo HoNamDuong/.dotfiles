@@ -30,6 +30,9 @@ fi
 # Make dir
 [ ! -d $HOME/.cache/zsh ] && mkdir -v $HOME/.cache/zsh
 
+# Load directories
+eval "$(dircolors ~/.dircolors)"
+
 # Options
 setopt PROMPT_SUBST # Parameter expansion, command substitution and arithmetic expansion are performed in prompts. 
 setopt SHARE_HISTORY # Share history between all sessions.
@@ -63,9 +66,6 @@ PROMPT+='${vcs_info_msg_0_}'
 PROMPT+='%(?.%F{green}%#%f.%F{red}%? %#%f) '
 RPROMPT='%F{white}%*%f'
 
-# Load directories
-eval "$(dircolors ~/.dircolors)"
-
 # Basic auto/tab complete
 autoload -Uz compinit; compinit -d ~/.cache/zsh/.zcompdump
 # Include hidden files.
@@ -86,23 +86,9 @@ zstyle ':completion:*:warnings' format '%F{red}[%d]%f'
 # Colors for files and directory
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
-# Plugins
-[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-[ -f /usr/share/zsh/plugins/zsh-autopair/autopair.zsh ] && source /usr/share/zsh/plugins/zsh-autopair/autopair.zsh
-[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh 
-[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
-
-# FZF
-export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow"
-export FZF_DEFAULT_OPTS="--reverse --border --multi --info=inline --no-separator --bind='ctrl-/:toggle-preview' --color='bg:black,bg+:black,fg:white,fg+:bright-white,info:yellow,border:bright-black,spinner:yellow,header:blue,pointer:magenta,marker:cyan,prompt:magenta,hl:green,hl+:bright-green'"
-export FZF_CTRL_T_COMMAND='fd --hidden --follow'
-export FZF_CTRL_T_OPTS="--prompt='FILE/DIR ' --preview='(bat --style=numbers --color=always {} || tree -C {}) 2> /dev/null'"
-export FZF_ALT_C_COMMAND="fd --type d --hidden --follow" 
-export FZF_ALT_C_OPTS="--prompt='DIRECTORY ' --preview='tree -C {}'"
-export FZF_CTRL_R_OPTS="--prompt='HISTORY ' --preview-window=hidden"
-_fzf_compgen_path() { fd --hidden --follow . "$1"; }
-_fzf_compgen_dir() { fd --type d --hidden --follow . "$1"; }
+# Select word like bash
+autoload -U select-word-style
+select-word-style bash
 
 # Key bindings 
 autoload -Uz select-bracketed select-quoted
@@ -136,6 +122,24 @@ bindkey '^[[1;5B' down-line-or-beginning-search
 bindkey '^W' backward-kill-word
 bindkey '^?' backward-delete-char
 bindkey '^[[Z' reverse-menu-complete
+
+# Plugins
+[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[ -f /usr/share/zsh/plugins/zsh-autopair/autopair.zsh ] && source /usr/share/zsh/plugins/zsh-autopair/autopair.zsh
+[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh 
+[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
+
+# FZF
+export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow"
+export FZF_DEFAULT_OPTS="--reverse --border --multi --info=inline --no-separator --bind='ctrl-/:toggle-preview' --color='bg:black,bg+:black,fg:white,fg+:bright-white,info:yellow,border:bright-black,spinner:yellow,header:blue,pointer:magenta,marker:cyan,prompt:magenta,hl:green,hl+:bright-green'"
+export FZF_CTRL_T_COMMAND='fd --hidden --follow'
+export FZF_CTRL_T_OPTS="--prompt='FILE/DIR ' --preview='(bat --style=numbers --color=always {} || tree -C {}) 2> /dev/null'"
+export FZF_ALT_C_COMMAND="fd --type d --hidden --follow" 
+export FZF_ALT_C_OPTS="--prompt='DIRECTORY ' --preview='tree -C {}'"
+export FZF_CTRL_R_OPTS="--prompt='HISTORY ' --preview-window=hidden"
+_fzf_compgen_path() { fd --hidden --follow . "$1"; }
+_fzf_compgen_dir() { fd --type d --hidden --follow . "$1"; }
 
 # Disable ctrl-s to freeze terminal.
 stty stop undef
