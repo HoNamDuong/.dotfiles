@@ -33,6 +33,7 @@ ruled.client.connect_signal("request::rules", function()
                 "nm-connection-editor",
                 "qalculate-gtk",
                 "arandr",
+                "Minecraft",
             },
             name = {},
             class = {},
