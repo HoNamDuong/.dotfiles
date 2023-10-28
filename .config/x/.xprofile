@@ -23,6 +23,7 @@ export QT_QPA_PLATFORMTHEME="qt5ct"
 export ZDOTDIR="$HOME/.config/zsh"
 export BAT_THEME="base16"
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
+export TIMEFMT=$'\n\nCPU\t%P\nuser\t%*U\nsystem\t%*S\ntotal\t%*E'
 
 # Monitor config
 [ -f ~/.screenlayout/default.sh ] && . ~/.screenlayout/default.sh &

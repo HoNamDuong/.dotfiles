@@ -22,6 +22,7 @@ local servers = {
     "jsonls",
     "tsserver",
     "intelephense",
+    "clangd"
 }
 
 mason.setup({
