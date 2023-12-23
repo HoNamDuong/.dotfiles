@@ -1,12 +1,23 @@
-vim.api.nvim_create_autocmd({ "FileType" }, {
-    pattern = { "qf", "help", "man", "checkhealth" },
-    callback = function()
-        vim.cmd([[
-            nnoremap <silent> <buffer> q :close<CR> 
-            set nobuflisted 
-        ]])
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = {
+        "help",
+        "man",
+        "query",
+        "qf",
+        "checkhealth",
+    },
+    callback = function(event)
+        vim.bo[event.buf].buflisted = false
+        vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
     end,
-    desc = "Windows to close with 'q'",
+    desc = "Close some filetypes with <q>",
+})
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+    desc = "Highlight on yank",
 })
 
 vim.api.nvim_create_autocmd({ "VimResized" }, {
@@ -21,6 +32,17 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
         vim.cmd("set formatoptions-=cro")
     end,
     desc = "Disable automatic comment in newline",
+})
+
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    callback = function(event)
+        if event.match:match("^%w%w+://") then
+            return
+        end
+        local file = vim.loop.fs_realpath(event.match) or event.match
+        vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+    end,
+    desc = "Auto create dir when saving a file",
 })
 
 vim.api.nvim_create_augroup("CursorInsertMode", { clear = true })
@@ -40,26 +62,26 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
     desc = "Disable cursorline on insert",
 })
 
-vim.api.nvim_create_autocmd("BufRead", {
-    callback = function()
-        vim.api.nvim_create_autocmd("BufWinEnter", {
-            once = true,
-            callback = function()
-                vim.defer_fn(function()
-                    vim.cmd([[:silent! loadview]])
-                end, 60)
-            end,
-            desc = "Load the view for the current file",
-        })
-    end,
-})
-
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-    callback = function()
-        vim.cmd([[:mkview]])
-    end,
-    desc = "Store the view for the current window",
-})
+-- vim.api.nvim_create_autocmd("BufRead", {
+--     callback = function()
+--         vim.api.nvim_create_autocmd("BufWinEnter", {
+--             once = true,
+--             callback = function()
+--                 vim.defer_fn(function()
+--                     vim.cmd([[:silent! loadview]])
+--                 end, 60)
+--             end,
+--             desc = "Load the view for the current file",
+--         })
+--     end,
+-- })
+--
+-- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+--     callback = function()
+--         vim.cmd([[:mkview]])
+--     end,
+--     desc = "Store the view for the current window",
+-- })
 
 -- if vim.fn.has("wsl") == 1 then
 --     vim.api.nvim_create_autocmd("TextYankPost", {

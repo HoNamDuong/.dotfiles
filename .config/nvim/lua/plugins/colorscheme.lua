@@ -1,30 +1,20 @@
---------------------------------------------------------------------------------
-local status, tokyonight = pcall(require, "tokyonight")
-if not status then
-    return
-end
+return {
+    -- Tokyonight
+    {
+        "folke/tokyonight.nvim",
+        lazy = false, -- make sure we load this during startup if it is your main colorscheme
+        priority = 1000, -- make sure to load this before all the other start plugins
+        config = function()
+            require("tokyonight").setup({
+                style = "night",
+                on_highlights = function(highlights, colors)
+                    highlights.WinSeparator = {
+                        fg = colors.comment,
+                    }
+                end,
+            })
 
-tokyonight.setup({
-    style = "night",
-    on_highlights = function(highlights, colors)
-        highlights.FloatBorder = {
-            bg = colors.bg_dark,
-            fg = colors.comment,
-        }
-        highlights.TelescopeBorder = {
-            bg = colors.bg_dark,
-            fg = colors.comment,
-        }
-        highlights.LspInfoBorder = {
-            bg = colors.bg_dark,
-            fg = colors.comment,
-        }
-        highlights.WinSeparator = {
-            fg = colors.bg_highlight,
-        }
-    end,
-})
-
-vim.cmd([[colorscheme tokyonight]])
---------------------------------------------------------------------------------
--- vim.cmd([[colorscheme hybrid]])
+            vim.cmd.colorscheme('tokyonight')
+        end,
+    },
+}

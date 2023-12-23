@@ -1,26 +1,29 @@
--- Core
 require("core.options")
 require("core.keymaps")
-require("core.plugins")
 require("core.autocommands")
--- require("core.startscreen")
--- Plugin
-require("plugins.colorscheme")
-require("plugins.whichkey")
-require("plugins.lualine")
-require("plugins.bufferline")
-require("plugins.nvimtree")
-require("plugins.telescope")
-require("plugins.treesitter")
-require("plugins.gitsigns")
-require("plugins.colorizer")
-require("plugins.autopairs")
-require("plugins.comment")
-require("plugins.cmp")
-require("plugins.illuminate")
-require("plugins.dressing")
-require("plugins.breadcrumbs")
-require("plugins.scrollbar")
-require("plugins.spectre")
--- LSP
-require("lsp")
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup("plugins", {
+    lockfile = vim.fn.stdpath("data") .. "/lazy/lazy-lock.json",
+    ui = { border = "rounded" },
+    checker = {
+        enabled = true, -- automatically check for plugin updates
+        notify = false, -- get a notification when new updates are found
+    },
+    change_detection = {
+        enabled = true, -- automatically check for config file changes and reload the ui
+        notify = false, -- get a notification when changes are found
+    },
+})
