@@ -24,6 +24,7 @@ config.actions = {
     screenshot_delay = "scrot --delay 5 --exec 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'",
     -- other
     randomize_wallpaper = "nitrogen --random --set-zoom-fill --save",
+    switch_user = "dm-tool switch-to-greeter",
 }
 
 config.keys = {

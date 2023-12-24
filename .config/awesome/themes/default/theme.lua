@@ -241,6 +241,7 @@ theme.menu_icon         = recolor_image(themes_path .. "default/other/menu.svg",
 theme.bin_icon          = recolor_image(themes_path .. "default/other/bin.svg",             theme.common.high)
 theme.image_icon        = recolor_image(themes_path .. "default/other/image.svg",           theme.palette.green)
 theme.camera_icon       = recolor_image(themes_path .. "default/other/camera.svg",          theme.palette.blue)
+theme.switch_user_icon  = recolor_image(themes_path .. "default/other/switch_user.svg",     theme.palette.yellow)
 
 theme.download_icon     = recolor_image(themes_path .. "default/other/download.svg",        theme.palette.white)
 theme.upload_icon       = recolor_image(themes_path .. "default/other/upload.svg",          theme.palette.white)

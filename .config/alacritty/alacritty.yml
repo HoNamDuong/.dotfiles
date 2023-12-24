@@ -1,6 +1,6 @@
 # Environment variables
 env:
-  TERM: xterm-256color
+  TERM: alacritty
 
 # Window config
 window:
