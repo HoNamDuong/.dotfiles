@@ -190,7 +190,7 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
 | [nvim](https://github.com/neovim/neovim) | Hyperextensible Vim-based text editor. |
 
     # Deployment and management
-    yay -S nodejs npm yarn luarocks
+    yay -S nodejs npm yarn luarocks tree-sitter-cli
 
     # Install
     yay -S neovim

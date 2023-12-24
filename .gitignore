@@ -5,5 +5,4 @@
 .local/bin/xterm
 
 # Folder
-.config/nvim/plugin/
 .config/cava/shaders/
