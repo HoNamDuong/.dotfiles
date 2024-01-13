@@ -1,0 +1,86 @@
+# Source https://alacritty.org/config-alacritty.html
+
+[env]
+# Export env
+TERM = "alacritty"
+
+[window]
+# Window decorations
+decorations = "full"
+# Allow terminal applications to change Alacritty's window title.
+dynamic_title = true
+# Background opacity
+# opacity =  0.95
+# Prefer resizing window by discrete steps equal to cell dimensions.
+# resize_increments = true
+
+[font]
+# The normal (roman) font face to use.
+normal = { family = "Hack Nerd Font" }
+# Point size of the font
+size = 13
+
+[colors]
+# When true, bold text is drawn using the bright variant of colors.
+draw_bold_text_with_bright_colors = true
+
+# # Tokyonight theme
+# [colors.primary]
+# background  = "#1a1b26"
+# foreground  = "#c0caf5"
+#
+# [colors.normal]
+# black       = "#1a1b26"
+# red         = "#f7768e"
+# green       = "#9ece6a"
+# yellow      = "#e0af68"
+# blue        = "#7aa2f7"
+# magenta     = "#bb9af7"
+# cyan        = "#7dcfff"
+# white       = "#a9b1d6"
+#
+# [colors.bright]
+# black       = "#414868"
+# red         = "#f7768e"
+# green       = "#9ece6a"
+# yellow      = "#e0af68"
+# blue        = "#7aa2f7"
+# magenta     = "#bb9af7"
+# cyan        = "#7dcfff"
+# white       = "#c0caf5"
+
+# Hybrid theme
+[colors.primary]
+background  = "#1d1f21"
+foreground  = "#c5c8c6"
+
+[colors.normal]
+black       = "#1d1f21"
+red         = "#cc6666"
+green       = "#b5bd68"
+yellow      = "#f0c674"
+blue        = "#81a2be"
+magenta     = "#b294bb"
+cyan        = "#8abeb7"
+white       = "#c5c8c6"
+
+[colors.bright]
+black       = "#373B41"
+red         = "#d54e53"
+green       = "#b9ca4a"
+yellow      = "#e7c547"
+blue        = "#7aa6da"
+magenta     = "#c397d8"
+cyan        = "#70c0b1"
+white       = "#eaeaea"
+
+[keyboard]
+# Multiple keybindings
+bindings = [
+{ key = "Back", mods = "Control", chars = "\u0017" },
+{ key = "Return", mods = "Control|Shift", action = "SpawnNewInstance" },
+]
+
+[selection]
+# When set to `true`, selected text will be copied to the primary clipboard.
+save_to_clipboard = true
