@@ -29,17 +29,21 @@ return {
                 -- always_show_bufferline = false,
                 show_buffer_close_icons = false,
                 show_close_icon = false,
-                separator_style = "thich",
+                separator_style = {},
                 offsets = {
                     {
                         filetype = "NvimTree",
                         text = "File Explorer",
                         text_align = "center",
+                        highlight = "Title",
+                        separator = true,
                     },
                     {
                         filetype = "spectre_panel",
                         text = "Find and replate",
                         text_align = "center",
+                        highlight = "Title",
+                        separator = true,
                     },
                 },
             },
@@ -82,12 +86,10 @@ return {
                     hint = "H",
                 },
                 always_visible = false,
-                padding = 1,
             }
 
             local location = {
                 "%l/%L:%v",
-                padding = 1,
             }
 
             local fileformat = {
@@ -121,6 +123,26 @@ return {
                 return ""
             end
 
+            local lsp_clients = function()
+                local clients = vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })
+
+                if next(clients) == nil then
+                    return "No LSP"
+                end
+
+                local list = {}
+
+                for _, client in ipairs(clients) do
+                    table.insert(list, client.name)
+                end
+
+                if next(list) == nil then
+                    return "No LSP"
+                else
+                    return "LSP:" .. table.concat(list, ",")
+                end
+            end
+
             require("lualine").setup({
                 options = {
                     -- icons_enabled = false,
@@ -129,17 +151,16 @@ return {
                     section_separators = { left = "", right = "" },
                     disabled_filetypes = {
                         winbar = {
-                            "NvimTree",
-                            "spectre_panel",
+                            "dap-repl",
                         },
                     },
                 },
                 sections = {
                     lualine_a = {},
-                    lualine_b = {},
-                    lualine_c = { "branch", "diff", diagnostics, lsp_progress, filename },
-                    lualine_x = { "filetype", "encoding", fileformat, location, "progress" },
-                    lualine_y = { "filesize" },
+                    lualine_b = { lsp_clients, lsp_progress },
+                    lualine_c = { "branch", "diff", diagnostics, filename },
+                    lualine_x = { "filetype", "filesize", "encoding", fileformat },
+                    lualine_y = { location, "progress" },
                     lualine_z = { "mode" },
                 },
                 winbar = {
@@ -162,12 +183,10 @@ return {
                                     return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
                                 end,
                             },
+                            lualine_x = { location, "progress" },
                         },
-                        filetypes = { "NvimTree" },
-                    },
-                    {
-                        sections = {},
                         filetypes = {
+                            "NvimTree",
                             "spectre_panel",
                         },
                     },
@@ -178,6 +197,7 @@ return {
     -- Breadcrumbs
     {
         "SmiteshP/nvim-navic",
+        lazy = true,
         opts = {
             highlight = true,
             click = true,
@@ -232,6 +252,7 @@ return {
                         { action = "Lazy",                              desc = " Lazy",             key = "l" },
                         { action = "qa",                                desc = " Quit",             key = "q" },
                     },
+                    -- stylua: ignore end
                 },
             }
 

@@ -10,10 +10,27 @@ return {
         },
         config = function()
             require("nvim-treesitter.configs").setup({
+                ensure_installed = {
+                    "bash",
+                    "c",
+                    "comment",
+                    "css",
+                    "diff",
+                    "html",
+                    "javascript",
+                    "json",
+                    "jsonc",
+                    "lua",
+                    "markdown",
+                    "python",
+                    "query",
+                    "regex",
+                    "vim",
+                    "yaml",
+                },
                 auto_install = true,
                 highlight = { enable = true },
                 indent = { enable = true },
-                autotag = { enable = true },
                 incremental_selection = {
                     enable = true,
                     keymaps = {
@@ -23,6 +40,10 @@ return {
                         node_decremental = "<bs>",
                     },
                 },
+                -- nvim-treesitter/nvim-treesitter-textobjects
+                textobjects = {},
+                -- windwp/nvim-ts-autotag
+                autotag = { enable = true },
             })
         end,
     },

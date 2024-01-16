@@ -1,19 +1,28 @@
 -- List mason.nvim package name
 local packages = {
+    -- Formatter
     "stylua",
     "prettier",
+    -- DAP
+    "js-debug-adapter",
+    "codelldb",
+    -- Linter
+    "eslint_d",
+    "cpplint",
 }
 -- List lspconfig server name
 local servers = {
+    -- LSP
     "lua_ls",
+    "clangd",
+    "tsserver",
+    "emmet_ls",
     "html",
     "cssls",
     "tailwindcss",
-    "emmet_ls",
-    "jsonls",
-    "tsserver",
     "intelephense",
-    "clangd",
+    "jsonls",
+    "pylsp",
 }
 
 return {
@@ -25,6 +34,15 @@ return {
             { "folke/neodev.nvim", opts = {} },
             "b0o/schemastore.nvim",
         },
+        keys = {
+            {
+                "<leader>l<CR>",
+                function()
+                    require("lspconfig.ui.lspinfo")()
+                end,
+                desc = "LSP information",
+            },
+        },
         config = function()
             require("lspconfig.ui.windows").default_options.border = "rounded"
 
@@ -32,6 +50,7 @@ return {
 
             local on_attach = function(client, bufnr)
                 local keymap = vim.api.nvim_buf_set_keymap
+
                 keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { desc = "Goto declaration" })
                 keymap(bufnr, "n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = "Goto definition" })
                 keymap(bufnr, "n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", { desc = "Goto type definitions" })
@@ -49,7 +68,9 @@ return {
                 keymap(bufnr, "n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Renames" })
                 keymap(bufnr, "n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>", { desc = "Code action" })
                 keymap(bufnr, "n", "<leader>ld", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Show line diagnostics" })
-                keymap(bufnr, "n", "<leader>l<CR>", "<cmd>LspInfo<CR>", { desc = "LSP information" })
+
+                -- -- Disable Semantic Tokens
+                -- client.server_capabilities.semanticTokensProvider = nil
 
                 require("illuminate").on_attach(client)
 
@@ -60,7 +81,7 @@ return {
 
             vim.diagnostic.config({
                 virtual_text = true,
-                update_in_insert = true,
+                update_in_insert = false,
                 underline = true,
                 severity_sort = true,
                 float = {
@@ -74,8 +95,7 @@ return {
             vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
             vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
-            local cmp_nvim_lsp = require("cmp_nvim_lsp")
-            local capabilities = cmp_nvim_lsp.default_capabilities()
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
             -- List setting for LSP server
             local settings = {

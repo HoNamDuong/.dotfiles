@@ -3,9 +3,9 @@ return {
     {
         "nvim-tree/nvim-tree.lua",
         config = function()
-            -- disable netrw
-            vim.g.loaded_netrw = 1
-            vim.g.loaded_netrwPlugin = 1
+            -- -- disable netrw
+            -- vim.g.loaded_netrw = 1
+            -- vim.g.loaded_netrwPlugin = 1
 
             local function on_attach(bufnr)
                 local api = require("nvim-tree.api")
@@ -141,8 +141,9 @@ return {
                 },
             })
 
-            -- Builtin
+            -- Other
             vim.keymap.set("n", "<leader>s<CR>", "<cmd>Telescope builtin<CR>", { desc = "Builtin" })
+            vim.keymap.set("n", "<leader>su", "<cmd>Telescope resume<CR>", { desc = "Resume" })
             -- File
             vim.keymap.set("n", "<leader>sf", "<cmd>Telescope find_files<CR>", { desc = "Find file" })
             vim.keymap.set("n", "<leader>sr", "<cmd>Telescope oldfiles<CR>", { desc = "Recent file" })
@@ -261,9 +262,16 @@ return {
     },
     -- High-performance color highlighter
     {
-        "norcalli/nvim-colorizer.lua",
+        "echasnovski/mini.hipatterns",
+        version = false,
         config = function()
-            require("colorizer").setup()
+            local hipatterns = require("mini.hipatterns")
+            hipatterns.setup({
+                highlighters = {
+                    -- Highlight hex color strings (`#rrggbb`) using that color
+                    hex_color = hipatterns.gen_highlighter.hex_color(),
+                },
+            })
         end,
     },
     -- Search/replace in multiple files
@@ -313,9 +321,9 @@ return {
         opts = { options = vim.opt.sessionoptions:get() },
         -- stylua: ignore
         keys = {
-            { "<leader>ms", function() require("persistence").load() end, desc = "Restore Session" },
-            { "<leader>ml", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
-            { "<leader>md", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
+            { "<leader>ns", function() require("persistence").load() end, desc = "Restore Session" },
+            { "<leader>nl", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
+            { "<leader>nd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
         },
     },
     -- Which Key
@@ -359,14 +367,14 @@ return {
             whichkey.register({
                 [";"] = { name = "Commands" },
                 ["<Tab>"] = { name = "Tab" },
-                ["c"] = { name = "Quickfix" },
-                ["t"] = { name = "Toggle..." },
+                ["t"] = { name = "Toggle" },
                 ["b"] = { name = "Buffer" },
                 ["l"] = { name = "LSP" },
-                ["m"] = { name = "Session" },
+                ["n"] = { name = "Session" },
+                ["d"] = { name = "DAP" },
                 ["g"] = {
                     name = "Git",
-                    ["t"] = { name = "Toggle..." },
+                    ["t"] = { name = "Toggle" },
                 },
                 ["s"] = {
                     name = "Search",

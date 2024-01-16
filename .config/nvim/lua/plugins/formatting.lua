@@ -4,17 +4,16 @@ return {
     cmd = { "ConformInfo" },
     keys = {
         {
-            -- Customize or remove this keymap to your liking
             "<leader>lf",
             function()
                 require("conform").format({ async = true, lsp_fallback = true })
             end,
-            mode = "",
+            mode = { "n", "v" },
             desc = "Format document",
         },
     },
     opts = {
-        -- Define your formatters
+        -- Define formatters
         formatters_by_ft = {
             javascript = { "prettier" },
             typescript = { "prettier" },
@@ -29,7 +28,26 @@ return {
         },
         -- Customize formatters
         formatters = {
-            stylua = { prepend_args = { "--indent-type", "Spaces", "--column-width", "200" } },
+            ["stylua"] = {
+                prepend_args = {
+                    "--indent-type",
+                    "Spaces",
+                    "--column-width",
+                    "200",
+                },
+            },
+            ["prettier"] = {
+                prepend_args = {
+                    "--tab-width",
+                    "4",
+                    "--print-width",
+                    "120",
+                    "--no-semi",
+                    "--single-quote",
+                    "--config-precedence",
+                    "file-override",
+                },
+            },
         },
     },
     init = function()

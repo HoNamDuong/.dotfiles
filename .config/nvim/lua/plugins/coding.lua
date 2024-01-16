@@ -108,12 +108,10 @@ return {
                     }),
                 }),
                 window = {
-                    documentation = cmp.config.window.bordered(),
+                    documentation = cmp.config.window.bordered({ winhighlight = "Normal:NormalFloat" }),
                 },
                 experimental = {
-                    ghost_text = {
-                        hl_group = "CmpGhostText",
-                    },
+                    ghost_text = true, -- this feature conflict with copilot.vim's preview.
                 },
             })
         end,
@@ -171,17 +169,5 @@ return {
                 },
             }
         end,
-    },
-    -- Scrollbar
-    {
-        "petertriho/nvim-scrollbar",
-        event = "VeryLazy",
-        opts = {
-            show_in_active_only = true,
-            handlers = {
-                cursor = false,
-                gitsigns = true, -- Requires gitsigns.nvim
-            },
-        },
     },
 }

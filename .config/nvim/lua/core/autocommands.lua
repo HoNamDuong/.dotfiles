@@ -5,6 +5,7 @@ vim.api.nvim_create_autocmd("FileType", {
         "query",
         "qf",
         "checkhealth",
+        "dap-float",
     },
     callback = function(event)
         vim.bo[event.buf].buflisted = false

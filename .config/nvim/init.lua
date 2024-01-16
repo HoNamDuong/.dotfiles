@@ -26,4 +26,7 @@ require("lazy").setup("plugins", {
         enabled = true, -- automatically check for config file changes and reload the ui
         notify = false, -- get a notification when changes are found
     },
+    install = {
+        colorscheme = { "hybrid" }, -- try to load one of these colorschemes when starting an installation during startup
+    },
 })
