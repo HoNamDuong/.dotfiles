@@ -84,3 +84,13 @@ bindings = [
 [selection]
 # When set to `true`, selected text will be copied to the primary clipboard.
 save_to_clipboard = true
+
+[[hints.enabled]]
+# Terminal hints can be used to find text or hyperlinks in the visible part of the terminal and pipe it to other applications.
+command = { program = "alacritty", args = [ "-e", "xdg-open" ] }
+hyperlinks = true
+post_processing = true
+persist = false
+mouse.enabled = true
+binding = { key = "U", mods = "Control|Shift" }
+regex = "(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"

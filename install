@@ -1,31 +1,27 @@
 #!/bin/sh
 
-## Directories ----------------------------
-DIR=$(pwd)
-
-## Directories ----------------------------
 # Reset
-Reset='\033[0m'       # Text Reset
+Reset='\033[0m'         # Text Reset
+# Regular colors
+Black='\033[0;30m'      # Black
+Red='\033[0;31m'        # Red
+Green='\033[0;32m'      # Green
+Yellow='\033[0;33m'     # Yellow
+Blue='\033[0;34m'       # Blue
+Purple='\033[0;35m'     # Purple
+Cyan='\033[0;36m'       # Cyan
+White='\033[0;37m'      # White
+# Bold colors
+BBlack='\033[1;30m'     # Black
+BRed='\033[1;31m'       # Red
+BGreen='\033[1;32m'     # Green
+BYellow='\033[1;33m'    # Yellow
+BBlue='\033[1;34m'      # Blue
+BPurple='\033[1;35m'    # Purple
+BCyan='\033[1;36m'      # Cyan
+BWhite='\033[1;37m'     # White
 
-# Regular Colors
-Black='\033[0;30m'        # Black
-Red='\033[0;31m'          # Red
-Green='\033[0;32m'        # Green
-Yellow='\033[0;33m'       # Yellow
-Blue='\033[0;34m'         # Blue
-Purple='\033[0;35m'       # Purple
-Cyan='\033[0;36m'         # Cyan
-White='\033[0;37m'        # White
-
-# Bold
-BBlack='\033[1;30m'       # Black
-BRed='\033[1;31m'         # Red
-BGreen='\033[1;32m'       # Green
-BYellow='\033[1;33m'      # Yellow
-BBlue='\033[1;34m'        # Blue
-BPurple='\033[1;35m'      # Purple
-BCyan='\033[1;36m'        # Cyan
-BWhite='\033[1;37m'       # White
+DIR=$(pwd)              # Directories
 
 clear
 
@@ -43,8 +39,10 @@ do
         ;;
     1)
         ### X11
-        [ ! -f ~/.xprofile ] && ln -sfv $DIR/.config/x/.xprofile $HOME/.xprofile 
-        [ ! -f ~/.Xresources ] && ln -sfv $DIR/.config/x/.Xresources $HOME/.Xresources
+        [ ! -f ~/.xprofile ] && ln -sfv $DIR/.config/.xprofile $HOME/.xprofile 
+        [ ! -f ~/.Xresources ] && ln -sfv $DIR/.config/.Xresources $HOME/.Xresources
+        ### Xdg mime
+        ln -sfv $DIR/.config/mimeapps.list $HOME/.config/mimeapps.list
         ### I3 and i3status 
         ln -sfvr $DIR/.config/i3/ $HOME/.config/
         ln -sfvr $DIR/.config/i3status/ $HOME/.config/
@@ -77,7 +75,7 @@ do
         ### Lsd
         ln -sfvr $DIR/.config/lsd/ $HOME/.config/
         ### Dircolors
-        ln -sfv $DIR/.config/dircolors/.dircolors $HOME/.dircolors
+        ln -sfv $DIR/.config/.dircolors $HOME/.dircolors
         ### Tig
         ln -sfvr $DIR/.config/tig/ $HOME/.config/
         ### Htop
@@ -94,6 +92,8 @@ do
         ln -sfvr $DIR/.config/neofetch/ $HOME/.config/
         ### Cava 
         ln -sfvr $DIR/.config/cava/ $HOME/.config/
+        ### Btop 
+        ln -sfvr $DIR/.config/btop/ $HOME/.config/
         ;;
     *)
         echo "Sorry, choice understand"

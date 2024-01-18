@@ -27,6 +27,10 @@ if [ -f /usr/bin/bat ]; then
     alias bat='bat --paging=never --wrap=auto'
 fi
 
+if [ -f /usr/bin/btop ]; then
+    alias btop='btop --preset 0'
+fi
+
 # Make dir
 [ ! -d $HOME/.cache/zsh ] && mkdir -v $HOME/.cache/zsh
 
