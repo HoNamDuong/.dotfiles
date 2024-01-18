@@ -190,7 +190,7 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
 | [nvim](https://github.com/neovim/neovim) | Hyperextensible Vim-based text editor. |
 
     # Deployment and management
-    yay -S nodejs npm yarn luarocks tree-sitter-cli
+    yay -S nodejs npm yarn luarocks tree-sitter-cli lazygit
 
     # Install
     yay -S neovim
@@ -206,10 +206,6 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
 
     # Install
     yay -S nemo nemo-fileroller nemo-mediainfo-tab ntfs-3g gvfs-mtp gvfs-gphoto2
-
-Set Nemo as default file browser
-
-    xdg-mime default nemo.desktop inode/directory
 
 Change the default terminal emulator for Nemo
 
@@ -309,7 +305,7 @@ Check if the scanner is detected with correct driver installed.
 | [virtualbox](https://virtualbox.org/) | Powerful x86 virtualization for enterprise as well as home use |
 
     # Install packages
-    yay -S virtualbox 
+    yay -S virtualbox
 
     # Add user to the vboxusers group
     sudo gpasswd -a $USER vboxusers
