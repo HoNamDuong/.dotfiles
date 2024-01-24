@@ -29,7 +29,7 @@ return {
                 -- always_show_bufferline = false,
                 show_buffer_close_icons = false,
                 show_close_icon = false,
-                separator_style = {},
+                separator_style = "thin",
                 offsets = {
                     {
                         filetype = "NvimTree",
@@ -70,12 +70,7 @@ return {
     {
         "nvim-lualine/lualine.nvim",
         event = "VeryLazy",
-        dependencies = {
-            "SmiteshP/nvim-navic",
-        },
         config = function()
-            local navic = require("nvim-navic")
-
             local diagnostics = {
                 "diagnostics",
                 sources = { "nvim_diagnostic" },
@@ -147,13 +142,8 @@ return {
                 options = {
                     -- icons_enabled = false,
                     theme = "auto",
-                    component_separators = { left = "", right = "" },
-                    section_separators = { left = "", right = "" },
-                    disabled_filetypes = {
-                        winbar = {
-                            "dap-repl",
-                        },
-                    },
+                    section_separators = "",
+                    component_separators = "",
                 },
                 sections = {
                     lualine_a = {},
@@ -162,18 +152,6 @@ return {
                     lualine_x = { "filetype", "filesize", "encoding", fileformat },
                     lualine_y = { location, "progress" },
                     lualine_z = { "mode" },
-                },
-                winbar = {
-                    lualine_c = {
-                        {
-                            function()
-                                return navic.get_location()
-                            end,
-                            cond = function()
-                                return navic.is_available()
-                            end,
-                        },
-                    },
                 },
                 extensions = {
                     {
@@ -196,11 +174,42 @@ return {
     },
     -- Breadcrumbs
     {
-        "SmiteshP/nvim-navic",
-        lazy = true,
+        "utilyre/barbecue.nvim",
+        dependencies = {
+            "SmiteshP/nvim-navic",
+        },
         opts = {
-            highlight = true,
-            click = true,
+            attach_navic = false,
+            -- stylua: ignore start
+            kinds = {
+                File          = "󰈙",
+                Module        = "",
+                Namespace     = "󰌗",
+                Package       = "",
+                Class         = "󰌗",
+                Method        = "󰆧",
+                Property      = "",
+                Field         = "",
+                Constructor   = "",
+                Enum          = "󰕘",
+                Interface     = "󰕘",
+                Function      = "󰊕",
+                Variable      = "󰆧",
+                Constant      = "󰏿",
+                String        = "󰀬",
+                Number        = "󰎠",
+                Boolean       = "◩",
+                Array         = "󰅪",
+                Object        = "󰅩",
+                Key           = "󰌋",
+                Null          = "󰟢",
+                EnumMember    = "",
+                Struct        = "󰌗",
+                Event         = "",
+                Operator      = "󰆕",
+                TypeParameter = "󰊄",
+            },
+            -- stylua: ignore end
         },
     },
     -- Indent guides for Neovim

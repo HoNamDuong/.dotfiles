@@ -208,7 +208,13 @@ return {
 
                     -- Actions
                     map("n", "<leader>gs", gs.stage_hunk, { desc = "Stage hunk" })
+                    map("x", "<leader>gs", function()
+                        gs.stage_hunk({ vim.fn.line("v"), vim.fn.getpos(".")[2] })
+                    end, { desc = "Stage selected hunk(s)" })
                     map("n", "<leader>gr", gs.reset_hunk, { desc = "Reset hunk" })
+                    map("x", "<leader>gr", function()
+                        gs.reset_hunk({ vim.fn.line("v"), vim.fn.getpos(".")[2] })
+                    end, { desc = "Reset selected hunk(s)" })
                     map("n", "<leader>gR", gs.reset_buffer, { desc = "Reset buffer" })
                     map("n", "<leader>gS", gs.stage_buffer, { desc = "Stage buffer" })
                     map("n", "<leader>gu", gs.undo_stage_hunk, { desc = "Undo stage hunk" })
@@ -369,10 +375,17 @@ return {
                 ["<Tab>"] = { name = "Tab" },
                 ["t"] = { name = "Toggle" },
                 ["b"] = { name = "Buffer" },
-                ["l"] = { name = "LSP" },
                 ["n"] = { name = "Session" },
-                ["d"] = { name = "DAP" },
+                ["l"] = {
+                    mode = { "n", "v" },
+                    name = "LSP",
+                },
+                ["d"] = {
+                    mode = { "n", "v" },
+                    name = "DAP",
+                },
                 ["g"] = {
+                    mode = { "n", "v" },
                     name = "Git",
                     ["t"] = { name = "Toggle" },
                 },
