@@ -1,24 +1,20 @@
 #!/usr/bin/bash
 
 if [ -f /usr/bin/rofi ]; then
-    theme="$HOME/.config/rofi/themes/launcher.rasi"
     rofi \
         -show run \
-        -theme-str 'listview {lines: 5;} window { width: 600px; } entry { placeholder: "Command..."; }' \
-        -theme "$theme" 
+        -theme-str '
+            window { 
+                width: 600px; 
+            }
+            entry {
+                placeholder: "Command...";
+            }'
 elif [ -f /usr/bin/dmenu ]; then
-    # dmenu_run \
-    #     -i \
-    #     -p "Command" \
-    #     -fn 'monospace-12' \
-    #     -nf '#c8d3f5' \
-    #     -nb '#1a1b26' \
-    #     -sf '#c8d3f5' \
-    #     -sb '#3b4261'
     dmenu_run \
         -i \
         -p "Command" \
-        -fn 'monospace-12' \
+        -fn 'monospace-14' \
         -nf '#c5c8c6' \
         -nb '#1d1f21' \
         -sf '#c5c8c6' \

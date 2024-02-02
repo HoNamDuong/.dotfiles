@@ -53,10 +53,6 @@ do
         ### Alacritty 
         ln -sfvr $DIR/.config/alacritty/ $HOME/.config/
         ### Rofi 
-        # .local/share/fonts 
-        [ ! -d $HOME/.local/share/fonts ] && mkdir -p $HOME/.local/share/fonts
-        ln -sfv $DIR/.local/share/fonts/feather.ttf $HOME/.local/share/fonts/feather.ttf
-        # .config/rofi
         ln -sfvr $DIR/.config/rofi/ $HOME/.config/
         ### Dunst 
         ln -sfvr $DIR/.config/dunst/ $HOME/.config/

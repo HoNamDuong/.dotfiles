@@ -1,6 +1,6 @@
 configuration {
     /*---------- General setting ----------*/
-	modi:                       "drun,run,window";
+    modes:                      [ drun, run, window, filebrowser ];
     show-icons:                 true;
 
     /*---------- Matching setting ----------*/
@@ -8,13 +8,10 @@ configuration {
 	tokenize:                   true;
 
     /*---------- Display setting ----------*/
-    display-drun:               "";
-    display-run:                "";
-    display-window:             "";
-
-    /*---------- Keybindings ----------*/
-    me-select-entry:            "";
-    me-accept-entry:            [ MousePrimary, MouseSecondary, MouseDPrimary ];
+    display-drun:               "  Apps";
+    display-run:                "  Run";
+    display-window:             "  Windows";
+    display-filebrowser:        "  Files";
 }
 
-@theme "~/.config/rofi/themes/launcher.rasi"
+@theme "hybrid"

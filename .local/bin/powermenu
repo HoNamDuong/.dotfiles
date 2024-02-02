@@ -1,67 +1,59 @@
 #!/usr/bin/bash
 
-# Message
 mesg="Uptime: `uptime -p | sed -e 's/up //g'`"
 
-# Options
-if [ -f /usr/bin/rofi ]; then
-    shutdown=''
-    reboot=''
-    lock=''
-    suspend=''
-    logout=''
-    hibernate=""
+shutdown='Shutdown'
+reboot='Reboot'
+lock='Lock'
+suspend='Suspend'
+logout='Logout'
+hibernate="Hibernate"
 
-elif [ -f /usr/bin/dmenu ]; then
-    shutdown='Shutdown'
-    reboot='Reboot'
-    lock='Lock'
-    suspend='Suspend'
-    logout='Logout'
-    hibernate="Hibernate"
-
-else
-    exit 0
-fi
-
-run_command() {
+get_choice() {
     if [ -f /usr/bin/rofi ]; then
-        theme="$HOME/.config/rofi/themes/powermenu.rasi"
         list_col='6'
         list_row='1'
         echo -e "$lock\n$logout\n$reboot\n$shutdown\n$suspend\n$hibernate" | \
             rofi \
                 -dmenu \
                 -mesg "$mesg" \
-                -markup-rows \
-                -theme-str "listview {columns: $list_col; lines: $list_row;}" \
-                -theme "$theme"
+                -i \
+                -theme-str "
+                    configuration {
+                        show-icons: false;
+                    }
+                    window {
+                        width: 800px;
+                    }
+                    listview {
+                        columns: $list_col;
+                        lines: $list_row;
+                        scrollbar: false;
+                    }
+                    inputbar {
+                        enabled: false;
+                    }
+                    element-text {
+                        horizontal-align: 0.5;
+                    }"
     elif [ -f /usr/bin/dmenu ]; then
         echo -e "$lock\n$logout\n$reboot\n$shutdown\n$suspend\n$hibernate" | \
-            # dmenu \
-            #     -i \
-            #     -p "$mesg" \
-            #     -fn 'monospace-12' \
-            #     -nf '#c8d3f5' \
-            #     -nb '#1a1b26' \
-            #     -sf '#c8d3f5' \
-            #     -sb '#3b4261'
             dmenu \
                 -i \
                 -p "$mesg" \
-                -fn 'monospace-12' \
+                -fn 'monospace-14' \
                 -nf '#c5c8c6' \
                 -nb '#1d1f21' \
                 -sf '#c5c8c6' \
                 -sb '#373B41'
-    else 
+    else
         exit 0
     fi
 }
 
-# Actions
-chosen="$(run_command)"
-case ${chosen} in
+choice="$(get_choice)"
+
+case ${choice} in
     $lock)
         loginctl lock-session
         ;;
@@ -75,9 +67,9 @@ case ${chosen} in
         /usr/bin/systemctl poweroff
         ;;
     $suspend)
-        /usr/bin/systemctl suspend 
+        /usr/bin/systemctl suspend
         ;;
     $hibernate)
-        /usr/bin/systemctl hibernate 
+        /usr/bin/systemctl hibernate
         ;;
 esac

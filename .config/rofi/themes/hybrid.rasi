@@ -1,0 +1,234 @@
+/*****----- Global Properties -----*****/
+* {
+    font:                        "Hack Nerd Font 14";
+
+    background:                  #1d1f21;
+    foreground:                  #c5c8c6;
+    selected:                    #373b41;
+    active:                      #707880;
+    urgent:                      #cc6666;
+
+    background-color:            transparent;
+    text-color:                  @foreground;
+    border-color:                @selected;
+
+    normal-background:           @background;
+    normal-foreground:           @foreground;
+    urgent-background:           @urgent;
+    urgent-foreground:           @background;
+    active-background:           @active;
+    active-foreground:           @background;
+
+    selected-normal-background:  @selected;
+    selected-normal-foreground:  @foreground;
+    selected-urgent-background:  @selected;
+    selected-urgent-foreground:  @foreground;
+    selected-active-background:  @selected;
+    selected-active-foreground:  @foreground;
+
+    alternate-normal-background: @background;
+    alternate-normal-foreground: @foreground;
+    alternate-urgent-background: @urgent;
+    alternate-urgent-foreground: @background;
+    alternate-active-background: @active;
+    alternate-active-foreground: @background;
+}
+
+/*****----- Main Window -----*****/
+window {
+    /* enabled:                     false; */
+    location:                    center;
+    anchor:                      center;
+    x-offset:                    0px;
+    y-offset:                    0px;
+}
+
+/*****----- Main Box -----*****/
+mainbox {
+    /* enabled:                     false; */
+    spacing:                     0px;
+    border:                      2px solid;
+    background-color:            @background;
+    text-color:                  @foreground;
+    children:                    [ mode-switcher, inputbar, message, listview ];
+}
+
+/*****----- Inputbar -----*****/
+inputbar {
+    /* enabled:                     false; */
+    spacing:                     5px;
+    padding:                     10px;
+    background-color:            @selected;
+    text-color:                  @foreground;
+    children:                    [ prompt, textbox-prompt-colon, entry, num-filtered-rows, textbox-num-sep, num-rows, case-indicator ];
+}
+prompt {
+    enabled:                     false;
+    expand:                      false;
+    padding:                     0px 5px;
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+textbox-prompt-colon {
+    /* enabled:                     false; */
+    expand:                      false;
+    padding:                     0px 5px;
+    str:                         "";
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+entry {
+    /* enabled:                     false; */
+    expand:                      true;
+    cursor:                      text;
+    padding:                     0px 10px;
+    placeholder:                 "Search...";
+    background-color:            inherit;
+    text-color:                  inherit;
+    placeholder-color:           inherit;
+}
+num-filtered-rows {
+    /* enabled:                     false; */
+    expand:                      false;
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+textbox-num-sep {
+    /* enabled:                     false; */
+    expand:                      false;
+    str:                         "/";
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+num-rows {
+    /* enabled:                     false; */
+    expand:                      false;
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+case-indicator {
+    /* enabled:                     false; */
+    expand:                      false;
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+
+/*****----- Listview -----*****/
+listview {
+    /* enabled:                     false; */
+    margin:                      2px;
+    spacing:                     2px;
+    columns:                     1;
+    lines:                       5;
+    scrollbar:                   true;
+    layout:                      vertical;
+    fixed-height:                false;
+    fixed-columns:               false;
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+scrollbar {
+    /* enabled:                     false; */
+    handle-width:                10px;
+    handle-color:                @selected;
+    background-color:            @background;
+}
+
+/*****----- Elements -----*****/
+element {
+    /* enabled:                     false; */
+    cursor:                      pointer;
+    spacing:                     10px;
+    padding:                     10px;
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+element-icon {
+    /* enabled:                     false; */
+    size:                        1em;
+    cursor:                      inherit;
+    vertical-align:              0.5;
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+element-text {
+    /* enabled:                     false; */
+    highlight:                   underline bold;
+    cursor:                      inherit;
+    vertical-align:              0.5;
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+element normal.normal {
+    background-color:            @normal-background;
+    text-color:                  @normal-foreground;
+}
+element normal.urgent {
+    background-color:            @urgent-background;
+    text-color:                  @urgent-foreground;
+}
+element normal.active {
+    background-color:            @active-background;
+    text-color:                  @active-foreground;
+}
+element selected.normal {
+    background-color:            @selected-normal-background;
+    text-color:                  @selected-normal-foreground;
+}
+element selected.urgent {
+    background-color:            @selected-urgent-background;
+    text-color:                  @selected-urgent-foreground;
+}
+element selected.active {
+    background-color:            @selected-active-background;
+    text-color:                  @selected-active-foreground;
+}
+element alternate.normal {
+    background-color:            @alternate-normal-background;
+    text-color:                  @alternate-normal-foreground;
+}
+element alternate.urgent {
+    background-color:            @alternate-urgent-background;
+    text-color:                  @alternate-urgent-foreground;
+}
+element alternate.active {
+    background-color:            @alternate-active-background;
+    text-color:                  @alternate-active-foreground;
+}
+
+/*****----- Mode Switcher -----*****/
+mode-switcher{
+    enabled:                     false;
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+button {
+    /* enabled:                     false; */
+    cursor:                      pointer;
+    padding:                     10px;
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+button selected {
+    /* enabled:                     false; */
+    background-color:            @selected;
+    text-color:                  @foreground;
+}
+
+/*****----- Message -----*****/
+message {
+    /* enabled:                     false; */
+    background-color:            @selected;
+    text-color:                  @foreground;
+}
+error-message {
+    /* enabled:                     false; */
+    background-color:            @selected;
+    text-color:                  @foreground;
+}
+textbox {
+    /* enabled:                     false; */
+    padding:                     10px;
+    background-color:            inherit;
+    text-color:                  inherit;
+}
