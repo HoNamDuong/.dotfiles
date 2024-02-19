@@ -29,15 +29,6 @@ Here are some details about my setup:
 <br>
 
 <details open>
-<summary>Powermenu</summary>
-<br>
-
-![Screenshot](./screenshots/powermenu.png)
-
-</details>
-<br>
-
-<details open>
 <summary>Launcher</summary>
 <br>
 

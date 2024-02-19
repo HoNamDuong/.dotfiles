@@ -16,15 +16,15 @@
 
 ## Setup window manager
 
-| Package                                             | Description                                                                                  |
-| --------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| [Xorg](https://www.x.org/wiki/)                     | Xorg (commonly referred to as simply X) is the most popular display server among Linux users |
-| [Alacritty](https://github.com/alacritty/alacritty) | A cross-platform, GPU-accelerated terminal emulator.                                         |
-| [Picom](https://github.com/yshui/picom)             | A lightweight compositor for X11.                                                            |
-| [Slock](https://tools.suckless.org/slock)           | A simple screen locker for X.                                                                |
-| [Xss-lock](https://tools.suckless.org/slock)        | Use external locker as X screen saver.                                                       |
-| [Awesomewm](https://awesomewm.org/)                 | A highly configurable, next generation framework window manager for X.                       |
-| [I3wm](https://i3wm.org/)                           | A tiling window manager, completely written from scratch.                                    |
+| Package                                             | Description                                                                                   |
+| --------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| [Xorg](https://www.x.org/wiki/)                     | Xorg (commonly referred to as simply X) is the most popular display server among Linux users. |
+| [Alacritty](https://github.com/alacritty/alacritty) | A cross-platform, GPU-accelerated terminal emulator.                                          |
+| [Picom](https://github.com/yshui/picom)             | A lightweight compositor for X11.                                                             |
+| [Slock](https://tools.suckless.org/slock)           | A simple screen locker for X.                                                                 |
+| [Xss-lock](https://tools.suckless.org/slock)        | Use external locker as X screen saver.                                                        |
+| [Awesomewm](https://awesomewm.org/)                 | A highly configurable, next generation framework window manager for X.                        |
+| [I3wm](https://i3wm.org/)                           | A tiling window manager, completely written from scratch.                                     |
 
     # X system, compositor, terminal and screen locker
     yay -S xorg picom alacritty slock xss-lock
@@ -105,15 +105,15 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
 | ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | [LXAppearance](https://github.com/lxde/lxappearance)                               | Feature-rich GTK+ theme switcher of the LXDE Desktop.                         |
 | [Qt5ct](https://sourceforge.net/projects/qt5ct/)                                   | Qt5 Configuration Utility.                                                    |
-| [Skeuos theme](https://aur.archlinux.org/packages/skeuos-gtk)                      | Light and Dark window themes based on a Skeuomorphic design.                  |
-| [Papirus icon theme](https://archlinux.org/packages/extra/any/papirus-icon-theme/) | Papirus icon theme.                                                           |
+| [Orchis theme](https://github.com/vinceliuice/orchis-theme)                        | A Material Design theme for GNOME/GTK based desktop environments.             |
+| [Papirus icon theme](https://archlinux.org/packages/extra/any/papirus-icon-theme/) | A free and open source SVG icon theme for Linux.                              |
 | [Vimix cursors](https://aur.archlinux.org/packages/vimix-cursors)                  | An X Cursor theme inspired by Material design and based on capitaine-cursors. |
 
     # Application for Qt and Gtk
     yay -S lxappearance qt5ct
 
     # Install theme, icon, cursors
-    yay -S  skeuos-gtk papirus-icon-theme vimix-cursors
+    yay -S  orchis-theme papirus-icon-theme vimix-cursors
 
     # Install font
     yay -S noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
@@ -132,11 +132,13 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
 | [Mpv](https://mpv.io/)                                                          | A free, open source, and cross-platform media player.                                                              |
 | [Spotify](https://www.spotify.com/)                                             | A proprietary music streaming service                                                                              |
 | [Zathura](https://pwmt.org/projects/zathura/)                                   | A highly customizable and functional document viewer.                                                              |
-| [Google Chrome](https://www.google.com/chrome)                                  | The popular web browser by Google (Stable Channel)                                                                 |
+| [Google Chrome](https://www.google.com/chrome)                                  | The popular web browser by Google (Stable Channel).                                                                |
 | [Thunderbird](https://www.thunderbird.net/)                                     | Thunderbird is a free email application that's easy to set up and customize - and it's loaded with great features. |
 | [Qalculate](https://qalculate.github.io/)                                       | The ultimate desktop calculator.                                                                                   |
 | [Magnifiqus](https://github.com/redtide/magnifiqus)                             | Qt based screen magnifier.                                                                                         |
 | [Screenkey](https://www.thregr.org/~wavexx/software/screenkey/)                 | A screencast tool to display your keys inspired by Screenflick.                                                    |
+| [Gucharmap](https://wiki.gnome.org/Apps/Gucharmap)                              | The GNOME Character Map, based on the Unicode Character Database.                                                  |
+| [Gpick](https://github.com/thezbyg/gpick)                                       | Advanced color picker and palette editor.                                                                          |
 
 | Package (CLI)                                                       | Description                                                                                    |
 | ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
@@ -147,7 +149,7 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
 | [ranger](https://github.com/ranger/ranger)                          | Ranger is a console file manager with VI key bindings.                                         |
 | [fzf](https://github.com/junegunn/fzf)                              | A command-line fuzzy finder.                                                                   |
 | [playerctl](https://github.com/altdesktop/playerctl)                | For true players only: vlc, mpv, RhythmBox, web browsers, cmus, mpd, spotify and others.       |
-| [xclip](https://github.com/astrand/xclip)                           | Command line interface to the X11 clipboard                                                    |
+| [xclip](https://github.com/astrand/xclip)                           | Command line interface to the X11 clipboard.                                                   |
 | [numlockx](https://github.com/rg3/numlockx)                         | Turns on the numlock key in X11.                                                               |
 | [scrot](https://github.com/resurrecting-open-source-projects/scrot) | Command line screen capture utility.                                                           |
 | [btop](https://github.com/aristocratos/btop)                        | A monitor of system resources, bpytop ported to C++.                                           |
@@ -163,7 +165,7 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
     xdg-user-dirs xclip numlockx scrot playerctl \
     gnome-keyring polkit-gnome \
     rofi arandr network-manager-applet \
-    viewnior nitrogen qalculate-gtk magnifiqus screenkey \
+    viewnior nitrogen qalculate-gtk magnifiqus screenkey gucharmap gpick \
     mpv yt-dlp mpv-mpris \
     spotify zenity ffmpeg4.4 \
     zathura zathura-pdf-mupdf \
@@ -300,15 +302,20 @@ Check if the scanner is detected with correct driver installed.
 
 ## Setup VirtualBox
 
-| Package                               | Description                                                    |
-| ------------------------------------- | -------------------------------------------------------------- |
-| [virtualbox](https://virtualbox.org/) | Powerful x86 virtualization for enterprise as well as home use |
+| Package                               | Description                                                     |
+| ------------------------------------- | --------------------------------------------------------------- |
+| [virtualbox](https://virtualbox.org/) | Powerful x86 virtualization for enterprise as well as home use. |
 
     # Install packages
     yay -S virtualbox
 
     # Add user to the vboxusers group
     sudo gpasswd -a $USER vboxusers
+
+    # Load the VirtualBox kernel modules
+    sudo modprobe vboxdrv
+
+VirtualBox/Install Arch Linux as a guest [here](https://wiki.archlinux.org/title/VirtualBox/Install_Arch_Linux_as_a_guest)
 
 ## Enable dark mode for google-chrome
 
