@@ -1,10 +1,9 @@
-local beautiful = require("beautiful")
 local awful = require("awful")
 local aclient = require("awful.client")
+local beautiful = require("beautiful")
+local dpi = require("beautiful.xresources").apply_dpi
 
-local clientmenu = {
-    widget = nil,
-}
+local clientmenu = nil
 
 local item_names = {
     close = "Close",
@@ -98,7 +97,8 @@ local function build_menu(c)
             close_buttom,
         },
         theme = {
-            -- border_color = c.active and beautiful.common.primary,
+            width = dpi(6) * 10 * 3,
+            -- border_color = c.active and beautiful.colors.primary,
         },
     })
 
@@ -107,14 +107,15 @@ local function build_menu(c)
     return menu
 end
 
-function clientmenu:toggle(c)
-    if self.widget and self.widget.wibox.visible then
-        self.widget:hide()
-        self.widget = nil
+local function toggle(c)
+    if clientmenu and clientmenu.wibox.visible then
+        clientmenu:hide()
+        clientmenu = nil
     else
-        self.widget = build_menu(c)
+        clientmenu = build_menu(c)
     end
-    return self
 end
 
-return clientmenu
+awesome.connect_signal("clientmenu::toggle", function(c)
+    toggle(c)
+end)

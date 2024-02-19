@@ -1,20 +1,21 @@
-local config = require("config")
+local awful = require("awful")
 local beautiful = require("beautiful")
-local menu = require("awful.menu")
 local menu_gen = require("menubar.menu_gen")
-local hotkeys = require("ui.hotkeys")
+
+local config = require("config")
+local keys = require("config").keys
 
 -- Add other category
-menu_gen.all_categories.other = { app_type = "Other", name = "Other", icon_name = "applications-other", use = false }
+menu_gen.all_categories.other = { app_type = nil, name = "Other", icon_name = "applications-other", use = true }
 
 -- Source https://github.com/lcpz/awesome-freedesktop
 -- Use MenuBar parsing utils to build a menu for Awesome
 local function build_menu(args)
     local before = args.before or {}
+    local result = {}
     local after = args.after or {}
 
-    local result = {}
-    local _menu = menu({ items = before })
+    local menu = awful.menu()
 
     menu_gen.generate(function(entries)
         -- Add category icons
@@ -57,19 +58,21 @@ local function build_menu(args)
         end)
 
         -- Add items to menu
+        for _, v in pairs(before) do
+            menu:add(v)
+        end
         for _, v in pairs(result) do
-            _menu:add(v)
+            menu:add(v)
         end
         for _, v in pairs(after) do
-            _menu:add(v)
+            menu:add(v)
         end
     end)
 
-    return _menu
+    return menu
 end
 
 local mainmenu = build_menu({
-    sub_menu = "Applications",
     before = {
         {
             "Awesome",
@@ -77,7 +80,7 @@ local mainmenu = build_menu({
                 {
                     "Hotkeys",
                     function()
-                        hotkeys:show_help()
+                        awesome.emit_signal("hotkeys::show")
                     end,
                     beautiful.keyboard_icon,
                 },
@@ -95,9 +98,18 @@ local mainmenu = build_menu({
         { "Lock", config.actions.lock, beautiful.lock_icon },
         { "Logout", config.actions.logout, beautiful.logout_icon },
         { "Sleep", config.actions.sleep, beautiful.sleep_icon },
-        { "Restart", config.actions.restart, beautiful.restart_icon },
+        { "Hibernate", config.actions.hibernate, beautiful.hibernate_icon },
+        { "Reboot", config.actions.reboot, beautiful.reboot_icon },
         { "Shutdown", config.actions.shutdown, beautiful.shutdown_icon },
     },
 })
 
-return mainmenu
+awesome.connect_signal("mainmenu::toggle", function()
+    mainmenu:toggle()
+end)
+
+awful.keyboard.append_global_keybindings({
+    awful.key({ keys.super }, "w", function()
+        awesome.emit_signal("mainmenu::toggle")
+    end, { description = "Show main menu", group = "awesome" }),
+})

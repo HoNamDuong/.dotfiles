@@ -26,7 +26,7 @@ local volume = wibox.widget({
     layout = wibox.layout.fixed.horizontal,
     set_value = function(self, val)
         if string.match(val, "muted") then
-            self["text_role"].markup = pango.span({ val, foreground = beautiful.common.medium })
+            self["text_role"].markup = pango.span({ val, foreground = beautiful.colors.medium })
             self:get_children_by_id("icon_role")[1].image = beautiful.volume_mute_icon
         else
             self["text_role"].markup = val
@@ -69,6 +69,8 @@ awful.spawn.easy_async("which pactl", function(stdout, stderr, reason, exit_code
                 awesome.emit_signal("volume::changed")
             end,
         })
+    else
+        volume.visible = false
     end
 end)
 

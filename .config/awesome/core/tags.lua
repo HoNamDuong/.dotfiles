@@ -1,5 +1,6 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
+
 local tag_name = require("config").tags.name
 
 local tags = {

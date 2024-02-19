@@ -1,7 +1,8 @@
 local awful = require("awful")
 local ruled = require("ruled")
-local tag_name = require("config").tags.name
 local dpi = require("beautiful.xresources").apply_dpi
+
+local tag_name = require("config").tags.name
 
 -- Client
 ruled.client.connect_signal("request::rules", function()
@@ -11,7 +12,8 @@ ruled.client.connect_signal("request::rules", function()
         rule = {},
         properties = {
             -- border_width = dpi(0),
-            -- titlebars_enabled = true,
+            titlebars_enabled = true,
+            -- size_hints_honor = false,
             raise = true,
             focus = awful.client.focus.filter,
             screen = awful.screen.preferred,
@@ -34,6 +36,7 @@ ruled.client.connect_signal("request::rules", function()
                 "qalculate-gtk",
                 "arandr",
                 "Minecraft",
+                "gpick",
             },
             name = {},
             class = {},
@@ -52,9 +55,8 @@ ruled.client.connect_signal("request::rules", function()
     -- Picture in picture
     ruled.client.append_rule({
         rule_any = {
-            name = {
-                "Picture in picture",
-            },
+            name = { "Picture in picture" },
+            instance = { "magnifiqus", "rofi" },
         },
         properties = {
             floating = true,
@@ -96,7 +98,7 @@ ruled.client.connect_signal("request::rules", function()
         properties = { tag = tag_name[6] },
     })
     ruled.client.append_rule({
-        rule_any = { instance = { "postman", "DBeaver", "VirtualBox", "simple-scan" } },
+        rule_any = { instance = { "postman", "DBeaver", "VirtualBox", "simple-scan", "gucharmap" } },
         properties = { tag = tag_name[7] },
     })
     ruled.client.append_rule({

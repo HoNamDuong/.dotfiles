@@ -2,66 +2,76 @@ local wibox = require("wibox")
 local awful = require("awful")
 local beautiful = require("beautiful")
 local naughty = require("naughty")
-local pango = require("utils").pango
 local dpi = require("beautiful.xresources").apply_dpi
+
+local pango = require("utils").pango
 
 local notifications = wibox.widget({
     {
         {
             {
                 {
-                    id = "header_role",
-                    markup = pango.b("Notifications") .. " " .. #naughty.notification_list.children,
-                    align = "center",
-                    valign = "center",
-                    font = beautiful.font_name .. " " .. 14,
-                    widget = wibox.widget.textbox,
+                    {
+                        id = "header_role",
+                        markup = pango.b("Notifications") .. " " .. #naughty.notification_list.children,
+                        align = "center",
+                        valign = "center",
+                        widget = wibox.widget.textbox,
+                    },
+                    top = dpi(6),
+                    bottom = dpi(6),
+                    left = dpi(6) * 2,
+                    right = dpi(6) * 2,
+                    widget = wibox.container.margin,
                 },
-                nil,
+                fg = beautiful.colors.foreground,
+                bg = beautiful.colors.secondary,
+                widget = wibox.container.background,
+            },
+            nil,
+            {
                 {
                     {
-                        {
-                            markup = pango.b("Clear"),
-                            align = "center",
-                            valign = "center",
-                            widget = wibox.widget.textbox,
-                            buttons = {
-                                awful.button({}, 1, function()
-                                    naughty.notification_list:reset()
-                                    naughty.destroy_all_notifications()
-                                end),
-                            },
+                        markup = pango.b("Clear"),
+                        align = "center",
+                        valign = "center",
+                        widget = wibox.widget.textbox,
+                        buttons = {
+                            awful.button({}, 1, function()
+                                naughty.notification_list:reset()
+                                naughty.destroy_all_notifications()
+                            end),
                         },
-                        right = dpi(6),
-                        left = dpi(6),
-                        widget = wibox.container.margin,
                     },
-                    fg = beautiful.common.background,
-                    bg = beautiful.common.high,
-                    widget = wibox.container.background,
+                    top = dpi(6),
+                    bottom = dpi(6),
+                    left = dpi(6) * 2,
+                    right = dpi(6) * 2,
+                    widget = wibox.container.margin,
                 },
-                layout = wibox.layout.align.horizontal,
+                fg = beautiful.colors.background,
+                bg = beautiful.colors.high,
+                widget = wibox.container.background,
             },
-            naughty.notification_list,
-            spacing = dpi(6) * 2,
-            layout = wibox.layout.fixed.vertical,
+            layout = wibox.layout.align.horizontal,
         },
-        {
-            id = "empty_role",
-            {
-                markup = pango.i("NO NEW\nNOTIFICATIONS"),
-                align = "center",
-                valign = "center",
-                widget = wibox.widget.textbox,
-            },
-            visible = true,
-            widget = wibox.container.place,
-        },
-        nil,
-        layout = wibox.layout.align.vertical,
+        naughty.notification_list,
+        spacing = dpi(6) * 2,
+        layout = wibox.layout.fixed.vertical,
     },
-    margins = dpi(6) * 2,
-    widget = wibox.container.margin,
+    {
+        id = "empty_role",
+        {
+            markup = pango.i("NO NOTIFICATIONS"),
+            align = "center",
+            valign = "center",
+            widget = wibox.widget.textbox,
+        },
+        visible = true,
+        widget = wibox.container.place,
+    },
+    nil,
+    layout = wibox.layout.align.vertical,
 })
 
 naughty.notification_list:connect_signal("widget::layout_changed", function()

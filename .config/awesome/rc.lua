@@ -16,7 +16,11 @@ require("ui.notification")
 require("ui.titlebar")
 require("ui.wibar")
 require("ui.layoutlist")
+require("ui.clientmenu")
+require("ui.mainmenu")
 require("ui.switcher")
+require("ui.dashboard")
+require("ui.hotkeys")
 
 -- Enable for lower memory consumption
 --- @diagnostic disable: param-type-mismatch

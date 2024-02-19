@@ -1,8 +1,10 @@
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 local dpi = require("beautiful.xresources").apply_dpi
+local gears = require("gears")
 local filesystem = require("gears.filesystem")
 local recolor_image = require("gears.color").recolor_image
+
 local color = require("utils.color")
 
 local xrdb = xresources.get_current_theme()
@@ -11,50 +13,54 @@ local themes_path = string.match(filesystem.get_configuration_dir(), "^(/?.-)/*$
 
 local theme = {}
 
--- palette 
+-- stylua: ignore start
 theme.palette = setmetatable({
 
-    background      = xrdb.background,  -- #1a1b26
-    foreground      = xrdb.foreground,  -- #c0caf5
+    background      = xrdb.background or "#1d1f21",
+    foreground      = xrdb.foreground or "#c5c8c6",
 
-    black           = xrdb.color0,      -- #1a1b26
-    red             = xrdb.color1,      -- #f7768e
-    green           = xrdb.color2,      -- #9ece6a
-    yellow          = xrdb.color3,      -- #e0af68
-    blue            = xrdb.color4,      -- #7aa2f7
-    magenta         = xrdb.color5,      -- #bb9af7
-    cyan            = xrdb.color6,      -- #7dcfff
-    white           = xrdb.color7,      -- #a9b1d6
+    black           = xrdb.color0     or "#1d1f21",
+    red             = xrdb.color1     or "#cc6666",
+    green           = xrdb.color2     or "#b5bd68",
+    yellow          = xrdb.color3     or "#f0c674",
+    blue            = xrdb.color4     or "#81a2be",
+    magenta         = xrdb.color5     or "#b294bb",
+    cyan            = xrdb.color6     or "#8abeb7",
+    white           = xrdb.color7     or "#c5c8c6",
 
-    black_bright    = xrdb.color8,      -- #414868
-    red_bright      = xrdb.color9,      -- #f7768e
-    green_bright    = xrdb.color10,     -- #9ece6a
-    yellow_bright   = xrdb.color11,     -- #e0af68
-    blue_bright     = xrdb.color12,     -- #7aa2f7
-    magenta_bright  = xrdb.color13,     -- #bb9af7
-    cyan_bright     = xrdb.color14,     -- #7dcfff
-    white_bright    = xrdb.color15,     -- #c0caf5
+    black_bright    = xrdb.color8     or "#373B41",
+    red_bright      = xrdb.color9     or "#d54e53",
+    green_bright    = xrdb.color10    or "#b9ca4a",
+    yellow_bright   = xrdb.color11    or "#e7c547",
+    blue_bright     = xrdb.color12    or "#7aa6da",
+    magenta_bright  = xrdb.color13    or "#c397d8",
+    cyan_bright     = xrdb.color14    or "#70c0b1",
+    white_bright    = xrdb.color15    or "#eaeaea",
 
 }, color.palette_metatable)
 
--- common
-theme.common = {
+theme.colors = {
 
     background      = theme.palette.background,
     foreground      = theme.palette.foreground,
 
     primary         = theme.palette.blue,
-    primary_dark    = theme.palette.blue_70,
+    primary_dull    = theme.palette.blue_60,
+    primary_dark    = theme.palette.blue_30,
 
     secondary       = theme.palette.black_bright,
-    secondary_dark  = theme.palette.black_bright_70,
+    secondary_dull  = theme.palette.black_bright_80,
+    secondary_dark  = theme.palette.black_bright_60,
 
     low             = theme.palette.green,
-    low_dark        = theme.palette.green_40,
+    low_dull        = theme.palette.green_60,
+    low_dark        = theme.palette.green_30,
     medium          = theme.palette.yellow,
-    medium_dark     = theme.palette.yellow_40,
+    medium_dull     = theme.palette.yellow_60,
+    medium_dark     = theme.palette.yellow_30,
     high            = theme.palette.red,
-    high_dark       = theme.palette.red_40,
+    high_dull       = theme.palette.red_60,
+    high_dark       = theme.palette.red_30,
 
 }
 
@@ -62,48 +68,46 @@ theme.common = {
 theme.icon_theme                = "Papirus-Dark"
 
 -- font
-theme.font_name                 = "Hack Nerd Font Mono"
-theme.font_size                 = 12
+theme.font_name                 = "Hack Nerd Font"
+theme.font_size                 = 14
 theme.font                      = theme.font_name .. " " .. theme.font_size
 
 -- background
-theme.bg_normal                 = theme.common.background
-theme.bg_focus                  = theme.common.secondary
-theme.bg_urgent                 = theme.common.high
-theme.bg_minimize               = theme.common.background
+theme.bg_normal                 = theme.colors.background
+theme.bg_focus                  = theme.colors.secondary
+theme.bg_urgent                 = theme.colors.high
 
 -- foreground
-theme.fg_normal                 = theme.common.foreground
-theme.fg_focus                  = theme.common.foreground
-theme.fg_urgent                 = theme.common.background
-theme.fg_minimize               = theme.common.foreground
+theme.fg_normal                 = theme.colors.foreground
+theme.fg_focus                  = theme.colors.foreground
+theme.fg_urgent                 = theme.colors.background
 
 -- border
 theme.border_width              = dpi(2)
-theme.border_color_normal       = theme.common.secondary
-theme.border_color_active       = theme.common.primary
-theme.border_color_urgent	    = theme.common.high
+theme.border_color_normal       = theme.colors.secondary
+theme.border_color_active       = theme.colors.primary
+theme.border_color_urgent	    = theme.colors.high
 
 -- tasklist
-theme.tasklist_bg_normal        = theme.common.secondary
-theme.tasklist_bg_focus         = theme.common.primary
-theme.tasklist_bg_urgent        = theme.common.high
-theme.tasklist_bg_minimize      = theme.common.background
+theme.tasklist_bg_normal        = theme.colors.secondary
+theme.tasklist_bg_focus         = theme.colors.primary
+theme.tasklist_bg_urgent        = theme.colors.high
+theme.tasklist_bg_minimize      = theme.colors.background
 
-theme.tasklist_fg_normal        = theme.common.foreground
-theme.tasklist_fg_focus         = theme.common.background
-theme.tasklist_fg_urgent        = theme.common.background
-theme.tasklist_fg_minimize      = theme.common.foreground
+theme.tasklist_fg_normal        = theme.colors.foreground
+theme.tasklist_fg_focus         = theme.colors.background
+theme.tasklist_fg_urgent        = theme.colors.background
+theme.tasklist_fg_minimize      = theme.colors.foreground
 
 -- menu
+theme.menu_width                = dpi(6) * 10 * 4
 theme.menu_height               = dpi(6) * 4
-theme.menu_width                = dpi(6) * 10 * 3
 theme.menu_border_width         = theme.border_width
-theme.menu_border_color         = theme.common.secondary
+theme.menu_border_color         = theme.colors.secondary
 
 -- snap
-theme.snap_border_width         = theme.border_width
-theme.snap_bg                   = theme.common.primary
+theme.snap_bg                   = theme.colors.primary
+theme.snap_shape                = gears.shape.rectangle
 theme.snapper_gap               = dpi(0)
 
 -- useless gap
@@ -112,14 +116,14 @@ theme.gap_single_client         = false
 
 -- systray
 theme.systray_icon_spacing      = dpi(6)
-theme.bg_systray                = theme.common.secondary_dark
+theme.bg_systray                = theme.colors.background
 
 -- hotkeys popup
 theme.hotkeys_font              = theme.font
-theme.hotkeys_modifiers_fg      = theme.common.primary
+theme.hotkeys_modifiers_fg      = theme.colors.primary
 theme.hotkeys_description_font  = theme.font
 theme.hotkeys_border_width      = theme.border_width
-theme.hotkeys_border_color      = theme.common.secondary
+theme.hotkeys_border_color      = theme.colors.secondary
 theme.hotkeys_group_margin      = dpi(6) * 4
 
 -- maximized
@@ -169,11 +173,11 @@ theme.titlebar_maximized_button_normal_active   = themes_path .. "default/titleb
 theme.titlebar_maximized_button_focus_active    = themes_path .. "default/titlebar/maximized_focus_active.png"
 
 -- theme = theme_assets.recolor_titlebar(theme, theme.common.secondary, "normal")
-theme = theme_assets.recolor_titlebar(theme, theme.common.foreground, "normal", "hover")
-theme = theme_assets.recolor_titlebar(theme, theme.common.medium, "normal", "press")
+theme = theme_assets.recolor_titlebar(theme, theme.colors.foreground, "normal", "hover")
+theme = theme_assets.recolor_titlebar(theme, theme.colors.medium, "normal", "press")
 -- theme = theme_assets.recolor_titlebar(theme, theme.common.primary, "focus")
-theme = theme_assets.recolor_titlebar(theme, theme.common.foreground, "focus", "hover")
-theme = theme_assets.recolor_titlebar(theme, theme.common.medium, "focus", "press")
+theme = theme_assets.recolor_titlebar(theme, theme.colors.foreground, "focus", "hover")
+theme = theme_assets.recolor_titlebar(theme, theme.colors.medium, "focus", "press")
 
 -- layout
 theme.layout_fairh      = themes_path .. "default/layouts/fairh.png"
@@ -193,56 +197,49 @@ theme.layout_cornerne   = themes_path .. "default/layouts/cornerne.png"
 theme.layout_cornersw   = themes_path .. "default/layouts/cornersw.png"
 theme.layout_cornerse   = themes_path .. "default/layouts/cornerse.png"
 
+theme.layout_mstab      = themes_path .. "default/layouts/mstab.png"
+theme.layout_deck       = themes_path .. "default/layouts/deck.png"
+theme.layout_equalarea  = themes_path .. "default/layouts/equalarea.png"
+theme.layout_horizontal = themes_path .. "default/layouts/horizontal.png"
+theme.layout_vertical   = themes_path .. "default/layouts/vertical.png"
+theme.layout_centered   = themes_path .. "default/layouts/centered.png"
+
 -- theme = theme_assets.recolor_layout(theme, theme.common.primary)
 
--- power
-theme.lock_icon         = recolor_image(themes_path .. "default/power/lock.svg",            theme.common.secondary)
-theme.logout_icon       = recolor_image(themes_path .. "default/power/logout.svg",          theme.common.secondary)
-theme.sleep_icon        = recolor_image(themes_path .. "default/power/sleep.svg",           theme.common.secondary)
-theme.restart_icon      = recolor_image(themes_path .. "default/power/restart.svg",         theme.common.secondary)
-theme.shutdown_icon     = recolor_image(themes_path .. "default/power/shutdown.svg",        theme.common.high)
-
 -- tag
-theme.terminal_icon     = recolor_image(themes_path .. "/default/tag/terminal.svg",         theme.common.foreground)
-theme.code_icon         = recolor_image(themes_path .. "/default/tag/code.svg",             theme.common.foreground)
-theme.chrome_icon       = recolor_image(themes_path .. "/default/tag/chrome.svg",           theme.common.foreground)
-theme.files_icon        = recolor_image(themes_path .. "/default/tag/files.svg",            theme.common.foreground)
-theme.document_icon     = recolor_image(themes_path .. "/default/tag/document.svg",         theme.common.foreground)
-theme.media_icon        = recolor_image(themes_path .. "/default/tag/media.svg",            theme.common.foreground)
-theme.tools_icon        = recolor_image(themes_path .. "/default/tag/tools.svg",            theme.common.foreground)
-theme.chat_icon         = recolor_image(themes_path .. "/default/tag/chat.svg",             theme.common.foreground)
-theme.game_icon         = recolor_image(themes_path .. "/default/tag/game.svg",             theme.common.foreground)
-theme.general_icon      = recolor_image(themes_path .. "/default/tag/general.svg",          theme.common.foreground)
+theme.terminal_icon     = recolor_image(themes_path .. "/default/tag/terminal.svg",         theme.colors.foreground)
+theme.code_icon         = recolor_image(themes_path .. "/default/tag/code.svg",             theme.colors.foreground)
+theme.chrome_icon       = recolor_image(themes_path .. "/default/tag/chrome.svg",           theme.colors.foreground)
+theme.files_icon        = recolor_image(themes_path .. "/default/tag/files.svg",            theme.colors.foreground)
+theme.document_icon     = recolor_image(themes_path .. "/default/tag/document.svg",         theme.colors.foreground)
+theme.media_icon        = recolor_image(themes_path .. "/default/tag/media.svg",            theme.colors.foreground)
+theme.tools_icon        = recolor_image(themes_path .. "/default/tag/tools.svg",            theme.colors.foreground)
+theme.chat_icon         = recolor_image(themes_path .. "/default/tag/chat.svg",             theme.colors.foreground)
+theme.game_icon         = recolor_image(themes_path .. "/default/tag/game.svg",             theme.colors.foreground)
+theme.general_icon      = recolor_image(themes_path .. "/default/tag/general.svg",          theme.colors.foreground)
 
 -- player
-theme.previous_icon     = recolor_image(themes_path .. "default/player/previous.svg",       theme.common.foreground)
-theme.play_icon         = recolor_image(themes_path .. "default/player/play.svg",           theme.common.foreground)
-theme.stop_icon         = recolor_image(themes_path .. "default/player/stop.svg",           theme.common.foreground)
-theme.pause_icon        = recolor_image(themes_path .. "default/player/pause.svg",          theme.common.foreground)
-theme.next_icon         = recolor_image(themes_path .. "default/player/next.svg",           theme.common.foreground)
+theme.play_icon         = recolor_image(themes_path .. "default/player/play.svg",           theme.colors.foreground)
+theme.pause_icon        = recolor_image(themes_path .. "default/player/pause.svg",          theme.colors.foreground)
+theme.stop_icon         = recolor_image(themes_path .. "default/player/stop.svg",           theme.colors.foreground)
+theme.next_icon         = recolor_image(themes_path .. "default/player/next.svg",           theme.colors.foreground)
+theme.previous_icon     = recolor_image(themes_path .. "default/player/previous.svg",       theme.colors.foreground)
 
 -- arrow
-theme.arrow_down_icon   = recolor_image(themes_path .. "default/other/arrow_down.svg",      theme.common.secondary)
-theme.arrow_up_icon     = recolor_image(themes_path .. "default/other/arrow_up.svg",        theme.common.secondary)
-theme.arrow_right_icon  = recolor_image(themes_path .. "default/other/arrow_right.svg",     theme.common.secondary)
-theme.arrow_left_icon   = recolor_image(themes_path .. "default/other/arrow_left.svg",      theme.common.secondary)
+theme.arrow_down_icon   = recolor_image(themes_path .. "default/other/arrow_down.svg",      theme.colors.foreground)
+theme.arrow_up_icon     = recolor_image(themes_path .. "default/other/arrow_up.svg",        theme.colors.foreground)
+theme.arrow_right_icon  = recolor_image(themes_path .. "default/other/arrow_right.svg",     theme.colors.foreground)
+theme.arrow_left_icon   = recolor_image(themes_path .. "default/other/arrow_left.svg",      theme.colors.foreground)
 
--- other icon
-theme.menu_submenu_icon = recolor_image(themes_path .. "default/other/submenu.svg",         theme.common.secondary)
-theme.notification_icon = recolor_image(themes_path .. "default/other/notification.svg",    theme.common.secondary)
-theme.setting_icon      = recolor_image(themes_path .. "default/other/setting.svg",         theme.common.secondary)
-theme.refresh_icon      = recolor_image(themes_path .. "default/other/refresh.svg",         theme.common.secondary)
-theme.book_icon         = recolor_image(themes_path .. "default/other/book.svg",            theme.common.secondary)
-theme.keyboard_icon     = recolor_image(themes_path .. "default/other/keyboard.svg",        theme.common.secondary)
-theme.awesome_icon      = recolor_image(themes_path .. "default/other/awesomewm.svg",       theme.common.primary)
-theme.os_icon           = recolor_image(themes_path .. "default/other/archlinux.svg",       theme.common.primary)
-theme.dashboard_icon    = recolor_image(themes_path .. "default/other/dashboard.svg",       theme.common.primary)
-theme.menu_icon         = recolor_image(themes_path .. "default/other/menu.svg",            theme.common.primary)
-theme.bin_icon          = recolor_image(themes_path .. "default/other/bin.svg",             theme.common.high)
-theme.image_icon        = recolor_image(themes_path .. "default/other/image.svg",           theme.palette.green)
-theme.camera_icon       = recolor_image(themes_path .. "default/other/camera.svg",          theme.palette.blue)
-theme.switch_user_icon  = recolor_image(themes_path .. "default/other/switch_user.svg",     theme.palette.yellow)
+-- power
+theme.hibernate_icon    = recolor_image(themes_path .. "default/power/hibernate.svg",       theme.palette.cyan)
+theme.lock_icon         = recolor_image(themes_path .. "default/power/lock.svg",            theme.palette.green)
+theme.logout_icon       = recolor_image(themes_path .. "default/power/logout.svg",          theme.palette.blue)
+theme.reboot_icon       = recolor_image(themes_path .. "default/power/reboot.svg",          theme.palette.yellow)
+theme.shutdown_icon     = recolor_image(themes_path .. "default/power/shutdown.svg",        theme.palette.red)
+theme.sleep_icon        = recolor_image(themes_path .. "default/power/sleep.svg",           theme.palette.magenta)
 
+-- status
 theme.download_icon     = recolor_image(themes_path .. "default/other/download.svg",        theme.palette.white)
 theme.upload_icon       = recolor_image(themes_path .. "default/other/upload.svg",          theme.palette.white)
 theme.hard_drive_icon   = recolor_image(themes_path .. "default/other/hard_drive.svg",      theme.palette.blue)
@@ -252,14 +249,28 @@ theme.memory_icon       = recolor_image(themes_path .. "default/other/memory.svg
 theme.cpu_icon          = recolor_image(themes_path .. "default/other/cpu.svg",             theme.palette.magenta)
 theme.clock_icon        = recolor_image(themes_path .. "default/other/clock.svg",           theme.palette.green)
 theme.volume_icon       = recolor_image(themes_path .. "default/other/volume.svg",          theme.palette.blue)
-theme.volume_mute_icon  = recolor_image(themes_path .. "default/other/volume_mute.svg",     theme.common.medium)
+theme.volume_mute_icon  = recolor_image(themes_path .. "default/other/volume_mute.svg",     theme.palette.yellow)
 theme.mic_icon          = recolor_image(themes_path .. "default/other/mic.svg",             theme.palette.cyan)
-theme.mic_off_icon      = recolor_image(themes_path .. "default/other/mic_off.svg",         theme.common.medium)
+theme.mic_off_icon      = recolor_image(themes_path .. "default/other/mic_off.svg",         theme.palette.yellow)
 
-theme.add_icon          = recolor_image(themes_path .. "default/other/add.svg",             theme.common.secondary)
-theme.subtract_icon     = recolor_image(themes_path .. "default/other/subtract.svg",        theme.common.secondary)
+-- other icon
+theme.menu_submenu_icon = recolor_image(themes_path .. "default/other/submenu.svg",         theme.colors.foreground)
+theme.notification_icon = recolor_image(themes_path .. "default/other/notification.svg",    theme.colors.foreground)
+theme.setting_icon      = recolor_image(themes_path .. "default/other/setting.svg",         theme.colors.foreground)
+theme.refresh_icon      = recolor_image(themes_path .. "default/other/refresh.svg",         theme.colors.foreground)
+theme.book_icon         = recolor_image(themes_path .. "default/other/book.svg",            theme.colors.foreground)
+theme.keyboard_icon     = recolor_image(themes_path .. "default/other/keyboard.svg",        theme.colors.foreground)
+theme.add_icon          = recolor_image(themes_path .. "default/other/add.svg",             theme.colors.foreground)
+theme.subtract_icon     = recolor_image(themes_path .. "default/other/subtract.svg",        theme.colors.foreground)
+theme.awesome_icon      = recolor_image(themes_path .. "default/other/awesomewm.svg",       theme.colors.primary)
+theme.dashboard_icon    = recolor_image(themes_path .. "default/other/dashboard.svg",       theme.colors.primary)
+theme.menu_icon         = recolor_image(themes_path .. "default/other/menu.svg",            theme.colors.primary)
+theme.image_icon        = recolor_image(themes_path .. "default/other/image.svg",           theme.palette.green)
+theme.camera_icon       = recolor_image(themes_path .. "default/other/camera.svg",          theme.palette.blue)
+theme.switch_user_icon  = recolor_image(themes_path .. "default/other/switch_user.svg",     theme.palette.yellow)
 
 -- color icon
 theme.package_icon      = themes_path .. "default/other/package.svg"
 
+-- stylua: ignore end
 return theme

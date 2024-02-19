@@ -1,11 +1,13 @@
 local awful = require("awful")
 local wibox = require("wibox")
+local beautiful = require("beautiful")
 local dpi = require("beautiful.xresources").apply_dpi
 
 local tasklist = require("ui.wibar.tasklist")
 local taglist = require("ui.wibar.taglist")
-local launcher = require("ui.wibar.launcher")
 local layoutlist = require("ui.wibar.layoutlist")
+
+local launcher = require("ui.wibar.launcher")
 local clock = require("ui.wibar.clock")
 local systray = require("ui.wibar.systray")
 local prompt = require("ui.wibar.prompt")
@@ -15,35 +17,38 @@ local mic = require("ui.wibar.mic")
 local cpu = require("ui.wibar.cpu")
 local memory = require("ui.wibar.memory")
 local gpu = require("ui.wibar.gpu")
-local countdown = require("ui.wibar.countdown")
 -- local net = require("ui.wibar.net")
 -- local thermal = require("ui.wibar.thermal")
 -- local fs = require("ui.wibar.fs")
 
 screen.connect_signal("request::desktop_decoration", function(s)
+    local is_primary = s == screen.primary
+
     s.wibox = awful.wibar({
+        -- visible = false,
         position = "top",
         screen = s,
         widget = {
             { -- Left
-                launcher,
+                is_primary and launcher,
                 taglist(s),
-                systray,
+                layoutlist(s),
+                is_primary and systray,
                 tasklist(s),
-                prompt,
+                is_primary and prompt,
                 layout = wibox.layout.fixed.horizontal,
             },
-            { -- Middle
-                countdown,
+            is_primary and { -- Middle
                 {
                     playerbox,
-                    -- layout = wibox.layout.align.horizontal,
-                    widget = wibox.container.place,
+                    left = dpi(6) * 4,
+                    right = dpi(6) * 4,
+                    widget = wibox.container.margin,
                 },
-                nil,
-                layout = wibox.layout.align.horizontal,
+                content_fill_vertical = true,
+                widget = wibox.container.place,
             },
-            { -- Right
+            is_primary and { -- Right
                 -- net,
                 -- fs,
                 -- thermal,
@@ -53,7 +58,6 @@ screen.connect_signal("request::desktop_decoration", function(s)
                 volume,
                 mic,
                 clock,
-                layoutlist,
                 spacing = dpi(6) * 2,
                 layout = wibox.layout.fixed.horizontal,
             },

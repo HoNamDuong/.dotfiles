@@ -10,7 +10,7 @@ tag.connect_signal("request::default_layouts", function()
         -- awful.layout.suit.corner.nw,
         -- awful.layout.suit.corner.se,
         -- awful.layout.suit.corner.sw,
-        -- awful.layout.suit.fair,
+        awful.layout.suit.fair,
         -- awful.layout.suit.fair.horizontal,
         -- awful.layout.suit.spiral,
         -- awful.layout.suit.spiral.dwindle,

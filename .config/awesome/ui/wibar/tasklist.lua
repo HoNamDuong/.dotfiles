@@ -1,10 +1,8 @@
 local awful = require("awful")
 local wibox = require("wibox")
-local beautiful = require("beautiful")
-local gears = require("gears")
 local dpi = require("beautiful.xresources").apply_dpi
-local clientmenu = require("ui.clientmenu")
-local cairo = require("lgi").cairo
+
+local utils = require("utils")
 
 local tasklist = function(s)
     return awful.widget.tasklist({
@@ -18,7 +16,7 @@ local tasklist = function(s)
                 c:kill()
             end),
             awful.button({}, 3, function(c)
-                clientmenu:toggle(c)
+                awesome.emit_signal("clientmenu::toggle", c)
             end),
             -- awful.button({}, 4, function()
             --     awful.client.focus.byidx(-1)
@@ -47,7 +45,7 @@ local tasklist = function(s)
         widget_template = {
             {
                 {
-                    id = "icon_role",
+                    id = "icon_client",
                     widget = wibox.widget.imagebox,
                 },
                 top = dpi(2),
@@ -58,15 +56,8 @@ local tasklist = function(s)
             },
             id = "background_role",
             widget = wibox.container.background,
-            create_callback = function(self, c, index, objects)
-                if c and c.valid and not c.icon then
-                    local s = gears.surface(beautiful.package_icon)
-                    local img = cairo.ImageSurface.create(cairo.Format.ARGB32, s:get_width(), s:get_height())
-                    local cr = cairo.Context(img)
-                    cr:set_source_surface(s, 0, 0)
-                    cr:paint()
-                    c.icon = img._native
-                end
+            create_callback = function(self, c, index, clients)
+                self:get_children_by_id("icon_client")[1].image = utils.get_icon_client(c)
             end,
         },
     })

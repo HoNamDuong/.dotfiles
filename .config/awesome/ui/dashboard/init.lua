@@ -2,36 +2,12 @@ local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local dpi = require("beautiful.xresources").apply_dpi
+
 local keys = require("config").keys
 
-local cols_size = dpi(6) * 10 * 2
-local rows_size = dpi(6) * 10 * 2
-
-local function box_widget(widgets, width, height)
-    return wibox.widget({
-        widgets,
-        forced_width = width,
-        forced_height = height,
-        -- border_width = beautiful.border_width,
-        -- border_color = beautiful.common.secondary,
-        widget = wibox.container.background,
-    })
-end
-
-local clock_widget = require("ui.dashboard.clock")
-local clock = box_widget(clock_widget, cols_size * 2, rows_size * 1)
-
 local calendar_widget = require("ui.dashboard.calendar")
-local calendar = box_widget(calendar_widget, cols_size * 2, rows_size * 2)
-
-local countdown_widget = require("ui.dashboard.countdown")
-local countdown = box_widget(countdown_widget, cols_size * 2, rows_size * 1)
-
-local powermenu_widget = require("ui.dashboard.powermenu")
-local powermenu = box_widget(powermenu_widget, cols_size * 1, rows_size * 4)
-
+local clock_widget = require("ui.dashboard.clock")
 local notifications_widget = require("ui.dashboard.notifications")
-local notifications = box_widget(notifications_widget, cols_size * 3, rows_size * 4)
 
 local workarea = screen.primary.workarea
 
@@ -39,40 +15,44 @@ local dashboard = wibox({
     widget = {
         {
             {
-                clock,
-                calendar,
-                countdown,
-                layout = wibox.layout.fixed.vertical,
+                {
+                    calendar_widget,
+                    clock_widget,
+                    fill_space = true,
+                    spacing = dpi(6) * 2,
+                    layout = wibox.layout.fixed.horizontal,
+                },
+                bottom = dpi(6) * 2,
+                widget = wibox.container.margin,
             },
-            powermenu,
-            layout = wibox.layout.fixed.horizontal,
+            notifications_widget,
+            nil,
+            layout = wibox.layout.align.vertical,
         },
-        notifications_widget,
-        nil,
-        layout = wibox.layout.align.vertical,
+        margins = dpi(6) * 2,
+        widget = wibox.container.margin,
     },
     type = "dock",
     screen = screen.primary,
     visible = false,
     ontop = true,
-    width = cols_size * 3.,
-    height = workarea.height - (beautiful.useless_gap * 4) - (beautiful.border_width * 2) - beautiful.wibar_height,
+    width = dpi(6) * 10 * 7,
+    height = workarea.height - (beautiful.useless_gap * 4) - (beautiful.border_width * 2),
     border_width = beautiful.border_width,
-    border_color = beautiful.common.secondary,
+    border_color = beautiful.colors.secondary,
 })
 
-awful.placement.bottom_left(dashboard, {
+awful.placement.left(dashboard, {
+    honor_workarea = true,
     margins = beautiful.useless_gap * 2,
 })
 
-function dashboard:toggle()
-    self.visible = not self.visible
-end
+awesome.connect_signal("dashboard::toggle", function()
+    dashboard.visible = not dashboard.visible
+end)
 
 awful.keyboard.append_global_keybindings({
     awful.key({ keys.super }, "d", function()
-        dashboard:toggle()
-    end, { description = "Toggle dashboard", group = "actions" }),
+        awesome.emit_signal("dashboard::toggle")
+    end, { description = "Toggle dashboard", group = "awesome" }),
 })
-
-return dashboard

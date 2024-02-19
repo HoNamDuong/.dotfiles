@@ -21,14 +21,15 @@ local clock = wibox.widget({
             halign = "center",
             valign = "center",
             visible = false,
-            widget = wibox.widget.textclock(),
+            widget = wibox.widget.textclock,
         },
         {
             id = "time_role",
-            format = "%H:%M",
+            format = "%H:%M ",
             halign = "center",
             valign = "center",
-            widget = wibox.widget.textclock(),
+            visible = true,
+            widget = wibox.widget.textclock,
         },
         layout = wibox.layout.fixed.horizontal,
     },
@@ -36,9 +37,22 @@ local clock = wibox.widget({
     layout = wibox.layout.fixed.horizontal,
 })
 
+awful.tooltip({
+    objects = { clock },
+    delay_show = 1,
+    timer_function = function()
+        return os.date("Today is %A %B %d %Y\nThe time is %T")
+    end,
+})
+
 clock:add_button(awful.button({}, 1, nil, function()
     local status = clock:get_children_by_id("date_role")[1].visible
     clock:get_children_by_id("date_role")[1].visible = not status
+end))
+
+clock:add_button(awful.button({}, 3, nil, function()
+    local time = tostring(os.date("%Y%m%d%H%M"))
+    io.popen("xclip -selection clipboard", "w"):write(time):close()
 end))
 
 return clock

@@ -1,21 +1,16 @@
 local awful = require("awful")
-local menubar = require("menubar")
 local naughty = require("naughty")
-local utils = require("utils")
 
+local utils = require("utils")
 local actions = require("config").actions
 local apps = require("config").apps
 local keys = require("config").keys
-
-local mainmenu = require("ui.mainmenu")
-local hotkeys = require("ui.hotkeys")
-local prompt = require("ui.wibar.prompt")
 
 -- {{{ Mouse bindings
 -- Global
 awful.mouse.append_global_mousebindings({
     awful.button({}, 3, function()
-        mainmenu:toggle()
+        awesome.emit_signal("mainmenu::toggle")
     end),
     -- awful.button({}, 4, awful.tag.viewprev),
     -- awful.button({}, 5, awful.tag.viewnext),
@@ -40,19 +35,12 @@ end)
 -- {{{ Key bindings
 -- General Awesome keys
 awful.keyboard.append_global_keybindings({
-    awful.key({ keys.super }, "s", function()
-        hotkeys:show_help()
-    end, { description = "Show help", group = "awesome" }),
-
-    awful.key({ keys.super }, "w", function()
-        mainmenu:show()
-    end, { description = "Show main menu", group = "awesome" }),
-
     awful.key({ keys.super, "Control" }, "r", awesome.restart, { description = "Reload awesome", group = "awesome" }),
 
     awful.key({ keys.super, "Shift" }, "q", awesome.quit, { description = "Quit awesome", group = "awesome" }),
 
     awful.key({ keys.super }, "r", function()
+        -- local prompt = require("ui.wibar.prompt")
         -- awful.prompt.run({
         --     prompt = "Run Lua code: ",
         --     textbox = prompt.widget,
@@ -61,12 +49,13 @@ awful.keyboard.append_global_keybindings({
         -- })
         -- prompt:run()
         awful.spawn(apps.run)
-    end, { description = "Run command", group = "actions" }),
+    end, { description = "Open run", group = "actions" }),
 
     awful.key({ keys.super }, "a", function()
+        -- local menubar = require("menubar")
         -- menubar.show()
         awful.spawn(apps.launcher)
-    end, { description = "Show launcher", group = "actions" }),
+    end, { description = "Open launcher", group = "actions" }),
 
     awful.key({ keys.super }, "Return", function()
         awful.spawn(apps.terminal)
@@ -74,11 +63,7 @@ awful.keyboard.append_global_keybindings({
 
     awful.key({ keys.super }, "x", function()
         awful.spawn(apps.powermenu)
-    end, { description = "Show powermenu", group = "actions" }),
-
-    awful.key({ keys.super }, "b", function()
-        awful.spawn(apps.browser)
-    end, { description = "Open browser", group = "actions" }),
+    end, { description = "Open powermenu", group = "actions" }),
 
     awful.key({}, "Print", function()
         awful.spawn.with_shell(actions.screenshot)
@@ -308,5 +293,64 @@ awful.keyboard.append_global_keybindings({
     awful.key({ keys.super, "Control" }, "l", function()
         awful.tag.incncol(-1, nil, true)
     end, { description = "Decrease the number of columns", group = "layout" }),
+
+    awful.key({ keys.super }, "g", function()
+        utils.tag.toggle_gap()
+    end, { description = "Toggle space between clients", group = "layout" }),
 })
--- })
+-- }}}
+
+-- {{{ Test
+awful.keyboard.append_global_keybindings({
+    awful.key({ keys.super }, "F5", function()
+        local screen = awful.screen.focused()
+        screen:split()
+    end, { description = "Split the screen", group = "test" }),
+
+    awful.key({ keys.super }, "F6", function()
+        local screen = awful.screen.focused()
+        screen:fake_remove()
+    end, { description = "Remove the screen", group = "test" }),
+
+    awful.key({ keys.super }, "F7", function()
+        local screen = awful.screen.focused()
+        screen:fake_resize(0, 0, 1600, 900)
+    end, { description = "Resize the screen", group = "test" }),
+
+    awful.key({ keys.super }, "F1", function()
+        naughty.notify({
+            title = "Low notification",
+            message = "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
+            urgency = "low",
+            actions = {
+                naughty.action({ name = "Let's go!" }),
+            },
+        })
+    end, { description = "Low notification", group = "test" }),
+
+    awful.key({ keys.super }, "F2", function()
+        naughty.notify({
+            title = "Normal notification",
+            message = "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
+            urgency = "normal",
+            actions = {
+                naughty.action({ name = "Accept" }),
+                naughty.action({ name = "Refuse" }),
+                naughty.action({ name = "Ignore" }),
+            },
+        })
+    end, { description = "Normal notification", group = "test" }),
+
+    awful.key({ keys.super }, "F3", function()
+        naughty.notify({
+            title = "Critical notification",
+            message = "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
+            urgency = "critical",
+            actions = {
+                naughty.action({ name = "Yes" }),
+                naughty.action({ name = "No" }),
+            },
+        })
+    end, { description = "Critical notification", group = "test" }),
+})
+-- }}}

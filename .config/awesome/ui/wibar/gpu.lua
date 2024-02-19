@@ -40,6 +40,8 @@ awful.spawn.easy_async("which nvidia-smi", function(stdout, stderr, reason, exit
                 end)
             end,
         })
+    else
+        gpu.visible = false
     end
 end)
 

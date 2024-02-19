@@ -3,18 +3,17 @@ local config = {}
 config.apps = {
     terminal = os.getenv("TERMINAL"),
     editor = os.getenv("TERMINAL") .. " -e " .. os.getenv("EDITOR"),
-    browser = "google-chrome-stable",
-    music = "spotify",
-    launcher = "launcher",
     run = "run",
+    launcher = "launcher",
     powermenu = "powermenu",
 }
 
 config.actions = {
     -- Power
     shutdown = "systemctl poweroff",
-    restart = "systemctl reboot",
+    reboot = "systemctl reboot",
     sleep = "systemctl suspend",
+    hibernate = "systemctl hibernate",
     logout = "loginctl kill-session ''",
     lock = "loginctl lock-session",
     -- screenshot

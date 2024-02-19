@@ -5,6 +5,8 @@ local beautiful = require("beautiful")
 local dpi = require("beautiful.xresources").apply_dpi
 local recolor_image = require("gears.color").recolor_image
 
+local pango = require("utils").pango
+
 naughty.notification_list = wibox.widget({
     spacing = beautiful.useless_gap * 2,
     layout = wibox.layout.fixed.vertical,
@@ -29,31 +31,39 @@ end)
 
 local function notification_item(n)
     -- urgency color
-    local urgency_color = beautiful.common.secondary
+    local urgency_header_fg = beautiful.colors.foreground
+    local urgency_header_bg = beautiful.colors.secondary
+    local urgency_body_bg = beautiful.colors.secondary_dark
+    local urgency_button_bg = beautiful.colors.secondary_dull
     if n.urgency == "normal" then
-        urgency_color = beautiful.common.primary
+        urgency_header_fg = beautiful.colors.background
+        urgency_header_bg = beautiful.colors.primary
+        urgency_body_bg = beautiful.colors.primary_dark
+        urgency_button_bg = beautiful.colors.primary_dull
     elseif n.urgency == "critical" then
-        urgency_color = beautiful.common.high
+        urgency_header_fg = beautiful.colors.background
+        urgency_header_bg = beautiful.colors.high
+        urgency_body_bg = beautiful.colors.high_dark
+        urgency_button_bg = beautiful.colors.high_dull
     end
 
     -- app name
     local app_name_n = wibox.widget({
-        markup = n.app_name == "" and "Notification" or n.app_name,
+        markup = pango.b(n.app_name == "" and "Notification" or n.app_name),
         valign = "center",
         widget = wibox.widget.textbox,
     })
 
     -- time
     local time_n = wibox.widget({
-        markup = os.date(" %H:%M:%S "),
-        halign = "right",
+        markup = pango.b(os.date("%H:%M:%S ")),
         valign = "center",
         widget = wibox.widget.textbox,
     })
 
     -- image
     local image_n = wibox.widget({
-        image = n.icon and n.icon or recolor_image(beautiful.notification_icon, urgency_color),
+        image = n.icon and n.icon or recolor_image(beautiful.notification_icon, urgency_header_bg),
         resize = true,
         halign = "center",
         -- valign = "center",
@@ -65,13 +75,11 @@ local function notification_item(n)
     -- title
     local title_n = wibox.widget({
         {
-            markup = n.title,
+            markup = pango.b(n.title),
             align = "left",
             valign = "center",
             widget = wibox.widget.textbox,
         },
-        speed = 50,
-        step_function = wibox.container.scroll.step_functions.nonlinear_back_and_forth,
         widget = wibox.container.scroll.horizontal,
     })
 
@@ -84,48 +92,60 @@ local function notification_item(n)
             wrap = "char",
             widget = wibox.widget.textbox,
         },
-        layout = wibox.layout.fixed.horizontal,
+        max_size = 300,
+        widget = wibox.container.scroll.vertical,
     })
 
     -- actions
     local actions_n = wibox.widget({
         notification = n,
         base_layout = wibox.widget({
-            spacing = dpi(6),
+            spacing = dpi(6) * 2,
             layout = wibox.layout.flex.horizontal,
         }),
-        widget_template = {
-            {
-                {
-                    {
-                        id = "text_role",
-                        widget = wibox.widget.textbox,
-                    },
-                    margins = dpi(6),
-                    widget = wibox.container.margin,
-                },
-                widget = wibox.container.place,
-            },
-            bg = beautiful.common.secondary,
-            widget = wibox.container.background,
-        },
         style = {
             underline_normal = false,
             underline_selected = true,
         },
         widget = naughty.list.actions,
+        widget_template = {
+            {
+                {
+                    id = "text_role",
+                    align = "center",
+                    valign = "center",
+                    widget = wibox.widget.textbox,
+                },
+                margins = dpi(6),
+                widget = wibox.container.margin,
+            },
+            bg = urgency_button_bg,
+            widget = wibox.container.background,
+        },
     })
 
     return {
         {
             {
                 {
-                    app_name_n,
-                    time_n,
-                    nil,
-                    id = "header_rule",
-                    layout = wibox.layout.align.horizontal,
+                    {
+                        time_n,
+                        nil,
+                        app_name_n,
+                        id = "header_role",
+                        layout = wibox.layout.align.horizontal,
+                    },
+                    top = dpi(6),
+                    bottom = dpi(6),
+                    left = dpi(6) * 2,
+                    right = dpi(6) * 2,
+                    widget = wibox.container.margin,
                 },
+                bg = urgency_header_bg,
+                fg = urgency_header_fg,
+                widget = wibox.container.background,
+            },
+            {
                 {
                     image_n,
                     {
@@ -137,31 +157,23 @@ local function notification_item(n)
                     spacing = dpi(6) * 2,
                     layout = wibox.layout.fixed.horizontal,
                 },
-                actions_n,
-                spacing = dpi(6) * 2,
-                layout = wibox.layout.fixed.vertical,
+                margins = dpi(6) * 2,
+                widget = wibox.container.margin,
             },
-            margins = dpi(6) * 2,
-            widget = wibox.container.margin,
+            #n.actions ~= 0 and {
+                actions_n,
+                top = dpi(0),
+                bottom = dpi(6) * 2,
+                left = dpi(6) * 2,
+                right = dpi(6) * 2,
+                widget = wibox.container.margin,
+            },
+            layout = wibox.layout.fixed.vertical,
         },
         border_width = beautiful.border_width,
-        border_color = urgency_color,
+        border_color = urgency_header_bg,
+        bg = urgency_body_bg,
         widget = wibox.container.background,
-    }
-end
-
-local function delete_button(widget)
-    return {
-        image = beautiful.bin_icon,
-        resize = true,
-        forced_width = dpi(6) * 3,
-        forced_height = dpi(6) * 3,
-        widget = wibox.widget.imagebox,
-        buttons = {
-            awful.button({}, 1, function()
-                naughty.notification_list:remove_widgets(widget)
-            end),
-        },
     }
 end
 
@@ -182,7 +194,11 @@ naughty.connect_signal("request::display", function(n)
 
     -- widget
     local widget = wibox.widget(widget_template)
-    widget:get_children_by_id("header_rule")[1].third = wibox.widget(delete_button(widget))
+    widget:get_children_by_id("header_role")[1].buttons = {
+        awful.button({}, 1, function()
+            naughty.notification_list:remove_widgets(widget)
+        end),
+    }
 
     naughty.notification_list:insert(1, widget)
 end)

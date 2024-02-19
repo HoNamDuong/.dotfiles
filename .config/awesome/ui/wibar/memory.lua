@@ -1,8 +1,9 @@
 local wibox = require("wibox")
 local gears = require("gears")
 local beautiful = require("beautiful")
-local pango = require("utils").pango
 local dpi = require("beautiful.xresources").apply_dpi
+
+local pango = require("utils").pango
 
 -- Source https://github.com/vicious-widgets/vicious
 
@@ -71,12 +72,12 @@ gears.timer({
     autostart = true,
     callback = function()
         local usep = get_mem()[1]
-        local fg_color = beautiful.common.low
+        local fg_color = beautiful.colors.low
 
         if usep > 80 then
-            fg_color = beautiful.common.high
+            fg_color = beautiful.colors.high
         elseif 50 <= usep and usep <= 80 then
-            fg_color = beautiful.common.medium
+            fg_color = beautiful.colors.medium
         end
 
         mem:get_children_by_id("text_role")[1].markup = pango.span({ usep .. "%", foreground = fg_color })

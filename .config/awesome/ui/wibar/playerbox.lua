@@ -1,13 +1,12 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
-local naughty = require("naughty")
-local gears = require("gears")
-local pango = require("utils").pango
 local dpi = require("beautiful.xresources").apply_dpi
-local icon_theme = require("menubar.icon_theme")
+local gears = require("gears")
 local recolor_image = require("gears.color").recolor_image
-local apps = require("config").apps
+local icon_theme = require("menubar.icon_theme")
+
+local pango = require("utils").pango
 
 local sel = 1
 
@@ -16,11 +15,6 @@ local empty_player = wibox.widget({
     halign = "center",
     valign = "center",
     widget = wibox.widget.textbox,
-    buttons = {
-        awful.button({}, 1, function()
-            awful.spawn(apps.music)
-        end),
-    },
 })
 
 local player_widget_list = wibox.widget({
@@ -41,7 +35,7 @@ local playerbox = wibox.widget({
         {
             id = "player_role",
             {
-                image = recolor_image(beautiful.arrow_down_icon, beautiful.common.foreground),
+                image = recolor_image(beautiful.arrow_down_icon, beautiful.colors.foreground),
                 visible = false,
                 resize = true,
                 halign = "center",
@@ -61,7 +55,7 @@ local playerbox = wibox.widget({
         right = dpi(6),
         widget = wibox.container.margin,
     },
-    bg = beautiful.common.secondary_dark,
+    bg = beautiful.colors.secondary,
     widget = wibox.container.background,
 })
 
@@ -222,7 +216,7 @@ gears.timer.delayed_call(function()
     end
 
     function manager:on_name_vanished(name)
-        -- naughty.notification({
+        -- require("naughty").notification({
         --     message = #player_widget_list,
         -- })
     end

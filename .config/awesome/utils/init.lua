@@ -1,5 +1,7 @@
 local awful = require("awful")
 local gstring = require("gears.string")
+local beautiful = require("beautiful")
+local menubar_utils = require("menubar.utils")
 
 local utils = {
     tag = {},
@@ -46,6 +48,16 @@ function utils.tag.view_nonempty(direction, sc)
             return
         end
     until false
+end
+
+-- Toggle space between clients
+function utils.tag.toggle_gap()
+    local gap = awful.tag.getgap()
+    if gap == 0 then
+        awful.tag.setgap(beautiful.useless_gap)
+    else
+        awful.tag.setgap(0)
+    end
 end
 
 ---Convert lua table to pango "span".
@@ -96,6 +108,14 @@ end
 ---@return string
 function utils.pango.u(data)
     return "<u>" .. data .. "</u>"
+end
+
+-- Get icon client with beautiful.icon_theme
+function utils.get_icon_client(c)
+    if not c.class then
+        return c.icon
+    end
+    return menubar_utils.lookup_icon(string.lower(c.class)) or c.icon or beautiful.package_icon
 end
 
 return utils

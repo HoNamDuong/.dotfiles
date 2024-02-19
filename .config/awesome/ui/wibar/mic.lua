@@ -1,9 +1,9 @@
+local awful = require("awful")
 local wibox = require("wibox")
 local gears = require("gears")
-local awful = require("awful")
 local beautiful = require("beautiful")
-local naughty = require("naughty")
 local dpi = require("beautiful.xresources").apply_dpi
+
 local pango = require("utils").pango
 
 local mic = wibox.widget({
@@ -27,7 +27,7 @@ local mic = wibox.widget({
     layout = wibox.layout.fixed.horizontal,
     set_value = function(self, val)
         if string.match(val, "muted") then
-            self["text_role"].markup = pango.span({ foreground = beautiful.common.medium, val })
+            self["text_role"].markup = pango.span({ foreground = beautiful.colors.medium, val })
             self:get_children_by_id("icon_role")[1].image = beautiful.mic_off_icon
         else
             self["text_role"].markup = val
@@ -70,6 +70,8 @@ awful.spawn.easy_async("which pactl", function(stdout, stderr, reason, exit_code
                 awesome.emit_signal("mic::changed")
             end,
         })
+    else
+        mic.visible = false
     end
 end)
 
