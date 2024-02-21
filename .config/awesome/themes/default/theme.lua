@@ -207,16 +207,16 @@ theme.layout_centered   = themes_path .. "default/layouts/centered.png"
 -- theme = theme_assets.recolor_layout(theme, theme.common.primary)
 
 -- tag
-theme.terminal_icon     = recolor_image(themes_path .. "/default/tag/terminal.svg",         theme.colors.foreground)
+theme.general_icon      = recolor_image(themes_path .. "/default/tag/general.svg",          theme.colors.foreground)
 theme.code_icon         = recolor_image(themes_path .. "/default/tag/code.svg",             theme.colors.foreground)
 theme.chrome_icon       = recolor_image(themes_path .. "/default/tag/chrome.svg",           theme.colors.foreground)
-theme.files_icon        = recolor_image(themes_path .. "/default/tag/files.svg",            theme.colors.foreground)
+theme.file_icon         = recolor_image(themes_path .. "/default/tag/file.svg",             theme.colors.foreground)
 theme.document_icon     = recolor_image(themes_path .. "/default/tag/document.svg",         theme.colors.foreground)
 theme.media_icon        = recolor_image(themes_path .. "/default/tag/media.svg",            theme.colors.foreground)
-theme.tools_icon        = recolor_image(themes_path .. "/default/tag/tools.svg",            theme.colors.foreground)
+theme.tool_icon         = recolor_image(themes_path .. "/default/tag/tool.svg",             theme.colors.foreground)
 theme.chat_icon         = recolor_image(themes_path .. "/default/tag/chat.svg",             theme.colors.foreground)
 theme.game_icon         = recolor_image(themes_path .. "/default/tag/game.svg",             theme.colors.foreground)
-theme.general_icon      = recolor_image(themes_path .. "/default/tag/general.svg",          theme.colors.foreground)
+theme.setting_icon      = recolor_image(themes_path .. "/default/tag/setting.svg",          theme.colors.foreground)
 
 -- player
 theme.play_icon         = recolor_image(themes_path .. "default/player/play.svg",           theme.colors.foreground)
@@ -256,7 +256,7 @@ theme.mic_off_icon      = recolor_image(themes_path .. "default/other/mic_off.sv
 -- other icon
 theme.menu_submenu_icon = recolor_image(themes_path .. "default/other/submenu.svg",         theme.colors.foreground)
 theme.notification_icon = recolor_image(themes_path .. "default/other/notification.svg",    theme.colors.foreground)
-theme.setting_icon      = recolor_image(themes_path .. "default/other/setting.svg",         theme.colors.foreground)
+theme.edit_icon         = recolor_image(themes_path .. "default/other/edit.svg",            theme.colors.foreground)
 theme.refresh_icon      = recolor_image(themes_path .. "default/other/refresh.svg",         theme.colors.foreground)
 theme.book_icon         = recolor_image(themes_path .. "default/other/book.svg",            theme.colors.foreground)
 theme.keyboard_icon     = recolor_image(themes_path .. "default/other/keyboard.svg",        theme.colors.foreground)

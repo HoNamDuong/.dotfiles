@@ -35,16 +35,16 @@ config.keys = {
 
 config.tags = {
     name = {
-        "Terminal",
+        "General",
         "Code",
-        "Chromium",
-        "Files",
+        "Chrome",
+        "File",
         "Document",
         "Media",
-        "Tools",
+        "Tool",
         "Chat",
         "Game",
-        "General",
+        "Setting",
     },
 }
 

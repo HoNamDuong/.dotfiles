@@ -6,16 +6,16 @@ local tag_name = require("config").tags.name
 local tags = {
     name = tag_name,
     icon = {
-        beautiful.terminal_icon,
+        beautiful.general_icon,
         beautiful.code_icon,
         beautiful.chrome_icon,
-        beautiful.files_icon,
+        beautiful.file_icon,
         beautiful.document_icon,
         beautiful.media_icon,
-        beautiful.tools_icon,
+        beautiful.tool_icon,
         beautiful.chat_icon,
         beautiful.game_icon,
-        beautiful.general_icon,
+        beautiful.setting_icon,
     },
 }
 

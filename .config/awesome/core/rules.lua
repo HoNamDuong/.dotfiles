@@ -94,11 +94,11 @@ ruled.client.connect_signal("request::rules", function()
         properties = { tag = tag_name[5] },
     })
     ruled.client.append_rule({
-        rule_any = { instance = { "mpv" }, class = { "Spotify" } },
+        rule_any = { instance = {}, class = { "Spotify", "mpv" } },
         properties = { tag = tag_name[6] },
     })
     ruled.client.append_rule({
-        rule_any = { instance = { "postman", "DBeaver", "VirtualBox", "simple-scan", "gucharmap" } },
+        rule_any = { instance = { "postman", "DBeaver", "VirtualBox", "simple-scan", "gucharmap", "inkscape", "gimp" } },
         properties = { tag = tag_name[7] },
     })
     ruled.client.append_rule({

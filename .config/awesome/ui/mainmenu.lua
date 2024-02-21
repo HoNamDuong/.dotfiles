@@ -85,7 +85,7 @@ local mainmenu = build_menu({
                     beautiful.keyboard_icon,
                 },
                 { "Manual", config.apps.terminal .. " -e man awesome", beautiful.book_icon },
-                { "Edit config", config.apps.editor .. " " .. awesome.conffile, beautiful.setting_icon },
+                { "Edit config", config.apps.editor .. " " .. awesome.conffile, beautiful.edit_icon },
                 { "Reload", awesome.restart, beautiful.refresh_icon },
             },
             beautiful.awesome_icon,
