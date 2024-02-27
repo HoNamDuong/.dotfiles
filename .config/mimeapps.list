@@ -1,6 +1,12 @@
 [Default Applications]
-text/plain=nvim.desktop
+application/pdf=org.pwmt.zathura-pdf-mupdf.desktop
+application/x-pem-file=nvim.desktop
+application/x-trash=nvim.desktop
+image/jpeg=viewnior.desktop
 image/png=viewnior.desktop
+image/svg+xml=viewnior.desktop
 inode/directory=nemo.desktop
+text/plain=nvim.desktop
 text/x-install=nvim.desktop
 text/x-shellscript=nvim.desktop
+video/mp4=mpv.desktop
