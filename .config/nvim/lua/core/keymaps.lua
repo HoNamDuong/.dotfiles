@@ -62,6 +62,7 @@ map("n", "<leader>;r", "<cmd>source %<CR>", { desc = "Refresh config" })
 map("n", "<leader>;t", "<cmd>bo 10new term://$SHELL<CR>i", { desc = "Open terminal" })
 map("n", "<leader>;n", "<cmd>enew<cr>", { desc = "New file" })
 map("n", "<leader>;i", vim.show_pos, { desc = "Inspect Pos" })
+map("n", "<leader>;s", function() vim.cmd([[%s/\s\+$//e]]) end, { desc = "Remove trailing whitespace" })
 map("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 -- Other
 map("n", "<leader>a", "ggVG", { desc = "Visual all" })

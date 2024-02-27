@@ -32,6 +32,13 @@ return {
                 separator_style = "thin",
                 offsets = {
                     {
+                        filetype = "neo-tree",
+                        text = "Explorer",
+                        text_align = "center",
+                        highlight = "Title",
+                        separator = true,
+                    },
+                    {
                         filetype = "NvimTree",
                         text = "File Explorer",
                         text_align = "center",
@@ -144,6 +151,7 @@ return {
                     theme = "auto",
                     section_separators = "",
                     component_separators = "",
+                    globalstatus = true,
                 },
                 sections = {
                     lualine_a = {},
@@ -164,6 +172,7 @@ return {
                             lualine_x = { location, "progress" },
                         },
                         filetypes = {
+                            "neo-tree",
                             "NvimTree",
                             "spectre_panel",
                         },

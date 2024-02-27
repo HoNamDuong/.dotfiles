@@ -2,7 +2,12 @@ return {
     -- Library used by other plugins
     {
         "nvim-lua/plenary.nvim",
-        lazy = true,
+        event = "VeryLazy",
+    },
+    -- UI Component
+    {
+        "MunifTanjim/nui.nvim",
+        event = "VeryLazy",
     },
     -- Better vim.ui
     {
@@ -12,6 +17,6 @@ return {
     -- Icons
     {
         "nvim-tree/nvim-web-devicons",
-        lazy = true,
+        event = "VeryLazy",
     },
 }

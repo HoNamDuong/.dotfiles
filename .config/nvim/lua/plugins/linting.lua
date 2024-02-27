@@ -15,6 +15,7 @@ return {
         local lint = require("lint")
 
         lint.linters_by_ft = {
+            markdown = { "cspell" },
             javascript = { "eslint_d" },
             typescript = { "eslint_d" },
             cpp = { "cpplint" },

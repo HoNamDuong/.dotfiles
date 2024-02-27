@@ -7,6 +7,7 @@ local packages = {
     "js-debug-adapter",
     "codelldb",
     -- Linter
+    "cspell",
     "eslint_d",
     "cpplint",
 }
@@ -31,7 +32,7 @@ return {
         "neovim/nvim-lspconfig",
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
-            { "folke/neodev.nvim", opts = {} },
+            -- { "folke/neodev.nvim", opts = {} },
             "b0o/schemastore.nvim",
         },
         keys = {

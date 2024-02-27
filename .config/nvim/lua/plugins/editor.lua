@@ -1,7 +1,90 @@
 return {
     -- File explorer
     {
+        "nvim-neo-tree/neo-tree.nvim",
+        enabled = false,
+        keys = {
+            {
+                "<leader>e",
+                function()
+                    require("neo-tree.command").execute({ source = "last", toggle = true })
+                end,
+                desc = "Explorer",
+            },
+        },
+        config = function()
+            require("neo-tree").setup({
+                source_selector = {
+                    winbar = true,
+                    sources = {
+                        {
+                            source = "filesystem",
+                            display_name = "󰉓 Files",
+                        },
+                        {
+                            source = "buffers",
+                            display_name = "󰈚 Buffers",
+                        },
+                        {
+                            source = "git_status",
+                            display_name = "󰊢 Git",
+                        },
+                    },
+                    content_layout = "center",
+                    tabs_layout = "equal",
+                },
+                popup_border_style = "rounded",
+                default_component_configs = {
+                    icon = {
+                        default = "",
+                    },
+                    modified = {
+                        symbol = "",
+                    },
+                    name = {
+                        use_git_status_colors = false,
+                    },
+                    git_status = {
+                        symbols = {
+                            -- Change type
+                            added = "A",
+                            modified = "",
+                            deleted = "D",
+                            renamed = "R",
+                            -- Status type
+                            untracked = "?",
+                            ignored = "I",
+                            unstaged = "M",
+                            staged = "M",
+                            conflict = "C",
+                        },
+                    },
+                    symlink_target = {
+                        enabled = true,
+                    },
+                },
+                window = {
+                    mappings = {
+                        ["<space>"] = "noop",
+                        ["<Tab>"] = "next_source",
+                    },
+                },
+                filesystem = {
+                    filtered_items = {
+                        hide_dotfiles = false,
+                        hide_gitignored = false,
+                        hide_hidden = false,
+                    },
+                    follow_current_file = {
+                        enabled = true,
+                    },
+                },
+            })
+        end,
+    },
+    {
         "nvim-tree/nvim-tree.lua",
+        -- enabled = false,
         config = function()
             -- -- disable netrw
             -- vim.g.loaded_netrw = 1
@@ -35,9 +118,9 @@ return {
                             git = {
                                 unstaged = "M",
                                 staged = "M",
-                                unmerged = "C",
+                                unmerged = "U",
                                 renamed = "R",
-                                untracked = "U",
+                                untracked = "?",
                                 deleted = "D",
                                 ignored = "I",
                             },
