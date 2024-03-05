@@ -139,6 +139,8 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
 | [Screenkey](https://www.thregr.org/~wavexx/software/screenkey/)                 | A screencast tool to display your keys inspired by Screenflick.                                                    |
 | [Gucharmap](https://wiki.gnome.org/Apps/Gucharmap)                              | The GNOME Character Map, based on the Unicode Character Database.                                                  |
 | [Gpick](https://github.com/thezbyg/gpick)                                       | Advanced color picker and palette editor.                                                                          |
+| [GIMP](https://www.gimp.org/)                                                   | GNU Image Manipulation Program                                                                                     |
+| [Inkscape](https://inkscape.org/)                                               | Professional vector graphics editor                                                                                |
 
 | Package (CLI)                                                       | Description                                                                                    |
 | ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
@@ -170,7 +172,7 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
     spotify zenity ffmpeg4.4 \
     zathura zathura-pdf-mupdf \
     google-chrome discord telegram-desktop thunderbird \
-    visual-studio-code-bin postman-bin dbeaver \
+    visual-studio-code-bin postman-bin dbeaver gimp inkscape \
     minecraft-launcher
 
 ## Setup shell
