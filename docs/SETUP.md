@@ -224,6 +224,19 @@ Fix open file in a terminal
     # Remove
     rm ~/.local/bin/xterm
 
+## Setup bluetooth
+
+| Package                                               | Description                              |
+| ----------------------------------------------------- | ---------------------------------------- |
+| [BlueZ](https://www.bluez.org/)                       | Daemons for the bluetooth protocol stack |
+| [Blueman](https://github.com/blueman-project/blueman) | GTK+ Bluetooth Manager                   |
+
+    # Install bluez, blueman
+    yay -S bluez bluez-utils bluez-obex blueman
+
+    # Enable bluetooth services
+    sudo systemctl enable --now bluetooth.service
+
 ## Setup printer and scanner
 
 | Package                                                                        | Description                                          |
