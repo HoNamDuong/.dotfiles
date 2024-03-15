@@ -68,7 +68,7 @@ theme.colors = {
 theme.icon_theme                = "Papirus-Dark"
 
 -- font
-theme.font_name                 = "Hack Nerd Font"
+theme.font_name                 = "RobotoMono Nerd Font"
 theme.font_size                 = 14
 theme.font                      = theme.font_name .. " " .. theme.font_size
 

@@ -33,10 +33,12 @@ ruled.client.connect_signal("request::rules", function()
                 "viewnior",
                 "system-config-printer",
                 "nm-connection-editor",
+                "nm-applet",
                 "qalculate-gtk",
                 "arandr",
                 "Minecraft",
                 "gpick",
+                "blueman",
             },
             name = {},
             class = {},
@@ -110,7 +112,7 @@ ruled.client.connect_signal("request::rules", function()
         properties = { tag = tag_name[9] },
     })
     ruled.client.append_rule({
-        rule_any = { instance = { "lxappearance", "qt5ct", "nitrogen", "arandr", "nm-connection-editor" } },
+        rule_any = { instance = { "nvidia-settings", "lxappearance", "pavucontrol", "qt5ct", "nitrogen", "arandr", "nm-connection-editor", "nm-applet", "blueman" } },
         properties = { tag = tag_name[10] },
     })
 end)

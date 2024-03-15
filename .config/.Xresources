@@ -19,3 +19,6 @@
 *color13:       #c397d8
 *color14:       #70c0b1
 *color15:       #eaeaea
+
+! DPI
+Xft.dpi:        120

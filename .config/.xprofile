@@ -29,7 +29,7 @@ export TIMEFMT=$'\n\nCPU\t%P\nuser\t%*U\nsystem\t%*S\ntotal\t%*E'
 [ -f ~/.screenlayout/default.sh ] && . ~/.screenlayout/default.sh &
 # Set a delay of 500ms and a rate of 40Hz
 [ -f /usr/bin/xset ] && xset r rate 500 40
-# Lock the screen 5 minutes later
+# Lock the screen 10 minutes later
 [ -f /usr/bin/xset ] && xset s 600 600
 [ -f /usr/bin/xss-lock ] && xss-lock /usr/bin/slock &
 # Network Manager Applet
