@@ -23,7 +23,7 @@ get_choice() {
                         show-icons: false;
                     }
                     window {
-                        width: 800px;
+                        width: 1000px;
                     }
                     listview {
                         columns: $list_col;

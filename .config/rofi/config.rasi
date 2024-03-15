@@ -2,6 +2,7 @@ configuration {
     /*---------- General setting ----------*/
     modes:                      [ drun, run, window, filebrowser ];
     show-icons:                 true;
+    dpi:                        120;
 
     /*---------- Matching setting ----------*/
 	matching:                   "regex";

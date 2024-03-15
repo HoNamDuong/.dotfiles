@@ -5,7 +5,7 @@ if [ -f /usr/bin/rofi ]; then
         -show drun \
         -theme-str '
             window { 
-                width: 400px; 
+                width: 600px; 
             }
             entry {
                 placeholder: "Application...";

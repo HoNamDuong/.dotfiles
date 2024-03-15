@@ -5,7 +5,7 @@ if [ -f /usr/bin/rofi ]; then
         -show run \
         -theme-str '
             window { 
-                width: 600px; 
+                width: 800px; 
             }
             entry {
                 placeholder: "Command...";
