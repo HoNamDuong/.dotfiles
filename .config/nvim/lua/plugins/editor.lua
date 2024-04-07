@@ -261,7 +261,7 @@ return {
         config = function()
             require("gitsigns").setup({
                 on_attach = function(bufnr)
-                    local gs = package.loaded.gitsigns
+                    local gs = require("gitsigns")
 
                     local function map(mode, l, r, opts)
                         opts = opts or {}
@@ -272,31 +272,27 @@ return {
                     -- Navigation
                     map("n", "[g", function()
                         if vim.wo.diff then
-                            return "[g"
+                            vim.cmd.normal({ "[g", bang = true })
+                        else
+                            gs.nav_hunk("prev")
                         end
-                        vim.schedule(function()
-                            gs.prev_hunk()
-                        end)
-                        return "<Ignore>"
-                    end, { expr = true, desc = "Prev hunk" })
+                    end, { desc = "Prev hunk" })
                     map("n", "]g", function()
                         if vim.wo.diff then
-                            return "]g"
+                            vim.cmd.normal({ "]g", bang = true })
+                        else
+                            gs.nav_hunk("next")
                         end
-                        vim.schedule(function()
-                            gs.next_hunk()
-                        end)
-                        return "<Ignore>"
-                    end, { expr = true, desc = "Next hunk" })
+                    end, { desc = "Next hunk" })
 
                     -- Actions
                     map("n", "<leader>gs", gs.stage_hunk, { desc = "Stage hunk" })
                     map("x", "<leader>gs", function()
-                        gs.stage_hunk({ vim.fn.line("v"), vim.fn.getpos(".")[2] })
+                        gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
                     end, { desc = "Stage selected hunk(s)" })
                     map("n", "<leader>gr", gs.reset_hunk, { desc = "Reset hunk" })
                     map("x", "<leader>gr", function()
-                        gs.reset_hunk({ vim.fn.line("v"), vim.fn.getpos(".")[2] })
+                        gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
                     end, { desc = "Reset selected hunk(s)" })
                     map("n", "<leader>gR", gs.reset_buffer, { desc = "Reset buffer" })
                     map("n", "<leader>gS", gs.stage_buffer, { desc = "Stage buffer" })
