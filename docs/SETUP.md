@@ -167,7 +167,8 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
     xdg-user-dirs xclip numlockx scrot playerctl \
     gnome-keyring polkit-gnome \
     rofi arandr network-manager-applet \
-    viewnior nitrogen qalculate-gtk magnifiqus screenkey gucharmap gpick \
+    nitrogen qalculate-gtk magnifiqus screenkey gucharmap gpick \
+    viewnior webp-pixbuf-loader \
     mpv yt-dlp mpv-mpris \
     spotify zenity ffmpeg4.4 \
     zathura zathura-pdf-mupdf \
