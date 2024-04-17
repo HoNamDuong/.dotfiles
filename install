@@ -28,16 +28,19 @@ clear
 while :
 do
     echo
-    echo -e  "${Green} [1] Config GUI   ${Reset}"
-    echo -e  "${Blue} [2] Config CLI    ${Reset}"
-    echo -e  "${Yellow} [0] Quit        ${Reset}"
+    echo -e  "${Blue} [1] Setup ${Reset}"
+    echo -e  "${Yellow} [0] Quit ${Reset}"
     echo
+
     read -p " Enter your choice: " choice
+
     case $choice in
     0)
         break
         ;;
     1)
+        echo
+        # GUI
         ### X11
         [ ! -f ~/.xprofile ] && ln -sfv $DIR/.config/.xprofile $HOME/.xprofile 
         [ ! -f ~/.Xresources ] && ln -sfv $DIR/.config/.Xresources $HOME/.Xresources
@@ -60,8 +63,8 @@ do
         ln -sfvr $DIR/.config/mpv/ $HOME/.config/
         ### Zathura
         ln -sfvr $DIR/.config/zathura/ $HOME/.config/
-        ;;
-    2)
+
+        # CLI
         ### bin 
         ln -sfvr $DIR/.local/bin/ $HOME/.local/
         ### Zsh
@@ -92,6 +95,7 @@ do
         ln -sfvr $DIR/.config/btop/ $HOME/.config/
         ;;
     *)
+        echo
         echo "Sorry, choice understand"
         ;;
     esac
