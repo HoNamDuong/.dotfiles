@@ -4,13 +4,35 @@ return {
         -- Fancy UI for the debugger
         {
             "rcarriga/nvim-dap-ui",
+            dependencies = { "nvim-neotest/nvim-nio" },
             keys = {
                 -- stylua: ignore start
                 { "<leader>du", function() require("dapui").toggle({}) end, desc = "Toggle UI [nvim-dap-ui]", },
                 { "<leader>de", function() require("dapui").eval() end, desc = "Evaluate under cursor [nvim-dap-ui]", mode = { "n", "v" }, },
                 -- stylua: ignore end
             },
-            opts = {},
+            opts = {
+                layouts = {
+                    {
+                        elements = {
+                            { id = "scopes", size = 0.40 },
+                            { id = "breakpoints", size = 0.30 },
+                            { id = "stacks", size = 0.30 },
+                        },
+                        position = "left",
+                        size = 30,
+                    },
+                    {
+                        elements = {
+                            { id = "console", size = 0.40 },
+                            { id = "repl", size = 0.30 },
+                            { id = "watches", size = 0.30 },
+                        },
+                        position = "right",
+                        size = 40,
+                    },
+                },
+            },
             config = function(_, opts)
                 local dap, dapui = require("dap"), require("dapui")
                 dapui.setup(opts)
@@ -21,12 +43,12 @@ return {
                 dap.listeners.before.launch.dapui_config = function()
                     dapui.open()
                 end
-                dap.listeners.before.event_terminated.dapui_config = function()
-                    dapui.close()
-                end
-                dap.listeners.before.event_exited.dapui_config = function()
-                    dapui.close()
-                end
+                -- dap.listeners.before.event_terminated.dapui_config = function()
+                --     dapui.close()
+                -- end
+                -- dap.listeners.before.event_exited.dapui_config = function()
+                --     dapui.close()
+                -- end
             end,
         },
         -- Virtual text for the debugger
@@ -64,7 +86,6 @@ return {
         { "<leader>dd", function() require("dap").disconnect() require("dap").close() end, desc = " Disconnect", },
         -- stylua: ignore end
     },
-
     config = function()
         local signs = {
             Stopped = { "󰁕 ", "DiagnosticWarn" },
