@@ -24,9 +24,11 @@ export ZDOTDIR="$HOME/.config/zsh"
 export BAT_THEME="base16"
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
 export TIMEFMT=$'\n\nCPU\t%P\nuser\t%*U\nsystem\t%*S\ntotal\t%*E'
+export GTK_THEME="Orchis-Dark-Compact"
 
 # Monitor config
-[ -f ~/.screenlayout/default.sh ] && . ~/.screenlayout/default.sh &
+[ -f ~/.screenlayout/single.sh ] && . ~/.screenlayout/single.sh &
+# [ -f ~/.screenlayout/dual.sh ] && . ~/.screenlayout/dual.sh &
 # Set a delay of 500ms and a rate of 40Hz
 [ -f /usr/bin/xset ] && xset r rate 500 40
 # Lock the screen 10 minutes later
@@ -35,7 +37,7 @@ export TIMEFMT=$'\n\nCPU\t%P\nuser\t%*U\nsystem\t%*S\ntotal\t%*E'
 # Network Manager Applet
 [ -f /usr/bin/nm-applet ] && nm-applet &
 # Set wallpaper
-[ -f /usr/bin/nitrogen ] && nitrogen --random --set-zoom-fill --save &> /dev/null &
+[ -f /usr/bin/nitrogen ] && [ -f ~/.local/bin/randomwallpaper ] && ~/.local/bin/randomwallpaper
 # Load config nvidia-settings
 [ -f /usr/bin/nvidia-settings ] && nvidia-settings --load-config-only &
 # Enable numlock

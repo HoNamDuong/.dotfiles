@@ -22,3 +22,6 @@
 
 ! DPI
 Xft.dpi:        120
+
+! Cursor size
+Xcursor.size:   32
