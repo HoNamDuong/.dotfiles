@@ -38,7 +38,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
                 is_primary and prompt,
                 layout = wibox.layout.fixed.horizontal,
             },
-            is_primary and { -- Middle
+            { -- Middle
                 {
                     playerbox,
                     left = dpi(6) * 4,

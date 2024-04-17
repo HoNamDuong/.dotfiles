@@ -5,7 +5,7 @@ local dpi = require("beautiful.xresources").apply_dpi
 local keys = require("config").keys
 
 local hotkeys = hotkeys_popup.widget.new({
-    width = dpi(6) * 10 * 24,
+    width = dpi(6) * 10 * 22,
     height = dpi(6) * 10 * 10,
 })
 
