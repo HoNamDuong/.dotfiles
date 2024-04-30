@@ -92,6 +92,7 @@ local mainmenu = build_menu({
         },
     },
     after = {
+        { "Open terminal", config.apps.terminal, beautiful.terminal_icon },
         { "Randomize wallpaper", config.actions.randomize_wallpaper, beautiful.image_icon },
         { "Take screenshot", config.actions.screenshot, beautiful.camera_icon },
         { "Switch user", config.actions.switch_user, beautiful.switch_user_icon },

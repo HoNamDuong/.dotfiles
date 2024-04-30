@@ -209,7 +209,7 @@ theme.layout_centered   = themes_path .. "default/layouts/centered.png"
 -- tag
 theme.general_icon      = recolor_image(themes_path .. "/default/tag/general.svg",          theme.colors.foreground)
 theme.code_icon         = recolor_image(themes_path .. "/default/tag/code.svg",             theme.colors.foreground)
-theme.chrome_icon       = recolor_image(themes_path .. "/default/tag/chrome.svg",           theme.colors.foreground)
+theme.browser_icon      = recolor_image(themes_path .. "/default/tag/browser.svg",          theme.colors.foreground)
 theme.file_icon         = recolor_image(themes_path .. "/default/tag/file.svg",             theme.colors.foreground)
 theme.document_icon     = recolor_image(themes_path .. "/default/tag/document.svg",         theme.colors.foreground)
 theme.media_icon        = recolor_image(themes_path .. "/default/tag/media.svg",            theme.colors.foreground)
@@ -224,12 +224,6 @@ theme.pause_icon        = recolor_image(themes_path .. "default/player/pause.svg
 theme.stop_icon         = recolor_image(themes_path .. "default/player/stop.svg",           theme.colors.foreground)
 theme.next_icon         = recolor_image(themes_path .. "default/player/next.svg",           theme.colors.foreground)
 theme.previous_icon     = recolor_image(themes_path .. "default/player/previous.svg",       theme.colors.foreground)
-
--- arrow
-theme.arrow_down_icon   = recolor_image(themes_path .. "default/other/arrow_down.svg",      theme.colors.foreground)
-theme.arrow_up_icon     = recolor_image(themes_path .. "default/other/arrow_up.svg",        theme.colors.foreground)
-theme.arrow_right_icon  = recolor_image(themes_path .. "default/other/arrow_right.svg",     theme.colors.foreground)
-theme.arrow_left_icon   = recolor_image(themes_path .. "default/other/arrow_left.svg",      theme.colors.foreground)
 
 -- power
 theme.hibernate_icon    = recolor_image(themes_path .. "default/power/hibernate.svg",       theme.palette.cyan)
@@ -253,6 +247,12 @@ theme.volume_mute_icon  = recolor_image(themes_path .. "default/other/volume_mut
 theme.mic_icon          = recolor_image(themes_path .. "default/other/mic.svg",             theme.palette.cyan)
 theme.mic_off_icon      = recolor_image(themes_path .. "default/other/mic_off.svg",         theme.palette.yellow)
 
+-- arrow
+theme.arrow_down_icon   = recolor_image(themes_path .. "default/other/arrow_down.svg",      theme.colors.foreground)
+theme.arrow_up_icon     = recolor_image(themes_path .. "default/other/arrow_up.svg",        theme.colors.foreground)
+theme.arrow_right_icon  = recolor_image(themes_path .. "default/other/arrow_right.svg",     theme.colors.foreground)
+theme.arrow_left_icon   = recolor_image(themes_path .. "default/other/arrow_left.svg",      theme.colors.foreground)
+
 -- other icon
 theme.menu_submenu_icon = recolor_image(themes_path .. "default/other/submenu.svg",         theme.colors.foreground)
 theme.notification_icon = recolor_image(themes_path .. "default/other/notification.svg",    theme.colors.foreground)
@@ -268,6 +268,7 @@ theme.menu_icon         = recolor_image(themes_path .. "default/other/menu.svg",
 theme.image_icon        = recolor_image(themes_path .. "default/other/image.svg",           theme.palette.green)
 theme.camera_icon       = recolor_image(themes_path .. "default/other/camera.svg",          theme.palette.blue)
 theme.switch_user_icon  = recolor_image(themes_path .. "default/other/switch_user.svg",     theme.palette.yellow)
+theme.terminal_icon     = recolor_image(themes_path .. "default/other/terminal.svg",        theme.palette.magenta)
 
 -- color icon
 theme.package_icon      = themes_path .. "default/other/package.svg"

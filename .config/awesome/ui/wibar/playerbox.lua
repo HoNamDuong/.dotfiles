@@ -144,6 +144,11 @@ local function build_player_widget(player)
         layout = wibox.layout.fixed.horizontal,
     })
 
+    local tooltip = awful.tooltip({
+        objects = { widget },
+        align = "bottom",
+    })
+
     local function get_control_icon(status)
         local icon = nil
         if status == "PLAYING" then
@@ -180,7 +185,11 @@ local function build_player_widget(player)
                 stdout = pango.escape(stdout)
                 local player_name, status, artist, title, track_id, art_url = string.match(stdout, "^(.-)%\n(.-)%\n(.-)%\n(.-)%\n(.-)%\n(.-)$")
 
-                widget:get_children_by_id("player_metadata")[1].markup = " " .. pango.b(artist or "") .. " - " .. (title or "")
+                local markup = " " .. pango.b(artist or "") .. " - " .. (title or "") .. " "
+
+                widget:get_children_by_id("player_metadata")[1].markup = markup
+
+                tooltip.markup = markup
             end
         )
     end

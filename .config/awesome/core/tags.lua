@@ -8,7 +8,7 @@ local tags = {
     icon = {
         beautiful.general_icon,
         beautiful.code_icon,
-        beautiful.chrome_icon,
+        beautiful.browser_icon,
         beautiful.file_icon,
         beautiful.document_icon,
         beautiful.media_icon,

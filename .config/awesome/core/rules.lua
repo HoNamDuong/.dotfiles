@@ -8,7 +8,6 @@ local tag_name = require("config").tags.name
 ruled.client.connect_signal("request::rules", function()
     -- All clients will match this rule
     ruled.client.append_rule({
-        id = "global",
         rule = {},
         properties = {
             -- border_width = dpi(0),
@@ -22,7 +21,6 @@ ruled.client.connect_signal("request::rules", function()
     })
     -- Floating clients
     ruled.client.append_rule({
-        id = "floating",
         rule_any = {
             instance = {
                 "pavucontrol",
@@ -54,12 +52,9 @@ ruled.client.connect_signal("request::rules", function()
             placement = awful.placement.centered,
         },
     })
-    -- Picture in picture
+    -- Sticky clients
     ruled.client.append_rule({
-        rule_any = {
-            name = { "Picture in picture" },
-            instance = { "magnifiqus", "rofi" },
-        },
+        rule_any = { name = { "Picture in picture" }, instance = { "magnifiqus", "rofi" } },
         properties = {
             floating = true,
             ontop = true,
@@ -69,9 +64,16 @@ ruled.client.connect_signal("request::rules", function()
     })
     -- No border
     ruled.client.append_rule({
-        rule = { instance = "conky" },
+        rule_any = { instance = "conky" },
         properties = {
             border_width = dpi(0),
+        },
+    })
+    -- No titlebar
+    ruled.client.append_rule({
+        rule_any = { instance = { "telegram", "google-chrome" } },
+        properties = {
+            titlebars_enabled = false,
         },
     })
     -- Move to tag
@@ -112,7 +114,19 @@ ruled.client.connect_signal("request::rules", function()
         properties = { tag = tag_name[9] },
     })
     ruled.client.append_rule({
-        rule_any = { instance = { "nvidia-settings", "lxappearance", "pavucontrol", "qt5ct", "nitrogen", "arandr", "nm-connection-editor", "nm-applet", "blueman" } },
+        rule_any = {
+            instance = {
+                "nvidia-settings",
+                "lxappearance",
+                "pavucontrol",
+                "qt5ct",
+                "nitrogen",
+                "arandr",
+                "nm-connection-editor",
+                "nm-applet",
+                "blueman",
+            },
+        },
         properties = { tag = tag_name[10] },
     })
 end)

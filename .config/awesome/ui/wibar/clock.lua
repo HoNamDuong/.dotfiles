@@ -39,7 +39,6 @@ local clock = wibox.widget({
 
 awful.tooltip({
     objects = { clock },
-    delay_show = 1,
     timer_function = function()
         return os.date("Today is %A %B %d %Y\nThe time is %T")
     end,

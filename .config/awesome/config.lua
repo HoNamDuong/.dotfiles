@@ -37,7 +37,7 @@ config.tags = {
     name = {
         "General",
         "Code",
-        "Chrome",
+        "Browser",
         "File",
         "Document",
         "Media",
