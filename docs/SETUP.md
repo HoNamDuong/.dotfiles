@@ -24,16 +24,9 @@
 | [Slock](https://tools.suckless.org/slock)           | A simple screen locker for X.                                                                 |
 | [Xss-lock](https://tools.suckless.org/slock)        | Use external locker as X screen saver.                                                        |
 | [Awesomewm](https://awesomewm.org/)                 | A highly configurable, next generation framework window manager for X.                        |
-| [I3wm](https://i3wm.org/)                           | A tiling window manager, completely written from scratch.                                     |
 
-    # X system, compositor, terminal and screen locker
-    yay -S xorg picom alacritty slock xss-lock
-
-    # Install Awesomewm
-    yay -S awesome-git
-
-    # Install I3wm
-    yay -S i3 perl-anyevent-i3 dunst dmenu
+    # X system, compositor, terminal, screen locker, and window manager
+    yay -S xorg picom alacritty slock xss-lock awesome-git
 
 ## Setup display manager
 
@@ -45,11 +38,8 @@
     # Install lightdm
     yay -S lightdm lightdm-gtk-greeter
 
-    # Enable lightdm
-    sudo systemctl enable lightdm
-
-    # Copy config for lightdm-gtk-greeter
-    sudo cp .dotfiles/.config/lightdm/lightdm-gtk-greeter.conf /etc/lightdm/
+    # Enable and start lightdm service
+    sudo systemctl enable --now lightdm.service
 
 ## Setup video driver
 
@@ -75,19 +65,15 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
     # Install pipewire
     yay -S pipewire wireplumber pipewire-audio pipewire-alsa pipewire-pulse pipewire-jack pavucontrol
 
-    # Enable pipewire’s services
-    systemctl --user enable pipewire pipewire-pulse
+    # Enable and start pipewire’s services
+    systemctl enable --user --now pipewire pipewire-pulse
 
 ## Restart system and login again
 
 ## Clone .dotfiles repository and setup
 
-    # Clone .dotfiles
-    cd ~ && git clone https://github.com/HoNamDuong/.dotfiles.git
-
-    # Run install
-    cd ~/.dotfiles
-    ./install
+    # Clone dotfiles and setup
+    cd ~ && git clone https://github.com/HoNamDuong/.dotfiles.git && cd ~/.dotfiles && ./setup
 
     # Create file config
     mkdir -p .config/git
@@ -107,7 +93,7 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
 | [Qt5ct](https://sourceforge.net/projects/qt5ct/)                                   | Qt5 Configuration Utility.                                                    |
 | [Orchis theme](https://github.com/vinceliuice/orchis-theme)                        | A Material Design theme for GNOME/GTK based desktop environments.             |
 | [Papirus icon theme](https://archlinux.org/packages/extra/any/papirus-icon-theme/) | A free and open source SVG icon theme for Linux.                              |
-| [Vimix cursors](https://aur.archlinux.org/packages/vimix-cursors)                  | An X Cursor theme inspired by Material design and based on capitaine-cursors. |
+| [Vimix cursor theme](https://aur.archlinux.org/packages/vimix-cursors)             | An X Cursor theme inspired by Material design and based on capitaine-cursors. |
 
     # Application for Qt and Gtk
     yay -S lxappearance qt5ct
@@ -235,7 +221,7 @@ Fix open file in a terminal
     # Install bluez, blueman
     yay -S bluez bluez-utils bluez-obex blueman
 
-    # Enable bluetooth services
+    # Enable and start bluetooth services
     sudo systemctl enable --now bluetooth.service
 
 ## Setup printer and scanner
@@ -251,8 +237,7 @@ Fix open file in a terminal
 
 After installing these `enable` and `start` the cups.service in systemd.
 
-    sudo systemctl enable cups.service
-    sudo systemctl start cups.service
+    sudo systemctl enable --now cups.service
 
 Add user to the group `lg`:
 
@@ -277,7 +262,7 @@ Check if the scanner is detected with correct driver installed.
     # Install
     yay -S cronie
 
-    # Enable
+    # Enable and start
     sudo systemctl enable --now cronie.service
 
     # Edit crontab
@@ -304,14 +289,11 @@ Check if the scanner is detected with correct driver installed.
     # Install packages
     yay -S docker docker-compose
 
-    # Start its Daemon using the systemctl command as shown below
-    sudo systemctl start docker.service
+    # Enable and start docker service
+    sudo systemctl enable docker.service
 
     # Verify that Docker is running using the status option
     sudo systemctl status docker.service
-
-    # Enable docker service
-    sudo systemctl enable docker.service
 
     # Add the current user account to the Docker group using the following command
     sudo usermod -aG docker $USER
@@ -323,7 +305,7 @@ Check if the scanner is detected with correct driver installed.
 | [virtualbox](https://virtualbox.org/) | Powerful x86 virtualization for enterprise as well as home use. |
 
     # Install packages
-    yay -S virtualbox
+    yay -S linux-headers virtualbox
 
     # Add user to the vboxusers group
     sudo gpasswd -a $USER vboxusers
@@ -332,20 +314,3 @@ Check if the scanner is detected with correct driver installed.
     sudo modprobe vboxdrv
 
 VirtualBox/Install Arch Linux as a guest [here](https://wiki.archlinux.org/title/VirtualBox/Install_Arch_Linux_as_a_guest)
-
-## Enable dark mode for google-chrome
-
-    # Create flags file
-    touch ~/.config/chrome-flags.conf
-
-    # Add into file
-    --force-dark-mode
-    --enable-features=WebUIDarkMode
-
-## Optional pacman output
-
-    # Automatically enable colors only when pacman’s output is on a tty
-    sudo sed -i -e 's/#Color/Color/g' /etc/pacman.conf
-
-    # Displays name, version and size of target packages formatted as a table for upgrade, sync and remove operations
-    sudo sed -i -e 's/#VerbosePkgLists/VerbosePkgLists/g' /etc/pacman.conf

@@ -39,8 +39,6 @@ Here are some details about my setup:
 
 ## Setup
 
-Dual boot Windows 10 and Arch Linux [here](./docs/DUAL.md)
-
 Setup for Arch Linux [here](./docs/SETUP.md)
 
 </div>
