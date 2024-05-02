@@ -39,60 +39,44 @@ do
         break
         ;;
     1)
-        echo
+        # Get superuser permission
+        sudo echo
+
         # GUI
-        ### X11
-        [ ! -f ~/.xprofile ] && ln -sfv $DIR/.config/.xprofile $HOME/.xprofile 
+        [ ! -f ~/.xprofile ] && ln -sfv $DIR/.config/.xprofile $HOME/.xprofile
         [ ! -f ~/.Xresources ] && ln -sfv $DIR/.config/.Xresources $HOME/.Xresources
-        ### Xdg mime
         ln -sfv $DIR/.config/mimeapps.list $HOME/.config/mimeapps.list
-        ### I3 and i3status 
-        ln -sfvr $DIR/.config/i3/ $HOME/.config/
-        ln -sfvr $DIR/.config/i3status/ $HOME/.config/
-        ### Awesomewm 
         ln -sfvr $DIR/.config/awesome/ $HOME/.config/
-        ### Picom 
         ln -sfvr $DIR/.config/picom/ $HOME/.config/
-        ### Alacritty 
         ln -sfvr $DIR/.config/alacritty/ $HOME/.config/
-        ### Rofi 
         ln -sfvr $DIR/.config/rofi/ $HOME/.config/
-        ### Dunst 
-        ln -sfvr $DIR/.config/dunst/ $HOME/.config/
-        ### mpv 
         ln -sfvr $DIR/.config/mpv/ $HOME/.config/
-        ### Zathura
         ln -sfvr $DIR/.config/zathura/ $HOME/.config/
+        sudo cp -v $DIR/.config/lightdm/lightdm-gtk-greeter.conf /etc/lightdm/
 
         # CLI
-        ### bin 
         ln -sfvr $DIR/.local/bin/ $HOME/.local/
-        ### Zsh
         ln -sfvr $DIR/.config/zsh/ $HOME/.config/
-        ### Tmux
         ln -sfvr $DIR/.config/tmux/ $HOME/.config/
-        ### Lsd
         ln -sfvr $DIR/.config/lsd/ $HOME/.config/
-        ### Dircolors
         ln -sfv $DIR/.config/.dircolors $HOME/.dircolors
-        ### Tig
         ln -sfvr $DIR/.config/tig/ $HOME/.config/
-        ### Htop
         ln -sfvr $DIR/.config/htop/ $HOME/.config/
-        ### Nvim
         ln -sfvr $DIR/.config/nvim/ $HOME/.config/
-        ### Ranger
         ln -sfvr $DIR/.config/ranger/ $HOME/.config/
-        ### Ripgrep
         ln -sfvr $DIR/.config/ripgrep/ $HOME/.config/
-        ### Fd
         ln -sfvr $DIR/.config/fd/ $HOME/.config/
-        ### Neofetch 
         ln -sfvr $DIR/.config/neofetch/ $HOME/.config/
-        ### Cava 
         ln -sfvr $DIR/.config/cava/ $HOME/.config/
-        ### Btop 
         ln -sfvr $DIR/.config/btop/ $HOME/.config/
+
+        # MISC
+        sudo sed -i -e 's/#Color/Color/g' /etc/pacman.conf && \
+            echo "[pacman] Automatically enable colors only when pacman’s output is on a tty."
+        sudo sed -i -e 's/#VerbosePkgLists/VerbosePkgLists/g' /etc/pacman.conf && \
+            echo "[pacman] Displays name, version and size of target packages formatted as a table for upgrade, sync and remove operations."
+        [ -f /usr/bin/xdg-user-dirs-update ] && xdg-user-dirs-update && \
+            echo "[xdg-user-dirs] Update XDG user dir configuration."
         ;;
     *)
         echo
