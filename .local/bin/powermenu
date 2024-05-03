@@ -1,19 +1,19 @@
-#!/usr/bin/bash
+#!/bin/bash
 
-mesg="Uptime: `uptime -p | sed -e 's/up //g'`"
+mesg="Uptime: $(uptime -p | sed -e 's/up //g')"
 
-shutdown='Shutdown'
-reboot='Reboot'
 lock='Lock'
-suspend='Suspend'
 logout='Logout'
+suspend='Suspend'
 hibernate="Hibernate"
+reboot='Reboot'
+poweroff='Poweroff'
 
 get_choice() {
     if [ -f /usr/bin/rofi ]; then
         list_col='6'
         list_row='1'
-        echo -e "$lock\n$logout\n$reboot\n$shutdown\n$suspend\n$hibernate" | \
+        echo -e "$lock\n$logout\n$suspend\n$hibernate\n$reboot\n$poweroff" |
             rofi \
                 -dmenu \
                 -mesg "$mesg" \
@@ -37,7 +37,7 @@ get_choice() {
                         horizontal-align: 0.5;
                     }"
     elif [ -f /usr/bin/dmenu ]; then
-        echo -e "$lock\n$logout\n$reboot\n$shutdown\n$suspend\n$hibernate" | \
+        echo -e "$lock\n$logout\n$suspend\n$hibernate\n$reboot\n$poweroff" |
             dmenu \
                 -i \
                 -p "$mesg" \
@@ -54,22 +54,22 @@ get_choice() {
 choice="$(get_choice)"
 
 case ${choice} in
-    $lock)
-        loginctl lock-session
-        ;;
-    $logout)
-        loginctl kill-session ''
-        ;;
-    $reboot)
-        /usr/bin/systemctl reboot
-        ;;
-    $shutdown)
-        /usr/bin/systemctl poweroff
-        ;;
-    $suspend)
-        /usr/bin/systemctl suspend
-        ;;
-    $hibernate)
-        /usr/bin/systemctl hibernate
-        ;;
+$lock)
+    loginctl lock-session self
+    ;;
+$logout)
+    loginctl kill-session self
+    ;;
+$suspend)
+    /usr/bin/systemctl suspend
+    ;;
+$hibernate)
+    /usr/bin/systemctl hibernate
+    ;;
+$reboot)
+    /usr/bin/systemctl reboot
+    ;;
+$poweroff)
+    /usr/bin/systemctl poweroff
+    ;;
 esac

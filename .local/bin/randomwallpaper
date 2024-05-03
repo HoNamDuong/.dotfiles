@@ -3,7 +3,6 @@
 
 monitors=$(xrandr --listactivemonitors | awk 'NR==1 {print $2}')
 
-for ((i = 0; i < $monitors; i++))
-do
-    nitrogen --set-zoom-fill --random --head=$i --save &> /dev/null
+for ((i = 0; i < $monitors; i++)); do
+    nitrogen --set-zoom-fill --random --head=$i --save &>/dev/null
 done

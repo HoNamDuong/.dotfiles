@@ -1,12 +1,11 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 create() {
-    if [[ "${1: -1}" == "/" ]] 
-    then
-        mkdir -pv "$1" 
+    if [[ "${1: -1}" == "/" ]]; then
+        mkdir -pv "$1"
     else
         mkdir -pv "$(dirname "$1")" &&
-        touch "$1" && echo "touch: created file '$(basename $1)'"
+            touch "$1" && echo "touch: created file '$(basename $1)'"
     fi
 }
 

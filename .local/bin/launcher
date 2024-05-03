@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 if [ -f /usr/bin/rofi ]; then
     rofi \
@@ -21,6 +21,6 @@ elif [ -f /usr/bin/i3-dmenu-desktop ]; then
             -sf '#c5c8c6' \
             -sb '#373B41' \
             "
-else 
+else
     exit 0
 fi
