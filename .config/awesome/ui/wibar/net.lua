@@ -147,13 +147,13 @@ local net = wibox.widget({
 })
 
 gears.timer({
-    timeout = 2,
+    timeout = 1,
     call_now = true,
     autostart = true,
     callback = function()
         local result = get_net()
-        net:get_children_by_id("download_text")[1].text = format("${eno1 down_mb}", result)
-        net:get_children_by_id("upload_text")[1].text = format("${eno1 up_mb}", result)
+        net:get_children_by_id("download_text")[1].text = format("${eno1 down_mb}", result) .. "MB"
+        net:get_children_by_id("upload_text")[1].text = format("${eno1 up_mb}", result) .. "MB"
     end,
 })
 

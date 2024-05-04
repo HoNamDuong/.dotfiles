@@ -206,45 +206,43 @@ theme.layout_centered   = themes_path .. "default/layouts/centered.png"
 
 -- theme = theme_assets.recolor_layout(theme, theme.common.primary)
 
--- tag
-theme.general_icon      = recolor_image(themes_path .. "/default/tag/general.svg",          theme.colors.foreground)
-theme.code_icon         = recolor_image(themes_path .. "/default/tag/code.svg",             theme.colors.foreground)
-theme.browser_icon      = recolor_image(themes_path .. "/default/tag/browser.svg",          theme.colors.foreground)
-theme.file_icon         = recolor_image(themes_path .. "/default/tag/file.svg",             theme.colors.foreground)
-theme.document_icon     = recolor_image(themes_path .. "/default/tag/document.svg",         theme.colors.foreground)
-theme.media_icon        = recolor_image(themes_path .. "/default/tag/media.svg",            theme.colors.foreground)
-theme.tool_icon         = recolor_image(themes_path .. "/default/tag/tool.svg",             theme.colors.foreground)
-theme.chat_icon         = recolor_image(themes_path .. "/default/tag/chat.svg",             theme.colors.foreground)
-theme.game_icon         = recolor_image(themes_path .. "/default/tag/game.svg",             theme.colors.foreground)
-theme.setting_icon      = recolor_image(themes_path .. "/default/tag/setting.svg",          theme.colors.foreground)
+-- taglist
+theme.general_icon      = recolor_image(themes_path .. "/default/taglist/general.svg",      theme.colors.foreground)
+theme.code_icon         = recolor_image(themes_path .. "/default/taglist/code.svg",         theme.colors.foreground)
+theme.browser_icon      = recolor_image(themes_path .. "/default/taglist/browser.svg",      theme.colors.foreground)
+theme.file_icon         = recolor_image(themes_path .. "/default/taglist/file.svg",         theme.colors.foreground)
+theme.document_icon     = recolor_image(themes_path .. "/default/taglist/document.svg",     theme.colors.foreground)
+theme.media_icon        = recolor_image(themes_path .. "/default/taglist/media.svg",        theme.colors.foreground)
+theme.tool_icon         = recolor_image(themes_path .. "/default/taglist/tool.svg",         theme.colors.foreground)
+theme.chat_icon         = recolor_image(themes_path .. "/default/taglist/chat.svg",         theme.colors.foreground)
+theme.game_icon         = recolor_image(themes_path .. "/default/taglist/game.svg",         theme.colors.foreground)
+theme.setting_icon      = recolor_image(themes_path .. "/default/taglist/setting.svg",      theme.colors.foreground)
 
--- player
-theme.play_icon         = recolor_image(themes_path .. "default/player/play.svg",           theme.colors.foreground)
-theme.pause_icon        = recolor_image(themes_path .. "default/player/pause.svg",          theme.colors.foreground)
-theme.stop_icon         = recolor_image(themes_path .. "default/player/stop.svg",           theme.colors.foreground)
-theme.next_icon         = recolor_image(themes_path .. "default/player/next.svg",           theme.colors.foreground)
-theme.previous_icon     = recolor_image(themes_path .. "default/player/previous.svg",       theme.colors.foreground)
+-- playerbox
+theme.play_icon         = recolor_image(themes_path .. "default/playerbox/play.svg",        theme.colors.foreground)
+theme.pause_icon        = recolor_image(themes_path .. "default/playerbox/pause.svg",       theme.colors.foreground)
+theme.stop_icon         = recolor_image(themes_path .. "default/playerbox/stop.svg",        theme.colors.foreground)
+theme.next_icon         = recolor_image(themes_path .. "default/playerbox/next.svg",        theme.colors.foreground)
+theme.previous_icon     = recolor_image(themes_path .. "default/playerbox/previous.svg",    theme.colors.foreground)
 
--- power
-theme.hibernate_icon    = recolor_image(themes_path .. "default/power/hibernate.svg",       theme.palette.cyan)
-theme.lock_icon         = recolor_image(themes_path .. "default/power/lock.svg",            theme.palette.green)
-theme.logout_icon       = recolor_image(themes_path .. "default/power/logout.svg",          theme.palette.blue)
-theme.reboot_icon       = recolor_image(themes_path .. "default/power/reboot.svg",          theme.palette.yellow)
-theme.shutdown_icon     = recolor_image(themes_path .. "default/power/shutdown.svg",        theme.palette.red)
-theme.sleep_icon        = recolor_image(themes_path .. "default/power/sleep.svg",           theme.palette.magenta)
+-- powermenu
+theme.lock_icon         = recolor_image(themes_path .. "default/powermenu/lock.svg",        theme.palette.green)
+theme.logout_icon       = recolor_image(themes_path .. "default/powermenu/logout.svg",      theme.palette.blue)
+theme.suspend_icon      = recolor_image(themes_path .. "default/powermenu/suspend.svg",     theme.palette.magenta)
+theme.hibernate_icon    = recolor_image(themes_path .. "default/powermenu/hibernate.svg",   theme.palette.cyan)
+theme.reboot_icon       = recolor_image(themes_path .. "default/powermenu/reboot.svg",      theme.palette.yellow)
+theme.poweroff_icon     = recolor_image(themes_path .. "default/powermenu/poweroff.svg",    theme.palette.red)
 
 -- status
-theme.download_icon     = recolor_image(themes_path .. "default/other/download.svg",        theme.palette.white)
-theme.upload_icon       = recolor_image(themes_path .. "default/other/upload.svg",          theme.palette.white)
-theme.hard_drive_icon   = recolor_image(themes_path .. "default/other/hard_drive.svg",      theme.palette.blue)
-theme.temperature_icon  = recolor_image(themes_path .. "default/other/temperature.svg",     theme.palette.magenta)
+theme.download_icon     = recolor_image(themes_path .. "default/other/download.svg",        theme.palette.cyan)
+theme.upload_icon       = recolor_image(themes_path .. "default/other/upload.svg",          theme.palette.magenta)
 theme.gpu_icon          = recolor_image(themes_path .. "default/other/gpu.svg",             theme.palette.green)
 theme.memory_icon       = recolor_image(themes_path .. "default/other/memory.svg",          theme.palette.cyan)
 theme.cpu_icon          = recolor_image(themes_path .. "default/other/cpu.svg",             theme.palette.magenta)
 theme.clock_icon        = recolor_image(themes_path .. "default/other/clock.svg",           theme.palette.green)
 theme.volume_icon       = recolor_image(themes_path .. "default/other/volume.svg",          theme.palette.blue)
 theme.volume_mute_icon  = recolor_image(themes_path .. "default/other/volume_mute.svg",     theme.palette.yellow)
-theme.mic_icon          = recolor_image(themes_path .. "default/other/mic.svg",             theme.palette.cyan)
+theme.mic_icon          = recolor_image(themes_path .. "default/other/mic.svg",             theme.palette.blue)
 theme.mic_off_icon      = recolor_image(themes_path .. "default/other/mic_off.svg",         theme.palette.yellow)
 
 -- arrow

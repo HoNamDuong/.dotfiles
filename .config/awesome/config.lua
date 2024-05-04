@@ -10,12 +10,12 @@ config.apps = {
 
 config.actions = {
     -- Power
-    shutdown = "systemctl poweroff",
-    reboot = "systemctl reboot",
-    sleep = "systemctl suspend",
+    lock = "loginctl lock-session self",
+    logout = "loginctl kill-session self",
+    suspend = "systemctl suspend",
     hibernate = "systemctl hibernate",
-    logout = "loginctl kill-session ''",
-    lock = "loginctl lock-session",
+    reboot = "systemctl reboot",
+    poweroff = "systemctl poweroff",
     -- screenshot
     screenshot = "scrot --multidisp --exec 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'",
     screenshot_area = "scrot --select --freeze --exec 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'",

@@ -18,8 +18,6 @@ local cpu = require("ui.wibar.cpu")
 local memory = require("ui.wibar.memory")
 local gpu = require("ui.wibar.gpu")
 -- local net = require("ui.wibar.net")
--- local thermal = require("ui.wibar.thermal")
--- local fs = require("ui.wibar.fs")
 
 screen.connect_signal("request::desktop_decoration", function(s)
     local is_primary = s == screen.primary
@@ -41,8 +39,8 @@ screen.connect_signal("request::desktop_decoration", function(s)
             { -- Middle
                 {
                     playerbox,
-                    left = dpi(6) * 4,
-                    right = dpi(6) * 4,
+                    left = dpi(6) * 2,
+                    right = dpi(6) * 2,
                     widget = wibox.container.margin,
                 },
                 content_fill_vertical = true,
@@ -50,8 +48,6 @@ screen.connect_signal("request::desktop_decoration", function(s)
             },
             is_primary and { -- Right
                 -- net,
-                -- fs,
-                -- thermal,
                 gpu,
                 memory,
                 cpu,

@@ -98,10 +98,10 @@ local mainmenu = build_menu({
         { "Switch user", config.actions.switch_user, beautiful.switch_user_icon },
         { "Lock", config.actions.lock, beautiful.lock_icon },
         { "Logout", config.actions.logout, beautiful.logout_icon },
-        { "Sleep", config.actions.sleep, beautiful.sleep_icon },
+        { "Suspend", config.actions.suspend, beautiful.suspend_icon },
         { "Hibernate", config.actions.hibernate, beautiful.hibernate_icon },
         { "Reboot", config.actions.reboot, beautiful.reboot_icon },
-        { "Shutdown", config.actions.shutdown, beautiful.shutdown_icon },
+        { "Poweroff", config.actions.poweroff, beautiful.poweroff_icon },
     },
 })
 
