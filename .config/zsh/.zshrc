@@ -150,3 +150,6 @@ stty stop undef
 
 # Show last command name
 preexec() { print -Pn "\e]0;$1\a" }
+
+# load zoxide
+eval "$(zoxide init zsh)"
