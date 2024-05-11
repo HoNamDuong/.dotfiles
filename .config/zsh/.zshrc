@@ -15,12 +15,11 @@ if [ -f /usr/bin/lsd ]; then
     alias lls='lsd --long --classify'
     alias la='lsd --all --classify'
     alias lla='lsd --long --all --classify'
-    alias tree='lsd --all --tree --ignore-glob .git'
 else
-    alias ls='ls --color=auto --classify --human-readable --time-style=long-iso --group-directories-first'
-    alias lls='ls --long'
+    alias ls='ls --color=auto --classify --human-readable --time-style=long-iso --group-directories-first --sort=time'
+    alias lls='ls -l'
     alias la='ls --all'
-    alias lla='ls --long --all'
+    alias lla='ls -l --all'
 fi
 
 if [ -f /usr/bin/bat ]; then
@@ -31,20 +30,20 @@ if [ -f /usr/bin/btop ]; then
     alias btop='btop --preset 0'
 fi
 
-# Make dir
+# Make cache dir
 [ ! -d $HOME/.cache/zsh ] && mkdir -v $HOME/.cache/zsh
 
 # Load directories
 eval "$(dircolors ~/.dircolors)"
 
 # Options
-setopt PROMPT_SUBST # Parameter expansion, command substitution and arithmetic expansion are performed in prompts. 
-setopt SHARE_HISTORY # Share history between all sessions.
+setopt PROMPT_SUBST # Parameter expansion, command substitution and arithmetic expansion are performed in prompts
+setopt SHARE_HISTORY # Share history between all sessions
 setopt MENU_COMPLETE # Automatically highlight first element of completion menu
-setopt GLOB_COMPLETE # Trigger the completion after a glob * instead of expanding it.
+setopt GLOB_COMPLETE # Trigger the completion after a glob * instead of expanding it
 setopt CORRECT # Spelling correction
-setopt HIST_IGNORE_DUPS # Do not record an event that was just recorded again.
-setopt HIST_SAVE_NO_DUPS # Do not write a duplicate event to the history file.
+setopt HIST_IGNORE_DUPS # Do not record an event that was just recorded again
+setopt HIST_SAVE_NO_DUPS # Do not write a duplicate event to the history file
 
 # History
 HISTSIZE=10000
@@ -58,7 +57,7 @@ zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' formats        '%F{blue}[%F{yellow}%s %F{magenta}%b %F{green}%c%F{red}%u%F{blue}]%f '
 zstyle ':vcs_info:*' actionformats  '%F{blue}[%F{yellow}%s %F{magenta}%b %F{green}%c%F{red}%u%F{cyan}%a%F{blue}]%f '
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
-zstyle ':vcs_info:*' enable git 
+zstyle ':vcs_info:*' enable git
 +vi-git-untracked() {
     if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
         [[ $(git ls-files --other --directory --exclude-standard | sed q | wc -l | tr -d ' ') == 1 ]] ; then
@@ -72,21 +71,21 @@ RPROMPT='%F{white}%*%f'
 
 # Basic auto/tab complete
 autoload -Uz compinit; compinit -d ~/.cache/zsh/.zcompdump
-# Include hidden files.
+# Include hidden files
 _comp_options+=(globdots)
 # The completion menu
 zstyle ':completion:*' menu select
-# Case-insensitive (all), partial-word, and then substring completion.
+# Case-insensitive (all), partial-word, and then substring completion
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-# Fuzzy match mistyped completions.
+# Fuzzy match mistyped completions
 zstyle ':completion:*' completer _extensions _complete _match _approximate
 # Required for completion to be in good groups (named after the tags)
 zstyle ':completion:*' group-name ''
 # Formatting the display
-zstyle ':completion:*:corrections' format '%F{yellow}[%d]%f' 
-zstyle ':completion:*:descriptions' format '%F{blue}[%d]%f' 
-zstyle ':completion:*:messages' format '%F{magenta}[%d]%f' 
-zstyle ':completion:*:warnings' format '%F{red}[%d]%f' 
+zstyle ':completion:*:corrections' format '%F{yellow}[%d]%f'
+zstyle ':completion:*:descriptions' format '%F{blue}[%d]%f'
+zstyle ':completion:*:messages' format '%F{magenta}[%d]%f'
+zstyle ':completion:*:warnings' format '%F{red}[%d]%f'
 # Colors for files and directory
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
@@ -94,7 +93,7 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 autoload -U select-word-style
 select-word-style bash
 
-# Key bindings 
+# Key bindings
 autoload -Uz select-bracketed select-quoted
 zle -N select-quoted
 zle -N select-bracketed
@@ -131,24 +130,25 @@ bindkey '^[[Z' reverse-menu-complete
 [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [ -f /usr/share/zsh/plugins/zsh-autopair/autopair.zsh ] && source /usr/share/zsh/plugins/zsh-autopair/autopair.zsh
-[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh 
-[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 
 # FZF
 export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow"
-export FZF_DEFAULT_OPTS="--reverse --border --multi --info=inline --no-separator --bind='ctrl-/:toggle-preview' --color='bg:black,bg+:black,fg:white,fg+:bright-white,info:yellow,border:bright-black,spinner:yellow,header:blue,pointer:magenta,marker:cyan,prompt:magenta,hl:green,hl+:bright-green'"
+export FZF_DEFAULT_OPTS="--prompt='SEARCH ' --reverse --border --multi --info=inline --no-separator --bind='ctrl-/:toggle-preview' --color='bg:black,bg+:black,fg:white,fg+:bright-white,info:yellow,border:bright-black,spinner:yellow,header:blue,pointer:magenta,marker:cyan,prompt:magenta,hl:green,hl+:bright-green'"
 export FZF_CTRL_T_COMMAND='fd --hidden --follow'
 export FZF_CTRL_T_OPTS="--prompt='FILE/DIR ' --preview='(bat --style=numbers --color=always {} || tree -C {}) 2> /dev/null'"
-export FZF_ALT_C_COMMAND="fd --type d --hidden --follow" 
-export FZF_ALT_C_OPTS="--prompt='DIRECTORY ' --preview='tree -C {}'"
+export FZF_ALT_C_COMMAND="fd --type d --hidden --follow"
+export FZF_ALT_C_OPTS="--prompt='DIRECTORY ' --preview='tree -a -C -L 1 --dirsfirst {}'"
 export FZF_CTRL_R_OPTS="--prompt='HISTORY ' --preview-window=hidden"
 _fzf_compgen_path() { fd --hidden --follow . "$1"; }
 _fzf_compgen_dir() { fd --type d --hidden --follow . "$1"; }
 
-# Disable ctrl-s to freeze terminal.
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --zsh)"
+
+# Disable ctrl-s to freeze terminal
 stty stop undef
 
-# Show last command name
+# Set terminal title to last command
 preexec() { print -Pn "\e]0;$1\a" }
 
 # load zoxide
