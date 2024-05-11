@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Adds ~/.local/bin and its subdirectories to $PATH
 export PATH="${PATH}:${HOME}/.local/bin"
 
@@ -29,19 +31,19 @@ export GTK_THEME="Orchis-Dark-Compact"
 # Monitor config
 [ -f ~/.screenlayout/single.sh ] && . ~/.screenlayout/single.sh &
 # [ -f ~/.screenlayout/dual.sh ] && . ~/.screenlayout/dual.sh &
+# Enable numlock
+[ -f /usr/bin/numlockx ] && numlockx &
 # Set a delay of 500ms and a rate of 40Hz
-[ -f /usr/bin/xset ] && xset r rate 500 40
+[ -f /usr/bin/xset ] && xset r rate 500 40 &
 # Lock the screen 10 minutes later
-[ -f /usr/bin/xset ] && xset s 600 600
-[ -f /usr/bin/xss-lock ] && xss-lock /usr/bin/slock &
+[ -f /usr/bin/xset ] && xset s 600 600 &
+[ -f /usr/bin/xss-lock ] && [ -f /usr/bin/slock ] && xss-lock /usr/bin/slock &
 # Network Manager Applet
 [ -f /usr/bin/nm-applet ] && nm-applet &
 # Set wallpaper
-[ -f /usr/bin/nitrogen ] && [ -f ~/.local/bin/randomwallpaper ] && ~/.local/bin/randomwallpaper
+[ -f /usr/bin/nitrogen ] && [ -f ~/.local/bin/randomwallpaper ] && ~/.local/bin/randomwallpaper &
 # Load config nvidia-settings
 [ -f /usr/bin/nvidia-settings ] && nvidia-settings --load-config-only &
-# Enable numlock
-[ -f /usr/bin/numlockx ] && numlockx &
 # Ibus Daemon
 [ -f /usr/bin/ibus-daemon ] && ibus-daemon --xim -d -r &
 # Authentication
