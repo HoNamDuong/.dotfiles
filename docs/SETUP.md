@@ -110,13 +110,15 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
 | Package (GUI)                                                                   | Description                                                                                                        |
 | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
 | [ARandR](https://github.com/haad/arandr)                                        | ARandR is designed to provide a simple visual front end for XRandR.                                                |
+| [LSHW](https://ezix.org/project/wiki/HardwareLiSter)                            | A small tool to provide detailed information on the hardware configuration of the machine.                         |
+| [Seahorse](https://wiki.gnome.org/Apps/Seahorse)                                | GNOME application for managing PGP keys.                                                                           |
 | [Nitrogen](https://github.com/l3ib/nitrogen)                                    | Background browser and setter for X windows.                                                                       |
 | [Network Manager Applet](https://gitlab.gnome.org/GNOME/network-manager-applet) | Tray applet and an advanced network connection editor.                                                             |
 | [Rofi](https://github.com/davatorium/rofi)                                      | A window switcher, application launcher and dmenu replacement.                                                     |
 | [IBus Bamboo](https://github.com/BambooEngine/ibus-bamboo)                      | Next Generation Input Bus for Linux.                                                                               |
 | [Viewnior](https://siyanpanayotov.com/project/viewnior)                         | Fast and elegant image viewer.                                                                                     |
 | [Mpv](https://mpv.io/)                                                          | A free, open source, and cross-platform media player.                                                              |
-| [Spotify](https://www.spotify.com/)                                             | A proprietary music streaming service                                                                              |
+| [Spotify](https://www.spotify.com/)                                             | A proprietary music streaming service.                                                                             |
 | [Zathura](https://pwmt.org/projects/zathura/)                                   | A highly customizable and functional document viewer.                                                              |
 | [Google Chrome](https://www.google.com/chrome)                                  | The popular web browser by Google (Stable Channel).                                                                |
 | [Thunderbird](https://www.thunderbird.net/)                                     | Thunderbird is a free email application that's easy to set up and customize - and it's loaded with great features. |
@@ -125,15 +127,16 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
 | [Screenkey](https://www.thregr.org/~wavexx/software/screenkey/)                 | A screencast tool to display your keys inspired by Screenflick.                                                    |
 | [Gucharmap](https://wiki.gnome.org/Apps/Gucharmap)                              | The GNOME Character Map, based on the Unicode Character Database.                                                  |
 | [Gpick](https://github.com/thezbyg/gpick)                                       | Advanced color picker and palette editor.                                                                          |
-| [GIMP](https://www.gimp.org/)                                                   | GNU Image Manipulation Program                                                                                     |
-| [Inkscape](https://inkscape.org/)                                               | Professional vector graphics editor                                                                                |
+| [GIMP](https://www.gimp.org/)                                                   | GNU Image Manipulation Program.                                                                                    |
+| [Inkscape](https://inkscape.org/)                                               | Professional vector graphics editor.                                                                               |
 
 | Package (CLI)                                                       | Description                                                                                    |
 | ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | [tmux](https://github.com/tmux/tmux)                                | A terminal multiplexer.                                                                        |
 | [tig](https://github.com/jonas/tig)                                 | Text-mode interface for Git.                                                                   |
-| [bat](https://github.com/sharkdp/bat)                               | Cat clone with syntax highlighting and git integration                                         |
+| [bat](https://github.com/sharkdp/bat)                               | Cat clone with syntax highlighting and git integration.                                        |
 | [lsd](https://github.com/Peltoche/lsd)                              | GNU ls with lots of added features like colors, icons, tree-view, more formatting options etc. |
+| [tree](https://gitlab.com/OldManProgrammer/unix-tree)               | A directory listing program displaying a depth indented list of files                          |
 | [ranger](https://github.com/ranger/ranger)                          | Ranger is a console file manager with VI key bindings.                                         |
 | [fzf](https://github.com/junegunn/fzf)                              | A command-line fuzzy finder.                                                                   |
 | [playerctl](https://github.com/altdesktop/playerctl)                | For true players only: vlc, mpv, RhythmBox, web browsers, cmus, mpd, spotify and others.       |
@@ -147,13 +150,13 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
 | [pipes.sh](https://github.com/pipeseroni/pipes.sh)                  | Animated pipes terminal screensaver.                                                           |
 
     yay -S \
-    tmux tig lsd fzf bat ripgrep fd wget \
+    tmux tig lsd tree fzf bat ripgrep fd wget \
     ranger-git w3m imagemagick \
     btop htop cmatrix cava pipes.sh neofetch \
     xdg-user-dirs xclip numlockx scrot playerctl \
-    gnome-keyring polkit-gnome \
+    gnome-keyring seahorse polkit-gnome \
     rofi arandr network-manager-applet \
-    nitrogen qalculate-gtk magnifiqus screenkey gucharmap gpick \
+    nitrogen qalculate-gtk magnifiqus screenkey gucharmap gpick lshw \
     viewnior webp-pixbuf-loader \
     mpv yt-dlp mpv-mpris \
     spotify zenity ffmpeg4.4 \
@@ -164,12 +167,13 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
 
 ## Setup shell
 
-| Package                                 | Description                                                                              |
-| --------------------------------------- | ---------------------------------------------------------------------------------------- |
-| [zsh](https://github.com/zsh-users/zsh) | A shell designed for interactive use, although it is also a powerful scripting language. |
+| Package                                         | Description                                                                              |
+| ----------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| [zsh](https://github.com/zsh-users/zsh)         | A shell designed for interactive use, although it is also a powerful scripting language. |
+| [zoxide](https://github.com/ajeetdsouza/zoxide) | A smarter cd command, inspired by z and autojump                                         |
 
     # Install zsh
-    yay -S zsh zsh-autosuggestions-git zsh-syntax-highlighting-git zsh-completions-git zsh-autopair-git
+    yay -S zsh zsh-autosuggestions-git zsh-syntax-highlighting-git zsh-completions-git zsh-autopair-git zoxide
 
     # Set zsh as default shell
     chsh -s $(which zsh)
@@ -213,10 +217,10 @@ Fix open file in a terminal
 
 ## Setup bluetooth
 
-| Package                                               | Description                              |
-| ----------------------------------------------------- | ---------------------------------------- |
-| [BlueZ](https://www.bluez.org/)                       | Daemons for the bluetooth protocol stack |
-| [Blueman](https://github.com/blueman-project/blueman) | GTK+ Bluetooth Manager                   |
+| Package                                               | Description                               |
+| ----------------------------------------------------- | ----------------------------------------- |
+| [BlueZ](https://www.bluez.org/)                       | Daemons for the bluetooth protocol stack. |
+| [Blueman](https://github.com/blueman-project/blueman) | GTK+ Bluetooth Manager.                   |
 
     # Install bluez, blueman
     yay -S bluez bluez-utils bluez-obex blueman
