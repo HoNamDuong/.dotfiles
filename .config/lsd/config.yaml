@@ -8,9 +8,10 @@ classic: false
 # == Blocks ==
 # This specifies the columns and their order when using the long and the tree
 # layout.
-# Possible values: permission, user, group, size, size_value, date, name, inode
+# Possible values: permission, user, group, context, size, date, name, inode, links, git
 blocks:
     - permission
+    - links
     - user
     - group
     - size
@@ -26,19 +27,17 @@ color:
     when: auto
     # How to colorize the output.
     # When "classic" is set, this is set to "no-color".
-    # Possible values: default, <theme-file-name>
-    # when specifying <theme-file-name>, lsd will look up theme file
-    # XDG Base Directory if relative, e.g. ~/.config/lsd/themes/<theme-file-name>.yaml,
-    # The file path if absolute
-    theme: custom 
+    # Possible values: default, custom
+    # When "custom" is set, lsd will look in the config directory for `colors.yaml`.
+    theme: custom
 
 # == Date ==
 # This specifies the date format for the date column. The freeform format
-# accepts an strftime like string.
+# accepts a strftime like string.
 # When "classic" is set, this is set to "date".
-# Possible values: date, relative, '+<date_format>'
+# Possible values: date, locale, relative, '+<date_format>'
 # `date_format` will be a `strftime` formatted value. e.g. `date: '+%d %b %y %X'` will give you a date like this: 17 Jun 21 20:14:55
-date: "+%d %b %y %H:%M"
+date: '+%Y-%m-%d %H:%M'
 
 # == Dereference ==
 # Whether to dereference symbolic links.
@@ -61,12 +60,12 @@ icons:
     theme: fancy
     # Separator between icon and the name
     # Default to 1 space
-    separator: " "
+    separator: ' '
 
 # == Ignore Globs ==
 # A list of globs to ignore when listing.
 # ignore-globs:
-#     - .git
+#   - .git
 
 # == Indicators ==
 # Whether to add indicator characters to certain listed files.
@@ -95,7 +94,7 @@ size: default
 
 # == Permission ==
 # Specify the format of the permission column
-# Possible value: rwx, octal
+# Possible value: rwx, octal, attributes (windows only), disable
 permission: rwx
 
 # == Sorting ==
