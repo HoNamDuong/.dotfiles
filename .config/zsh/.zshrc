@@ -98,13 +98,13 @@ autoload -Uz select-bracketed select-quoted
 zle -N select-quoted
 zle -N select-bracketed
 for km in viopp visual; do
-  bindkey -M $km -- '-' vi-up-line-or-history
-  for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
-    bindkey -M $km $c select-quoted
-  done
-  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
-    bindkey -M $km $c select-bracketed
-  done
+    bindkey -M $km -- '-' vi-up-line-or-history
+    for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
+        bindkey -M $km $c select-quoted
+    done
+    for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+        bindkey -M $km $c select-bracketed
+    done
 done
 
 autoload -Uz surround
@@ -150,6 +150,16 @@ stty stop undef
 
 # Set terminal title to last command
 preexec() { print -Pn "\e]0;$1\a" }
+
+# Automatically start tmux
+if command -v tmux &> /dev/null && \
+    [[ ! "$TERM_PROGRAM" == "vscode" ]] && \
+    [[ ! "$TERM" =~ screen ]] && \
+    [[ ! "$TERM" =~ tmux ]] && \
+    [ -n "$PS1" ] && \
+    [ -z "$TMUX" ]; then
+    exec tmux new-session
+fi
 
 # load zoxide
 eval "$(zoxide init zsh)"
