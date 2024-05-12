@@ -41,7 +41,7 @@ awful.spawn.easy_async("which nvidia-smi", function(stdout, stderr, reason, exit
             end,
         })
     else
-        gpu.visible = false
+        gpu:get_children_by_id("text_role")[1].text = "N/A"
     end
 end)
 

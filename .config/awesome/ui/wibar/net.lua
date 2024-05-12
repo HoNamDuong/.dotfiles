@@ -122,7 +122,7 @@ local net = wibox.widget({
         widget = wibox.widget.imagebox,
     },
     {
-        id = "download_text",
+        id = "download_text_role",
         halign = "center",
         valign = "center",
         widget = wibox.widget.textbox,
@@ -137,7 +137,7 @@ local net = wibox.widget({
         widget = wibox.widget.imagebox,
     },
     {
-        id = "upload_text",
+        id = "upload_text_role",
         halign = "center",
         valign = "center",
         widget = wibox.widget.textbox,
@@ -152,8 +152,8 @@ gears.timer({
     autostart = true,
     callback = function()
         local result = get_net()
-        net:get_children_by_id("download_text")[1].text = format("${eno1 down_mb}", result) .. "MB"
-        net:get_children_by_id("upload_text")[1].text = format("${eno1 up_mb}", result) .. "MB"
+        net:get_children_by_id("download_text_role")[1].text = format("${eno1 down_mb}", result) .. "MB"
+        net:get_children_by_id("upload_text_role")[1].text = format("${eno1 up_mb}", result) .. "MB"
     end,
 })
 

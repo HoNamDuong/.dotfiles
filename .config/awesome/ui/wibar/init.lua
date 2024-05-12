@@ -17,7 +17,7 @@ local mic = require("ui.wibar.mic")
 local cpu = require("ui.wibar.cpu")
 local memory = require("ui.wibar.memory")
 local gpu = require("ui.wibar.gpu")
--- local net = require("ui.wibar.net")
+local net = require("ui.wibar.net")
 
 screen.connect_signal("request::desktop_decoration", function(s)
     local is_primary = s == screen.primary
@@ -47,7 +47,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
                 widget = wibox.container.place,
             },
             is_primary and { -- Right
-                -- net,
+                net,
                 gpu,
                 memory,
                 cpu,

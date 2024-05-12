@@ -125,6 +125,8 @@ ruled.client.connect_signal("request::rules", function()
                 "nm-connection-editor",
                 "nm-applet",
                 "blueman",
+                "lshw",
+                "seahorse",
             },
         },
         properties = { tag = tag_name[10] },

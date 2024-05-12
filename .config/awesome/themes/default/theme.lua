@@ -238,6 +238,7 @@ theme.download_icon     = recolor_image(themes_path .. "default/other/download.s
 theme.upload_icon       = recolor_image(themes_path .. "default/other/upload.svg",          theme.palette.magenta)
 theme.gpu_icon          = recolor_image(themes_path .. "default/other/gpu.svg",             theme.palette.green)
 theme.memory_icon       = recolor_image(themes_path .. "default/other/memory.svg",          theme.palette.cyan)
+theme.swap_icon         = recolor_image(themes_path .. "default/other/swap.svg",            theme.palette.cyan)
 theme.cpu_icon          = recolor_image(themes_path .. "default/other/cpu.svg",             theme.palette.magenta)
 theme.clock_icon        = recolor_image(themes_path .. "default/other/clock.svg",           theme.palette.green)
 theme.volume_icon       = recolor_image(themes_path .. "default/other/volume.svg",          theme.palette.blue)
