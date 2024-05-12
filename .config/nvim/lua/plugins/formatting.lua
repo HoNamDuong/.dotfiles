@@ -25,6 +25,7 @@ return {
             yaml = { "prettier" },
             markdown = { "prettier" },
             lua = { "stylua" },
+            bash = { "shfmt" },
         },
         -- Customize formatters
         formatters = {
@@ -46,6 +47,12 @@ return {
                     "--single-quote",
                     "--config-precedence",
                     "file-override",
+                },
+            },
+            ["shfmt"] = {
+                prepend_args = {
+                    "--indent",
+                    "4",
                 },
             },
         },

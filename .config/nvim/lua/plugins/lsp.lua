@@ -3,6 +3,7 @@ local packages = {
     -- Formatter
     "stylua",
     "prettier",
+    "shfmt",
     -- DAP
     "js-debug-adapter",
     "codelldb",
