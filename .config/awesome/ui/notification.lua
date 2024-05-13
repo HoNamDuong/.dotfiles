@@ -49,7 +49,7 @@ local function notification_item(n)
 
     -- app name
     local app_name_n = wibox.widget({
-        markup = pango.b(n.app_name == "" and "Notification" or n.app_name),
+        markup = pango.b(n.app_name == "" and "Notification" or pango.escape(n.app_name)),
         valign = "center",
         widget = wibox.widget.textbox,
     })
@@ -75,7 +75,7 @@ local function notification_item(n)
     -- title
     local title_n = wibox.widget({
         {
-            markup = pango.b(n.title),
+            markup = pango.b(pango.escape(n.title)),
             align = "left",
             valign = "center",
             widget = wibox.widget.textbox,
@@ -86,7 +86,7 @@ local function notification_item(n)
     -- message
     local message_n = wibox.widget({
         {
-            markup = n.message,
+            markup = pango.escape(n.message),
             align = "left",
             valign = "center",
             wrap = "char",
