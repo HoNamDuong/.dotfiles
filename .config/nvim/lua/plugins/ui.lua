@@ -110,23 +110,8 @@ return {
                 path = 3,
             }
 
-            local lsp_progress = function()
-                if #vim.lsp.get_active_clients() == 0 then
-                    return ""
-                end
-                local lsp = vim.lsp.util.get_progress_messages()[1]
-                if lsp then
-                    local name = lsp.name or ""
-                    local msg = lsp.message or ""
-                    local percentage = lsp.percentage or 0
-                    local title = lsp.title or ""
-                    return string.format(" %%<%s: %s %s (%s%%%%) ", name, title, msg, percentage)
-                end
-                return ""
-            end
-
             local lsp_clients = function()
-                local clients = vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })
+                local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
 
                 if next(clients) == nil then
                     return "No LSP"
@@ -155,7 +140,7 @@ return {
                 },
                 sections = {
                     lualine_a = {},
-                    lualine_b = { lsp_clients, lsp_progress },
+                    lualine_b = { lsp_clients },
                     lualine_c = { "branch", "diff", diagnostics, filename },
                     lualine_x = { "filetype", "filesize", "encoding", fileformat },
                     lualine_y = { location, "progress" },
