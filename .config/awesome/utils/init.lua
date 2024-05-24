@@ -113,7 +113,7 @@ function utils.pango.u(data)
 end
 
 -- Get icon client with beautiful.icon_theme
-function utils.get_icon_client(c)
+function utils.client.get_icon_client(c)
     if not c.class then
         return c.icon
     end

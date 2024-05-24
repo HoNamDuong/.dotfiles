@@ -47,37 +47,48 @@ end
 
 local mem = wibox.widget({
     {
-        image = beautiful.memory_icon,
-        resize = true,
-        halign = "center",
-        valign = "center",
-        forced_width = dpi(6) * 3,
-        forced_height = dpi(6) * 3,
-        widget = wibox.widget.imagebox,
+        {
+            {
+                id = "ram_icon_role",
+                image = beautiful.memory_icon,
+                resize = true,
+                halign = "center",
+                valign = "center",
+                forced_width = dpi(6) * 3,
+                forced_height = dpi(6) * 3,
+                widget = wibox.widget.imagebox,
+            },
+            {
+                id = "ram_text_role",
+                halign = "center",
+                valign = "center",
+                widget = wibox.widget.textbox,
+            },
+            {
+                id = "swap_icon_role",
+                image = beautiful.swap_icon,
+                resize = true,
+                halign = "center",
+                valign = "center",
+                forced_width = dpi(6) * 3,
+                forced_height = dpi(6) * 3,
+                widget = wibox.widget.imagebox,
+            },
+            {
+                id = "swap_text_role",
+                halign = "center",
+                valign = "center",
+                widget = wibox.widget.textbox,
+            },
+            spacing = dpi(6),
+            layout = wibox.layout.fixed.horizontal,
+        },
+        left = dpi(6),
+        right = dpi(6),
+        widget = wibox.container.margin,
     },
-    {
-        id = "ram_text_role",
-        halign = "center",
-        valign = "center",
-        widget = wibox.widget.textbox,
-    },
-    {
-        image = beautiful.swap_icon,
-        resize = true,
-        halign = "center",
-        valign = "center",
-        forced_width = dpi(6) * 3,
-        forced_height = dpi(6) * 3,
-        widget = wibox.widget.imagebox,
-    },
-    {
-        id = "swap_text_role",
-        halign = "center",
-        valign = "center",
-        widget = wibox.widget.textbox,
-    },
-    spacing = dpi(6),
-    layout = wibox.layout.fixed.horizontal,
+    bg = beautiful.colors.background,
+    widget = wibox.container.background,
 })
 
 gears.timer({
@@ -89,29 +100,29 @@ gears.timer({
 
         -- RAM
         local ram_usep = result[1]
-        local ram_fg_color = beautiful.colors.low
+        local ram_usep_fg_color = beautiful.colors.low
 
-        if ram_usep > 80 then
-            ram_fg_color = beautiful.colors.high
-        elseif 50 <= ram_usep and ram_usep <= 80 then
-            ram_fg_color = beautiful.colors.medium
+        if ram_usep > 70 then
+            ram_usep_fg_color = beautiful.colors.high
+        elseif 30 <= ram_usep and ram_usep <= 70 then
+            ram_usep_fg_color = beautiful.colors.medium
         end
 
-        mem:get_children_by_id("ram_text_role")[1].markup = pango.span({ ram_usep .. "%", foreground = ram_fg_color })
+        mem:get_children_by_id("ram_text_role")[1].markup = pango.span({ ram_usep .. "%", foreground = ram_usep_fg_color })
 
         -- SWAP
         local swap_usep = result[5]
-        local swap_fg_color = beautiful.colors.low
+        local swap_usep_fg_color = beautiful.colors.low
 
         if result[7] ~= 0 then
-            if swap_usep > 80 then
-                swap_fg_color = beautiful.colors.high
-            elseif 50 <= swap_usep and swap_usep <= 80 then
-                swap_fg_color = beautiful.colors.medium
+            if swap_usep > 70 then
+                swap_usep_fg_color = beautiful.colors.high
+            elseif 30 <= swap_usep and swap_usep <= 70 then
+                swap_usep_fg_color = beautiful.colors.medium
             end
-            mem:get_children_by_id("swap_text_role")[1].markup = pango.span({ swap_usep .. "%", foreground = swap_fg_color })
+            mem:get_children_by_id("swap_text_role")[1].markup = pango.span({ swap_usep .. "%", foreground = swap_usep_fg_color })
         else
-            swap_fg_color = beautiful.colors.medium
+            swap_usep_fg_color = beautiful.colors.medium
             mem:get_children_by_id("swap_text_role")[1].markup = "N/A"
         end
     end,

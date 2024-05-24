@@ -23,16 +23,18 @@ client.connect_signal("request::titlebars", function(c)
         size = beautiful.wibar_height,
     }).widget = {
         {
-            { -- Left
+            -- Left
+            {
                 -- awful.titlebar.widget.iconwidget(c),
                 {
-                    image = utils.get_icon_client(c),
+                    image = utils.client.get_icon_client(c),
                     widget = wibox.widget.imagebox,
                 },
                 buttons = buttons,
                 layout = wibox.layout.fixed.horizontal,
             },
-            { -- Middle
+            -- Middle
+            {
                 {
                     halign = "center",
                     widget = awful.titlebar.widget.titlewidget(c),
@@ -42,7 +44,8 @@ client.connect_signal("request::titlebars", function(c)
                 buttons = buttons,
                 widget = wibox.container.margin,
             },
-            { -- Right
+            -- Right
+            {
                 awful.titlebar.widget.stickybutton(c),
                 awful.titlebar.widget.ontopbutton(c),
                 awful.titlebar.widget.floatingbutton(c),

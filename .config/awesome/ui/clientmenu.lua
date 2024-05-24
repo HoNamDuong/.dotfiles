@@ -1,11 +1,10 @@
 local awful = require("awful")
-local aclient = require("awful.client")
 local beautiful = require("beautiful")
 local dpi = require("beautiful.xresources").apply_dpi
 
 local clientmenu = nil
 
-local item_names = {
+local default_messages = {
     close = "Close",
     minimize = "Minimize",
     maximized_active = "Unmaximize",
@@ -25,7 +24,7 @@ local function build_item(c, name, selector, action)
         action = action,
     }
 
-    local img = selector(c)
+    local img = selector()
     if type(img) ~= "nil" then
         if type(img) == "boolean" then
             if img then
@@ -44,7 +43,7 @@ local function build_item(c, name, selector, action)
             prefix = prefix .. "_"
         end
 
-        item.name = item_names[name .. "_" .. img] or item_names[name] or name
+        item.name = default_messages[name .. "_" .. img] or default_messages[name] or name
 
         item.icon = beautiful["titlebar_" .. name .. "_button_" .. prefix .. img]
     end
@@ -53,7 +52,9 @@ local function build_item(c, name, selector, action)
 end
 
 local function build_menu(c)
-    local floating_buttom = build_item(c, "floating", aclient.object.get_floating, function()
+    local floating_buttom = build_item(c, "floating", function()
+        return c.floating
+    end, function()
         c.floating = not c.floating
     end)
 

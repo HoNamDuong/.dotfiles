@@ -113,37 +113,48 @@ end
 
 local net = wibox.widget({
     {
-        image = beautiful.download_icon,
-        resize = true,
-        halign = "center",
-        valign = "center",
-        forced_width = dpi(6) * 3,
-        forced_height = dpi(6) * 3,
-        widget = wibox.widget.imagebox,
+        {
+            {
+                id = "download_icon_role",
+                image = beautiful.download_icon,
+                resize = true,
+                halign = "center",
+                valign = "center",
+                forced_width = dpi(6) * 3,
+                forced_height = dpi(6) * 3,
+                widget = wibox.widget.imagebox,
+            },
+            {
+                id = "download_text_role",
+                halign = "center",
+                valign = "center",
+                widget = wibox.widget.textbox,
+            },
+            {
+                id = "upload_icon_role",
+                image = beautiful.upload_icon,
+                resize = true,
+                halign = "center",
+                valign = "center",
+                forced_width = dpi(6) * 3,
+                forced_height = dpi(6) * 3,
+                widget = wibox.widget.imagebox,
+            },
+            {
+                id = "upload_text_role",
+                halign = "center",
+                valign = "center",
+                widget = wibox.widget.textbox,
+            },
+            spacing = dpi(6),
+            layout = wibox.layout.fixed.horizontal,
+        },
+        left = dpi(6),
+        right = dpi(6),
+        widget = wibox.container.margin,
     },
-    {
-        id = "download_text_role",
-        halign = "center",
-        valign = "center",
-        widget = wibox.widget.textbox,
-    },
-    {
-        image = beautiful.upload_icon,
-        resize = true,
-        halign = "center",
-        valign = "center",
-        forced_width = dpi(6) * 3,
-        forced_height = dpi(6) * 3,
-        widget = wibox.widget.imagebox,
-    },
-    {
-        id = "upload_text_role",
-        halign = "center",
-        valign = "center",
-        widget = wibox.widget.textbox,
-    },
-    spacing = dpi(6),
-    layout = wibox.layout.fixed.horizontal,
+    bg = beautiful.colors.background,
+    widget = wibox.container.background,
 })
 
 gears.timer({

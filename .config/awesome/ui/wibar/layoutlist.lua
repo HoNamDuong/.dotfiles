@@ -10,9 +10,13 @@ local layoutlist = function(s)
             {
                 {
                     id = "icon_role",
+                    scaling_quality = "fast",
                     widget = wibox.widget.imagebox,
                 },
-                margins = dpi(2) * 2,
+                top = dpi(2) * 2,
+                bottom = dpi(2) * 2,
+                left = dpi(6),
+                right = dpi(6),
                 widget = wibox.container.margin,
             },
             id = "background_role",

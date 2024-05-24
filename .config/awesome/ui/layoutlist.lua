@@ -16,6 +16,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
                         {
                             {
                                 id = "icon_role",
+                                scaling_quality = "fast",
                                 widget = wibox.widget.imagebox,
                             },
                             strategy = "exact",

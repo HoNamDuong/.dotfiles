@@ -10,13 +10,6 @@ local pango = require("utils").pango
 
 local sel = 1
 
-local empty_player = wibox.widget({
-    markup = " No players found ",
-    halign = "center",
-    valign = "center",
-    widget = wibox.widget.textbox,
-})
-
 local player_widget_list = wibox.widget({
     layout = wibox.layout.fixed.horizontal,
 })
@@ -33,8 +26,8 @@ end
 local playerbox = wibox.widget({
     {
         {
-            id = "player_role",
             {
+                id = "switch_player_role",
                 image = recolor_image(beautiful.arrow_down_icon, beautiful.colors.foreground),
                 visible = false,
                 resize = true,
@@ -47,7 +40,7 @@ local playerbox = wibox.widget({
                     end),
                 },
             },
-            empty_player,
+            player_widget_list,
             spacing = dpi(6),
             layout = wibox.layout.fixed.horizontal,
         },
@@ -55,7 +48,8 @@ local playerbox = wibox.widget({
         right = dpi(6),
         widget = wibox.container.margin,
     },
-    bg = beautiful.colors.secondary,
+    visible = false,
+    bg = beautiful.colors.primary_dark,
     widget = wibox.container.background,
 })
 
@@ -63,9 +57,9 @@ player_widget_list:connect_signal("widget::layout_changed", function()
     sel = 1
 
     if #player_widget_list.children == 0 then
-        playerbox:get_children_by_id("player_role")[1]:set(2, empty_player)
+        playerbox.visible = false
     else
-        playerbox:get_children_by_id("player_role")[1]:set(2, player_widget_list)
+        playerbox.visible = true
 
         for i = 1, #player_widget_list.children, 1 do
             player_widget_list.children[i].visible = false
@@ -74,9 +68,9 @@ player_widget_list:connect_signal("widget::layout_changed", function()
         player_widget_list.children[sel].visible = true
 
         if #player_widget_list.children > 1 then
-            playerbox:get_children_by_id("player_role")[1].children[1].visible = true
+            playerbox:get_children_by_id("switch_player_role")[1].visible = true
         else
-            playerbox:get_children_by_id("player_role")[1].children[1].visible = false
+            playerbox:get_children_by_id("switch_player_role")[1].visible = false
         end
     end
 end)
@@ -120,24 +114,29 @@ local function build_player_widget(player)
             },
         },
         {
-            id = "player_icon",
-            resize = true,
-            halign = "center",
-            valign = "center",
-            forced_width = dpi(6) * 3,
-            forced_height = dpi(6) * 3,
-            widget = wibox.widget.imagebox,
-        },
-        {
-            id = "player_metadata",
-            halign = "center",
-            valign = "center",
-            widget = wibox.widget.textbox,
+            {
+                id = "player_icon",
+                resize = true,
+                halign = "center",
+                valign = "center",
+                forced_width = dpi(6) * 3,
+                forced_height = dpi(6) * 3,
+                widget = wibox.widget.imagebox,
+            },
+            {
+                id = "player_metadata",
+                halign = "left",
+                valign = "center",
+                font = beautiful.font_name .. " " .. 6,
+                widget = wibox.widget.textbox,
+            },
             buttons = {
                 awful.button({}, 1, function()
                     player:play_pause()
                 end),
             },
+            spacing = dpi(6) * 2,
+            layout = wibox.layout.fixed.horizontal,
         },
         visible = false,
         spacing = dpi(6),
@@ -147,51 +146,60 @@ local function build_player_widget(player)
     local tooltip = awful.tooltip({
         objects = { widget },
         align = "bottom",
+        mode = "outside",
     })
 
-    local function get_control_icon(status)
-        local icon = nil
-        if status == "PLAYING" then
-            icon = beautiful.pause_icon
-        elseif status == "PAUSED" then
-            icon = beautiful.play_icon
-        else
-            icon = beautiful.stop_icon
-            next_player()
-        end
-        return icon
-    end
-
-    local function initial()
-        widget:get_children_by_id("player_control")[1].image = get_control_icon(player.playback_status)
+    local function load_icon()
         widget:get_children_by_id("player_icon")[1].image = icon_theme():find_icon_path(player.player_name)
-        awful.spawn.easy_async("playerctl " .. "--player=" .. player.player_instance .. " metadata --format '{{artist}}\n{{title}}'", function(stdout)
-            stdout = pango.escape(stdout)
-            local artist, title = string.match(stdout, "^(.-)%\n(.-)$")
-
-            widget:get_children_by_id("player_metadata")[1].markup = " " .. pango.b(artist or "") .. " - " .. (title or "")
-        end)
-    end
-    initial()
-
-    player.on_playback_status = function()
-        widget:get_children_by_id("player_control")[1].image = get_control_icon(player.playback_status)
     end
 
-    player.on_metadata = function()
+    local function load_metadata()
         awful.spawn.easy_async(
             "playerctl " .. "--player=" .. player.player_instance .. " metadata --format '{{playerName}}\n{{status}}\n{{artist}}\n{{title}}\n{{mpris:trackid}}\n{{mpris:artUrl}}'",
             function(stdout)
                 stdout = pango.escape(stdout)
                 local player_name, status, artist, title, track_id, art_url = string.match(stdout, "^(.-)%\n(.-)%\n(.-)%\n(.-)%\n(.-)%\n(.-)$")
 
-                local markup = " " .. pango.b(artist or "") .. " - " .. (title or "") .. " "
+                artist = artist ~= "" and gears.string.linewrap(artist, 90) or "N/A"
+                title = title ~= "" and gears.string.linewrap(title, 90) or "N/A"
+
+                local markup = pango.b("Artist: " .. artist) .. "\n" .. pango.i("Song: " .. title)
 
                 widget:get_children_by_id("player_metadata")[1].markup = markup
 
                 tooltip.markup = markup
             end
         )
+    end
+
+    local function load_playback()
+        local function get_control_icon(status)
+            local icon = nil
+            if status == "PLAYING" then
+                icon = beautiful.pause_icon
+            elseif status == "PAUSED" then
+                icon = beautiful.play_icon
+            else
+                icon = beautiful.stop_icon
+                next_player()
+            end
+            return icon
+        end
+
+        widget:get_children_by_id("player_control")[1].image = get_control_icon(player.playback_status)
+    end
+
+    -- Initial
+    load_icon()
+    load_playback()
+    load_metadata()
+
+    player.on_playback_status = function()
+        load_playback()
+    end
+
+    player.on_metadata = function()
+        load_metadata()
     end
 
     return widget

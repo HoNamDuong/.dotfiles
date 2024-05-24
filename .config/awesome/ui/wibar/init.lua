@@ -1,6 +1,5 @@
 local awful = require("awful")
 local wibox = require("wibox")
-local beautiful = require("beautiful")
 local dpi = require("beautiful.xresources").apply_dpi
 
 local tasklist = require("ui.wibar.tasklist")
@@ -11,7 +10,6 @@ local minimization = require("ui.wibar.minimization")
 local dashboard = require("ui.wibar.dashboard")
 local clock = require("ui.wibar.clock")
 local systray = require("ui.wibar.systray")
-local prompt = require("ui.wibar.prompt")
 local playerbox = require("ui.wibar.playerbox")
 local volume = require("ui.wibar.volume")
 local mic = require("ui.wibar.mic")
@@ -35,7 +33,6 @@ screen.connect_signal("request::desktop_decoration", function(s)
                 layoutlist(s),
                 is_primary and systray,
                 tasklist(s),
-                is_primary and prompt,
                 layout = wibox.layout.fixed.horizontal,
             },
             -- Middle

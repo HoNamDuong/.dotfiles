@@ -25,11 +25,11 @@ local taglist = function(s)
                         id = "icon_role",
                         widget = wibox.widget.imagebox,
                     },
-                    {
-                        id = "text_role",
-                        widget = wibox.widget.textbox,
-                    },
-                    spacing = dpi(6),
+                    -- {
+                    --     id = "text_role",
+                    --     widget = wibox.widget.textbox,
+                    -- },
+                    -- spacing = dpi(6),
                     layout = wibox.layout.fixed.horizontal,
                 },
                 top = dpi(2),

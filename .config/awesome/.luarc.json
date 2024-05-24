@@ -1,3 +1,3 @@
 {
-    "diagnostics.globals": ["awesome", "client", "tag", "screen", "root"]
+    "diagnostics.globals": ["awesome", "client", "tag", "screen", "root", "mouse"]
 }

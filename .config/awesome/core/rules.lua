@@ -110,7 +110,7 @@ ruled.client.connect_signal("request::rules", function()
         properties = { tag = tag_name[8] },
     })
     ruled.client.append_rule({
-        rule_any = { instance = { "Minecraft" } },
+        rule_any = { instance = {}, class = { "Minecraft.*" } },
         properties = { tag = tag_name[9] },
     })
     ruled.client.append_rule({

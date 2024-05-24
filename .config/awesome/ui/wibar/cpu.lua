@@ -71,23 +71,32 @@ end
 
 local cpu = wibox.widget({
     {
-        id = "icon_role",
-        image = beautiful.cpu_icon,
-        resize = true,
-        halign = "center",
-        valign = "center",
-        forced_width = dpi(6) * 3,
-        forced_height = dpi(6) * 3,
-        widget = wibox.widget.imagebox,
+        {
+            {
+                id = "cpu_icon_role",
+                image = beautiful.cpu_icon,
+                resize = true,
+                halign = "center",
+                valign = "center",
+                forced_width = dpi(6) * 3,
+                forced_height = dpi(6) * 3,
+                widget = wibox.widget.imagebox,
+            },
+            {
+                id = "cpu_text_role",
+                halign = "center",
+                valign = "center",
+                widget = wibox.widget.textbox,
+            },
+            spacing = dpi(6),
+            layout = wibox.layout.fixed.horizontal,
+        },
+        left = dpi(6),
+        right = dpi(6),
+        widget = wibox.container.margin,
     },
-    {
-        id = "text_role",
-        halign = "center",
-        valign = "center",
-        widget = wibox.widget.textbox,
-    },
-    spacing = dpi(6),
-    layout = wibox.layout.fixed.horizontal,
+    bg = beautiful.colors.background,
+    widget = wibox.container.background,
 })
 
 gears.timer({
@@ -95,16 +104,16 @@ gears.timer({
     call_now = true,
     autostart = true,
     callback = function()
-        local usep = get_cpu()[1]
-        local fg_color = beautiful.colors.low
+        local cpu_usep = get_cpu()[1]
+        local cpu_usep_fg_color = beautiful.colors.low
 
-        if usep > 80 then
-            fg_color = beautiful.colors.high
-        elseif 50 <= usep and usep <= 80 then
-            fg_color = beautiful.colors.medium
+        if cpu_usep > 70 then
+            cpu_usep_fg_color = beautiful.colors.high
+        elseif 30 <= cpu_usep and cpu_usep <= 70 then
+            cpu_usep_fg_color = beautiful.colors.medium
         end
 
-        cpu:get_children_by_id("text_role")[1].markup = pango.span({ usep .. "%", foreground = fg_color })
+        cpu:get_children_by_id("cpu_text_role")[1].markup = pango.span({ cpu_usep .. "%", foreground = cpu_usep_fg_color })
     end,
 })
 

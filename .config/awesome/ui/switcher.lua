@@ -31,7 +31,7 @@ local function get_items()
                 awful.screen.focus(c.screen)
             end,
             -- c.icon,
-            utils.get_icon_client(c),
+            utils.client.get_icon_client(c),
         }
     end
 

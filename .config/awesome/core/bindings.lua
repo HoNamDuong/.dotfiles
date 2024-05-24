@@ -7,7 +7,7 @@ local apps = require("config").apps
 local keys = require("config").keys
 
 -- {{{ Mouse bindings
--- Global
+-- Global mousebindings
 awful.mouse.append_global_mousebindings({
     awful.button({}, 3, function()
         awesome.emit_signal("mainmenu::toggle")
@@ -16,7 +16,7 @@ awful.mouse.append_global_mousebindings({
     -- awful.button({}, 5, awful.tag.viewnext),
 })
 
--- Clinet
+-- Client related mousebindings
 client.connect_signal("request::default_mousebindings", function()
     awful.mouse.append_client_mousebindings({
         awful.button({}, 1, function(c)
@@ -33,33 +33,23 @@ end)
 -- }}}
 
 -- {{{ Key bindings
--- General Awesome keys
+-- Global keybindings
 awful.keyboard.append_global_keybindings({
     awful.key({ keys.super, "Control" }, "r", awesome.restart, { description = "Reload awesome", group = "awesome" }),
 
     awful.key({ keys.super, "Shift" }, "q", awesome.quit, { description = "Quit awesome", group = "awesome" }),
 
+    awful.key({ keys.super }, "Return", function()
+        awful.spawn(apps.terminal)
+    end, { description = "Open terminal", group = "actions" }),
+
     awful.key({ keys.super }, "r", function()
-        -- local prompt = require("ui.wibar.prompt")
-        -- awful.prompt.run({
-        --     prompt = "Run Lua code: ",
-        --     textbox = prompt.widget,
-        --     exe_callback = awful.util.eval,
-        --     history_path = awful.util.get_cache_dir() .. "/history_eval",
-        -- })
-        -- prompt:run()
         awful.spawn(apps.run)
     end, { description = "Open run", group = "actions" }),
 
     awful.key({ keys.super }, "a", function()
-        -- local menubar = require("menubar")
-        -- menubar.show()
         awful.spawn(apps.launcher)
     end, { description = "Open launcher", group = "actions" }),
-
-    awful.key({ keys.super }, "Return", function()
-        awful.spawn(apps.terminal)
-    end, { description = "Open terminal", group = "actions" }),
 
     awful.key({ keys.super }, "x", function()
         awful.spawn(apps.powermenu)
@@ -94,7 +84,6 @@ awful.keyboard.append_global_keybindings({
 
     awful.key({ keys.super }, "grave", awful.tag.history.restore, { description = "Go back tag", group = "tag" }),
 
-    -- Non-empty tag browsing Super+Tab (Super+Shift+Tab)
     awful.key({ keys.super }, "Tab", function()
         utils.tag.view_nonempty(1)
     end, { description = "View next nonempty tag", group = "tag" }),
@@ -208,15 +197,9 @@ client.connect_signal("request::default_keybindings", function()
             c:kill()
         end, { description = "Close", group = "client" }),
 
-        awful.key({ keys.super, "Control" }, "space", awful.client.floating.toggle, { description = "Toggle floating", group = "client" }),
-
-        awful.key({ keys.super, "Control" }, "Return", function(c)
-            c:swap(awful.client.getmaster())
-        end, { description = "Move to master", group = "client" }),
-
-        awful.key({ keys.super }, "o", function(c)
-            c:move_to_screen()
-        end, { description = "Move to screen", group = "client" }),
+        awful.key({ keys.super, "Control" }, "space", function(c)
+            c.floating = not c.floating
+        end, { description = "Toggle floating", group = "client" }),
 
         awful.key({ keys.super }, "t", function(c)
             c.ontop = not c.ontop
@@ -236,14 +219,24 @@ client.connect_signal("request::default_keybindings", function()
             c.maximized = not c.maximized
             c:raise()
         end, { description = "(un)maximize", group = "client" }),
+
         awful.key({ keys.super, "Control" }, "m", function(c)
             c.maximized_vertical = not c.maximized_vertical
             c:raise()
         end, { description = "(un)maximize vertically", group = "client" }),
+
         awful.key({ keys.super, "Shift" }, "m", function(c)
             c.maximized_horizontal = not c.maximized_horizontal
             c:raise()
         end, { description = "(un)maximize horizontally", group = "client" }),
+
+        awful.key({ keys.super, "Control" }, "Return", function(c)
+            c:swap(awful.client.getmaster())
+        end, { description = "Move to master", group = "client" }),
+
+        awful.key({ keys.super }, "o", function(c)
+            c:move_to_screen()
+        end, { description = "Move to screen", group = "client" }),
     })
 end)
 
@@ -314,7 +307,7 @@ awful.keyboard.append_global_keybindings({
 
     awful.key({ keys.super }, "F7", function()
         local screen = awful.screen.focused()
-        screen:fake_resize(0, 0, 1600, 900)
+        screen:fake_resize(0, 0, 1920, 1080)
     end, { description = "Resize the screen", group = "test" }),
 
     awful.key({ keys.super }, "F1", function()

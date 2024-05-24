@@ -26,22 +26,6 @@ local tasklist = function(s)
             -- end),
         },
         layout = { layout = wibox.layout.fixed.horizontal },
-        -- widget_template = {
-        --     {
-        --         id = "background_role",
-        --         forced_height = dpi(2),
-        --         widget = wibox.container.background,
-        --     },
-        --     {
-        --         awful.widget.clienticon,
-        --         top = dpi(0),
-        --         bottom = dpi(2),
-        --         left = dpi(6),
-        --         right = dpi(6),
-        --         widget = wibox.container.margin,
-        --     },
-        --     layout = wibox.layout.align.vertical,
-        -- },
         widget_template = {
             {
                 {
@@ -57,7 +41,7 @@ local tasklist = function(s)
             id = "background_role",
             widget = wibox.container.background,
             create_callback = function(self, c, index, clients)
-                self:get_children_by_id("icon_client")[1].image = utils.get_icon_client(c)
+                self:get_children_by_id("icon_client")[1].image = utils.client.get_icon_client(c)
             end,
         },
     })
