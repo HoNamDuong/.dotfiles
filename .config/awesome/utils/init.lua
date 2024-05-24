@@ -1,10 +1,12 @@
 local awful = require("awful")
 local gstring = require("gears.string")
+local gtable = require("gears.table")
 local beautiful = require("beautiful")
 local menubar_utils = require("menubar.utils")
 
 local utils = {
     tag = {},
+    client = {},
     pango = {},
 }
 
@@ -116,6 +118,53 @@ function utils.get_icon_client(c)
         return c.icon
     end
     return menubar_utils.lookup_icon(string.lower(c.class)) or c.icon or beautiful.package_icon
+end
+
+-- Toggle minimize all clients in current tag
+function utils.client.toggle_minimization_clients()
+    local s = awful.screen.focused()
+    local clients = client.get(s)
+    local tags = s.selected_tags
+
+    local function set_minimized(value)
+        for _, c in pairs(clients) do
+            if c.sticky then
+                c.minimized = value
+            end
+            local ctags = c:tags()
+            for _, t in ipairs(tags) do
+                if gtable.hasitem(ctags, t) then
+                    c.minimized = value
+                end
+            end
+        end
+    end
+
+    local function check_no_minimized()
+        for _, c in pairs(clients) do
+            if c.sticky then
+                if c.minimized == false then
+                    return true
+                end
+            end
+            local ctags = c:tags()
+            for _, t in ipairs(tags) do
+                if gtable.hasitem(ctags, t) then
+                    if c.minimized == false then
+                        return true
+                    end
+                end
+            end
+        end
+        return false
+    end
+
+    local no_minimized = check_no_minimized()
+    if no_minimized then
+        set_minimized(true)
+    else
+        set_minimized(false)
+    end
 end
 
 return utils

@@ -7,7 +7,8 @@ local tasklist = require("ui.wibar.tasklist")
 local taglist = require("ui.wibar.taglist")
 local layoutlist = require("ui.wibar.layoutlist")
 
-local launcher = require("ui.wibar.launcher")
+local minimization = require("ui.wibar.minimization")
+local dashboard = require("ui.wibar.dashboard")
 local clock = require("ui.wibar.clock")
 local systray = require("ui.wibar.systray")
 local prompt = require("ui.wibar.prompt")
@@ -27,8 +28,9 @@ screen.connect_signal("request::desktop_decoration", function(s)
         position = "top",
         screen = s,
         widget = {
-            { -- Left
-                is_primary and launcher,
+            -- Left
+            {
+                is_primary and dashboard,
                 taglist(s),
                 layoutlist(s),
                 is_primary and systray,
@@ -36,7 +38,8 @@ screen.connect_signal("request::desktop_decoration", function(s)
                 is_primary and prompt,
                 layout = wibox.layout.fixed.horizontal,
             },
-            { -- Middle
+            -- Middle
+            {
                 {
                     playerbox,
                     left = dpi(6) * 2,
@@ -46,15 +49,16 @@ screen.connect_signal("request::desktop_decoration", function(s)
                 content_fill_vertical = true,
                 widget = wibox.container.place,
             },
-            is_primary and { -- Right
-                net,
-                gpu,
-                memory,
-                cpu,
-                volume,
-                mic,
-                clock,
-                spacing = dpi(6) * 2,
+            -- Right
+            {
+                is_primary and net,
+                is_primary and gpu,
+                is_primary and memory,
+                is_primary and cpu,
+                is_primary and volume,
+                is_primary and mic,
+                is_primary and clock,
+                minimization,
                 layout = wibox.layout.fixed.horizontal,
             },
             layout = wibox.layout.align.horizontal,

@@ -2,7 +2,7 @@ local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 
-local launcher = awful.widget.button({
+local dashboard = wibox.widget({
     image = beautiful.dashboard_icon,
     widget = wibox.widget.imagebox,
     buttons = {
@@ -15,4 +15,4 @@ local launcher = awful.widget.button({
     },
 })
 
-return launcher
+return dashboard
