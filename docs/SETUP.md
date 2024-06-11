@@ -127,6 +127,7 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
 | [Screenkey](https://www.thregr.org/~wavexx/software/screenkey/)                 | A screencast tool to display your keys inspired by Screenflick.                                                    |
 | [Gucharmap](https://wiki.gnome.org/Apps/Gucharmap)                              | The GNOME Character Map, based on the Unicode Character Database.                                                  |
 | [Gpick](https://github.com/thezbyg/gpick)                                       | Advanced color picker and palette editor.                                                                          |
+| [Onboard](https://launchpad.net/onboard)                                        | On-screen keyboard useful on tablet PCs or for mobility impaired users                                             |
 | [GIMP](https://www.gimp.org/)                                                   | GNU Image Manipulation Program.                                                                                    |
 | [Inkscape](https://inkscape.org/)                                               | Professional vector graphics editor.                                                                               |
 
@@ -156,7 +157,7 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
     xdg-user-dirs xclip numlockx scrot playerctl \
     gnome-keyring seahorse polkit-gnome \
     rofi arandr network-manager-applet \
-    nitrogen qalculate-gtk magnifiqus screenkey gucharmap gpick lshw \
+    nitrogen qalculate-gtk magnifiqus screenkey gucharmap gpick lshw onboard \
     viewnior webp-pixbuf-loader \
     mpv yt-dlp mpv-mpris \
     spotify zenity ffmpeg4.4 \
