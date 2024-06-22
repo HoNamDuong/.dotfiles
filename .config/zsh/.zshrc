@@ -133,9 +133,9 @@ bindkey '^[[Z' reverse-menu-complete
 
 # FZF
 export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow"
-export FZF_DEFAULT_OPTS="--prompt='SEARCH ' --reverse --border --multi --info=inline --no-separator --bind='ctrl-/:toggle-preview' --color='bg:black,bg+:black,fg:white,fg+:bright-white,info:yellow,border:bright-black,spinner:yellow,header:blue,pointer:magenta,marker:cyan,prompt:magenta,hl:green,hl+:bright-green'"
+export FZF_DEFAULT_OPTS="--multi --highlight-line --no-separator --bind='ctrl-/:toggle-preview' --prompt='SEARCH ' --layout=reverse --border=rounded --info=inline-right --color='fg:white,bg:black,hl:green,current-fg:bright-white,current-bg:black,current-hl:bright-green,query:white,info:yellow,border:bright-black,label:bright-blue,prompt:magenta,pointer:magenta,marker:cyan,spinner:white,header:italic:cyan'"
 export FZF_CTRL_T_COMMAND='fd --hidden --follow'
-export FZF_CTRL_T_OPTS="--prompt='FILE/DIR ' --preview='(bat --style=numbers --color=always {} || tree -C {}) 2> /dev/null'"
+export FZF_CTRL_T_OPTS="--prompt='FILE/DIR ' --preview='(bat --style=numbers --color=always {} || tree -a -C -L 1 --dirsfirst {}) 2> /dev/null'"
 export FZF_ALT_C_COMMAND="fd --type d --hidden --follow"
 export FZF_ALT_C_OPTS="--prompt='DIRECTORY ' --preview='tree -a -C -L 1 --dirsfirst {}'"
 export FZF_CTRL_R_OPTS="--prompt='HISTORY ' --preview-window=hidden"
@@ -161,5 +161,5 @@ if command -v tmux &> /dev/null && \
     exec tmux new-session
 fi
 
-# load zoxide
+# Load zoxide
 eval "$(zoxide init zsh)"
