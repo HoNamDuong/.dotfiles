@@ -260,6 +260,7 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         config = function()
             require("gitsigns").setup({
+                diff_opts = { vertical = false },
                 on_attach = function(bufnr)
                     local gs = require("gitsigns")
 

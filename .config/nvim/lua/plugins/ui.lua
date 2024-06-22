@@ -257,6 +257,11 @@ return {
                     },
                     -- stylua: ignore end
                 },
+                hide = {
+                    statusline = false,
+                    tabline = false,
+                    winbar = false,
+                },
             }
 
             for _, button in ipairs(opts.config.center) do
