@@ -203,12 +203,12 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
     # Install
     yay -S nemo nemo-fileroller nemo-mediainfo-tab ntfs-3g gvfs-mtp gvfs-gphoto2
 
-Change the default terminal emulator for Nemo
+Change the default terminal emulator for Nemo:
 
     gsettings set org.cinnamon.desktop.default-applications.terminal exec alacritty
     gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg -e
 
-Fix open file in a terminal
+Fix open file in a terminal:
 
     # Make symbolic links
     ln -s $(which alacritty) ~/.local/bin/xterm
@@ -236,26 +236,25 @@ Fix open file in a terminal
 | [system-config-printer](https://github.com/OpenPrinting/system-config-printer) | A CUPS printer configuration tool and status applet. |
 | [simple-scan](https://gitlab.gnome.org/GNOME/simple-scan)                      | Simple scanning utility.                             |
 
-#### Printer
+### Printer
 
+    # Install
     yay -S cups system-config-printer
 
-After installing these `enable` and `start` the cups.service in systemd.
-
+    # Enable and start
     sudo systemctl enable --now cups.service
 
-Add user to the group `lg`:
-
+    # Add user to the group `lg`:
     sudo usermod -aG lp $USER
 
 Search and install driver for your printer [here](https://wiki.archlinux.org/title/CUPS/Printer-specific_problems).
 
-#### Scanner
+### Scanner
 
+    # Install
     yay -S sane simple-scan
 
-Check if the scanner is detected with correct driver installed.
-
+    # Check if the scanner is detected with correct driver installed
     scanimage -L
 
 ## Setup crontab
@@ -273,17 +272,19 @@ Check if the scanner is detected with correct driver installed.
     # Edit crontab
     crontab -e
 
-    # Example of job definition
-    .---------------- minute (0 - 59)
-    |  .------------- hour (0 - 23)
-    |  |  .---------- day of month (1 - 31)
-    |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
-    |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
-    |  |  |  |  |
-    *  *  *  *  * user-name  command to be executed
+    # Job definition
+    .------------ minute (0 - 59)
+    | .---------- hour (0 - 23)
+    | | .-------- day of month (1 - 31)
+    | | | .------ month (1 - 12) OR jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec
+    | | | | .---- day of week (0 - 6) (Sunday=0 or 7) OR sun, mon, tue, wed, thu, fri, sat
+    | | | | |
+    * * * * * command-to-be-executed
 
-    # Example job randomize wallpaper
-    */10 * * * * export DISPLAY=:0.0 && /bin/date && /usr/bin/nitrogen --set-zoom-fill --random --save &> /dev/null
+    # Example job
+    */10 * * * * /bin/date --rfc-3339=seconds
+
+The quick and simple editor for cron schedule expressions [here](https://crontab.guru/).
 
 ## Setup docker
 
@@ -318,4 +319,4 @@ Check if the scanner is detected with correct driver installed.
     # Load the VirtualBox kernel modules
     sudo modprobe vboxdrv
 
-VirtualBox/Install Arch Linux as a guest [here](https://wiki.archlinux.org/title/VirtualBox/Install_Arch_Linux_as_a_guest)
+VirtualBox/Install Arch Linux as a guest [here](https://wiki.archlinux.org/title/VirtualBox/Install_Arch_Linux_as_a_guest).
