@@ -1,8 +1,33 @@
 #!/bin/bash
 # Randomize wallpaper for multiple monitors
 
-monitors=$(xrandr --listactivemonitors | awk 'NR==1 {print $2}')
+if [[ -n $1 ]]; then
+    WALLPAPER_DIR=$1
+else
+    WALLPAPER_DIR=$HOME/Pictures//Wallpapers/
+fi
 
-for ((i = 0; i < $monitors; i++)); do
-    nitrogen --set-zoom-fill --random --head=$i --save &>/dev/null
-done
+if [[ ! -d $WALLPAPER_DIR ]]; then
+    echo "randomwallpaper: $WALLPAPER_DIR is not a directory or does not exist"
+    exit 127
+fi
+
+if [[ -z "$(find $WALLPAPER_DIR -iregex '.*\.\(png\|jpg\|jpeg\)' -type f)" ]]; then
+    echo "randomwallpaper: there are no images in $WALLPAPER_DIR"
+    exit 1
+fi
+
+if [[ $XDG_SESSION_TYPE == "wayland" ]]; then
+    for i in $(xrandr --listactivemonitors | awk 'NR>1 {print $4}'); do
+        [ -f /usr/bin/swww ] &&
+            swww img $(find $WALLPAPER_DIR -iregex ".*.\(png\|jpg\|jpeg\)" -type f | shuf -n 1) --outputs=$i --transition-type=fade --transition-fps=60
+    done
+elif [[ $XDG_SESSION_TYPE == "x11" ]]; then
+    for ((i = 0; i < $(xrandr --listactivemonitors | awk 'NR==1 {print $2}'); i++)); do
+        [ -f /usr/bin/nitrogen ] &&
+            nitrogen --set-zoom-fill $(find $WALLPAPER_DIR -iregex ".*.\(png\|jpg\|jpeg\)" -type f | shuf -n 1) --head=$i --save &>/dev/null
+    done
+else
+    echo "randomwallpaper: XDG_SESSION_TYPE is not x11 or wayland"
+    exit 1
+fi

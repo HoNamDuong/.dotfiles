@@ -35,17 +35,16 @@ export GTK_THEME="Orchis-Dark-Compact"
 [ -f /usr/bin/numlockx ] && numlockx &
 # Set a delay of 500ms and a rate of 40Hz
 [ -f /usr/bin/xset ] && xset r rate 500 40 &
-# Lock the screen 10 minutes later
-[ -f /usr/bin/xset ] && xset s 600 600 &
+# Set locker utility
 [ -f /usr/bin/xss-lock ] && [ -f /usr/bin/slock ] && xss-lock /usr/bin/slock &
 # Network Manager Applet
 [ -f /usr/bin/nm-applet ] && nm-applet &
-# Set wallpaper
-[ -f /usr/bin/nitrogen ] && [ -f ~/.local/bin/randomwallpaper ] && ~/.local/bin/randomwallpaper &
+# Set randomize wallpaper every 10 minutes 
+bash -c '[ -f ~/.local/bin/randomwallpaper ] && while true; do ~/.local/bin/randomwallpaper && sleep 10m || break ; done' &
 # Load config nvidia-settings
 [ -f /usr/bin/nvidia-settings ] && nvidia-settings --load-config-only &
 # Ibus Daemon
-[ -f /usr/bin/ibus-daemon ] && ibus-daemon --xim -d -r &
+[ -f /usr/bin/ibus-daemon ] && ibus-daemon -rxRd &
 # Authentication
 [ -f /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 ] && /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 # # Compositor
