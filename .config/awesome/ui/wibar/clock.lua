@@ -39,6 +39,7 @@ awful.tooltip({
     timer_function = function()
         return os.date("Today is %A %B %d %Y\nThe time is %T\nClick to copy time to the clipboard")
     end,
+    align = "bottom",
     mode = "outside",
 })
 

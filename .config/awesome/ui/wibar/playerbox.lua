@@ -160,10 +160,10 @@ local function build_player_widget(player)
                 stdout = pango.escape(stdout)
                 local player_name, status, artist, title, track_id, art_url = string.match(stdout, "^(.-)%\n(.-)%\n(.-)%\n(.-)%\n(.-)%\n(.-)$")
 
-                artist = artist ~= "" and gears.string.linewrap(artist, 90) or "N/A"
-                title = title ~= "" and gears.string.linewrap(title, 90) or "N/A"
+                artist = artist and artist ~= "" and gears.string.linewrap(artist, 100) or "N/A"
+                title = title and title ~= "" and gears.string.linewrap(title, 100) or "N/A"
 
-                local markup = pango.b("Artist: " .. artist) .. "\n" .. pango.i("Song: " .. title)
+                local markup = pango.b("Artist: " .. artist) .. "\n" .. pango.i("Title: " .. title)
 
                 widget:get_children_by_id("player_metadata")[1].markup = markup
 

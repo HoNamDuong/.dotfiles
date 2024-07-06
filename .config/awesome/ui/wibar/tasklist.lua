@@ -29,7 +29,7 @@ local tasklist = function(s)
         widget_template = {
             {
                 {
-                    id = "icon_client",
+                    id = "client_icon_role",
                     widget = wibox.widget.imagebox,
                 },
                 top = dpi(2),
@@ -41,7 +41,7 @@ local tasklist = function(s)
             id = "background_role",
             widget = wibox.container.background,
             create_callback = function(self, c, index, clients)
-                self:get_children_by_id("icon_client")[1].image = utils.client.get_icon_client(c)
+                self:get_children_by_id("client_icon_role")[1].image = utils.client.get_icon_client(c)
             end,
         },
     })

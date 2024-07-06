@@ -30,7 +30,6 @@ screen.connect_signal("request::desktop_decoration", function(s)
             {
                 is_primary and dashboard,
                 taglist(s),
-                layoutlist(s),
                 is_primary and systray,
                 tasklist(s),
                 layout = wibox.layout.fixed.horizontal,
@@ -39,11 +38,9 @@ screen.connect_signal("request::desktop_decoration", function(s)
             {
                 {
                     playerbox,
-                    left = dpi(6) * 2,
-                    right = dpi(6) * 2,
-                    widget = wibox.container.margin,
+                    forced_width = dpi(6) * 50,
+                    widget = wibox.container.place,
                 },
-                content_fill_vertical = true,
                 widget = wibox.container.place,
             },
             -- Right
@@ -55,6 +52,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
                 is_primary and volume,
                 is_primary and mic,
                 is_primary and clock,
+                layoutlist(s),
                 minimization,
                 layout = wibox.layout.fixed.horizontal,
             },

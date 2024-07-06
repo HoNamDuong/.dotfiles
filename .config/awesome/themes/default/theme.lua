@@ -104,6 +104,10 @@ theme.tasklist_fg_focus         = theme.colors.background
 theme.tasklist_fg_urgent        = theme.colors.background
 theme.tasklist_fg_minimize      = theme.colors.foreground
 
+-- layoutlist
+theme.layoutlist_bg_normal      = theme.colors.background
+theme.layoutlist_bg_selected    = theme.colors.primary_dull
+
 -- menu
 theme.menu_width                = dpi(6) * 10 * 4
 theme.menu_height               = dpi(6) * 4

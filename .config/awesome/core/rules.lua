@@ -54,7 +54,7 @@ ruled.client.connect_signal("request::rules", function()
     })
     -- Sticky clients
     ruled.client.append_rule({
-        rule_any = { name = { "Picture in picture" }, instance = { "magnifiqus", "rofi" } },
+        rule_any = { name = { "Picture in picture" }, instance = { "magnifiqus", "rofi", "onboard" } },
         properties = {
             floating = true,
             ontop = true,
@@ -71,7 +71,7 @@ ruled.client.connect_signal("request::rules", function()
     })
     -- No titlebar
     ruled.client.append_rule({
-        rule_any = { instance = { "telegram", "google-chrome" } },
+        rule_any = { instance = { "telegram", "google-chrome", "steam" } },
         properties = {
             titlebars_enabled = false,
         },
@@ -102,7 +102,18 @@ ruled.client.connect_signal("request::rules", function()
         properties = { tag = tag_name[6] },
     })
     ruled.client.append_rule({
-        rule_any = { instance = { "postman", "DBeaver", "VirtualBox", "simple-scan", "gucharmap", "inkscape", "gimp" } },
+        rule_any = {
+            instance = {
+                "postman",
+                "DBeaver",
+                "VirtualBox",
+                "simple-scan",
+                "gucharmap",
+                "inkscape",
+                "gimp",
+                "qbittorrent",
+            },
+        },
         properties = { tag = tag_name[7] },
     })
     ruled.client.append_rule({
@@ -110,7 +121,7 @@ ruled.client.connect_signal("request::rules", function()
         properties = { tag = tag_name[8] },
     })
     ruled.client.append_rule({
-        rule_any = { instance = {}, class = { "Minecraft.*" } },
+        rule_any = { instance = { "steam" }, class = { "Minecraft.*" } },
         properties = { tag = tag_name[9] },
     })
     ruled.client.append_rule({
