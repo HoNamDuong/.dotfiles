@@ -130,6 +130,7 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
 | [Onboard](https://launchpad.net/onboard)                                        | On-screen keyboard useful on tablet PCs or for mobility impaired users                                             |
 | [GIMP](https://www.gimp.org/)                                                   | GNU Image Manipulation Program.                                                                                    |
 | [Inkscape](https://inkscape.org/)                                               | Professional vector graphics editor.                                                                               |
+| [qBittorrent](https://github.com/qbittorrent/qBittorrent)                       | An advanced BitTorrent client programmed in C++, based on Qt toolkit and libtorrent-rasterbar                      |
 
 | Package (CLI)                                                       | Description                                                                                    |
 | ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
@@ -163,8 +164,8 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
     spotify zenity ffmpeg4.4 \
     zathura zathura-pdf-mupdf \
     google-chrome discord telegram-desktop thunderbird \
-    visual-studio-code-bin postman-bin dbeaver gimp inkscape \
-    minecraft-launcher
+    visual-studio-code-bin postman-bin dbeaver gimp inkscape qbittorrent \
+    steam minecraft-launcher
 
 ## Setup shell
 
