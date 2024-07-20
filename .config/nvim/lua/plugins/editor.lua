@@ -415,6 +415,7 @@ return {
     -- Which Key
     {
         "folke/which-key.nvim",
+        commit = "ccf027625df6c4e22febfdd786c5e1f7521c2ccb",
         lazy = true,
         event = "VeryLazy",
         init = function()
