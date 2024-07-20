@@ -30,16 +30,20 @@
 
 ## Setup display manager
 
-| Package                                                               | Description                                     |
-| --------------------------------------------------------------------- | ----------------------------------------------- |
-| [LightDM](https://github.com/canonical/lightdm)                       | Very light and fast display manager.            |
-| [LightDM GTK Greeter](https://github.com/Xubuntu/lightdm-gtk-greeter) | A greeter that has moderate requirements (GTK). |
+| Package                                         | Description                               |
+| ----------------------------------------------- | ----------------------------------------- |
+| [LightDM](https://github.com/canonical/lightdm) | Very light and fast display manager.      |
+| [SDDM](https://github.com/sddm/sddm/)           | QML based X11 and Wayland display manager |
 
     # Install lightdm
     yay -S lightdm lightdm-gtk-greeter
+    # or
+    yay -S sddm archlinux-themes-sddm
 
     # Enable and start lightdm service
     sudo systemctl enable --now lightdm.service
+    # or
+    sudo systemctl enable --now sddm.service
 
 ## Setup video driver
 
