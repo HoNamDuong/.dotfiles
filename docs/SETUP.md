@@ -30,19 +30,14 @@
 
 ## Setup display manager
 
-| Package                                         | Description                               |
-| ----------------------------------------------- | ----------------------------------------- |
-| [LightDM](https://github.com/canonical/lightdm) | Very light and fast display manager.      |
-| [SDDM](https://github.com/sddm/sddm/)           | QML based X11 and Wayland display manager |
+| Package                               | Description                               |
+| ------------------------------------- | ----------------------------------------- |
+| [SDDM](https://github.com/sddm/sddm/) | QML based X11 and Wayland display manager |
 
-    # Install lightdm
-    yay -S lightdm lightdm-gtk-greeter
-    # or
-    yay -S sddm archlinux-themes-sddm
+    # Install sddm and sddm theme
+    yay -S sddm qt5-declarative archlinux-themes-sddm
 
-    # Enable and start lightdm service
-    sudo systemctl enable --now lightdm.service
-    # or
+    # Enable and start sddm service
     sudo systemctl enable --now sddm.service
 
 ## Setup video driver
@@ -206,7 +201,7 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
 | [Nemo](https://github.com/linuxmint/nemo) | Nemo is the file manager. |
 
     # Install
-    yay -S nemo nemo-fileroller nemo-mediainfo-tab ntfs-3g gvfs-mtp gvfs-gphoto2
+    yay -S nemo nemo-fileroller nemo-mediainfo-tab rar ntfs-3g gvfs-mtp gvfs-gphoto2
 
 Change the default terminal emulator for Nemo:
 
