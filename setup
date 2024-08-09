@@ -50,7 +50,6 @@ while :; do
         ln -sfvr $DIR/.config/rofi/ $HOME/.config/
         ln -sfvr $DIR/.config/mpv/ $HOME/.config/
         ln -sfvr $DIR/.config/zathura/ $HOME/.config/
-        sudo cp -v $DIR/.config/lightdm/lightdm-gtk-greeter.conf /etc/lightdm/
 
         # CLI
         ln -sfvr $DIR/.local/bin/ $HOME/.local/
