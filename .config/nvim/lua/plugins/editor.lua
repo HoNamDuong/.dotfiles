@@ -415,67 +415,48 @@ return {
     -- Which Key
     {
         "folke/which-key.nvim",
-        commit = "ccf027625df6c4e22febfdd786c5e1f7521c2ccb",
-        lazy = true,
         event = "VeryLazy",
-        init = function()
-            vim.o.timeout = true
-            vim.o.timeoutlen = 300
-        end,
         config = function()
             local whichkey = require("which-key")
 
+            whichkey.add({
+                { "<leader>;", group = "Commands" },
+                { "<leader><Tab>", group = "Tab" },
+                { "<leader>t", group = "Toggle" },
+                { "<leader>b", group = "Buffer" },
+                { "<leader>n", group = "Session" },
+                { "<leader>s", group = "Search" },
+                { "<leader>sl", group = "LSP" },
+                { "<leader>sg", group = "Git" },
+                {
+                    mode = { "n", "v" },
+                    { "<leader>l", group = "LSP" },
+                    { "<leader>d", group = "DAP" },
+                    { "<leader>g", group = "Git" },
+                    { "<leader>gt", group = "Toggle" },
+                },
+            })
+
             whichkey.setup({
+                win = {
+                    no_overlap = false,
+                    height = { min = 1, max = 30 },
+                    padding = { 0, 2 },
+                },
                 icons = {
-                    group = "+ ", -- symbol prepended to a group
-                },
-                window = {
-                    margin = { 0, 0, 0, 0 }, -- extra window margin [top, right, bottom, left]
-                    padding = { 0, 0, 0, 0 }, -- extra window padding [top, right, bottom, left]
-                },
-                layout = {
-                    height = { min = 1, max = 25 }, -- min and max height of the columns
-                    width = { min = 15, max = 100 }, -- min and max width of the columns
-                    spacing = 2, -- spacing between columns
-                    align = "center", -- align columns left, center or right
+                    group = "+ ",
+                    mappings = false,
                 },
                 disable = {
-                    buftypes = {},
-                    filetypes = {
+                    bf = {},
+                    ft = {
                         "NvimTree",
                         "TelescopePrompt",
-                        "spectre_panel",
                         "lspinfo",
                         "mason",
                     },
                 },
             })
-
-            whichkey.register({
-                [";"] = { name = "Commands" },
-                ["<Tab>"] = { name = "Tab" },
-                ["t"] = { name = "Toggle" },
-                ["b"] = { name = "Buffer" },
-                ["n"] = { name = "Session" },
-                ["l"] = {
-                    mode = { "n", "v" },
-                    name = "LSP",
-                },
-                ["d"] = {
-                    mode = { "n", "v" },
-                    name = "DAP",
-                },
-                ["g"] = {
-                    mode = { "n", "v" },
-                    name = "Git",
-                    ["t"] = { name = "Toggle" },
-                },
-                ["s"] = {
-                    name = "Search",
-                    ["g"] = { name = "Git" },
-                    ["l"] = { name = "LSP" },
-                },
-            }, { mode = "n", prefix = "<leader>" })
         end,
     },
 }

@@ -7,7 +7,7 @@
 
 -- Remap space as leader key
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.maplocalleader = "\\"
 
 -- For conciseness
 local map = vim.keymap.set
