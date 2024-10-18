@@ -35,6 +35,8 @@ export GTK_THEME="Orchis-Dark-Compact"
 [ -f /usr/bin/numlockx ] && numlockx &
 # Set a delay of 500ms and a rate of 40Hz
 [ -f /usr/bin/xset ] && xset r rate 500 40 &
+# Disable the screensaver
+[ -f /usr/bin/xset ] && xset s off && xset s noblank && xset -dpms &
 # Set locker utility
 [ -f /usr/bin/xss-lock ] && [ -f /usr/bin/slock ] && xss-lock /usr/bin/slock &
 # Network Manager Applet
