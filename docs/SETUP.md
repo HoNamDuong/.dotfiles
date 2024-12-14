@@ -78,12 +78,6 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
     mkdir -p .config/git
     touch ~/.config/git/config
 
-    # Optional
-    git config --global credential.helper "store --file ~/.config/git/.git-credentials"
-    git config --global core.autocrlf false
-    git config --global user.email "example@domain.com"
-    git config --global user.name "username"
-
 ## Install theme, icon, cursor, font and tools
 
 | Package                                                                            | Description                                                                   |
