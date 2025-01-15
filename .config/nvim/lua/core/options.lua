@@ -54,3 +54,6 @@ vim.opt.listchars:append({
 -- vim.opt.textwidth = 80 -- Maximum width of text that is being inserted
 -- vim.opt.colorcolumn = "+1" -- Set the colour column to highlight one column after the 'textwidth'
 -- vim.opt.iskeyword:append("-") -- Treats words with `-` as single words
+
+vim.hl = vim.highlight -- Temporary workaround error :Inspect
+
