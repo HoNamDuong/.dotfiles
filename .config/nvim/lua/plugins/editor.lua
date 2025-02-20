@@ -1,90 +1,7 @@
 return {
     -- File explorer
     {
-        "nvim-neo-tree/neo-tree.nvim",
-        enabled = false,
-        keys = {
-            {
-                "<leader>e",
-                function()
-                    require("neo-tree.command").execute({ source = "last", toggle = true })
-                end,
-                desc = "Explorer",
-            },
-        },
-        config = function()
-            require("neo-tree").setup({
-                source_selector = {
-                    winbar = true,
-                    sources = {
-                        {
-                            source = "filesystem",
-                            display_name = "󰉓 Files",
-                        },
-                        {
-                            source = "buffers",
-                            display_name = "󰈚 Buffers",
-                        },
-                        {
-                            source = "git_status",
-                            display_name = "󰊢 Git",
-                        },
-                    },
-                    content_layout = "center",
-                    tabs_layout = "equal",
-                },
-                popup_border_style = "rounded",
-                default_component_configs = {
-                    icon = {
-                        default = "",
-                    },
-                    modified = {
-                        symbol = "",
-                    },
-                    name = {
-                        use_git_status_colors = false,
-                    },
-                    git_status = {
-                        symbols = {
-                            -- Change type
-                            added = "A",
-                            modified = "",
-                            deleted = "D",
-                            renamed = "R",
-                            -- Status type
-                            untracked = "?",
-                            ignored = "I",
-                            unstaged = "M",
-                            staged = "M",
-                            conflict = "C",
-                        },
-                    },
-                    symlink_target = {
-                        enabled = true,
-                    },
-                },
-                window = {
-                    mappings = {
-                        ["<space>"] = "noop",
-                        ["<Tab>"] = "next_source",
-                    },
-                },
-                filesystem = {
-                    filtered_items = {
-                        hide_dotfiles = false,
-                        hide_gitignored = false,
-                        hide_hidden = false,
-                    },
-                    follow_current_file = {
-                        enabled = true,
-                    },
-                },
-            })
-        end,
-    },
-    {
         "nvim-tree/nvim-tree.lua",
-        -- enabled = false,
         config = function()
             -- -- disable netrw
             -- vim.g.loaded_netrw = 1
@@ -139,6 +56,13 @@ return {
                 },
                 filters = {
                     git_ignored = false,
+                },
+                actions = {
+                    file_popup = {
+                        open_win_config = {
+                            border = "rounded",
+                        },
+                    },
                 },
             })
 
@@ -306,6 +230,10 @@ return {
                     map("n", "<leader>gb", function()
                         gs.blame_line({ full = true })
                     end, { desc = "Blame line" })
+                    map("n", "<leader>gq", gs.setqflist, { desc = "Quickfix hunk(s) (current buffer)" })
+                    map("n", "<leader>gQ", function()
+                        gs.setqflist("all")
+                    end, { desc = "Quickfix hunk(s) (working directory)" })
                     -- Toggle
                     map("n", "<leader>gtb", gs.toggle_current_line_blame, { desc = "Toggle current blame line" })
                     map("n", "<leader>gtd", gs.toggle_deleted, { desc = "Toggle deleted" })
@@ -318,32 +246,6 @@ return {
                     map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
                 end,
             })
-        end,
-    },
-    -- Automatically highlighting other uses of the word under
-    {
-        "RRethy/vim-illuminate",
-        opts = {
-            delay = 200,
-            large_file_cutoff = 2000,
-            large_file_overrides = {
-                providers = { "lsp" },
-            },
-            filetypes_denylist = {
-                "NvimTree",
-                "DressingSelect",
-                "TelescopePrompt",
-                "dashboard",
-            },
-        },
-        config = function(_, opts)
-            require("illuminate").configure(opts)
-            vim.keymap.set("n", "[[", function()
-                require("illuminate").next_reference({ reverse = true, wrap = true })
-            end, { desc = "Prev Reference", noremap = true })
-            vim.keymap.set("n", "]]", function()
-                require("illuminate").next_reference({ wrap = true })
-            end, { desc = "Next Reference", noremap = true })
         end,
     },
     -- High-performance color highlighter
@@ -362,41 +264,27 @@ return {
     },
     -- Search/replace in multiple files
     {
-        "nvim-pack/nvim-spectre",
-        build = false,
-        cmd = "Spectre",
-        opts = { open_cmd = "noswapfile vnew" },
+        "MagicDuck/grug-far.nvim",
+        opts = {
+            helpLine = { enabled = false },
+            headerMaxWidth = 80,
+        },
+        cmd = "GrugFar",
         keys = {
             {
                 "<leader>f",
                 function()
-                    require("spectre").toggle()
+                    local grug = require("grug-far")
+                    local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+                    grug.grug_far({
+                        transient = true,
+                        prefills = {
+                            filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+                        },
+                    })
                 end,
-                desc = "Find and replace",
-            },
-        },
-    },
-    -- Buffer remove
-    {
-        "echasnovski/mini.bufremove",
-        keys = {
-            {
-                "<leader>bd",
-                function()
-                    local bd = require("mini.bufremove").delete
-                    if vim.bo.modified then
-                        local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
-                        if choice == 1 then -- Yes
-                            vim.cmd.write()
-                            bd(0)
-                        elseif choice == 2 then -- No
-                            bd(0, true)
-                        end
-                    else
-                        bd(0)
-                    end
-                end,
-                desc = "Delete buffer",
+                mode = { "n", "v" },
+                desc = "Search and Replace",
             },
         },
     },
@@ -407,15 +295,25 @@ return {
         opts = { options = vim.opt.sessionoptions:get() },
         -- stylua: ignore
         keys = {
-            { "<leader>ns", function() require("persistence").load() end, desc = "Restore Session" },
-            { "<leader>nl", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
-            { "<leader>nd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
+            { "<leader>ns", function() require("persistence").load() end, desc = "Restore session" },
+            { "<leader>nS", function() require("persistence").select() end, desc = "Select session" },
+            { "<leader>nl", function() require("persistence").load({ last = true }) end, desc = "Restore last session" },
+            { "<leader>nd", function() require("persistence").stop() end, desc = "Don't save current session" },
         },
     },
     -- Which Key
     {
         "folke/which-key.nvim",
         event = "VeryLazy",
+        keys = {
+            {
+                "<leader>?",
+                function()
+                    require("which-key").show({ global = false })
+                end,
+                desc = "Buffer Keymaps (which-key)",
+            },
+        },
         config = function()
             local whichkey = require("which-key")
 
@@ -449,12 +347,7 @@ return {
                 },
                 disable = {
                     bf = {},
-                    ft = {
-                        "NvimTree",
-                        "TelescopePrompt",
-                        "lspinfo",
-                        "mason",
-                    },
+                    ft = {},
                 },
             })
         end,

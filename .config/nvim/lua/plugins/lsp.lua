@@ -17,7 +17,7 @@ local servers = {
     -- LSP
     "lua_ls",
     "clangd",
-    "tsserver",
+    "ts_ls",
     "emmet_ls",
     "html",
     "cssls",
@@ -32,22 +32,10 @@ return {
     {
         "neovim/nvim-lspconfig",
         event = { "BufReadPre", "BufNewFile" },
-        dependencies = {
-            -- { "folke/neodev.nvim", opts = {} },
-            "b0o/schemastore.nvim",
-        },
         keys = {
-            {
-                "<leader>l<CR>",
-                function()
-                    require("lspconfig.ui.lspinfo")()
-                end,
-                desc = "LSP information",
-            },
+            { "<leader>l<CR>", "<cmd>LspInfo<CR>", desc = "LSP information" },
         },
         config = function()
-            require("lspconfig.ui.windows").default_options.border = "rounded"
-
             local lspconfig = require("lspconfig")
 
             local on_attach = function(client, bufnr)
@@ -73,12 +61,6 @@ return {
 
                 -- -- Disable Semantic Tokens
                 -- client.server_capabilities.semanticTokensProvider = nil
-
-                require("illuminate").on_attach(client)
-
-                if client.server_capabilities.documentSymbolProvider then
-                    require("nvim-navic").attach(client, bufnr)
-                end
             end
 
             vim.diagnostic.config({
@@ -88,7 +70,7 @@ return {
                 severity_sort = true,
                 float = {
                     border = "rounded",
-                    source = "always",
+                    source = "if_many",
                     header = "",
                     prefix = "",
                 },
@@ -119,7 +101,6 @@ return {
                 ["jsonls"] = {
                     settings = {
                         json = {
-                            schemas = require("schemastore").json.schemas(),
                             validate = { enable = true },
                         },
                     },

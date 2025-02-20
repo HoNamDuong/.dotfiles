@@ -35,7 +35,7 @@ vim.opt.fillchars:append({ eob = " " }) -- show empty lines at the end of a buff
 vim.opt.sessionoptions = { "buffers", "curdir", "folds", "help", "tabpages", "terminal", "winsize" }
 -- Fold option
 vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 -- Spell check
@@ -56,4 +56,3 @@ vim.opt.listchars:append({
 -- vim.opt.iskeyword:append("-") -- Treats words with `-` as single words
 
 vim.hl = vim.highlight -- Temporary workaround error :Inspect
-

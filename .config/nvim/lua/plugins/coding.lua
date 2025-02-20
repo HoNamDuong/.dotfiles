@@ -108,7 +108,7 @@ return {
                     }),
                 }),
                 window = {
-                    documentation = cmp.config.window.bordered({ winhighlight = "Normal:NormalFloat" }),
+                    documentation = cmp.config.window.bordered(),
                 },
                 experimental = {
                     ghost_text = true, -- this feature conflict with copilot.vim's preview.
@@ -122,27 +122,18 @@ return {
         event = "VeryLazy",
         opts = {},
     },
+    -- Comments
+    {
+        "folke/ts-comments.nvim",
+        event = "VeryLazy",
+        opts = {},
+    },
     -- Auto pairs
     {
         "echasnovski/mini.pairs",
         event = "VeryLazy",
-        opts = {},
-    },
-    -- Comments
-    {
-        "echasnovski/mini.comment",
-        event = "VeryLazy",
-        dependencies = {
-            "JoosepAlviste/nvim-ts-context-commentstring",
-            lazy = true,
-            opts = { enable_autocmd = false },
-        },
         opts = {
-            options = {
-                custom_commentstring = function()
-                    return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
-                end,
-            },
+            modes = { insert = true, command = true, terminal = false },
         },
     },
     -- Better text-objects
@@ -166,6 +157,8 @@ return {
                         a = "@class.outer",
                         i = "@class.inner",
                     }, {}),
+                    d = { "%f[%d]%d+" }, -- digits
+                    e = { { "%u[%l%d]+%f[^%l%d]", "%f[%S][%l%d]+%f[^%l%d]", "%f[%P][%l%d]+%f[^%l%d]", "^[%l%d]+%f[^%l%d]" }, "^().*()$" }, -- Word with case
                 },
             }
         end,
