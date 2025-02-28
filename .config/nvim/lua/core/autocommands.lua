@@ -6,6 +6,7 @@ vim.api.nvim_create_autocmd("FileType", {
         "qf",
         "checkhealth",
         "dap-float",
+        "gitsigns-blame"
     },
     callback = function(event)
         vim.bo[event.buf].buflisted = false

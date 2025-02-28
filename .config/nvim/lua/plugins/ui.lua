@@ -121,6 +121,15 @@ return {
                     lualine_y = { location, "progress" },
                     lualine_z = { "mode" },
                 },
+                winbar = {
+                    lualine_c = {
+                        {
+                            "navic",
+                            color_correction = nil,
+                            navic_opts = nil,
+                        },
+                    },
+                },
                 extensions = {
                     {
                         sections = {
@@ -138,6 +147,48 @@ return {
                 },
             })
         end,
+    },
+    -- Breadcrumbs
+    {
+        "SmiteshP/nvim-navic",
+        opts = {
+            lsp = {
+                auto_attach = true,
+                preference = nil,
+            },
+            safe_output = false,
+            highlight = true,
+            -- stylua: ignore start
+            icons = {
+                File          = "󰈙 ",
+                Module        = " ",
+                Namespace     = "󰌗 ",
+                Package       = " ",
+                Class         = "󰌗 ",
+                Method        = "󰆧 ",
+                Property      = " ",
+                Field         = " ",
+                Constructor   = " ",
+                Enum          = "󰕘 ",
+                Interface     = "󰕘 ",
+                Function      = "󰊕 ",
+                Variable      = "󰆧 ",
+                Constant      = "󰏿 ",
+                String        = "󰀬 ",
+                Number        = "󰎠 ",
+                Boolean       = "◩ ",
+                Array         = "󰅪 ",
+                Object        = "󰅩 ",
+                Key           = "󰌋 ",
+                Null          = "󰟢 ",
+                EnumMember    = " ",
+                Struct        = "󰌗 ",
+                Event         = " ",
+                Operator      = "󰆕 ",
+                TypeParameter = "󰊄 ",
+            },
+            -- stylua: ignore end
+        },
     },
     -- QoL plugins
     {

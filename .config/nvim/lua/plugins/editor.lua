@@ -3,9 +3,9 @@ return {
     {
         "nvim-tree/nvim-tree.lua",
         config = function()
-            -- -- disable netrw
-            -- vim.g.loaded_netrw = 1
-            -- vim.g.loaded_netrwPlugin = 1
+            -- disable netrw
+            vim.g.loaded_netrw = 1
+            vim.g.loaded_netrwPlugin = 1
 
             local function on_attach(bufnr)
                 local api = require("nvim-tree.api")
@@ -184,7 +184,8 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         config = function()
             require("gitsigns").setup({
-                diff_opts = { vertical = false },
+                attach_to_untracked = true,
+                -- diff_opts = { vertical = false },
                 on_attach = function(bufnr)
                     local gs = require("gitsigns")
 
@@ -211,7 +212,7 @@ return {
                     end, { desc = "Next hunk" })
 
                     -- Actions
-                    map("n", "<leader>gs", gs.stage_hunk, { desc = "Stage hunk" })
+                    map("n", "<leader>gs", gs.stage_hunk, { desc = "[Undo] Stage hunk" })
                     map("x", "<leader>gs", function()
                         gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
                     end, { desc = "Stage selected hunk(s)" })
@@ -219,10 +220,10 @@ return {
                     map("x", "<leader>gr", function()
                         gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
                     end, { desc = "Reset selected hunk(s)" })
-                    map("n", "<leader>gR", gs.reset_buffer, { desc = "Reset buffer" })
                     map("n", "<leader>gS", gs.stage_buffer, { desc = "Stage buffer" })
-                    map("n", "<leader>gu", gs.undo_stage_hunk, { desc = "Undo stage hunk" })
+                    map("n", "<leader>gR", gs.reset_buffer, { desc = "Reset buffer" })
                     map("n", "<leader>gp", gs.preview_hunk, { desc = "Preview hunk" })
+                    map("n", "<leader>gP", gs.preview_hunk_inline, { desc = "Preview hunk inline" })
                     map("n", "<leader>gd", gs.diffthis, { desc = "Diffview with revision" })
                     map("n", "<leader>gD", function()
                         gs.diffthis("~")
@@ -230,13 +231,14 @@ return {
                     map("n", "<leader>gb", function()
                         gs.blame_line({ full = true })
                     end, { desc = "Blame line" })
+                    map("n", "<leader>gB", gs.blame, { desc = "Blame" })
                     map("n", "<leader>gq", gs.setqflist, { desc = "Quickfix hunk(s) (current buffer)" })
                     map("n", "<leader>gQ", function()
                         gs.setqflist("all")
                     end, { desc = "Quickfix hunk(s) (working directory)" })
+
                     -- Toggle
                     map("n", "<leader>gtb", gs.toggle_current_line_blame, { desc = "Toggle current blame line" })
-                    map("n", "<leader>gtd", gs.toggle_deleted, { desc = "Toggle deleted" })
                     map("n", "<leader>gth", gs.toggle_linehl, { desc = "Toggle line highlighting" })
                     map("n", "<leader>gtn", gs.toggle_numhl, { desc = "Toggle number highlighting" })
                     map("n", "<leader>gts", gs.toggle_signs, { desc = "Toggle sign column" })
@@ -336,6 +338,7 @@ return {
             })
 
             whichkey.setup({
+                -- preset = "modern",
                 win = {
                     no_overlap = false,
                     height = { min = 1, max = 30 },

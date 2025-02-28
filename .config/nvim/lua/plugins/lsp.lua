@@ -47,12 +47,8 @@ return {
                 keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references<CR>", { desc = "Goto references" })
                 keymap(bufnr, "n", "gi", "<cmd>Telescope lsp_implementations<CR>", { desc = "Goto implementations" })
 
-                keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Hover" })
                 keymap(bufnr, "n", "gK", "<cmd>lua vim.lsp.buf.signature_help()<CR>", { desc = "Signature help" })
                 keymap(bufnr, "i", "<c-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", { desc = "Signature help" })
-
-                keymap(bufnr, "n", "[d", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<CR>", { desc = "Previous diagnostic" })
-                keymap(bufnr, "n", "]d", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<CR>", { desc = "Next diagnostic" })
 
                 keymap(bufnr, "n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Renames" })
                 keymap(bufnr, "n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Renames" })
