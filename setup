@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Color
 Reset='\033[0m'
 
 Black='\033[0;30m'
@@ -20,64 +21,118 @@ BrightPurple='\033[1;35m'
 BrightCyan='\033[1;36m'
 BrightWhite='\033[1;37m'
 
-DIR=$(pwd)
+# Path
+DOTFILES_DIR="$HOME/.dotfiles"
+CONFIG_DIR="$DOTFILES_DIR/.config"
+BIN_DIR="$DOTFILES_DIR/.local/bin"
+SPECIAL_FILES=(".config/.xprofile" ".config/.Xresources" ".config/.dircolors")
 
 clear
 
-while :; do
-    echo
-    echo -e "${Blue} [1] Setup ${Reset}"
-    echo -e "${Yellow} [0] Quit ${Reset}"
-    echo
+# Check if the dotfiles directory exists
+if [ ! -d "$DOTFILES_DIR" ]; then
+    echo -e "${Red}Error: $DOTFILES_DIR does not exist. Please check the path.${Reset}"
+    exit 1
+fi
 
-    read -p " Enter your choice: " choice
+FILES_AND_DIRS=()
 
-    case $choice in
-    0)
-        break
-        ;;
-    1)
-        # Get superuser permission
-        sudo echo
+# Check if .config directory exists
+if [ -d "$CONFIG_DIR" ]; then
+    while IFS= read -r item; do
+        FILES_AND_DIRS+=(".config/$item")
+    done < <(find "$CONFIG_DIR" -mindepth 1 -maxdepth 1 -exec basename {} \;)
+else
+    echo -e "${Yellow}Warning: $CONFIG_DIR not found. Skipping.${Reset}"
+fi
 
-        # GUI
-        [ ! -f ~/.xprofile ] && ln -sfv $DIR/.config/.xprofile $HOME/.xprofile
-        [ ! -f ~/.Xresources ] && ln -sfv $DIR/.config/.Xresources $HOME/.Xresources
-        ln -sfv $DIR/.config/mimeapps.list $HOME/.config/mimeapps.list
-        ln -sfvr $DIR/.config/awesome/ $HOME/.config/
-        ln -sfvr $DIR/.config/picom/ $HOME/.config/
-        ln -sfvr $DIR/.config/alacritty/ $HOME/.config/
-        ln -sfvr $DIR/.config/rofi/ $HOME/.config/
-        ln -sfvr $DIR/.config/mpv/ $HOME/.config/
-        ln -sfvr $DIR/.config/zathura/ $HOME/.config/
+# Check if .local/bin directory exists
+if [ -d "$BIN_DIR" ]; then
+    while IFS= read -r item; do
+        FILES_AND_DIRS+=(".local/bin/$item")
+    done < <(find "$BIN_DIR" -mindepth 1 -maxdepth 1 -exec basename {} \;)
+else
+    echo -e "${Yellow}Warning: $BIN_DIR not found. Skipping.${Reset}"
+fi
 
-        # CLI
-        ln -sfvr $DIR/.local/bin/ $HOME/.local/
-        ln -sfvr $DIR/.config/zsh/ $HOME/.config/
-        ln -sfvr $DIR/.config/tmux/ $HOME/.config/
-        ln -sfvr $DIR/.config/lsd/ $HOME/.config/
-        ln -sfv $DIR/.config/.dircolors $HOME/.dircolors
-        ln -sfvr $DIR/.config/tig/ $HOME/.config/
-        ln -sfvr $DIR/.config/htop/ $HOME/.config/
-        ln -sfvr $DIR/.config/nvim/ $HOME/.config/
-        ln -sfvr $DIR/.config/ranger/ $HOME/.config/
-        ln -sfvr $DIR/.config/ripgrep/ $HOME/.config/
-        ln -sfvr $DIR/.config/fd/ $HOME/.config/
-        ln -sfvr $DIR/.config/neofetch/ $HOME/.config/
-        ln -sfvr $DIR/.config/cava/ $HOME/.config/
-        ln -sfvr $DIR/.config/btop/ $HOME/.config/
+# If no files found, exit
+if [ ${#FILES_AND_DIRS[@]} -eq 0 ]; then
+    echo -e "${Red}No valid dotfiles found. Exiting!${Reset}"
+    exit 1
+fi
 
-        # MISC
-        sudo sed -i -e 's/#Color/Color/g' /etc/pacman.conf &&
-            echo "[pacman] Automatically enable colors only when pacman’s output is on a tty."
-        sudo sed -i -e 's/#VerbosePkgLists/VerbosePkgLists/g' /etc/pacman.conf &&
-            echo "[pacman] Displays name, version and size of target packages formatted as a table for upgrade, sync and remove operations."
-        [ -f /usr/bin/xdg-user-dirs-update ] && xdg-user-dirs-update &&
-            echo "[xdg-user-dirs] Update XDG user dir configuration."
-        ;;
-    *)
-        echo
-        echo "Sorry, choice understand"
-        ;;
-    esac
+# Display the list for user selection
+echo -e "${BrightCyan}Available dotfiles in $DOTFILES_DIR:${Reset}"
+cols=2
+for ((i = 0; i < ${#FILES_AND_DIRS[@]}; i += cols)); do
+    line=""
+    for ((j = 0; j < cols; j++)); do
+        index=$((i + j))
+        if [ $index -lt ${#FILES_AND_DIRS[@]} ]; then
+            line+=$(printf "${Green}[%2d]${Reset} %-30s " "$index" "${FILES_AND_DIRS[$index]}")
+        fi
+    done
+    echo "$line"
 done
+
+# Instructions
+echo -e "\n${BrightPurple}Instructions:${Reset}"
+echo -e "Enter the numbers of the files or folders to link (space-separated)."
+echo -e "Enter ${Green}[a]${Reset} to select all."
+echo -e "Enter ${Blue}[m]${Reset} for misc."
+echo -e "Enter ${Red}[q]${Reset} to quit."
+
+# Read user input
+read -rp "$(echo -e "${Blue}Your choice:${Reset} ")" -a SELECTION
+
+# Process user selection
+CHOSEN_ITEMS=()
+
+# If no selection found, exit
+if [ ${#SELECTION[@]} -eq 0 ]; then
+    echo -e "${Red}Nothing selected. Exiting!${Reset}"
+    exit 1
+elif [[ " ${SELECTION[*]} " =~ " q " ]]; then
+    echo -e "${Red}Exiting!${Reset}"
+    exit 0
+elif [[ " ${SELECTION[*]} " =~ " m " ]]; then
+    sudo sed -i -e 's/#Color/Color/g' /etc/pacman.conf &&
+        echo "[pacman] Automatically enable colors only when pacman’s output is on a tty."
+    sudo sed -i -e 's/#VerbosePkgLists/VerbosePkgLists/g' /etc/pacman.conf &&
+        echo "[pacman] Displays name, version and size of target packages formatted as a table for upgrade, sync and remove operations."
+    [ -f /usr/bin/xdg-user-dirs-update ] && xdg-user-dirs-update &&
+        echo "[xdg-user-dirs] Update XDG user dir configuration."
+    echo -e "${Red}Exiting!${Reset}"
+    exit 0
+elif [[ " ${SELECTION[*]} " =~ " a " ]]; then
+    CHOSEN_ITEMS=("${FILES_AND_DIRS[@]}")
+else
+    for index in "${SELECTION[@]}"; do
+        if [[ "$index" =~ ^[0-9]+$ ]] && [ "$index" -lt "${#FILES_AND_DIRS[@]}" ]; then
+            CHOSEN_ITEMS+=("${FILES_AND_DIRS[$index]}")
+        else
+            echo -e "${Red}Invalid selection: $index${Reset}"
+        fi
+    done
+fi
+
+# Create symlinks
+echo -e "${Cyan}Creating symlinks...${Reset}"
+for item in "${CHOSEN_ITEMS[@]}"; do
+    source="$DOTFILES_DIR/$item"
+    target="$HOME/$item"
+
+    # If the file is special, link it to $HOME instead of $HOME/.config
+    if [[ " ${SPECIAL_FILES[*]} " =~ " $item " ]]; then
+        target="$HOME/${item##*/}" # Extracts the filename only
+    else
+        target="$HOME/$item"
+    fi
+
+    # Create parent directory if needed
+    mkdir -pv "$(dirname "$target")"
+
+    # Create symlink
+    ln -sfvr "$source" "$(dirname "$target")"
+done &&
+    echo -e "${BrightBlue}Setup complete!${Reset}"
