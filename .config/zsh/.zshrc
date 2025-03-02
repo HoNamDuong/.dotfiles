@@ -143,7 +143,7 @@ _fzf_compgen_path() { fd --hidden --follow . "$1"; }
 _fzf_compgen_dir() { fd --type d --hidden --follow . "$1"; }
 
 # Set up fzf key bindings and fuzzy completion
-eval "$(fzf --zsh)"
+command -v fzf &> /dev/null && eval "$(fzf --zsh)"
 
 # Disable ctrl-s to freeze terminal
 stty stop undef
@@ -162,4 +162,4 @@ if command -v tmux &> /dev/null && \
 fi
 
 # Load zoxide
-eval "$(zoxide init zsh)"
+command -v zoxide &> /dev/null && eval "$(zoxide init zsh)"

@@ -1,8 +1,5 @@
 # File type
 *.log
 
-# File
-.local/bin/xterm
-
 # Folder
 .config/cava/shaders/
