@@ -138,6 +138,7 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
 | [xclip](https://github.com/astrand/xclip)                           | Command line interface to the X11 clipboard.                                                   |
 | [numlockx](https://github.com/rg3/numlockx)                         | Turns on the numlock key in X11.                                                               |
 | [scrot](https://github.com/resurrecting-open-source-projects/scrot) | Command line screen capture utility.                                                           |
+| [exiftool](https://github.com/exiftool/exiftool)                    | Reader and rewriter of EXIF information that supports raw files                                |
 | [btop](https://github.com/aristocratos/btop)                        | A monitor of system resources, bpytop ported to C++.                                           |
 | [neofetch](https://github.com/dylanaraps/neofetch)                  | A command-line system information tool written in bash 3.2+                                    |
 | [cava](https://github.com/karlstav/cava)                            | Cross-platform Audio Visualizer.                                                               |
@@ -151,7 +152,8 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
     xdg-user-dirs xclip numlockx scrot playerctl \
     gnome-keyring seahorse polkit-gnome \
     rofi arandr network-manager-applet \
-    nitrogen qalculate-gtk magnifiqus screenkey gucharmap gpick lshw onboard \
+    nitrogen qalculate-gtk magnifiqus screenkey \
+    gucharmap gpick lshw onboard perl-image-exiftool \
     viewnior webp-pixbuf-loader \
     mpv yt-dlp mpv-mpris \
     spotify zenity ffmpeg4.4 \
