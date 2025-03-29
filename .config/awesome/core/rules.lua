@@ -37,6 +37,7 @@ ruled.client.connect_signal("request::rules", function()
                 "Minecraft",
                 "gpick",
                 "blueman",
+                "FileRoller"
             },
             name = {},
             class = {},
@@ -71,7 +72,7 @@ ruled.client.connect_signal("request::rules", function()
     })
     -- No titlebar
     ruled.client.append_rule({
-        rule_any = { instance = { "telegram", "google-chrome", "steam" } },
+        rule_any = { instance = { "telegram", "google-chrome", "steam", "code" } },
         properties = {
             titlebars_enabled = false,
         },

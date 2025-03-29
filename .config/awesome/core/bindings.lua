@@ -271,6 +271,14 @@ client.connect_signal("request::default_keybindings", function()
     })
 end)
 
+local init_screens = {}
+
+for s in screen do
+    local index = s.index
+    init_screens[index] = {}
+    init_screens[index].geometry = s.geometry
+end
+
 -- Screen related keybindings
 awful.keyboard.append_global_keybindings({
     awful.key({ keys.super, "Control" }, "j", function()
@@ -280,6 +288,39 @@ awful.keyboard.append_global_keybindings({
     awful.key({ keys.super, "Control" }, "k", function()
         awful.screen.focus_relative(-1)
     end, { description = "Focus the previous screen", group = "screen" }),
+
+    awful.key({ keys.super, "Control" }, "F5", function()
+        local screen = awful.screen.focused()
+        screen:split({ 2 / 3, 1 / 3 })
+    end, { description = "Split the screen", group = "screen" }),
+
+    awful.key({ keys.super, "Control" }, "F6", function()
+        local screen = awful.screen.focused()
+        if init_screens[screen.index] then
+            naughty.notify({
+                title = "Remove screen",
+                message = "Cannot remove this screen",
+                urgency = "critical",
+            })
+        else
+            screen:fake_remove()
+            awful.screen.focus_relative(-1)
+        end
+    end, { description = "Remove the screen", group = "screen" }),
+
+    awful.key({ keys.super, "Control" }, "F7", function()
+        local screen = awful.screen.focused()
+        if init_screens[screen.index] then
+            local geometry = init_screens[screen.index].geometry
+            screen:fake_resize(geometry.x, geometry.y, geometry.width, geometry.height)
+        else
+            naughty.notify({
+                title = "Resize screen",
+                message = "Cannot resize this screen",
+                urgency = "critical",
+            })
+        end
+    end, { description = "Resize the screen", group = "screen" }),
 })
 
 -- Layout related keybindings
@@ -325,56 +366,41 @@ awful.keyboard.append_global_keybindings({
 -- }}}
 
 -- {{{ Test
--- awful.keyboard.append_global_keybindings({
---     awful.key({ keys.super }, "F5", function()
---         local screen = awful.screen.focused()
---         screen:split()
---     end, { description = "Split the screen", group = "test" }),
---
---     awful.key({ keys.super }, "F6", function()
---         local screen = awful.screen.focused()
---         screen:fake_remove()
---     end, { description = "Remove the screen", group = "test" }),
---
---     awful.key({ keys.super }, "F7", function()
---         local screen = awful.screen.focused()
---         screen:fake_resize(0, 0, 1920, 1080)
---     end, { description = "Resize the screen", group = "test" }),
---
---     awful.key({ keys.super }, "F1", function()
---         naughty.notify({
---             title = "Low notification",
---             message = "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
---             urgency = "low",
---             actions = {
---                 naughty.action({ name = "Let's go!" }),
---             },
---         })
---     end, { description = "Low notification", group = "test" }),
---
---     awful.key({ keys.super }, "F2", function()
---         naughty.notify({
---             title = "Normal notification",
---             message = "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
---             urgency = "normal",
---             actions = {
---                 naughty.action({ name = "Accept" }),
---                 naughty.action({ name = "Refuse" }),
---                 naughty.action({ name = "Ignore" }),
---             },
---         })
---     end, { description = "Normal notification", group = "test" }),
---
---     awful.key({ keys.super }, "F3", function()
---         naughty.notify({
---             title = "Critical notification",
---             message = "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
---             urgency = "critical",
---             actions = {
---                 naughty.action({ name = "Yes" }),
---                 naughty.action({ name = "No" }),
---             },
---         })
---     end, { description = "Critical notification", group = "test" }),
--- })
+awful.keyboard.append_global_keybindings({
+    -- awful.key({ keys.super }, "F1", function()
+    --     naughty.notify({
+    --         title = "Low notification",
+    --         message = "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
+    --         urgency = "low",
+    --         actions = {
+    --             naughty.action({ name = "Let's go!" }),
+    --         },
+    --     })
+    -- end, { description = "Low notification", group = "test" }),
+    --
+    -- awful.key({ keys.super }, "F2", function()
+    --     naughty.notify({
+    --         title = "Normal notification",
+    --         message = "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
+    --         urgency = "normal",
+    --         actions = {
+    --             naughty.action({ name = "Accept" }),
+    --             naughty.action({ name = "Refuse" }),
+    --             naughty.action({ name = "Ignore" }),
+    --         },
+    --     })
+    -- end, { description = "Normal notification", group = "test" }),
+    --
+    -- awful.key({ keys.super }, "F3", function()
+    --     naughty.notify({
+    --         title = "Critical notification",
+    --         message = "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
+    --         urgency = "critical",
+    --         actions = {
+    --             naughty.action({ name = "Yes" }),
+    --             naughty.action({ name = "No" }),
+    --         },
+    --     })
+    -- end, { description = "Critical notification", group = "test" }),
+})
 -- }}}
