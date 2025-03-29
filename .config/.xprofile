@@ -41,6 +41,8 @@ export GTK_THEME="Orchis-Dark-Compact"
 [ -f /usr/bin/xss-lock ] && [ -f /usr/bin/slock ] && xss-lock /usr/bin/slock &
 # Network Manager Applet
 [ -f /usr/bin/nm-applet ] && nm-applet &
+# # Blueman Applet
+[ -f /usr/bin/blueman-applet ] && blueman-applet &
 # Set randomize wallpaper every 10 minutes 
 bash -c '[ -f ~/.local/bin/randomwallpaper ] && while true; do ~/.local/bin/randomwallpaper && sleep 10m || break ; done' &
 # Load config nvidia-settings
