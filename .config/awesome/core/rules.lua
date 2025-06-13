@@ -72,7 +72,7 @@ ruled.client.connect_signal("request::rules", function()
     })
     -- No titlebar
     ruled.client.append_rule({
-        rule_any = { instance = { "telegram", "google-chrome", "steam", "code" } },
+        rule_any = { instance = { "Telegram", "google-chrome", "steam", "code" } },
         properties = {
             titlebars_enabled = false,
         },
@@ -118,7 +118,7 @@ ruled.client.connect_signal("request::rules", function()
         properties = { tag = tag_name[7] },
     })
     ruled.client.append_rule({
-        rule_any = { instance = { "telegram", "discord" }, class = { "thunderbird" } },
+        rule_any = { instance = { "Telegram", "discord" }, class = { "thunderbird" } },
         properties = { tag = tag_name[8] },
     })
     ruled.client.append_rule({
@@ -139,6 +139,7 @@ ruled.client.connect_signal("request::rules", function()
                 "blueman",
                 "lshw",
                 "seahorse",
+                "anydesk",
             },
         },
         properties = { tag = tag_name[10] },

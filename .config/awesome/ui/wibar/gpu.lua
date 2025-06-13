@@ -59,37 +59,49 @@ awful.spawn.easy_async("which nvidia-smi", function(stdout, stderr, reason, exit
                     local gpu_utilization, gpu_total, gpu_used, gpu_temperature = string.match(string.gsub(out, "%\n", ""), "^(.-)%, (.-)%, (.-)%, (.-)$")
 
                     -- utilization
-                    gpu_utilization = tonumber(gpu_utilization)
+                    if gpu_utilization then
+                        gpu_utilization = tonumber(gpu_utilization)
 
-                    local gpu_utilization_fg_color = beautiful.colors.low
-                    if gpu_utilization > 70 then
-                        gpu_utilization_fg_color = beautiful.colors.high
-                    elseif 30 <= gpu_utilization and gpu_utilization <= 70 then
-                        gpu_utilization_fg_color = beautiful.colors.medium
+                        local gpu_utilization_fg_color = beautiful.colors.low
+                        if gpu_utilization > 70 then
+                            gpu_utilization_fg_color = beautiful.colors.high
+                        elseif 30 <= gpu_utilization and gpu_utilization <= 70 then
+                            gpu_utilization_fg_color = beautiful.colors.medium
+                        end
+                        gpu:get_children_by_id("gpu_utilization_text_role")[1].markup = pango.span({ gpu_utilization .. "%", foreground = gpu_utilization_fg_color })
+                    else
+                        gpu:get_children_by_id("gpu_utilization_text_role")[1].text = "N/A"
                     end
-                    gpu:get_children_by_id("gpu_utilization_text_role")[1].markup = pango.span({ gpu_utilization .. "%", foreground = gpu_utilization_fg_color })
 
                     -- used
-                    local gpu_usep = math.floor(gpu_used / gpu_total * 100)
+                    if gpu_used and gpu_total then
+                        local gpu_usep = math.floor(gpu_used / gpu_total * 100)
 
-                    local gpu_usep_fg_color = beautiful.colors.low
-                    if gpu_usep > 70 then
-                        gpu_usep_fg_color = beautiful.colors.high
-                    elseif 30 <= gpu_usep and gpu_usep <= 70 then
-                        gpu_usep_fg_color = beautiful.colors.medium
+                        local gpu_usep_fg_color = beautiful.colors.low
+                        if gpu_usep > 70 then
+                            gpu_usep_fg_color = beautiful.colors.high
+                        elseif 30 <= gpu_usep and gpu_usep <= 70 then
+                            gpu_usep_fg_color = beautiful.colors.medium
+                        end
+                        gpu:get_children_by_id("gpu_usep_text_role")[1].markup = pango.span({ gpu_usep .. "%", foreground = gpu_usep_fg_color })
+                    else
+                        gpu:get_children_by_id("gpu_usep_text_role")[1].text = "N/A"
                     end
-                    gpu:get_children_by_id("gpu_usep_text_role")[1].markup = pango.span({ gpu_usep .. "%", foreground = gpu_usep_fg_color })
 
                     -- temperature
-                    gpu_temperature = tonumber(gpu_temperature)
+                    if gpu_temperature then
+                        gpu_temperature = tonumber(gpu_temperature)
 
-                    local gpu_temperature_fg_color = beautiful.colors.low
-                    if gpu_temperature > 80 then
-                        gpu_temperature_fg_color = beautiful.colors.high
-                    elseif 60 <= gpu_temperature and gpu_temperature <= 80 then
-                        gpu_temperature_fg_color = beautiful.colors.medium
+                        local gpu_temperature_fg_color = beautiful.colors.low
+                        if gpu_temperature > 80 then
+                            gpu_temperature_fg_color = beautiful.colors.high
+                        elseif 60 <= gpu_temperature and gpu_temperature <= 80 then
+                            gpu_temperature_fg_color = beautiful.colors.medium
+                        end
+                        gpu:get_children_by_id("gpu_temperature_text_role")[1].markup = pango.span({ gpu_temperature .. "°C", foreground = gpu_temperature_fg_color })
+                    else
+                        gpu:get_children_by_id("gpu_temperature_text_role")[1].text = "N/A"
                     end
-                    gpu:get_children_by_id("gpu_temperature_text_role")[1].markup = pango.span({ gpu_temperature .. "°C", foreground = gpu_temperature_fg_color })
                 end)
             end,
         })

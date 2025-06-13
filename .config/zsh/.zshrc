@@ -138,7 +138,7 @@ export FZF_CTRL_T_COMMAND='fd --hidden --follow'
 export FZF_CTRL_T_OPTS="--prompt='FILE/DIR ' --preview='(bat --style=numbers --color=always {} || tree -a -C -L 1 --dirsfirst {}) 2> /dev/null'"
 export FZF_ALT_C_COMMAND="fd --type d --hidden --follow"
 export FZF_ALT_C_OPTS="--prompt='DIRECTORY ' --preview='tree -a -C -L 1 --dirsfirst {}'"
-export FZF_CTRL_R_OPTS="--prompt='HISTORY ' --preview-window=hidden"
+export FZF_CTRL_R_OPTS="--wrap --prompt='HISTORY ' --preview-window=hidden"
 _fzf_compgen_path() { fd --hidden --follow . "$1"; }
 _fzf_compgen_dir() { fd --type d --hidden --follow . "$1"; }
 
