@@ -37,7 +37,8 @@ ruled.client.connect_signal("request::rules", function()
                 "Minecraft",
                 "gpick",
                 "blueman",
-                "FileRoller"
+                "FileRoller",
+                "copyq",
             },
             name = {},
             class = {},

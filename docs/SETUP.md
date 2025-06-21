@@ -109,6 +109,7 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
 | [Network Manager Applet](https://gitlab.gnome.org/GNOME/network-manager-applet) | Tray applet and an advanced network connection editor.                                                             |
 | [Rofi](https://github.com/davatorium/rofi)                                      | A window switcher, application launcher and dmenu replacement.                                                     |
 | [IBus Bamboo](https://github.com/BambooEngine/ibus-bamboo)                      | Next Generation Input Bus for Linux.                                                                               |
+| [CopyQ](https://github.com/hluk/CopyQ)                                          | Clipboard manager with searchable and editable history                                                             |
 | [Viewnior](https://siyanpanayotov.com/project/viewnior)                         | Fast and elegant image viewer.                                                                                     |
 | [Mpv](https://mpv.io/)                                                          | A free, open source, and cross-platform media player.                                                              |
 | [Spotify](https://www.spotify.com/)                                             | A proprietary music streaming service.                                                                             |
@@ -151,7 +152,7 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
     btop htop cmatrix cava pipes.sh neofetch \
     xdg-user-dirs xclip numlockx scrot playerctl \
     gnome-keyring seahorse polkit-gnome \
-    rofi arandr network-manager-applet \
+    rofi arandr network-manager-applet copyq \
     nitrogen qalculate-gtk magnifiqus screenkey \
     gucharmap gpick lshw onboard perl-image-exiftool \
     viewnior webp-pixbuf-loader \
