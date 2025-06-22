@@ -1,0 +1,54 @@
+#!/bin/bash
+
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <source_directory> <destination_directory>"
+    exit 1
+fi
+
+SRC_DIR=$(realpath "$1")
+DEST_DIR=$(realpath "$2")
+
+if [ ! -d "$SRC_DIR" ]; then
+    echo "Error: Source directory does not exist: $SRC_DIR"
+    exit 1
+fi
+
+if [ ! -w "$DEST_DIR" ] && ! mkdir -p "$DEST_DIR"; then
+    echo "Error: Cannot create or write to destination: $DEST_DIR"
+    exit 1
+fi
+
+for cmd in unzip tar 7z unrar; do
+    if ! command -v "$cmd" >/dev/null; then
+        echo "Error: $cmd is not installed"
+        exit 1
+    fi
+done
+
+for archive in "$SRC_DIR"/*.{zip,tar,tar.gz,tgz,7z,rar}; do
+    if [ -f "$archive" ]; then
+        echo "Extracting: $archive to $DEST_DIR"
+        case "$archive" in
+        *.zip)
+            unzip -o "$archive" -d "$DEST_DIR"
+            ;;
+        *.tar)
+            tar -xf "$archive" -C "$DEST_DIR"
+            ;;
+        *.tar.gz | *.tgz)
+            tar -xzf "$archive" -C "$DEST_DIR"
+            ;;
+        *.7z)
+            7z x "$archive" -o"$DEST_DIR"
+            ;;
+        *.rar)
+            unrar x -o+ "$archive" "$DEST_DIR"
+            ;;
+        *)
+            echo "Unsupported file type: $archive"
+            ;;
+        esac && echo "Extracted: $archive" || echo "Failed: $archive"
+    fi
+done
+
+echo "All archives extracted to $DEST_DIR"
