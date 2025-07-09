@@ -64,6 +64,10 @@ return {
                         },
                     },
                 },
+                system_open = {
+                    cmd = "xdg-open",
+                    args = {},
+                },
             })
 
             vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Explorer" })
@@ -278,7 +282,7 @@ return {
                 function()
                     local grug = require("grug-far")
                     local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
-                    grug.grug_far({
+                    grug.open({
                         transient = true,
                         prefills = {
                             filesFilter = ext and ext ~= "" and "*." .. ext or nil,

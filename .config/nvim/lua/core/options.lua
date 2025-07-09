@@ -51,8 +51,7 @@ vim.opt.listchars:append({
     precedes = "◁",
 })
 
+-- vim.o.winborder = 'rounded' -- Defines the default border style of floating windows
 -- vim.opt.textwidth = 80 -- Maximum width of text that is being inserted
 -- vim.opt.colorcolumn = "+1" -- Set the colour column to highlight one column after the 'textwidth'
 -- vim.opt.iskeyword:append("-") -- Treats words with `-` as single words
-
-vim.hl = vim.highlight -- Temporary workaround error :Inspect

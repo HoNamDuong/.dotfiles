@@ -1,19 +1,5 @@
--- List mason.nvim package name
-local packages = {
-    -- Formatter
-    "stylua",
-    "prettier",
-    "shfmt",
-    -- DAP
-    "js-debug-adapter",
-    "codelldb",
-    -- Linter
-    "cspell",
-    "eslint_d",
-    "cpplint",
-}
--- List lspconfig server name
-local servers = {
+-- List LSP server name
+local lsp_servers = {
     -- LSP
     "lua_ls",
     "clangd",
@@ -26,6 +12,56 @@ local servers = {
     "jsonls",
     "pylsp",
 }
+-- List mason.nvim server name
+local other_servers = {
+    -- Formatter
+    "stylua",
+    "prettier",
+    "shfmt",
+    -- DAP
+    "js-debug-adapter",
+    "codelldb",
+    -- Linter
+    "cspell",
+    "eslint_d",
+    "cpplint",
+}
+-- List setting for LSP server
+local settings = {
+    ["lua_ls"] = {
+        settings = {
+            Lua = {
+                diagnostics = {
+                    globals = { "vim" },
+                },
+                workspace = {
+                    library = {
+                        [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                        [vim.fn.stdpath("config") .. "/lua"] = true,
+                    },
+                },
+            },
+        },
+    },
+    ["jsonls"] = {
+        settings = {
+            json = {
+                validate = { enable = true },
+            },
+        },
+    },
+}
+
+vim.api.nvim_create_autocmd("LspNotify", {
+    callback = function(args)
+        vim.keymap.set("n", "K", function()
+            vim.lsp.buf.hover({ border = "rounded" })
+        end, { buffer = args.buf })
+        vim.keymap.set("i", "<C-s>", function()
+            vim.lsp.buf.signature_help({ border = "rounded" })
+        end, { buffer = args.buf })
+    end,
+})
 
 return {
     -- LSP config
@@ -36,98 +72,23 @@ return {
             { "<leader>l<CR>", "<cmd>LspInfo<CR>", desc = "LSP information" },
         },
         config = function()
-            local lspconfig = require("lspconfig")
-
-            local on_attach = function(client, bufnr)
-                local keymap = vim.api.nvim_buf_set_keymap
-
-                keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { desc = "Goto declaration" })
-                keymap(bufnr, "n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = "Goto definition" })
-                keymap(bufnr, "n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", { desc = "Goto type definitions" })
-                keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references<CR>", { desc = "Goto references" })
-                keymap(bufnr, "n", "gi", "<cmd>Telescope lsp_implementations<CR>", { desc = "Goto implementations" })
-
-                keymap(bufnr, "n", "gK", "<cmd>lua vim.lsp.buf.signature_help()<CR>", { desc = "Signature help" })
-                keymap(bufnr, "i", "<c-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", { desc = "Signature help" })
-
-                keymap(bufnr, "n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Renames" })
-                keymap(bufnr, "n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Renames" })
-                keymap(bufnr, "n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>", { desc = "Code action" })
-                keymap(bufnr, "n", "<leader>ld", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Show line diagnostics" })
-
-                -- -- Disable Semantic Tokens
-                -- client.server_capabilities.semanticTokensProvider = nil
-            end
-
             vim.diagnostic.config({
                 virtual_text = true,
-                update_in_insert = false,
-                underline = true,
-                severity_sort = true,
-                float = {
-                    border = "rounded",
-                    source = "if_many",
-                    header = "",
-                    prefix = "",
-                },
             })
 
-            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
-
-            local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-            -- List setting for LSP server
-            local settings = {
-                ["lua_ls"] = {
-                    settings = {
-                        Lua = {
-                            diagnostics = {
-                                globals = { "vim" },
-                            },
-                            workspace = {
-                                library = {
-                                    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                                    [vim.fn.stdpath("config") .. "/lua"] = true,
-                                },
-                            },
-                        },
-                    },
-                },
-                ["jsonls"] = {
-                    settings = {
-                        json = {
-                            validate = { enable = true },
-                        },
-                    },
-                },
-            }
-
-            for _, server in pairs(servers) do
-                local opts = {
-                    on_attach = on_attach,
-                    capabilities = capabilities,
-                }
-
-                server = vim.split(server, "@")[1]
-
-                if settings[server] then
-                    opts = vim.tbl_deep_extend("force", settings[server], opts)
+            for key, _ in pairs(settings) do
+                if settings[key] ~= nil then
+                    vim.lsp.config(key, settings[key])
                 end
-
-                lspconfig[server].setup(opts)
             end
         end,
     },
-    -- Cmdline tools and lsp servers
     {
-        "williamboman/mason.nvim",
+        "mason-org/mason.nvim",
         build = ":MasonUpdate",
-        dependencies = {
-            "williamboman/mason-lspconfig.nvim",
-        },
+        dependencies = { "mason-org/mason-lspconfig.nvim" },
         config = function()
-            require("mason").setup({ max_concurrent_installers = 2, ui = { border = "rounded" } })
+            require("mason").setup({ max_concurrent_installers = 2 })
             require("mason-lspconfig").setup()
 
             local registry = require("mason-registry")
@@ -144,13 +105,13 @@ return {
                 end)
             )
 
-            local lspconfig_to_mason = require("mason-lspconfig").get_mappings().lspconfig_to_mason
-            for _, server in ipairs(servers) do
-                table.insert(packages, lspconfig_to_mason[server])
+            local lspconfig_to_package = require("mason-lspconfig").get_mappings().lspconfig_to_package
+            for _, server in ipairs(lsp_servers) do
+                table.insert(other_servers, lspconfig_to_package[server])
             end
 
             local function ensure_installed()
-                for _, tool in ipairs(packages) do
+                for _, tool in ipairs(other_servers) do
                     local p = registry.get_package(tool)
                     if not p:is_installed() then
                         p:install()
