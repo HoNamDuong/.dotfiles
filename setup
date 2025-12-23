@@ -25,7 +25,7 @@ BrightWhite='\033[1;37m'
 DOTFILES_DIR="$HOME/.dotfiles"
 CONFIG_DIR="$DOTFILES_DIR/.config"
 BIN_DIR="$DOTFILES_DIR/.local/bin"
-SPECIAL_FILES=(".config/.xprofile" ".config/.Xresources" ".config/.dircolors")
+SPECIAL_FILES=(".config/.xprofile" ".config/.Xresources" ".config/.dircolors" ".config/.gtkrc-2.0")
 
 clear
 
