@@ -26,7 +26,6 @@ export ZDOTDIR="$HOME/.config/zsh"
 export BAT_THEME="base16"
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
 export TIMEFMT=$'\n\nCPU\t%P\nuser\t%*U\nsystem\t%*S\ntotal\t%*E'
-# export GTK_THEME="Orchis-Dark-Compact"
 
 # Monitor config
 [ -f ~/.screenlayout/single.sh ] && . ~/.screenlayout/single.sh &

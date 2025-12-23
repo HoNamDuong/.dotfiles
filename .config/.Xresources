@@ -25,3 +25,4 @@ Xft.dpi:        120
 
 ! Cursor size
 Xcursor.size:   32
+Xcursor.theme:  Vimix-white-cursors
