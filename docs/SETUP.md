@@ -8,8 +8,6 @@
     sudo pacman -S git
 
     # Download and install yay
-    mkdir Downloads && \
-    cd Downloads && \
     git clone https://aur.archlinux.org/yay.git && \
     cd yay && \
     makepkg -si
@@ -73,10 +71,6 @@ Consult [Archlinux Wiki](https://wiki.archlinux.org/title/xorg#Driver_installati
 
     # Clone dotfiles and setup
     cd ~ && git clone https://github.com/HoNamDuong/.dotfiles.git && cd ~/.dotfiles && ./setup
-
-    # Create file config
-    mkdir -p .config/git
-    touch ~/.config/git/config
 
 ## Install theme, icon, cursor, font and tools
 
