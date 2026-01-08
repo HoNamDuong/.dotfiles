@@ -5,8 +5,6 @@ vim.api.nvim_create_autocmd("FileType", {
         "query",
         "qf",
         "checkhealth",
-        "dap-float",
-        "gitsigns-blame"
     },
     callback = function(event)
         vim.bo[event.buf].buflisted = false
@@ -77,7 +75,7 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
 --         })
 --     end,
 -- })
---
+
 -- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 --     callback = function()
 --         vim.cmd([[:mkview]])

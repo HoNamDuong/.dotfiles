@@ -11,7 +11,7 @@ return {
             -- vim.cmd.colorscheme("tokyonight")
         end,
     },
-    -- kanagawa
+    -- Kanagawa
     {
         "rebelot/kanagawa.nvim",
         lazy = false,

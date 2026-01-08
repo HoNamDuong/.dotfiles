@@ -2,6 +2,7 @@ return {
     -- File explorer
     {
         "nvim-tree/nvim-tree.lua",
+        keys = { { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "Explorer" } },
         config = function()
             -- disable netrw
             vim.g.loaded_netrw = 1
@@ -57,20 +58,11 @@ return {
                 filters = {
                     git_ignored = false,
                 },
-                actions = {
-                    file_popup = {
-                        open_win_config = {
-                            border = "rounded",
-                        },
-                    },
-                },
                 system_open = {
                     cmd = "xdg-open",
                     args = {},
                 },
             })
-
-            vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Explorer" })
         end,
     },
     -- Fuzzy finder.
@@ -135,20 +127,6 @@ return {
                     highlights = {
                         theme = "dropdown",
                     },
-                    lsp_references = {
-                        theme = "cursor",
-                        path_display = { "tail" },
-                        layout_config = {
-                            width = 0.9,
-                            height = 10,
-                        },
-                    },
-                    lsp_definitions = {
-                        layout_strategy = "flex",
-                    },
-                    lsp_implementations = {
-                        layout_strategy = "flex",
-                    },
                 },
             })
 
@@ -158,7 +136,7 @@ return {
             -- File
             vim.keymap.set("n", "<leader>sf", "<cmd>Telescope find_files<CR>", { desc = "Find file" })
             vim.keymap.set("n", "<leader>sr", "<cmd>Telescope oldfiles<CR>", { desc = "Recent file" })
-            vim.keymap.set("n", "<leader>s/", "<cmd>Telescope live_grep<CR>", { desc = "Grep" })
+            vim.keymap.set("n", "<leader>sg", "<cmd>Telescope live_grep<CR>", { desc = "Grep" })
             -- Vim
             vim.keymap.set("n", "<leader>sb", "<cmd>Telescope buffers<CR>", { desc = "Buffers" })
             vim.keymap.set("n", "<leader>sk", "<cmd>Telescope keymaps<CR>", { desc = "Keymaps" })
@@ -168,16 +146,6 @@ return {
             vim.keymap.set("n", "<leader>sH", "<cmd>Telescope highlights<CR>", { desc = "Highlight" })
             vim.keymap.set("n", "<leader>sc", "<cmd>Telescope colorscheme<CR>", { desc = "Colorscheme" })
             vim.keymap.set("n", "<leader>st", "<cmd>Telescope filetypes<CR>", { desc = "Filetype" })
-            -- Treesitter
-            vim.keymap.set("n", "<leader>sT", "<cmd>Telescope treesitter<CR>", { desc = "Lists function, variables" })
-            -- Git
-            vim.keymap.set("n", "<leader>sgb", "<cmd>Telescope git_branches<CR>", { desc = "Lists all branches" })
-            vim.keymap.set("n", "<leader>sgc", "<cmd>Telescope git_commits<CR>", { desc = "Lists git commits" })
-            vim.keymap.set("n", "<leader>sgC", "<cmd>Telescope git_bcommits<CR>", { desc = "Lists buffer's git commits" })
-            vim.keymap.set("n", "<leader>sgs", "<cmd>Telescope git_status<CR>", { desc = "Lists current changes" })
-            -- LSP
-            vim.keymap.set("n", "<leader>sld", "<cmd>Telescope diagnostics bufnr=0<CR>", { desc = "Document diagnostics" })
-            vim.keymap.set("n", "<leader>slD", "<cmd>Telescope diagnostics<CR>", { desc = "Workspace diagnostics" })
 
             telescope.load_extension("fzf")
         end,
@@ -242,14 +210,12 @@ return {
                     end, { desc = "Quickfix hunk(s) (working directory)" })
 
                     -- Toggle
-                    map("n", "<leader>gtb", gs.toggle_current_line_blame, { desc = "Toggle current blame line" })
-                    map("n", "<leader>gth", gs.toggle_linehl, { desc = "Toggle line highlighting" })
-                    map("n", "<leader>gtn", gs.toggle_numhl, { desc = "Toggle number highlighting" })
-                    map("n", "<leader>gts", gs.toggle_signs, { desc = "Toggle sign column" })
-                    map("n", "<leader>gtw", gs.toggle_word_diff, { desc = "Toggle word diff" })
+                    map("n", "<leader>tb", gs.toggle_current_line_blame, { desc = "Toggle current blame line (gitsigns)" })
+                    map("n", "<leader>th", gs.toggle_linehl, { desc = "Toggle line highlighting (gitsigns)" })
+                    map("n", "<leader>td", gs.toggle_word_diff, { desc = "Toggle word diff (gitsigns)" })
 
                     -- Text object
-                    map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+                    map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Select hunk (gitsigns)" })
                 end,
             })
         end,
@@ -265,6 +231,34 @@ return {
                     -- Highlight hex color strings (`#rrggbb`) using that color
                     hex_color = hipatterns.gen_highlighter.hex_color(),
                 },
+            })
+        end,
+    },
+    -- Parser generator tool
+    {
+        "nvim-treesitter/nvim-treesitter",
+        branch = "master",
+        event = { "BufReadPre", "BufNewFile" },
+        build = ":TSUpdate",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter-textobjects",
+        },
+        config = function()
+            require("nvim-treesitter.configs").setup({
+                auto_install = true,
+                highlight = { enable = true },
+                indent = { enable = true },
+                incremental_selection = {
+                    enable = true,
+                    keymaps = {
+                        init_selection = "<C-space>",
+                        node_incremental = "<C-space>",
+                        scope_incremental = false,
+                        node_decremental = "<bs>",
+                    },
+                },
+                -- nvim-treesitter/nvim-treesitter-textobjects
+                textobjects = {},
             })
         end,
     },
@@ -330,14 +324,10 @@ return {
                 { "<leader>b", group = "Buffer" },
                 { "<leader>n", group = "Session" },
                 { "<leader>s", group = "Search" },
-                { "<leader>sl", group = "LSP" },
-                { "<leader>sg", group = "Git" },
                 {
                     mode = { "n", "v" },
                     { "<leader>l", group = "LSP" },
-                    { "<leader>d", group = "DAP" },
                     { "<leader>g", group = "Git" },
-                    { "<leader>gt", group = "Toggle" },
                 },
             })
 

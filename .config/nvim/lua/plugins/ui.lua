@@ -8,11 +8,6 @@ return {
         },
         opts = {
             options = {
-                right_mouse_command = "buffer %d",
-                middle_mouse_command = function(n)
-                    Snacks.bufdelete.delete(n)
-                end,
-                left_mouse_command = "buffer %d",
                 indicator = { style = "icon" },
                 diagnostics = "nvim_lsp",
                 -- always_show_bufferline = false,
@@ -121,15 +116,6 @@ return {
                     lualine_y = { location, "progress" },
                     lualine_z = { "mode" },
                 },
-                winbar = {
-                    lualine_c = {
-                        {
-                            "navic",
-                            color_correction = nil,
-                            navic_opts = nil,
-                        },
-                    },
-                },
                 extensions = {
                     {
                         sections = {
@@ -140,55 +126,11 @@ return {
                             },
                             lualine_x = { location, "progress" },
                         },
-                        filetypes = {
-                            "NvimTree",
-                        },
+                        filetypes = { "NvimTree" },
                     },
                 },
             })
         end,
-    },
-    -- Breadcrumbs
-    {
-        "SmiteshP/nvim-navic",
-        opts = {
-            lsp = {
-                auto_attach = true,
-                preference = nil,
-            },
-            safe_output = false,
-            highlight = true,
-            -- stylua: ignore start
-            icons = {
-                File          = "󰈙 ",
-                Module        = " ",
-                Namespace     = "󰌗 ",
-                Package       = " ",
-                Class         = "󰌗 ",
-                Method        = "󰆧 ",
-                Property      = " ",
-                Field         = " ",
-                Constructor   = " ",
-                Enum          = "󰕘 ",
-                Interface     = "󰕘 ",
-                Function      = "󰊕 ",
-                Variable      = "󰆧 ",
-                Constant      = "󰏿 ",
-                String        = "󰀬 ",
-                Number        = "󰎠 ",
-                Boolean       = "◩ ",
-                Array         = "󰅪 ",
-                Object        = "󰅩 ",
-                Key           = "󰌋 ",
-                Null          = "󰟢 ",
-                EnumMember    = " ",
-                Struct        = "󰌗 ",
-                Event         = " ",
-                Operator      = "󰆕 ",
-                TypeParameter = "󰊄 ",
-            },
-            -- stylua: ignore end
-        },
     },
     -- QoL plugins
     {
@@ -196,11 +138,25 @@ return {
         priority = 1000,
         lazy = false,
         opts = {
+            input = { enabled = true },
             indent = { enabled = true },
             notifier = { enabled = true },
             words = { enabled = true },
             bigfile = { enabled = true },
-            dashboard = { width = 30 },
+            picker = { enabled = true },
+            dashboard = {
+                enabled = true,
+                width = 40,
+                preset = {
+                    -- Use Telescope
+                    pick = function(cmd, opts)
+                        if cmd == "files" then
+                            cmd = "find_files"
+                        end
+                        vim.cmd("Telescope " .. cmd)
+                    end,
+                },
+            },
         },
         keys = {
             {
