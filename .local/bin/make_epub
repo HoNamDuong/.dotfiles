@@ -1,0 +1,38 @@
+#!/bin/bash
+
+set -e
+
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 <folder> [output.epub]"
+    exit 1
+fi
+
+src="$1"
+
+if [ ! -d "$src" ]; then
+    echo "Error: '$src' is not a directory"
+    exit 1
+fi
+
+if [ ! -f "$src/mimetype" ]; then
+    echo "Error: mimetype file not found in $src"
+    exit 1
+fi
+
+out="${2:-$(basename "$src").epub}"
+
+echo "Creating EPUB: $out"
+
+cd "$src"
+
+if ! command -v zip >/dev/null; then
+    echo "Error: zip is not installed"
+    exit 1
+fi
+
+zip -X0 "../$out" mimetype
+zip -Xr9 "../$out" * -x mimetype
+
+cd -
+
+echo "Done: $out"
