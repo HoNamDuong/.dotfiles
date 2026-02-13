@@ -10,17 +10,10 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
-if [ -f /usr/bin/lsd ]; then
-    alias ls='lsd --classify'
-    alias lls='lsd --long --classify'
-    alias la='lsd --all --classify'
-    alias lla='lsd --long --all --classify'
-else
-    alias ls='ls --color=auto --classify --human-readable --time-style=long-iso --group-directories-first --sort=time'
-    alias lls='ls -l'
-    alias la='ls --all'
-    alias lla='ls -l --all'
-fi
+alias ls='ls --color=auto --classify --human-readable --time-style=long-iso --group-directories-first --sort=time'
+alias lls='ls -l'
+alias la='ls --all'
+alias lla='ls -l --all'
 
 if [ -f /usr/bin/bat ]; then
     alias bat='bat --paging=never --wrap=auto'
