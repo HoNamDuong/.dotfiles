@@ -30,6 +30,8 @@ return {
             markdown = { "prettier" },
             lua = { "stylua" },
             bash = { "shfmt" },
+            xhtml = { "xmlformatter" },
+            c = { "clang-format" },
         },
         -- Customize formatters
         formatters = {

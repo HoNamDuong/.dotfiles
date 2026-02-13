@@ -100,8 +100,6 @@ elif [[ " ${SELECTION[*]} " =~ " m " ]]; then
         echo "[pacman] Automatically enable colors only when pacman’s output is on a tty."
     sudo sed -i -e 's/#VerbosePkgLists/VerbosePkgLists/g' /etc/pacman.conf &&
         echo "[pacman] Displays name, version and size of target packages formatted as a table for upgrade, sync and remove operations."
-    [ -f /usr/bin/xdg-user-dirs-update ] && xdg-user-dirs-update &&
-        echo "[xdg-user-dirs] Update XDG user dir configuration."
     echo -e "${Red}Exiting!${Reset}"
     exit 0
 elif [[ " ${SELECTION[*]} " =~ " a " ]]; then

@@ -13,4 +13,3 @@ text/plain=nvim.desktop
 text/x-install=nvim.desktop
 text/x-shellscript=nvim.desktop
 video/mp4=mpv.desktop
-x-scheme-handler/postman=Postman.desktop

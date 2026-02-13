@@ -21,11 +21,12 @@ export QT_IM_MODULE="ibus"
 export XMODIFIERS="@im=ibus"
 
 # Other
-export QT_QPA_PLATFORMTHEME="qt5ct"
+export QT_QPA_PLATFORMTHEME="qt5ct:qt6ct"
 export ZDOTDIR="$HOME/.config/zsh"
 export BAT_THEME="base16"
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
 export TIMEFMT=$'\n\nCPU\t%P\nuser\t%*U\nsystem\t%*S\ntotal\t%*E'
+export FORCE_SIGIL_DARKMODE_PALETTE=1
 
 # Monitor config
 [ -f ~/.screenlayout/single.sh ] && . ~/.screenlayout/single.sh &
