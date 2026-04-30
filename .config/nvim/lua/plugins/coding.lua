@@ -71,10 +71,6 @@ return {
                     }),
                     matching = { disallow_symbol_nonprefix_matching = false },
                 }),
-                window = {
-                    -- completion = cmp.config.window.bordered(),
-                    -- documentation = cmp.config.window.bordered(),
-                },
                 experimental = {
                     ghost_text = true, -- this feature conflict with copilot.vim's preview.
                 },
@@ -95,7 +91,7 @@ return {
     },
     -- Auto pairs
     {
-        "echasnovski/mini.pairs",
+        "nvim-mini/mini.pairs",
         event = "VeryLazy",
         opts = {
             modes = { insert = true, command = true, terminal = false },
@@ -103,12 +99,19 @@ return {
     },
     -- Better text-objects
     {
-        "echasnovski/mini.ai",
+        "nvim-mini/mini.ai",
         event = "VeryLazy",
         opts = function()
             local ai = require("mini.ai")
             return {
                 n_lines = 500,
+                mappings = {
+                    -- Disable next/last variants
+                    around_next = "",
+                    inside_next = "",
+                    around_last = "",
+                    inside_last = "",
+                },
                 custom_textobjects = {
                     o = ai.gen_spec.treesitter({
                         a = { "@block.outer", "@conditional.outer", "@loop.outer" },

@@ -58,10 +58,6 @@ return {
                 filters = {
                     git_ignored = false,
                 },
-                system_open = {
-                    cmd = "xdg-open",
-                    args = {},
-                },
             })
         end,
     },
@@ -222,7 +218,7 @@ return {
     },
     -- High-performance color highlighter
     {
-        "echasnovski/mini.hipatterns",
+        "nvim-mini/mini.hipatterns",
         version = false,
         config = function()
             local hipatterns = require("mini.hipatterns")
@@ -237,29 +233,26 @@ return {
     -- Parser generator tool
     {
         "nvim-treesitter/nvim-treesitter",
-        branch = "master",
-        event = { "BufReadPre", "BufNewFile" },
+        branch = "main",
         build = ":TSUpdate",
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter-textobjects",
-        },
-        config = function()
-            require("nvim-treesitter.configs").setup({
-                auto_install = true,
-                highlight = { enable = true },
-                indent = { enable = true },
-                incremental_selection = {
-                    enable = true,
-                    keymaps = {
-                        init_selection = "<C-space>",
-                        node_incremental = "<C-space>",
-                        scope_incremental = false,
-                        node_decremental = "<bs>",
-                    },
-                },
-                -- nvim-treesitter/nvim-treesitter-textobjects
-                textobjects = {},
+        init = function()
+            vim.api.nvim_create_autocmd("FileType", {
+                callback = function()
+                    -- Enable treesitter highlighting and disable regex syntax
+                    pcall(vim.treesitter.start)
+                    -- Enable treesitter-based indentation
+                    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                end,
             })
+        end,
+    },
+    {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        branch = "main",
+        init = function()
+            -- Disable entire built-in ftplugin mappings to avoid conflicts.
+            -- See https://github.com/neovim/neovim/tree/master/runtime/ftplugin for built-in ftplugins.
+            vim.g.no_plugin_maps = true
         end,
     },
     -- Search/replace in multiple files

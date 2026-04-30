@@ -8,7 +8,7 @@ return {
     {
         "neovim/nvim-lspconfig",
         event = { "BufReadPre", "BufNewFile" },
-        keys = { { "<leader>l<CR>", "<cmd>LspInfo<CR>", desc = "LSP information" } },
+        keys = { { "<leader>l<CR>", "<cmd>checkhealth vim.lsp<CR>", desc = "LSP information" } },
     },
     -- Bridges mason.nvim with the lspconfig
     {
