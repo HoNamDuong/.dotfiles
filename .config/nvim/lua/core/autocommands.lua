@@ -62,6 +62,13 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
     desc = "Disable cursorline on insert",
 })
 
+vim.api.nvim_create_autocmd("BufEnter", {
+    callback = function()
+        vim.opt_local.autocomplete = (vim.bo.buftype == "")
+    end,
+    desc = "Disable autocomplete in buffer plugin",
+})
+
 -- vim.api.nvim_create_autocmd("BufRead", {
 --     callback = function()
 --         vim.api.nvim_create_autocmd("BufWinEnter", {

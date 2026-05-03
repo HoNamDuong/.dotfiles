@@ -1,7 +1,9 @@
 vim.opt.breakindent = true -- Maintain indent when wrapping indented lines
 vim.opt.linebreak = true -- Wrap at word boundaries
 vim.opt.clipboard = "unnamedplus" -- Sync with system clipboard
-vim.opt.completeopt = { "menu", "menuone", "noselect" } -- Mostly just for cmp
+vim.opt.autocomplete = true -- Enable autocomplete
+vim.opt.completeopt = { "menu", "menuone", "noselect", "popup" } -- For autocomplete
+vim.opt.complete = { ".", "w", "b", "o" } -- Option controls how completion
 vim.opt.confirm = true -- Confirm to save changes before exiting modified buffer
 vim.opt.cursorline = true -- Enable highlighting of the current line
 vim.opt.expandtab = true -- Convert tabs to spaces
@@ -51,7 +53,8 @@ vim.opt.listchars:append({
     precedes = "◁",
 })
 
--- vim.o.winborder = 'rounded' -- Defines the default border style of floating windows
+-- vim.opt.pumborder = "rounded" 
+-- vim.opt.winborder = 'rounded'
 -- vim.opt.textwidth = 80 -- Maximum width of text that is being inserted
 -- vim.opt.colorcolumn = "+1" -- Set the colour column to highlight one column after the 'textwidth'
 -- vim.opt.iskeyword:append("-") -- Treats words with `-` as single words
